@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    class Program
+    public class Player
     {
-        static void Main(string[] args)
-        {
-            
-        }
     }
 }
