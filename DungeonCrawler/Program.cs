@@ -13,7 +13,8 @@ namespace DungeonCrawler
             Console.WriteLine("Hello World!");
 
             //Johns branch
-            Console.WriteLine("Hello world again!");
+
+            Tile tile = new Tile();
         }
     }
 }
