@@ -10,8 +10,16 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
-            Room.Init(10,10);
-            Room.VisualizeRoom();
+            PlayArea.Init(10,10);
+
+            while(true)
+            {
+                PlayArea.Visualize();
+                Player.CheckInput();
+                Console.Clear();
+
+
+            }
             Console.ReadKey(true);
         }
     }
