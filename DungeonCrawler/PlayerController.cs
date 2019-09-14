@@ -1,16 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DungeonCrawler
 {
     public class PlayerController
     {
-        public static void CheckInput()
+        private readonly Map _map;
+
+        public PlayerController(Map map)
         {
-            ConsoleKeyInfo input = Console.ReadKey();
+            _map = map ?? throw new ArgumentNullException(nameof(map));
+        }
+
+        public void CheckInput()
+        {
+            var input = Console.ReadKey();
 
             switch(input.KeyChar)
             {
@@ -32,15 +36,15 @@ namespace DungeonCrawler
 
         }
 
-        public static void MovePlayer(int directionHorizontal, int directionVertical)
+        public void MovePlayer(int directionHorizontal, int directionVertical)
         {
-            int _currentPlayerPositionVertical = PlayArea.GetPlayerPositionVertically();
-            int _currentPlayerPositionHorizontal = PlayArea.GetPlayerPositionHorizontally();
+            var currentPlayerPositionVertical = _map.GetPlayerPositionVertically();
+            var currentPlayerPositionHorizontal = _map.GetPlayerPositionHorizontally();
 
-            if(PlayArea.Tiles[_currentPlayerPositionVertical + directionVertical, _currentPlayerPositionHorizontal + directionHorizontal].Display != "#")
+            if(_map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].Display != "#")
             {
-                PlayArea.Tiles[_currentPlayerPositionVertical, _currentPlayerPositionHorizontal].Display = "-";
-                PlayArea.Tiles[_currentPlayerPositionVertical + directionVertical, _currentPlayerPositionHorizontal + directionHorizontal].Display = "@";
+                _map.Tiles[currentPlayerPositionVertical, currentPlayerPositionHorizontal].Display = "-";
+                _map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].Display = "@";
             }
             
         }

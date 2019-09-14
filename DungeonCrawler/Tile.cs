@@ -2,10 +2,9 @@
 
 namespace DungeonCrawler
 {
-    internal class Tile
+    public class Tile
     {
-        public enum TileType { Floor, Key, Door, Monster}
-        public TileType tileType;
+        public TileType TileType;
 
         public int TileHorizontal;
         public int TileVertical;
@@ -13,7 +12,7 @@ namespace DungeonCrawler
 
         public Tile(TileType assignedTileType, int vertical, int horizontal, string display)
         {
-            tileType = assignedTileType;
+            TileType = assignedTileType;
             TileHorizontal = horizontal;
             TileVertical = vertical;
             Display = display;
