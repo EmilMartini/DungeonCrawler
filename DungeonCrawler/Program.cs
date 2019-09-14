@@ -17,10 +17,7 @@ namespace DungeonCrawler
                 PlayArea.Visualize();
                 Player.CheckInput();
                 Console.Clear();
-
-
             }
-            Console.ReadKey(true);
         }
     }
 }

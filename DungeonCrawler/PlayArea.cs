@@ -41,7 +41,7 @@ namespace DungeonCrawler
                 {
                     Console.Write($"{Tiles[row,column].Display}\t");
                 }
-                Console.Write("\n \n");
+                Console.Write("\n \n \n \n");
             }
         }
 
