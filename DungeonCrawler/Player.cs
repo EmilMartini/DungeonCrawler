@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    public class Player
+    public class PlayerController
     {
         public static void CheckInput()
         {
