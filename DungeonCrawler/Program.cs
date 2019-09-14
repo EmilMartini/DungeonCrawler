@@ -10,11 +10,9 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
-            //Johns branch
-
-            Tile tile = new Tile();
+            Room.Init(10,10);
+            Room.VisualizeRoom();
+            Console.ReadKey(true);
         }
     }
 }
