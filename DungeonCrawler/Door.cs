@@ -8,8 +8,6 @@ namespace DungeonCrawler
 {
     class Door
     {
-
         
-
     }
 }
