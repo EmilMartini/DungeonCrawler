@@ -14,7 +14,7 @@ namespace DungeonCrawler
 
             while(true)
             {
-                PlayArea.Visualize();
+                PlayArea.Visualize(PlayArea.Tiles);
                 PlayerController.CheckInput();
                 Console.Clear();
             }

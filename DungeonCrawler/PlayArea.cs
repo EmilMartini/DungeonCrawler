@@ -51,7 +51,7 @@ namespace DungeonCrawler
             {
                 for (int column = 0; column < currentRoom.GetLength(1); column++)
                 {
-                    Console.Write($"\t{currentRoom[row,column].Display}\t");
+                    Console.Write($"\t{currentRoom[row,column].Display}");
                 }
 
                 if(row != currentRoom.GetLength(0) - 1)
