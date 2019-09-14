@@ -10,7 +10,7 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
-            PlayArea.Init(8,8);
+            PlayArea.Init(9,9);
 
             while(true)
             {
