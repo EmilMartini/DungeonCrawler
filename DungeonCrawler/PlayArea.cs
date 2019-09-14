@@ -20,13 +20,13 @@ namespace DungeonCrawler
                 {
                     if(currentColumn == 0 || currentColumn == totalColumns - 1 || currentRow == 0 || currentRow ==  totalRows - 1)
                     {
-                        Tiles[currentRow, currentColumn] = new Tile(Tile.TileType.Floor, currentRow, currentColumn, "#");
-                    } else if (currentColumn == 5 && currentRow == 5)
+                        Tiles[currentRow, currentColumn] = new Tile(Tile.TileType.Floor, currentRow, currentColumn, "#");   //Set walls to #
+                    } else if (currentColumn == 1 && currentRow == 1)
                     {
-                        Tiles[currentRow, currentColumn] = new Tile(Tile.TileType.Floor, currentRow, currentColumn, "@");
+                        Tiles[currentRow, currentColumn] = new Tile(Tile.TileType.Floor, currentRow, currentColumn, "@");   //Set player to @ in upper left corner
                     } else 
                     {
-                        Tiles[currentRow, currentColumn] = new Tile(Tile.TileType.Floor, currentRow, currentColumn, "-");
+                        Tiles[currentRow, currentColumn] = new Tile(Tile.TileType.Floor, currentRow, currentColumn, "-");   //Set all available tiles to -
                     }
                 }
             }
