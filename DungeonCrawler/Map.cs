@@ -71,15 +71,15 @@ namespace DungeonCrawler
         }
 
 
-        public int GetPlayerPositionVertically() //i and j should be named row and column
+        public int GetPlayerPositionVertically()
         {
-            for (var i = 0; i < Tiles.GetLength(0); i++)
+            for (var row = 0; row < Tiles.GetLength(0); row++)
             {
-                for (var j = 0; j < Tiles.GetLength(1); j++)
+                for (var column = 0; column < Tiles.GetLength(1); column++)
                 {
-                    if(Tiles[i,j].Display == "@")
+                    if(Tiles[row,column].Display == "@")
                     {
-                        return i;
+                        return row;
                     }
                 }
             }
@@ -88,13 +88,13 @@ namespace DungeonCrawler
         }
         public int GetPlayerPositionHorizontally()
         {
-            for (var i = 0; i < Tiles.GetLength(0); i++) //i and j should be named row and column
+            for (var row = 0; row < Tiles.GetLength(0); row++)
             {
-                for (var j = 0; j < Tiles.GetLength(1); j++)
+                for (var column = 0; column < Tiles.GetLength(1); column++)
                 {
-                    if(Tiles[i,j].Display == "@")
+                    if(Tiles[row,column].Display == "@")
                     {
-                        return j;
+                        return column;
                     }
                 }
             }
