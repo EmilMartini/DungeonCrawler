@@ -12,7 +12,8 @@ namespace DungeonCrawler
         {
             
             var map = new Map(new Size(9, 9));
-            var playerController = new PlayerController(map);
+            var player = new Player();
+            var playerController = new PlayerController(map, player);
 
 
             while(true)

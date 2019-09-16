@@ -23,25 +23,13 @@ namespace DungeonCrawler
             {
                 for (var currentColumn = 0; currentColumn < Size.Width; currentColumn++)
                 {
-                    if (currentColumn == 1 && currentRow == 1)
-                    { 
-                        Tiles[currentRow, currentColumn] = new Tile(TileType.Floor, currentRow, currentColumn, "@");   //Set player to @ in upper left corner
-                    }
-                    else if (currentColumn == 0 || currentColumn == Size.Width - 1 || currentRow == 0 || currentRow == Size.Height - 1)
+                    if (currentColumn == 0 || currentColumn == Size.Width - 1 || currentRow == 0 || currentRow == Size.Height - 1)
                     {
-                        Tiles[currentRow, currentColumn] = new Tile(TileType.Floor, currentRow, currentColumn, "#");   //Set walls to #
+                        Tiles[currentRow, currentColumn] = new Tile(TileType.Wall, currentRow, currentColumn);   //Set walls
                     }
-                    else if (currentColumn == 3 && currentRow == 3 || currentColumn == 6 && currentRow == 6)
+                    else
                     {
-                        Tiles[currentRow, currentColumn] = new Tile(TileType.Key, currentRow, currentColumn, "K");     //Set keys at specified locations
-                    }
-                    else if (currentColumn == 4 && currentRow == 2)
-                    {
-                        Tiles[currentRow, currentColumn] = new Tile(TileType.Door, currentRow, currentColumn, "D");    //Set door at specified location
-                    }
-                    else 
-                    {
-                        Tiles[currentRow, currentColumn] = new Tile(TileType.Floor, currentRow, currentColumn, "-");   //Set all available tiles to -
+                        Tiles[currentRow, currentColumn] = new Tile(TileType.Floor, currentRow, currentColumn);   //Set the all remaining tiles to a floor
                     }
                 }
             }
@@ -56,7 +44,7 @@ namespace DungeonCrawler
             {
                 for (var column = 0; column < Tiles.GetLength(1); column++)
                 {
-                    Console.Write($"\t{Tiles[row,column].Display}");
+                    Console.Write($"\t{Tiles[row,column].Visual}");
                 }
 
                 if(row != Tiles.GetLength(0) - 1)
@@ -67,17 +55,16 @@ namespace DungeonCrawler
                     Console.WriteLine();
                 }
             }
-            Console.WriteLine($"\n\tScore: 0000 \n\tCurrent room: xxx \n\tKeys: x, x, x");
         }
 
 
-        public int GetPlayerPositionVertically()
+        public int GetPlayerPositionVertical()
         {
             for (var row = 0; row < Tiles.GetLength(0); row++)
             {
                 for (var column = 0; column < Tiles.GetLength(1); column++)
                 {
-                    if(Tiles[row,column].Display == "@")
+                    if(Tiles[row,column].Visual == "@")
                     {
                         return row;
                     }
@@ -86,13 +73,13 @@ namespace DungeonCrawler
 
             throw new Exception("Can't find player.");
         }
-        public int GetPlayerPositionHorizontally()
+        public int GetPlayerPositionHorizontal()
         {
             for (var row = 0; row < Tiles.GetLength(0); row++)
             {
                 for (var column = 0; column < Tiles.GetLength(1); column++)
                 {
-                    if(Tiles[row,column].Display == "@")
+                    if(Tiles[row,column].Visual == "@")
                     {
                         return column;
                     }

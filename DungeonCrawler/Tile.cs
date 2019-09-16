@@ -8,14 +8,27 @@ namespace DungeonCrawler
 
         public int TileHorizontal;
         public int TileVertical;
-        public string Display;
+        public string Visual;
 
-        public Tile(TileType assignedTileType, int vertical, int horizontal, string display)
+        public Tile(TileType assignedTileType, int vertical, int horizontal)
         {
             TileType = assignedTileType;
-            TileHorizontal = horizontal;
             TileVertical = vertical;
-            Display = display;
+            TileHorizontal = horizontal;
+            Visual = _initializeTileVisual(assignedTileType);
+        }
+
+        private string _initializeTileVisual(TileType assignedTileType)
+        {
+            switch (assignedTileType)
+            {
+                case TileType.Floor:
+                    return "-";
+                case TileType.Wall:
+                    return "#";
+                default:
+                    throw new Exception($"Can't visualize {assignedTileType}.");
+            }
         }
 
     }

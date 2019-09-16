@@ -6,10 +6,12 @@ namespace DungeonCrawler
     public class PlayerController
     {
         private readonly Map _map;
+        private readonly Player _player;
 
-        public PlayerController(Map map)
+        public PlayerController(Map map, Player player)
         {
             _map = map ?? throw new ArgumentNullException(nameof(map));
+            _player = player ?? throw new ArgumentNullException(nameof(player));
         }
 
         public void CheckInput()
@@ -38,13 +40,13 @@ namespace DungeonCrawler
 
         public void MovePlayer(int directionHorizontal, int directionVertical)
         {
-            var currentPlayerPositionVertical = _map.GetPlayerPositionVertically();
-            var currentPlayerPositionHorizontal = _map.GetPlayerPositionHorizontally();
+            var currentPlayerPositionVertical = _map.GetPlayerPositionVertical();
+            var currentPlayerPositionHorizontal = _map.GetPlayerPositionHorizontal();
 
-            if(_map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].Display != "#")
+            if(_map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].Visual != "#")
             {
-                _map.Tiles[currentPlayerPositionVertical, currentPlayerPositionHorizontal].Display = "-";
-                _map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].Display = "@";
+                _map.Tiles[currentPlayerPositionVertical, currentPlayerPositionHorizontal].Visual = "-";
+                _map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].Visual = "@";
             }
             
         }
