@@ -6,30 +6,37 @@ namespace DungeonCrawler
     {
         public TileType TileType;
 
-        public int TileHorizontal;
-        public int TileVertical;
+        public uint TileHorizontal;
+        public uint TileVertical;
         public string Visual;
 
-        public Tile(TileType assignedTileType, int vertical, int horizontal)
+        public Tile(TileType assignedTileType, uint vertical, uint horizontal)
         {
             TileType = assignedTileType;
             TileVertical = vertical;
             TileHorizontal = horizontal;
-            Visual = _initializeTileVisual(assignedTileType);
+            Visual = UpdateTile(assignedTileType);
         }
 
-        private string _initializeTileVisual(TileType assignedTileType)
+        public static string UpdateTile(TileType assignedTileType)
         {
             switch (assignedTileType)
             {
-                case TileType.Floor:
-                    return "-";
                 case TileType.Wall:
                     return "#";
+                case TileType.Floor:
+                    return "-";
+                case TileType.Key:
+                    return "K";
+                case TileType.Door:
+                    return "D";
+                case TileType.Monster:
+                    return "M";
+                case TileType.Player:
+                    return "@";
                 default:
-                    throw new Exception($"Can't visualize {assignedTileType}.");
+                    throw new Exception($"Can't update {assignedTileType}.");
             }
         }
-
     }
 }

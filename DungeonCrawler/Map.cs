@@ -19,9 +19,9 @@ namespace DungeonCrawler
         {
             Tiles = new Tile[Size.Height, Size.Width];
 
-            for (var currentRow = 0; currentRow < Size.Height; currentRow++)
+            for (uint currentRow = 0; currentRow < Size.Height; currentRow++)
             {
-                for (var currentColumn = 0; currentColumn < Size.Width; currentColumn++)
+                for (uint currentColumn = 0; currentColumn < Size.Width; currentColumn++)
                 {
                     if (currentColumn == 0 || currentColumn == Size.Width - 1 || currentRow == 0 || currentRow == Size.Height - 1)
                     {
@@ -34,6 +34,8 @@ namespace DungeonCrawler
                 }
             }
 
+            Tiles[1, 1].TileType = TileType.Player;
+
         }
 
         public void Visualize()
@@ -44,7 +46,7 @@ namespace DungeonCrawler
             {
                 for (var column = 0; column < Tiles.GetLength(1); column++)
                 {
-                    Console.Write($"\t{Tiles[row,column].Visual}");
+                    Console.Write($"\t{Tiles[row, column].Visual = Tile.UpdateTile(Tiles[row, column].TileType)}");
                 }
 
                 if(row != Tiles.GetLength(0) - 1)
@@ -57,37 +59,7 @@ namespace DungeonCrawler
             }
         }
 
-
-        public int GetPlayerPositionVertical()
-        {
-            for (var row = 0; row < Tiles.GetLength(0); row++)
-            {
-                for (var column = 0; column < Tiles.GetLength(1); column++)
-                {
-                    if(Tiles[row,column].Visual == "@")
-                    {
-                        return row;
-                    }
-                }
-            }
-
-            throw new Exception("Can't find player.");
-        }
-        public int GetPlayerPositionHorizontal()
-        {
-            for (var row = 0; row < Tiles.GetLength(0); row++)
-            {
-                for (var column = 0; column < Tiles.GetLength(1); column++)
-                {
-                    if(Tiles[row,column].Visual == "@")
-                    {
-                        return column;
-                    }
-                }
-            }
-
-            throw new Exception("Can't find player.");
-        }
+        
 
     }
 }
