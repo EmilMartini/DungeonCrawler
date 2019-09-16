@@ -1,16 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DungeonCrawler
 {
     public class PlayerController
     {
-        public static void CheckInput()
+        private readonly Map _map;
+        private readonly Player _player;
+
+        public PlayerController(Map map, Player player)
         {
-            ConsoleKeyInfo input = Console.ReadKey();
+            _map = map ?? throw new ArgumentNullException(nameof(map));
+            _player = player ?? throw new ArgumentNullException(nameof(player));
+        }
+
+        public void CheckInput()
+        {
+            var input = Console.ReadKey();
 
             switch(input.KeyChar)
             {
@@ -32,17 +38,45 @@ namespace DungeonCrawler
 
         }
 
-        public static void MovePlayer(int directionHorizontal, int directionVertical)
+        public void MovePlayer(int directionHorizontal, int directionVertical)
         {
-            int _currentPlayerPositionVertical = PlayArea.GetPlayerPositionVertically();
-            int _currentPlayerPositionHorizontal = PlayArea.GetPlayerPositionHorizontally();
+            var currentPlayerPositionVertical = GetPlayerPositionVertical();
+            var currentPlayerPositionHorizontal = GetPlayerPositionHorizontal();
 
-            if(PlayArea.Tiles[_currentPlayerPositionVertical + directionVertical, _currentPlayerPositionHorizontal + directionHorizontal].Display != "#")
+            if(_map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].TileType != TileType.Wall)
             {
-                PlayArea.Tiles[_currentPlayerPositionVertical, _currentPlayerPositionHorizontal].Display = "-";
-                PlayArea.Tiles[_currentPlayerPositionVertical + directionVertical, _currentPlayerPositionHorizontal + directionHorizontal].Display = "@";
+                TileType temp = _map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].TileType;
+                _map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].TileType = TileType.Player;
+                _map.Tiles[currentPlayerPositionVertical, currentPlayerPositionHorizontal].TileType = temp;
             }
             
         }
+
+        private int GetPlayerPositionVertical()
+        {
+            for (var row = 0; row < _map.Tiles.GetLength(0); row++)
+            {
+                for (var column = 0; column < _map.Tiles.GetLength(1); column++)
+                {
+                    if (_map.Tiles[row, column].TileType == TileType.Player)
+                        return row;
+                }
+            }
+            throw new Exception("Can't find player.");
+        }
+
+        private int GetPlayerPositionHorizontal()
+        {
+            for (var row = 0; row < _map.Tiles.GetLength(0); row++)
+            {
+                for (var column = 0; column < _map.Tiles.GetLength(1); column++)
+                {
+                    if (_map.Tiles[row, column].TileType == TileType.Player)
+                        return column;
+                }
+            }
+            throw new Exception("Can't find player.");
+        }
+
     }
 }

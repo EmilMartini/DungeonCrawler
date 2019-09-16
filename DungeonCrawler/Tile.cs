@@ -2,22 +2,41 @@
 
 namespace DungeonCrawler
 {
-    internal class Tile
+    public class Tile
     {
-        public enum TileType { Floor, Key, Door, Monster}
-        public TileType tileType;
+        public TileType TileType;
 
-        public int TileHorizontal;
-        public int TileVertical;
-        public string Display;
+        public uint TileHorizontal;
+        public uint TileVertical;
+        public string Visual;
 
-        public Tile(TileType assignedTileType, int vertical, int horizontal, string display)
+        public Tile(TileType assignedTileType, uint vertical, uint horizontal)
         {
-            tileType = assignedTileType;
-            TileHorizontal = horizontal;
+            TileType = assignedTileType;
             TileVertical = vertical;
-            Display = display;
+            TileHorizontal = horizontal;
+            Visual = UpdateTile(assignedTileType);
         }
 
+        public static string UpdateTile(TileType assignedTileType)
+        {
+            switch (assignedTileType)
+            {
+                case TileType.Wall:
+                    return "#";
+                case TileType.Floor:
+                    return "-";
+                case TileType.Key:
+                    return "K";
+                case TileType.Door:
+                    return "D";
+                case TileType.Monster:
+                    return "M";
+                case TileType.Player:
+                    return "@";
+                default:
+                    throw new Exception($"Can't update {assignedTileType}.");
+            }
+        }
     }
 }

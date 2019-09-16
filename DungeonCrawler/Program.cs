@@ -10,12 +10,16 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
-            PlayArea.Init(9,9);
+            
+            var map = new Map(new Size(9, 9));
+            var player = new Player();
+            var playerController = new PlayerController(map, player);
+
 
             while(true)
             {
-                PlayArea.Visualize(PlayArea.Tiles);
-                PlayerController.CheckInput();
+                map.Visualize();
+                playerController.CheckInput();
                 Console.Clear();
             }
         }
