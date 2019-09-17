@@ -9,7 +9,5 @@ namespace DungeonCrawler
     class Key
     {
 
-
-
     }
 }

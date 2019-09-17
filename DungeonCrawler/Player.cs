@@ -5,11 +5,11 @@ namespace DungeonCrawler
     {
         public Point Location;        
 
-        public Player(int x, int y)
+        public Player(Point playerStartPosition)
         {
             this.Graphic = "@";
             this.TileType = TileType.Player;
-            Location = new Point(x, y);
+            Location = new Point(playerStartPosition.X, playerStartPosition.Y);
         }
     }
 }

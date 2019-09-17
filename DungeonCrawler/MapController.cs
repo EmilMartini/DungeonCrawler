@@ -17,8 +17,9 @@ namespace DungeonCrawler
             _player = player;
         }
 
-        public void InitializeMap()
+        public void InitializeMap(Point setPlayerStart)
         {
+            _map.InitialLayout = new Tile[_map.Size.Height, _map.Size.Width];
             _map.Tiles = new Tile[_map.Size.Height, _map.Size.Width];
 
             for (int row = 0; row < _map.Size.Height; row++)
@@ -27,15 +28,16 @@ namespace DungeonCrawler
                 {
                     if (column == 0 || column == _map.Size.Width - 1 || row == 0 || row == _map.Size.Height - 1)
                     {
-                        _map.Tiles[row, column] = new Wall();   //Set walls
+                        _map.InitialLayout[row, column] = new Wall();   //Set walls
                     }
                     else
                     {
-                        _map.Tiles[row, column] = new Floor();   //Set floor
+                        _map.InitialLayout[row, column] = new Floor();   //Set floor
                     }
                 }
             }
-            _map.Tiles[1, 1] = _player;
+            Array.Copy(_map.InitialLayout, _map.Tiles, _map.InitialLayout.Length);
+            _map.Tiles[setPlayerStart.X, setPlayerStart.Y] = _player;
         }
 
         public void RenderMap()
@@ -47,15 +49,7 @@ namespace DungeonCrawler
                 {
                     Console.Write($"\t{_map.Tiles[row, column].Graphic}");
                 }
-
-                if (row != _map.Tiles.GetLength(0) - 1)
-                {
-                    Console.Write("\n \n \n");
-                }
-                else
-                {
-                    Console.WriteLine();
-                }
+                Console.Write("\n \n \n");
             }
         }
     }

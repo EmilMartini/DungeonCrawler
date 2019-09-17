@@ -10,12 +10,15 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
+            Point PlayerStartPosition = new Point(4, 4);
+
             var map = new Map(new Size(9, 9));
-            var player = new Player(1, 1);
+            var player = new Player(PlayerStartPosition);
             var playerController = new PlayerController(map, player);
             var mapController = new MapController(map, player);
 
-            mapController.InitializeMap();
+
+            mapController.InitializeMap(player.Location);
 
             while(true)
             {
