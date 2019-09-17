@@ -20,7 +20,7 @@ namespace DungeonCrawler
 
             while(true)
             {
-                mapController.Visualize();
+                mapController.Render();
                 playerController.CheckInput();
                 Console.Clear();
             }

@@ -28,39 +28,20 @@ namespace DungeonCrawler
                     }
                     else
                     {
-                        _map.Tiles[row, column] = new Floor(row, column);   //Set the all remaining tiles to a floor
+                        _map.Tiles[row, column] = new Floor(row, column);   //Set floor
                     }
                 }
             }
         }
-        public string UpdateMap(TileType assignedTileType)
-        {
-            switch (assignedTileType)
-            {
-                case TileType.Wall:
-                    return "#";
-                case TileType.Floor:
-                    return "-";
-                case TileType.Key:
-                    return "K";
-                case TileType.Door:
-                    return "D";
-                case TileType.Monster:
-                    return "M";
-                case TileType.Player:
-                    return "@";
-                default:
-                    throw new Exception($"Can't update {assignedTileType}.");
-            }
-        }
-        public void Visualize()
+
+        public void Render()
         {
             Console.Write("\n\n");
             for (var row = 0; row < _map.Tiles.GetLength(0); row++)
             {
                 for (var column = 0; column < _map.Tiles.GetLength(1); column++)
                 {
-                    Console.Write($"\t{_map.Tiles[row, column].Symbol = UpdateMap(_map.Tiles[row, column].TileType)}");
+                    Console.Write($"\t{_map.Tiles[row, column].Render}");
                 }
                 if (row != _map.Tiles.GetLength(0) - 1)
                 {
