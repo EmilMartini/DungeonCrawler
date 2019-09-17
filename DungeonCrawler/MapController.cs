@@ -9,12 +9,10 @@ namespace DungeonCrawler
     public class MapController
     {
         private readonly Map _map;
-
         public MapController(Map map)
         {
             _map = map;
         }
-
 
         public void InitializeMap()
         {
@@ -26,17 +24,16 @@ namespace DungeonCrawler
                 {
                     if (column == 0 || column == _map.Size.Width - 1 || row == 0 || row == _map.Size.Height - 1)
                     {
-                        _map.Tiles[row, column] = new Tile(TileType.Wall, row, column);   //Set walls
+                        _map.Tiles[row, column] = new Wall();   //Set walls
                     }
                     else
                     {
-                        _map.Tiles[row, column] = new Tile(TileType.Floor, row, column);   //Set the all remaining tiles to a floor
+                        _map.Tiles[row, column] = new Floor();   //Set the all remaining tiles to a floor
                     }
                 }
             }
             _map.Tiles[1, 1].TileType = TileType.Player;
         }
-
         public string UpdateMap(TileType assignedTileType)
         {
             switch (assignedTileType)
@@ -76,8 +73,5 @@ namespace DungeonCrawler
                 }
             }
         }
-
-
-
     }
 }
