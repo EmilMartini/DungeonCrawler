@@ -2,21 +2,10 @@
 
 namespace DungeonCrawler
 {
-    public class Tile
+    public abstract class Tile
     {
-        public TileType TileType;
-
-        public int TileHorizontal;
-        public int TileVertical;
-        public string Display;
-
-        public Tile(TileType assignedTileType, int vertical, int horizontal, string display)
-        {
-            TileType = assignedTileType;
-            TileHorizontal = horizontal;
-            TileVertical = vertical;
-            Display = display;
-        }
-
+        public TileType TileType { get; protected set; }
+        public string Symbol { get; protected set; }
+        public Point Point { get; protected set; }
     }
 }
