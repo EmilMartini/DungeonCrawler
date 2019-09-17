@@ -18,21 +18,20 @@ namespace DungeonCrawler
         {
             _map.Tiles = new Tile[_map.Size.Height, _map.Size.Width];
 
-            for (uint row = 0; row < _map.Size.Height; row++)
+            for (int row = 0; row < _map.Size.Height; row++)
             {
-                for (uint column = 0; column < _map.Size.Width; column++)
+                for (int column = 0; column < _map.Size.Width; column++)
                 {
                     if (column == 0 || column == _map.Size.Width - 1 || row == 0 || row == _map.Size.Height - 1)
                     {
-                        _map.Tiles[row, column] = new Wall();   //Set walls
+                        _map.Tiles[row, column] = new Wall(row, column);   //Set walls
                     }
                     else
                     {
-                        _map.Tiles[row, column] = new Floor();   //Set the all remaining tiles to a floor
+                        _map.Tiles[row, column] = new Floor(row, column);   //Set the all remaining tiles to a floor
                     }
                 }
             }
-            _map.Tiles[1, 1].TileType = TileType.Player;
         }
         public string UpdateMap(TileType assignedTileType)
         {
