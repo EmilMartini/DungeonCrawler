@@ -10,7 +10,6 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
-            
             var map = new Map(new Size(9, 9));
             var playerController = new PlayerController(map);
 
