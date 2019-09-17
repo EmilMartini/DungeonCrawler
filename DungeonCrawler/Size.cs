@@ -11,5 +11,6 @@ namespace DungeonCrawler
         }
         public readonly uint Width;
         public readonly uint Height;
+
     }
 }
