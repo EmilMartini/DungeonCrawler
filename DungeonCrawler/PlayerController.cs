@@ -36,38 +36,20 @@ namespace DungeonCrawler
         }
         public void MovePlayer(int directionHorizontal, int directionVertical)
         {
-            var currentPlayerPositionVertical = GetPlayerPositionVertical();
-            var currentPlayerPositionHorizontal = GetPlayerPositionHorizontal();
-            if(_map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].TileType != TileType.Wall)
+            Point currentLocation = GetPlayerPosition();
+            Point targetLocation = new Point(currentLocation.X + directionHorizontal,
+                                             currentLocation.Y + directionVertical);
+
+            if (_map.Tiles[targetLocation.X,targetLocation.Y].TileType != TileType.Wall)
             {
-                TileType temp = _map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].TileType;
-                _map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].TileType = TileType.Player;
-                _map.Tiles[currentPlayerPositionVertical, currentPlayerPositionHorizontal].TileType = temp;
+                _player.Location = targetLocation;
             }
+
         }
-        private int GetPlayerPositionVertical()
+        public Point GetPlayerPosition()
         {
-            for (var row = 0; row < _map.Tiles.GetLength(0); row++)
-            {
-                for (var column = 0; column < _map.Tiles.GetLength(1); column++)
-                {
-                    if (_map.Tiles[row, column].TileType == TileType.Player)
-                        return row;
-                }
-            }
-            throw new Exception("Can't find player.");
+           return _player.Location;
         }
-        private int GetPlayerPositionHorizontal()
-        {
-            for (var row = 0; row < _map.Tiles.GetLength(0); row++)
-            {
-                for (var column = 0; column < _map.Tiles.GetLength(1); column++)
-                {
-                    if (_map.Tiles[row, column].TileType == TileType.Player)
-                        return column;
-                }
-            }
-            throw new Exception("Can't find player.");
-        }
+        
     }
 }

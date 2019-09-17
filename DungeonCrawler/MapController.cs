@@ -9,9 +9,12 @@ namespace DungeonCrawler
     public class MapController
     {
         private readonly Map _map;
-        public MapController(Map map)
+        private Player _player;
+
+        public MapController(Map map, Player player)
         {
             _map = map;
+            _player = player;
         }
 
         public void InitializeMap()
@@ -41,7 +44,7 @@ namespace DungeonCrawler
             {
                 for (var column = 0; column < _map.Tiles.GetLength(1); column++)
                 {
-                    Console.Write($"\t{_map.Tiles[row, column].Point.X}{_map.Tiles[row, column].Point.Y}");
+                    Console.Write($"\t{_map.Tiles[row, column].Graphic}");
                 }
 
                 if (row != _map.Tiles.GetLength(0) - 1)

@@ -14,7 +14,7 @@ namespace DungeonCrawler
             var map = new Map(new Size(9, 9));
             var player = new Player();
             var playerController = new PlayerController(map, player);
-            var mapController = new MapController(map);
+            var mapController = new MapController(map, player);
 
             mapController.InitializeMap();
 

@@ -3,7 +3,9 @@ namespace DungeonCrawler
 {
     public class Player
     {
-        public Point location;
+        public Point Location;
+        public const string Graphic = "@";
+        
 
         public Player()
         {
