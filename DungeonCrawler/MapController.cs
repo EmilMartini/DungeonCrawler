@@ -9,7 +9,7 @@ namespace DungeonCrawler
     public class MapController
     {
         private readonly Map _map;
-        private Player _player;
+        private readonly Player _player;
 
         public MapController(Map map, Player player)
         {
@@ -35,40 +35,28 @@ namespace DungeonCrawler
                     }
                 }
             }
+            _map.Tiles[1, 1] = _player;
         }
 
-        public void Render()
+        public void RenderMap()
         {
-
-            for (int row = 0; row < _map.Tiles.GetLength(0); row++)
+            Console.Write("\n\n");
+            for (var row = 0; row < _map.Tiles.GetLength(0); row++)
             {
-                for (int column = 0; column < _map.Tiles.GetLength(1); column++)
+                for (var column = 0; column < _map.Tiles.GetLength(1); column++)
                 {
+                    Console.Write($"\t{_map.Tiles[row, column].Graphic}");
+                }
 
+                if (row != _map.Tiles.GetLength(0) - 1)
+                {
+                    Console.Write("\n \n \n");
+                }
+                else
+                {
+                    Console.WriteLine();
                 }
             }
-
-
-
-
-
-            //Console.Write("\n\n");
-            //for (var row = 0; row < _map.Tiles.GetLength(0); row++)
-            //{
-            //    for (var column = 0; column < _map.Tiles.GetLength(1); column++)
-            //    {
-            //        Console.Write($"\t{_map.Tiles[row, column].Graphic}");
-            //    }
-            //
-            //    if (row != _map.Tiles.GetLength(0) - 1)
-            //    {
-            //        Console.Write("\n \n \n");
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine();
-            //    }
-            //}
         }
     }
 }

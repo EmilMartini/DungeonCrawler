@@ -1,15 +1,15 @@
 ﻿
 namespace DungeonCrawler
 {
-    public class Player
+    public class Player : Tile
     {
-        public Point Location;
-        public const string Graphic = "@";
-        
+        public Point Location;        
 
-        public Player()
+        public Player(int x, int y)
         {
-
+            this.Graphic = "@";
+            this.TileType = TileType.Player;
+            Location = new Point(x, y);
         }
     }
 }

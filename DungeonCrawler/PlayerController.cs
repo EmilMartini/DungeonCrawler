@@ -7,10 +7,11 @@ namespace DungeonCrawler
     {
         private readonly Map _map;
         private readonly Player _player;
+
         public PlayerController(Map map, Player player)
         {
             _map = map ?? throw new ArgumentNullException(nameof(map));
-            _player = player ?? throw new ArgumentNullException(nameof(player));
+            _player = player;
         }
 
         public void CheckInput()
@@ -37,19 +38,21 @@ namespace DungeonCrawler
         public void MovePlayer(int directionHorizontal, int directionVertical)
         {
             Point currentLocation = GetPlayerPosition();
-            Point targetLocation = new Point(currentLocation.X + directionHorizontal,
-                                             currentLocation.Y + directionVertical);
+            Point targetLocation = new Point(currentLocation.X + directionVertical,
+                                             currentLocation.Y + directionHorizontal);
 
-            if (_map.Tiles[targetLocation.X,targetLocation.Y].TileType != TileType.Wall)
+            if (_map.Tiles[targetLocation.X, targetLocation.Y].TileType != TileType.Wall)
             {
                 _player.Location = targetLocation;
+
+                _map.Tiles[_player.Location.X, _player.Location.Y] = _player;
             }
 
         }
         public Point GetPlayerPosition()
         {
-           return _player.Location;
+            return _player.Location;
         }
-        
+
     }
 }
