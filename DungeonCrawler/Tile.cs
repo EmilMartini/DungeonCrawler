@@ -6,6 +6,5 @@ namespace DungeonCrawler
     {
         public TileType TileType { get; set; }
         public string Graphic { get; set; }
-        public Point Point { get; set; }
     }
 }

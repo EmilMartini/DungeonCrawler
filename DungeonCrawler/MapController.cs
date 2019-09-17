@@ -27,11 +27,11 @@ namespace DungeonCrawler
                 {
                     if (column == 0 || column == _map.Size.Width - 1 || row == 0 || row == _map.Size.Height - 1)
                     {
-                        _map.Tiles[row, column] = new Wall(row, column);   //Set walls
+                        _map.Tiles[row, column] = new Wall();   //Set walls
                     }
                     else
                     {
-                        _map.Tiles[row, column] = new Floor(row, column);   //Set floor
+                        _map.Tiles[row, column] = new Floor();   //Set floor
                     }
                 }
             }
@@ -39,23 +39,36 @@ namespace DungeonCrawler
 
         public void Render()
         {
-            Console.Write("\n\n");
-            for (var row = 0; row < _map.Tiles.GetLength(0); row++)
-            {
-                for (var column = 0; column < _map.Tiles.GetLength(1); column++)
-                {
-                    Console.Write($"\t{_map.Tiles[row, column].Graphic}");
-                }
 
-                if (row != _map.Tiles.GetLength(0) - 1)
+            for (int row = 0; row < _map.Tiles.GetLength(0); row++)
+            {
+                for (int column = 0; column < _map.Tiles.GetLength(1); column++)
                 {
-                    Console.Write("\n \n \n");
-                }
-                else
-                {
-                    Console.WriteLine();
+
                 }
             }
+
+
+
+
+
+            //Console.Write("\n\n");
+            //for (var row = 0; row < _map.Tiles.GetLength(0); row++)
+            //{
+            //    for (var column = 0; column < _map.Tiles.GetLength(1); column++)
+            //    {
+            //        Console.Write($"\t{_map.Tiles[row, column].Graphic}");
+            //    }
+            //
+            //    if (row != _map.Tiles.GetLength(0) - 1)
+            //    {
+            //        Console.Write("\n \n \n");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine();
+            //    }
+            //}
         }
     }
 }

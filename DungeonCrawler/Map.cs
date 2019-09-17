@@ -12,8 +12,5 @@ namespace DungeonCrawler
         {
             Size = size;
         }
-
-
-        
     }
 }

@@ -8,11 +8,10 @@ namespace DungeonCrawler
 {
     class Wall : Tile
     {
-        public Wall(int x, int y)
+        public Wall()
         {
             this.TileType = TileType.Wall;
             this.Graphic = "#";
-            this.Point = new Point(x, y);
         }
 
     }
