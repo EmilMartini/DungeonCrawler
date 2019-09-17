@@ -15,13 +15,14 @@ namespace DungeonCrawler
             var player = new Player();
             var playerController = new PlayerController(map, player);
 
-
             while(true)
             {
                 map.Visualize();
                 playerController.CheckInput();
                 Console.Clear();
             }
+
+            
         }
     }
 }
