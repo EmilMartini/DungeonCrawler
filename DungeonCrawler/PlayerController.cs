@@ -46,6 +46,7 @@ namespace DungeonCrawler
             if(_map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].TileType != TileType.Wall)
             {
                 TileType temp = _map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].TileType;
+
                 _map.Tiles[currentPlayerPositionVertical + directionVertical, currentPlayerPositionHorizontal + directionHorizontal].TileType = TileType.Player;
                 _map.Tiles[currentPlayerPositionVertical, currentPlayerPositionHorizontal].TileType = temp;
             }

@@ -14,11 +14,13 @@ namespace DungeonCrawler
             var map = new Map(new Size(9, 9));
             var player = new Player();
             var playerController = new PlayerController(map, player);
+            var mapController = new MapController(map);
 
+            mapController.InitializeMap();
 
             while(true)
             {
-                map.Visualize();
+                mapController.Visualize();
                 playerController.CheckInput();
                 Console.Clear();
             }
