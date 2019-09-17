@@ -18,7 +18,7 @@ namespace DungeonCrawler
             var mapController = new MapController(map, player);
 
 
-            mapController.InitializeMap(player.Location);
+            mapController.InitializeMap(player.Position);
 
             while(true)
             {

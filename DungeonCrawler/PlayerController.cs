@@ -37,21 +37,16 @@ namespace DungeonCrawler
         }
         public void MovePlayer(int directionHorizontal, int directionVertical)
         {
-            Point currentLocation = GetPlayerPosition();
+            Point currentLocation = _player.Position;
             Point targetLocation = new Point(currentLocation.X + directionVertical,
                                              currentLocation.Y + directionHorizontal);
 
             if (_map.Tiles[targetLocation.X, targetLocation.Y].TileType != TileType.Wall)
             {
-                _map.Tiles[_player.Location.X, _player.Location.Y] = _map.InitialLayout[_player.Location.X, _player.Location.X];
-                _player.Location = targetLocation;
-                _map.Tiles[_player.Location.X, _player.Location.Y] = _player;
+                _map.Tiles[_player.Position.X, _player.Position.Y] = _map.InitialLayout[_player.Position.X, _player.Position.X];
+                _player.Position = targetLocation;
+                _map.Tiles[_player.Position.X, _player.Position.Y] = _player;
             }
         }
-        public Point GetPlayerPosition()
-        {
-            return _player.Location;
-        }
-
     }
 }
