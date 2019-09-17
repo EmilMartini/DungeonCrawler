@@ -11,7 +11,7 @@ namespace DungeonCrawler
         public Floor(int x, int y)
         {
             this.TileType = TileType.Floor;
-            this.Render = "-";
+            this.Graphic = "-";
             this.Point = new Point(x, y);
         }
     }

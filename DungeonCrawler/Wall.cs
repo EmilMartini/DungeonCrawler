@@ -11,7 +11,7 @@ namespace DungeonCrawler
         public Wall(int x, int y)
         {
             this.TileType = TileType.Wall;
-            this.Render = "#";
+            this.Graphic = "#";
             this.Point = new Point(x, y);
         }
 

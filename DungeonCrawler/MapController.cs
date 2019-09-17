@@ -41,8 +41,9 @@ namespace DungeonCrawler
             {
                 for (var column = 0; column < _map.Tiles.GetLength(1); column++)
                 {
-                    Console.Write($"\t{_map.Tiles[row, column].Render}");
+                    Console.Write($"\t{_map.Tiles[row, column].Point.X}{_map.Tiles[row, column].Point.Y}");
                 }
+
                 if (row != _map.Tiles.GetLength(0) - 1)
                 {
                     Console.Write("\n \n \n");
