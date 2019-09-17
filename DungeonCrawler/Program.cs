@@ -24,6 +24,8 @@ namespace DungeonCrawler
                 playerController.CheckInput();
                 Console.Clear();
             }
+
+            
         }
     }
 }
