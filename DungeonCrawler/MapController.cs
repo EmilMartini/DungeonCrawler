@@ -76,7 +76,7 @@ namespace DungeonCrawler
 
         public void UpdatePlayerPosition(Point targetPosition)
         {
-            _map.ExploredLayout[_player.Position.row, _player.Position.column] = _map.InitialLayout[_player.Position.row, _player.Position.row];
+            _map.ExploredLayout[_player.Position.row, _player.Position.column] = _map.InitialLayout[_player.Position.row, _player.Position.column];
             _player.Position = targetPosition;
             _map.ExploredLayout[_player.Position.row, _player.Position.column] = _player;
 

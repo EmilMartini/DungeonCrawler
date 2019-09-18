@@ -12,7 +12,7 @@ namespace DungeonCrawler
         {
             Point PlayerStartPosition = new Point(9, 12);
 
-            var map = new Map(new Size(15, 15));
+            var map = new Map(new Size(14, 14));
             var player = new Player(PlayerStartPosition);
             var mapController = new MapController(map, player);
             var playerController = new PlayerController(map, player, mapController);
