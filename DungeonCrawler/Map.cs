@@ -5,7 +5,7 @@ namespace DungeonCrawler
 {
     public class Map
     {
-        public Tile[,] Tiles;
+        public Tile[,] RenderedLayout;
         public Tile[,] InitialLayout;
         public Size Size;
 

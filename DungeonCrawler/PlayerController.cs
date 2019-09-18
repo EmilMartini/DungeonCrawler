@@ -41,11 +41,11 @@ namespace DungeonCrawler
             Point targetLocation = new Point(currentLocation.X + directionVertical,
                                              currentLocation.Y + directionHorizontal);
 
-            if (_map.Tiles[targetLocation.X, targetLocation.Y].TileType != TileType.Wall)
+            if (_map.RenderedLayout[targetLocation.X, targetLocation.Y].TileType != TileType.Wall)
             {
-                _map.Tiles[_player.Position.X, _player.Position.Y] = _map.InitialLayout[_player.Position.X, _player.Position.X];
+                _map.RenderedLayout[_player.Position.X, _player.Position.Y] = _map.InitialLayout[_player.Position.X, _player.Position.X];
                 _player.Position = targetLocation;
-                _map.Tiles[_player.Position.X, _player.Position.Y] = _player;
+                _map.RenderedLayout[_player.Position.X, _player.Position.Y] = _player;
             }
         }
     }
