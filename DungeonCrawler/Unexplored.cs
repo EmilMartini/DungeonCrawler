@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    class Wall : Tile
+    class Unexplored : Tile
     {
-        public Wall()
+
+        public Unexplored()
         {
-            this.TileType = TileType.Wall;
-            this.Graphic = "#";
-            this.isExplored = true;
+            this.TileType = TileType.Unexplored;
+            this.Graphic = " ";
         }
 
     }

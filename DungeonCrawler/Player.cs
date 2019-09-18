@@ -9,7 +9,8 @@ namespace DungeonCrawler
         {
             this.Graphic = "@";
             this.TileType = TileType.Player;
-            Position = new Point(playerStartPosition.X, playerStartPosition.Y);
+            this.isExplored = true;
+            Position = new Point(playerStartPosition.row, playerStartPosition.column);
         }
     }
 }

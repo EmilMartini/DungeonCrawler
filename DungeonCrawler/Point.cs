@@ -5,10 +5,10 @@ namespace DungeonCrawler
     {
         public Point(int x, int y)
         {
-            X = x;
-            Y = y;
+            row = x;
+            column = y;
         }
-        public readonly int X;
-        public readonly int Y;
+        public readonly int row;
+        public readonly int column;
     }
 }

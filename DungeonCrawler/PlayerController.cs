@@ -6,12 +6,14 @@ namespace DungeonCrawler
     public class PlayerController
     {
         private readonly Map _map;
+        private readonly MapController _mapController;
         private readonly Player _player;
 
-        public PlayerController(Map map, Player player)
+        public PlayerController(Map map, Player player, MapController mapController)
         {
             _map = map ?? throw new ArgumentNullException(nameof(map));
             _player = player;
+            _mapController = mapController;
         }
 
         public void CheckInput()
@@ -20,32 +22,30 @@ namespace DungeonCrawler
             switch(input.KeyChar)
             {
                 case 'w':
-                    MovePlayer(0, -1);
-                    break;
-                case 'a':
                     MovePlayer(-1, 0);
                     break;
+                case 'a':
+                    MovePlayer(0, -1);
+                    break;
                 case 's':
-                    MovePlayer(0, 1);
+                    MovePlayer(1, 0);
                     break;
                 case 'd':
-                    MovePlayer(1, 0);
+                    MovePlayer(0, 1);
                     break;
                 default:
                     break;
             }
         }
-        public void MovePlayer(int directionHorizontal, int directionVertical)
+        public void MovePlayer(int directionRow, int directionColumn)
         {
-            Point currentLocation = _player.Position;
-            Point targetLocation = new Point(currentLocation.X + directionVertical,
-                                             currentLocation.Y + directionHorizontal);
+            Point currentPosition = _player.Position;
+            Point targetPosition = new Point(currentPosition.row + directionRow,
+                                             currentPosition.column + directionColumn);
 
-            if (_map.RenderedLayout[targetLocation.X, targetLocation.Y].TileType != TileType.Wall)
+            if (_map.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {
-                _map.RenderedLayout[_player.Position.X, _player.Position.Y] = _map.InitialLayout[_player.Position.X, _player.Position.X];
-                _player.Position = targetLocation;
-                _map.RenderedLayout[_player.Position.X, _player.Position.Y] = _player;
+                _mapController.UpdatePlayerPosition(targetPosition);
             }
         }
     }
