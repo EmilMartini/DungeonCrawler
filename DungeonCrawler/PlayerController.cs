@@ -9,8 +9,8 @@ namespace DungeonCrawler
         public PlayerController(Map map, Player player, MapController mapController)
         {
             this.map = map ?? throw new ArgumentNullException(nameof(map));
-            this.player = player;
-            this.mapController = mapController;
+            this.player = player ?? throw new ArgumentNullException(nameof(player));
+            this.mapController = mapController ?? throw new ArgumentNullException(nameof(mapController));
         }
         public void CheckInput()
         {

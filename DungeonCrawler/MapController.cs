@@ -8,8 +8,8 @@ namespace DungeonCrawler
 
         public MapController(Map map, Player player)
         {
-            this.map = map;
-            this.player = player;
+            this.map = map ?? throw new ArgumentNullException(nameof(map));
+            this.player = player ?? throw new ArgumentNullException(nameof(player));
         }
 
         public void InitializeMap(Point setPlayerStart)
@@ -44,7 +44,7 @@ namespace DungeonCrawler
             {
                 for (var column = 0; column < map.ExploredLayout.GetLength(1); column++)
                 {
-                    if(map.ExploredLayout[row, column].isExplored == true)
+                    if(map.ExploredLayout[row, column].IsExplored == true)
                     {
                         Console.Write($"   {map.ExploredLayout[row, column].Graphic}");
                     } else
@@ -62,10 +62,10 @@ namespace DungeonCrawler
             {
                 if (i != 0)
                 {
-                    map.ExploredLayout[playerPosition.row + 0, playerPosition.column + i].isExplored = true; 
+                    map.ExploredLayout[playerPosition.row + 0, playerPosition.column + i].IsExplored = true; 
                 }
-                map.ExploredLayout[playerPosition.row + 1, playerPosition.column + i].isExplored = true;
-                map.ExploredLayout[playerPosition.row + -1, playerPosition.column + i].isExplored = true;
+                map.ExploredLayout[playerPosition.row + 1, playerPosition.column + i].IsExplored = true;
+                map.ExploredLayout[playerPosition.row + -1, playerPosition.column + i].IsExplored = true;
             }
         }
 

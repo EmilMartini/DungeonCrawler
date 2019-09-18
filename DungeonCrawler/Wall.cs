@@ -12,7 +12,7 @@ namespace DungeonCrawler
         {
             this.TileType = TileType.Wall;
             this.Graphic = "#";
-            this.isExplored = true;
+            this.IsExplored = true;
         }
 
     }

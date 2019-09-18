@@ -7,7 +7,7 @@
         {
             this.Graphic = "@";
             this.TileType = TileType.Player;
-            this.isExplored = true;
+            this.IsExplored = true;
             Position = new Point(playerStartPosition.row, playerStartPosition.column);
         }
     }
