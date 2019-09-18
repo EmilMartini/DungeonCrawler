@@ -12,11 +12,12 @@ namespace DungeonCrawler
             var playerController = new PlayerController(map, player, mapController);
 
             mapController.InitializeMap(player.Position);
+            mapController.DisplayInitialMap();
+
             while(true)
             {
-                mapController.RenderMap();
                 playerController.CheckInput();
-                Console.Clear();
+                mapController.RenderMap();
             }            
         }
     }
