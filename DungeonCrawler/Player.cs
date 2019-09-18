@@ -1,10 +1,8 @@
-﻿
-namespace DungeonCrawler
+﻿namespace DungeonCrawler
 {
     public class Player : Tile
     {
         public Point Position;        
-
         public Player(Point playerStartPosition)
         {
             this.Graphic = "@";
