@@ -5,6 +5,7 @@ namespace DungeonCrawler
     {
         private readonly Map map;
         private readonly Player player;
+        private readonly Size consoleWindowSize = new Size(72, 36);
 
         public MapController(Map map, Player player)
         {
@@ -14,6 +15,9 @@ namespace DungeonCrawler
 
         public void InitializeMap(Point setPlayerStart)
         {
+            Console.SetWindowSize((int)consoleWindowSize.Width, (int)consoleWindowSize.Height);
+            Console.SetBufferSize((int)consoleWindowSize.Width + 1, (int)consoleWindowSize.Height + 1);
+
             map.InitialLayout = new Tile[map.Size.Height, map.Size.Width];
             map.ExploredLayout = new Tile[map.Size.Height, map.Size.Width];
 
@@ -34,25 +38,36 @@ namespace DungeonCrawler
             Array.Copy(map.InitialLayout, map.ExploredLayout, map.InitialLayout.Length);
             map.ExploredLayout[setPlayerStart.row, setPlayerStart.column] = player;
         }
-        public void RenderMap()
-        {
-            ExploreMap(player.Position);
 
-            Console.Write("\n\n");
-            for (var row = 0; row < map.ExploredLayout.GetLength(0); row++)
+        public void DisplayInitialMap()
+        {
+            Console.Write("\n \n");
+            for (int row = 0; row < map.ExploredLayout.GetLength(0); row++)
             {
-                for (var column = 0; column < map.ExploredLayout.GetLength(1); column++)
+                for (int column = 0; column < map.ExploredLayout.GetLength(1); column++)
                 {
-                    if(map.ExploredLayout[row, column].IsExplored == true)
+                    Console.SetCursorPosition(((int)consoleWindowSize.Width / map.ExploredLayout.GetLength(0) * column), ((int)consoleWindowSize.Height / map.ExploredLayout.GetLength(1) * row));
+                    if (map.ExploredLayout[row, column].IsExplored == true)
                     {
-                        Console.Write($"   {map.ExploredLayout[row, column].Graphic}");
-                    } else
+                        Console.Write($"{map.ExploredLayout[row, column].Graphic}");
+                    }
+                    else
                     {
-                        Console.Write($"    ");
+                        Console.Write($" ");
                     }
                 }
                 Console.Write("\n \n");
             }
+        }
+
+        public void RenderMap()
+        {
+            Point cursorToPlayerPosition = new Point(((int)consoleWindowSize.Width / map.ExploredLayout.GetLength(0) * player.Position.column), ((int)consoleWindowSize.Height / map.ExploredLayout.GetLength(1) * player.Position.row));
+            ExploreMap(player.Position);
+
+            Console.SetCursorPosition(cursorToPlayerPosition.row, cursorToPlayerPosition.column );
+            Console.Write($"{map.ExploredLayout[player.Position.row,player.Position.column].Graphic}");
+            
         }
         public void ExploreMap(Point playerPosition)
         {
