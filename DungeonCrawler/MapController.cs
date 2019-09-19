@@ -3,13 +3,14 @@ namespace DungeonCrawler
 {
     public class MapController
     {
-        private readonly Map map;
+        private readonly Level level;
         private readonly Player player;
         private readonly Size consoleWindowSize = new Size(72, 36);
 
-        public MapController(Map map, Player player)
+
+        public MapController(Level level, Player player)
         {
-            this.map = map ?? throw new ArgumentNullException(nameof(map));
+            this.level = level ?? throw new ArgumentNullException(nameof(level));
             this.player = player ?? throw new ArgumentNullException(nameof(player));
         }
 
@@ -20,38 +21,38 @@ namespace DungeonCrawler
             Console.SetWindowSize((int)consoleWindowSize.Width, (int)consoleWindowSize.Height);
             Console.SetBufferSize((int)consoleWindowSize.Width + 1, (int)consoleWindowSize.Height + 1);
 
-            map.InitialLayout = new Tile[map.Size.Height, map.Size.Width];
-            map.ExploredLayout = new Tile[map.Size.Height, map.Size.Width];
+            level.InitialLayout = new Tile[level.Size.Height, level.Size.Width];
+            level.ExploredLayout = new Tile[level.Size.Height, level.Size.Width];
 
-            for (int row = 0; row < map.Size.Height; row++)
+            for (int row = 0; row < level.Size.Height; row++)
             {
-                for (int column = 0; column < map.Size.Width; column++)
+                for (int column = 0; column < level.Size.Width; column++)
                 {
-                    if (column == 0 || column == map.Size.Width - 1 || row == 0 || row == map.Size.Height - 1)
+                    if (column == 0 || column == level.Size.Width - 1 || row == 0 || row == level.Size.Height - 1)
                     {
-                        map.InitialLayout[row, column] = new Wall();
+                        level.InitialLayout[row, column] = new Wall();
                     }
                     else
                     {
-                        map.InitialLayout[row, column] = new Floor();
+                        level.InitialLayout[row, column] = new Floor();
                     }
                 }
             }
-            Array.Copy(map.InitialLayout, map.ExploredLayout, map.InitialLayout.Length);
-            map.ExploredLayout[setPlayerStart.row, setPlayerStart.column] = player;
+            Array.Copy(level.InitialLayout, level.ExploredLayout, level.InitialLayout.Length);
+            level.ExploredLayout[setPlayerStart.row, setPlayerStart.column] = player;
         }
 
         public void DisplayInitialMap()
         {
             Console.Write("\n \n");
-            for (int row = 0; row < map.ExploredLayout.GetLength(0); row++)
+            for (int row = 0; row < level.ExploredLayout.GetLength(0); row++)
             {
-                for (int column = 0; column < map.ExploredLayout.GetLength(1); column++)
+                for (int column = 0; column < level.ExploredLayout.GetLength(1); column++)
                 {
-                    Console.SetCursorPosition(((int)consoleWindowSize.Width / map.ExploredLayout.GetLength(0) * column), ((int)consoleWindowSize.Height / map.ExploredLayout.GetLength(1) * row));
-                    if (map.ExploredLayout[row, column].IsExplored == true)
+                    Console.SetCursorPosition(((int)consoleWindowSize.Width / level.ExploredLayout.GetLength(0) * column), ((int)consoleWindowSize.Height / level.ExploredLayout.GetLength(1) * row));
+                    if (level.ExploredLayout[row, column].IsExplored == true)
                     {
-                        Console.Write($"{map.ExploredLayout[row, column].Graphic}");
+                        Console.Write($"{level.ExploredLayout[row, column].Graphic}");
                     }
                     else
                     {
@@ -64,14 +65,14 @@ namespace DungeonCrawler
 
         public void RenderMap()
         {
-            Point distanceBetweenTiles = new Point(((int)consoleWindowSize.Width / map.ExploredLayout.GetLength(0)), ((int)consoleWindowSize.Height / map.ExploredLayout.GetLength(1)));
+            Point distanceBetweenTiles = new Point(((int)consoleWindowSize.Width / level.ExploredLayout.GetLength(0)), ((int)consoleWindowSize.Height / level.ExploredLayout.GetLength(1)));
             GetPointsToExplore(player.Position);
             SetTilesToExplored(pointsToRender);
 
             for (int i = 0; i < pointsToRender.Length; i++)
             {
                 Console.SetCursorPosition(distanceBetweenTiles.row * pointsToRender[i].column, distanceBetweenTiles.column * pointsToRender[i].row);
-                Console.Write($"{map.ExploredLayout[pointsToRender[i].row,pointsToRender[i].column].Graphic}");
+                Console.Write($"{level.ExploredLayout[pointsToRender[i].row,pointsToRender[i].column].Graphic}");
                 Console.SetCursorPosition(distanceBetweenTiles.row * player.Position.column, distanceBetweenTiles.column * player.Position.row);
                 Console.Write($"{player.Graphic}");
             }
@@ -81,7 +82,7 @@ namespace DungeonCrawler
         {
             for (int i = 0; i < pointsToRender.Length; i++)
             {
-                map.ExploredLayout[pointsToRender[i].row, pointsToRender[i].column].IsExplored = true;
+                level.ExploredLayout[pointsToRender[i].row, pointsToRender[i].column].IsExplored = true;
             }
         }
 
@@ -101,9 +102,9 @@ namespace DungeonCrawler
         }
         public void UpdatePlayerPosition(Point targetPosition)
         {
-            map.ExploredLayout[player.Position.row, player.Position.column] = map.InitialLayout[player.Position.row, player.Position.column];
+            level.ExploredLayout[player.Position.row, player.Position.column] = level.InitialLayout[player.Position.row, player.Position.column];
             player.Position = targetPosition;
-            map.ExploredLayout[player.Position.row, player.Position.column] = player;
+            level.ExploredLayout[player.Position.row, player.Position.column] = player;
         }
     }
 }

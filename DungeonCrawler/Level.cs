@@ -1,13 +1,15 @@
 ﻿namespace DungeonCrawler
 {
-    public class Map
+    public class Level
     {
-        public Map(Size size)
+        public Level(Size size, Point playerStartingTile)
         {
             Size = size;
+            PlayerStartingTile = playerStartingTile;
         }
         public Tile[,] ExploredLayout;
         public Tile[,] InitialLayout;
         public Size Size;
+        public Point PlayerStartingTile;
     }
 }

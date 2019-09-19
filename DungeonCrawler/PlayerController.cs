@@ -3,12 +3,12 @@ namespace DungeonCrawler
 {
     public class PlayerController
     {
-        private readonly Map map;
+        private readonly Level map;
         private readonly MapController mapController;
         private readonly Player player;
-        public PlayerController(Map map, Player player, MapController mapController)
+        public PlayerController(Level level, Player player, MapController mapController)
         {
-            this.map = map ?? throw new ArgumentNullException(nameof(map));
+            this.map = level ?? throw new ArgumentNullException(nameof(level));
             this.player = player ?? throw new ArgumentNullException(nameof(player));
             this.mapController = mapController ?? throw new ArgumentNullException(nameof(mapController));
         }
