@@ -6,7 +6,7 @@ namespace DungeonCrawler
         static void Main(string[] args)
         {
 
-            var levelLayout = new LevelLayout();
+            var levelLayout = new LevelLayout(); //TODO: fix level loader
             var player = new Player(levelLayout.Levels[0].PlayerStartingTile);
 
             var levelLoader = new LevelLoader(levelLayout.Levels);
