@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleOutputFilter.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="Floor.cs" />
     <Compile Include="Key.cs" />
