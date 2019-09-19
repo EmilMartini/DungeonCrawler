@@ -34,7 +34,6 @@ namespace DungeonCrawler
             Array.Copy(map.InitialLayout, map.ExploredLayout, map.InitialLayout.Length);
             map.ExploredLayout[setPlayerStart.row, setPlayerStart.column] = player;
         }
-
         public void RenderMap()
         {
             ExploreMap(player.Position);
@@ -55,7 +54,6 @@ namespace DungeonCrawler
                 Console.Write("\n \n");
             }
         }
-
         public void ExploreMap(Point playerPosition)
         {
             for (int i = -1; i < 2; i++)
@@ -68,13 +66,11 @@ namespace DungeonCrawler
                 map.ExploredLayout[playerPosition.row + -1, playerPosition.column + i].IsExplored = true;
             }
         }
-
         public void UpdatePlayerPosition(Point targetPosition)
         {
             map.ExploredLayout[player.Position.row, player.Position.column] = map.InitialLayout[player.Position.row, player.Position.column];
             player.Position = targetPosition;
             map.ExploredLayout[player.Position.row, player.Position.column] = player;
-
         }
     }
 }
