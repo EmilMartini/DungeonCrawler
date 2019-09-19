@@ -13,6 +13,7 @@ namespace DungeonCrawler
             this.TileType = TileType.Wall;
             this.Graphic = "#";
             this.IsExplored = true;
+            this.Color = ConsoleColor.DarkRed;
         }
 
     }
