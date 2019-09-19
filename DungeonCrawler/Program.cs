@@ -16,7 +16,7 @@ namespace DungeonCrawler
 
             mapController.InitializeMap(player.Position);
             mapController.DisplayInitialMap();
-            mapController.GetPointsToExplore(PlayerStartPosition);
+            mapController.GetPointsToExplore(levelLayout.Levels[0].PlayerStartingTile);
             mapController.RenderMap();
 
 
