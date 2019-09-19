@@ -1,21 +1,17 @@
 ﻿using System;
-
-
 namespace DungeonCrawler
 {
     public class PlayerController
     {
-        private readonly Map _map;
-        private readonly MapController _mapController;
-        private readonly Player _player;
-
-        public PlayerController(Map map, Player player, MapController mapController)
+        private readonly Level map;
+        private readonly MapController mapController;
+        private readonly Player player;
+        public PlayerController(Level level, Player player, MapController mapController)
         {
-            _map = map ?? throw new ArgumentNullException(nameof(map));
-            _player = player;
-            _mapController = mapController;
+            this.map = level ?? throw new ArgumentNullException(nameof(level));
+            this.player = player ?? throw new ArgumentNullException(nameof(player));
+            this.mapController = mapController ?? throw new ArgumentNullException(nameof(mapController));
         }
-
         public void CheckInput()
         {
             var input = Console.ReadKey();
@@ -39,13 +35,12 @@ namespace DungeonCrawler
         }
         public void MovePlayer(int directionRow, int directionColumn)
         {
-            Point currentPosition = _player.Position;
+            Point currentPosition = player.Position;
             Point targetPosition = new Point(currentPosition.row + directionRow,
                                              currentPosition.column + directionColumn);
-
-            if (_map.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
+            if (map.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {
-                _mapController.UpdatePlayerPosition(targetPosition);
+                mapController.UpdatePlayerPosition(targetPosition);
             }
         }
     }

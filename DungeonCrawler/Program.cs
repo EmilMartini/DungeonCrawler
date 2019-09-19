@@ -1,33 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DungeonCrawler
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Point PlayerStartPosition = new Point(9, 12);
 
-            var map = new Map(new Size(14, 14));
-            var player = new Player(PlayerStartPosition);
-            var mapController = new MapController(map, player);
-            var playerController = new PlayerController(map, player, mapController);
+            var levelLayout = new LevelLayout(); //TODO: fix level loader
+            var player = new Player(levelLayout.Levels[0].PlayerStartingTile);
 
+            var levelLoader = new LevelLoader(levelLayout.Levels);
+            var mapController = new MapController(levelLayout.Levels[0], player);
+
+            var playerController = new PlayerController(levelLayout.Levels[0], player, mapController);
 
             mapController.InitializeMap(player.Position);
+            mapController.DisplayInitialMap();
+            mapController.GetPointsToExplore(levelLayout.Levels[0].PlayerStartingTile);
+            mapController.RenderMap();
+
+
+            var standardOutputWriter = Console.Out;
+            var consoleOutputFilter = new ConsoleOutputFilter();
 
             while(true)
             {
-                mapController.RenderMap();
+                Console.SetOut(consoleOutputFilter);
                 playerController.CheckInput();
-                Console.Clear();
-            }
-
-            
+                Console.SetOut(standardOutputWriter);
+                mapController.RenderMap();
+            }            
         }
     }
 }

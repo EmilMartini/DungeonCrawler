@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DungeonCrawler
+﻿namespace DungeonCrawler
 {
     public struct Size
     {
@@ -11,6 +9,5 @@ namespace DungeonCrawler
         }
         public readonly uint Width;
         public readonly uint Height;
-
     }
 }
