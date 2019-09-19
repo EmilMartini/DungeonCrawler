@@ -64,14 +64,16 @@ namespace DungeonCrawler
 
         public void RenderMap()
         {
-            Point cursorToPlayerPosition = new Point(((int)consoleWindowSize.Width / map.ExploredLayout.GetLength(0)), ((int)consoleWindowSize.Height / map.ExploredLayout.GetLength(1)));
+            Point distanceBetweenTiles = new Point(((int)consoleWindowSize.Width / map.ExploredLayout.GetLength(0)), ((int)consoleWindowSize.Height / map.ExploredLayout.GetLength(1)));
             GetPointsToExplore(player.Position);
             SetTilesToExplored(pointsToRender);
 
-            for (int i = 0; i < pointsToRender.Length + 1; i++)
+            for (int i = 0; i < pointsToRender.Length; i++)
             {
-                Console.SetCursorPosition(cursorToPlayerPosition.column * pointsToRender[i].row, cursorToPlayerPosition.row * pointsToRender[i].column);
+                Console.SetCursorPosition(distanceBetweenTiles.row * pointsToRender[i].column, distanceBetweenTiles.column * pointsToRender[i].row);
                 Console.Write($"{map.ExploredLayout[pointsToRender[i].row,pointsToRender[i].column].Graphic}");
+                Console.SetCursorPosition(distanceBetweenTiles.row * player.Position.column, distanceBetweenTiles.column * player.Position.row);
+                Console.Write($"{player.Graphic}");
             }
 
 
@@ -102,21 +104,6 @@ namespace DungeonCrawler
 
             pointsToRender[6] = new Point(playerPosition.row - 1, playerPosition.column - 1);
             pointsToRender[7] = new Point(playerPosition.row + 1, playerPosition.column - 1);
-
-            
-            //for (int i = -1; i < 2; i++)
-            //{
-            //    if (i != 0)
-            //    {
-            //        pointsToRender[] = new Point(playerPosition.row + 0, playerPosition.column + i);
-            //        //map.ExploredLayout[playerPosition.row + 0, playerPosition.column + i].IsExplored = true; 
-            //    }
-            //    var point = new Point(playerPosition.row + 1, playerPosition.column + i);
-            //    var point = new Point(playerPosition.row - 1, playerPosition.column + i);
-
-            //    //map.ExploredLayout[playerPosition.row + 1, playerPosition.column + i].IsExplored = true;
-            //    //map.ExploredLayout[playerPosition.row + -1, playerPosition.column + i].IsExplored = true;
-            //}
         }
         public void UpdatePlayerPosition(Point targetPosition)
         {
