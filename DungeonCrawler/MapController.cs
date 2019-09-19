@@ -67,7 +67,6 @@ namespace DungeonCrawler
 
             Console.SetCursorPosition(cursorToPlayerPosition.row, cursorToPlayerPosition.column );
             Console.Write($"{map.ExploredLayout[player.Position.row,player.Position.column].Graphic}");
-            
         }
 
         public void ExploreMap(Point playerPosition)
