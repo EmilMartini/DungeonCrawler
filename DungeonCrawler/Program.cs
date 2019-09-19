@@ -19,7 +19,7 @@ namespace DungeonCrawler
             mapController.GetPointsToExplore(levelLayout.Levels[0].PlayerStartingTile);
             mapController.RenderMap();
 
-
+            Console.CursorVisible = false;
             var standardOutputWriter = Console.Out;
             var consoleOutputFilter = new ConsoleOutputFilter();
 
