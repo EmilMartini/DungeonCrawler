@@ -13,6 +13,10 @@ namespace DungeonCrawler
 
             mapController.InitializeMap(player.Position);
             mapController.DisplayInitialMap();
+            mapController.GetPointsToExplore(PlayerStartPosition);
+            mapController.RenderMap();
+
+
             var standardOutputWriter = Console.Out;
             var consoleOutputFilter = new ConsoleOutputFilter();
 

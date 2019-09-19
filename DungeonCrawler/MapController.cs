@@ -75,11 +75,6 @@ namespace DungeonCrawler
                 Console.SetCursorPosition(distanceBetweenTiles.row * player.Position.column, distanceBetweenTiles.column * player.Position.row);
                 Console.Write($"{player.Graphic}");
             }
-
-
-            //Console.SetCursorPosition(cursorToPlayerPosition.row, cursorToPlayerPosition.column );
-            //Console.Write($"{map.ExploredLayout[player.Position.row,player.Position.column].Graphic}");
-            
         }
 
         private void SetTilesToExplored(Point[] pointsToRender)
@@ -91,8 +86,7 @@ namespace DungeonCrawler
         }
 
         public void GetPointsToExplore(Point playerPosition)
-        {
-            
+        {   
             pointsToRender[0] = new Point(playerPosition.row, playerPosition.column - 1);
             pointsToRender[1] = new Point(playerPosition.row, playerPosition.column + 1);
 
