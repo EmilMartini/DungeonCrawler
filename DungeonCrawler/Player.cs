@@ -1,4 +1,6 @@
-﻿namespace DungeonCrawler
+﻿using System;
+
+namespace DungeonCrawler
 {
     public class Player : Tile
     {
@@ -8,7 +10,10 @@
             this.Graphic = "@";
             this.TileType = TileType.Player;
             this.IsExplored = true;
+            this.Color = ConsoleColor.Green;
+
             Position = new Point(playerStartPosition.row, playerStartPosition.column);
+            
         }
     }
 }

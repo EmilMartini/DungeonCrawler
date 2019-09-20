@@ -50,6 +50,7 @@ namespace DungeonCrawler
                 for (int column = 0; column < level.ExploredLayout.GetLength(1); column++)
                 {
                     Console.SetCursorPosition(((int)consoleWindowSize.Width / level.ExploredLayout.GetLength(0) * column), ((int)consoleWindowSize.Height / level.ExploredLayout.GetLength(1) * row));
+                    Console.ForegroundColor = level.ExploredLayout[row, column].Color;
                     if (level.ExploredLayout[row, column].IsExplored == true)
                     {
                         Console.Write($"{level.ExploredLayout[row, column].Graphic}");
@@ -71,8 +72,11 @@ namespace DungeonCrawler
 
             for (int i = 0; i < pointsToRender.Length; i++)
             {
+                Console.ForegroundColor = level.ExploredLayout[pointsToRender[i].row, pointsToRender[i].column].Color;
                 Console.SetCursorPosition(distanceBetweenTiles.row * pointsToRender[i].column, distanceBetweenTiles.column * pointsToRender[i].row);
                 Console.Write($"{level.ExploredLayout[pointsToRender[i].row,pointsToRender[i].column].Graphic}");
+
+                Console.ForegroundColor = level.ExploredLayout[player.Position.row, player.Position.column].Color;
                 Console.SetCursorPosition(distanceBetweenTiles.row * player.Position.column, distanceBetweenTiles.column * player.Position.row);
                 Console.Write($"{player.Graphic}");
             }
