@@ -31,14 +31,19 @@ namespace DungeonCrawler
                 currentEnemyPosition = new Point(level.Enemies[i].Position.row, level.Enemies[i].Position.column);
                 nextEnemyPosition = new Point(currentEnemyPosition.row + row, currentEnemyPosition.column + column);
 
-                if (level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType != TileType.Wall)
-                {
-                    levelRenderer.UpdateMonsterPosition(level.Enemies[i], nextEnemyPosition);
-                }
                 if (level.ExploredLayout[nextEnemyPosition.row, nextEnemyPosition.column].IsExplored == true)
                 {
                     level.Enemies[i].IsExplored = true;
+                } else
+                {
+                    level.Enemies[i].IsExplored = false;
                 }
+
+                if (level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType != TileType.Wall)
+                {
+                    levelRenderer.UpdateMonsterPosition(level.Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
+                }
+
             }     
         }
 

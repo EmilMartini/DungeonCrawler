@@ -9,6 +9,8 @@ namespace DungeonCrawler
 
         public Point[] pointsToRender = new Point[8];
 
+        private Point[] previusEnemyPositions;
+
         public LevelRenderer(Level level, Player player)
         {
             this.level = level ?? throw new ArgumentNullException(nameof(level));
@@ -30,6 +32,32 @@ namespace DungeonCrawler
                 Console.ForegroundColor = level.ExploredLayout[player.Position.row, player.Position.column].Color;
                 Console.SetCursorPosition(distanceBetweenTiles.row * player.Position.column, distanceBetweenTiles.column * player.Position.row);
                 Console.Write($"{player.Graphic}");
+            }
+
+            for (int i = 0; i < level.Enemies.Length; i++)
+            {
+                if(level.Enemies[i].IsExplored)
+                {
+                    Console.ForegroundColor = level.Enemies[i].Color;
+                    Console.SetCursorPosition(distanceBetweenTiles.row * level.Enemies[i].Position.column, distanceBetweenTiles.column * level.Enemies[i].Position.row);
+                    Console.Write($"{level.ExploredLayout[level.Enemies[i].Position.row, level.Enemies[i].Position.column].Graphic}");
+                }
+            }
+
+            if(previusEnemyPositions != null)
+            {
+                for (int i = 0; i < previusEnemyPositions.Length; i++)
+                {
+                    Console.ForegroundColor = level.ExploredLayout[previusEnemyPositions[i].row, previusEnemyPositions[i].column].Color;
+                    Console.SetCursorPosition(distanceBetweenTiles.row * previusEnemyPositions[i].column, distanceBetweenTiles.column * previusEnemyPositions[i].row);
+                    if(level.ExploredLayout[previusEnemyPositions[i].row, previusEnemyPositions[i].column].IsExplored == true)
+                    {
+                        Console.Write($"{level.InitialLayout[previusEnemyPositions[i].row, previusEnemyPositions[i].column].Graphic}");
+                    } else
+                    {
+                        Console.Write(" ");
+                    }
+                }
             }
         }
 
@@ -63,8 +91,11 @@ namespace DungeonCrawler
             level.ExploredLayout[player.Position.row, player.Position.column] = player;
         }
 
-        public void UpdateMonsterPosition(Enemy enemy, Point targetPosition)
+        public void UpdateMonsterPosition(Enemy enemy, Point targetPosition, Point currentEnemyPosition, int index)
         {
+            previusEnemyPositions = new Point[level.Enemies.Length];
+            previusEnemyPositions[index] = currentEnemyPosition;
+
             level.ExploredLayout[enemy.Position.row, enemy.Position.column] = level.InitialLayout[enemy.Position.row, enemy.Position.column];
             enemy.Position = targetPosition;
             level.ExploredLayout[enemy.Position.row, enemy.Position.column] = enemy;
