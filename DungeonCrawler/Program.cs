@@ -18,8 +18,8 @@ namespace DungeonCrawler
             var enemyController = new EnemyController(levelLayout.Levels[0], levelRenderer);
             var playerController = new PlayerController(levelLayout.Levels[0], player, levelRenderer);
 
-
-            levelLoader.InitializeMap();
+            levelLayout.InitializeLevels();
+            levelLoader.SpawnLevelObjects();
             levelLoader.DisplayInitialMap();
             levelRenderer.GetTilesToExplore(levelLayout.Levels[0].PlayerStartingTile);
             levelRenderer.RenderLevel();

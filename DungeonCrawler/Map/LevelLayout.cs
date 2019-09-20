@@ -1,20 +1,29 @@
-﻿namespace DungeonCrawler
+﻿using System;
+
+namespace DungeonCrawler
 {
     public class LevelLayout
     {
         public Level[] Levels = new Level[3];
-        
-        Level level1 = new Level(new Size(25, 25), new Point(1,1));
-        Level level2 = new Level(new Size(18, 18), new Point(17, 17));
-        Level level3 = new Level(new Size(24, 14), new Point(1, 1));
+        private Point[] spawnPoints = new Point[3];
+
+        readonly static Point level1SpawnPoint = new Point(1, 1);
+        readonly static Point level2SpawnPoint = new Point(17, 17);
+        readonly static Point level3SpawnPoint = new Point(1, 1);
+        readonly Level level1 = new Level(new Size(25, 25), level1SpawnPoint);
+        readonly Level level2 = new Level(new Size(18, 18), level2SpawnPoint);
+        readonly Level level3 = new Level(new Size(24, 14), level3SpawnPoint);
 
         public LevelLayout()
         {
             Levels[0] = level1;
             Levels[1] = level2;
             Levels[2] = level3;
-        }
 
+            spawnPoints[0] = level1SpawnPoint;
+            spawnPoints[1] = level2SpawnPoint;
+            spawnPoints[2] = level3SpawnPoint;
+        }
         public void InitializeLevels()
         {
             for (int i = 0; i < Levels.Length; i++)
@@ -37,13 +46,7 @@
                         }
                     }
                 }
-                Array.Copy(levels[currentLevel].InitialLayout, levels[currentLevel].ExploredLayout, levels[currentLevel].InitialLayout.Length);
-                levels[currentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
-
-                for (int i = 0; i < levels[currentLevel].Enemies.Length; i++)
-                {
-                    levels[currentLevel].ExploredLayout[levels[currentLevel].Enemies[i].Position.row, levels[currentLevel].Enemies[i].Position.column] = levels[currentLevel].Enemies[i];
-                }
+                Array.Copy(Levels[i].InitialLayout, Levels[i].ExploredLayout, Levels[i].InitialLayout.Length);
             }
         }
     }

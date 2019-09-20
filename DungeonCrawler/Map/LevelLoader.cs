@@ -15,29 +15,9 @@ namespace DungeonCrawler
             this.consoleWindowSize = consoleWindowSize;
         }
         public int CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
-        public void InitializeMap()
+        public void SpawnLevelObjects()
         {
-
-            levels[currentLevel].InitialLayout = new Tile[levels[currentLevel].Size.Height, levels[currentLevel].Size.Width];
-            levels[currentLevel].ExploredLayout = new Tile[levels[currentLevel].Size.Height, levels[currentLevel].Size.Width];
-            levels[currentLevel].Enemies = new Enemy[] { new Enemy(3, 2), new Enemy(5, 2) };
-
-            for (int row = 0; row < levels[currentLevel].Size.Height; row++)
-            {
-                for (int column = 0; column < levels[currentLevel].Size.Width; column++)
-                {
-                    if (column == 0 || column == levels[currentLevel].Size.Width - 1 || row == 0 || row == levels[currentLevel].Size.Height - 1)
-                    {
-                        levels[currentLevel].InitialLayout[row, column] = new Wall();
-                    }
-                    else
-                    {
-                        levels[currentLevel].InitialLayout[row, column] = new Floor();
-                    }
-                }
-            }
-            Array.Copy(levels[currentLevel].InitialLayout, levels[currentLevel].ExploredLayout, levels[currentLevel].InitialLayout.Length);
-            levels[currentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
+          levels[currentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
 
             for (int i = 0; i < levels[currentLevel].Enemies.Length; i++)
             {
