@@ -10,8 +10,8 @@ namespace DungeonCrawler
             var levelLayout = new LevelLayout(); //TODO: fix level loader
             var player = new Player(levelLayout.Levels[0].PlayerStartingTile);
 
-            var levelLoader = new LevelLoader(levelLayout.Levels);
             var mapController = new MapController(levelLayout.Levels[0], player);
+            var levelLoader = new LevelLoader(levelLayout.Levels, mapController);
 
             var playerController = new PlayerController(levelLayout.Levels[0], player, mapController);
 
