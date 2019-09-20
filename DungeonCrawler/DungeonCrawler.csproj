@@ -51,7 +51,7 @@
     <Compile Include="Key.cs" />
     <Compile Include="Map\LevelLayout.cs" />
     <Compile Include="Map\LevelLoader.cs" />
-    <Compile Include="Map\MapController.cs" />
+    <Compile Include="Map\LevelRenderer.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerController.cs" />
     <Compile Include="Map\Point.cs" />

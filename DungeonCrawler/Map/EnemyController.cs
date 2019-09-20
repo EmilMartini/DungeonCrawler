@@ -8,12 +8,12 @@ namespace DungeonCrawler
         public Point currentEnemyPosition;
         public Point nextEnemyPosition;
         private readonly Level level;
-        private readonly MapController mapController;
+        private readonly LevelRenderer levelRenderer;
 
-        public EnemyController(Level level, MapController mapController)
+        public EnemyController(Level level, LevelRenderer mapRenderer)
         {
             this.level = level ?? throw new ArgumentNullException(nameof(level));
-            this.mapController = mapController ?? throw new ArgumentNullException(nameof(mapController));
+            this.levelRenderer = mapRenderer ?? throw new ArgumentNullException(nameof(mapRenderer));
         }
 
         public void Move()
@@ -32,7 +32,7 @@ namespace DungeonCrawler
 
                 if (level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType != TileType.Wall)
                 {
-                    mapController.UpdateMonsterPosition(level.Enemies[i], nextEnemyPosition);
+                    levelRenderer.UpdateMonsterPosition(level.Enemies[i], nextEnemyPosition);
                 }
             }     
         }
