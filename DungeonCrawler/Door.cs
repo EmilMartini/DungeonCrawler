@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    class Door
+    class Door : Tile
     {
-        
+        public Door()
+        {
+            this.TileType = TileType.Door;
+            this.Graphic = "D";
+            this.IsExplored = false;
+            this.Color = ConsoleColor.DarkMagenta;
+        }
     }
 }
