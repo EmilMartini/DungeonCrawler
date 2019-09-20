@@ -40,7 +40,7 @@ namespace DungeonCrawler
                 }
 
                 if (level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType != TileType.Wall)
-                {
+                {   
                     levelRenderer.UpdateMonsterPosition(level.Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
                 }
 
