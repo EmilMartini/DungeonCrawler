@@ -4,16 +4,16 @@ namespace DungeonCrawler
 {
     internal class EnemyController
     {
-        Random rnd = new Random();
+        Random random = new Random();
         public Point currentEnemyPosition;
         public Point nextEnemyPosition;
         private readonly Level level;
-        private readonly MapController mapController;
+        private readonly LevelRenderer levelRenderer;
 
-        public EnemyController(Level level, MapController mapController)
+        public EnemyController(Level level, LevelRenderer mapRenderer)
         {
             this.level = level ?? throw new ArgumentNullException(nameof(level));
-            this.mapController = mapController ?? throw new ArgumentNullException(nameof(mapController));
+            this.levelRenderer = mapRenderer ?? throw new ArgumentNullException(nameof(mapRenderer));
         }
 
         public void Move()
@@ -24,8 +24,8 @@ namespace DungeonCrawler
 
                 while (row == 0 && column == 0)
                 {
-                    row = rnd.Next(-1, 2);
-                    column = rnd.Next(-1, 2);
+                    row = random.Next(-1, 2);
+                    column = random.Next(-1, 2);
                 }
 
                 currentEnemyPosition = new Point(level.Enemies[i].Position.row, level.Enemies[i].Position.column);
@@ -33,7 +33,11 @@ namespace DungeonCrawler
 
                 if (level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType != TileType.Wall)
                 {
-                    mapController.UpdateMonsterPosition(level.Enemies[i], nextEnemyPosition);
+                    levelRenderer.UpdateMonsterPosition(level.Enemies[i], nextEnemyPosition);
+                }
+                if (level.ExploredLayout[nextEnemyPosition.row, nextEnemyPosition.column].IsExplored == true)
+                {
+                    level.Enemies[i].IsExplored = true;
                 }
             }     
         }
