@@ -7,7 +7,6 @@ namespace DungeonCrawler
         private readonly Player player;
         private readonly Size consoleWindowSize = new Size(72, 36);
 
-
         public MapController(Level level, Player player)
         {
             this.level = level ?? throw new ArgumentNullException(nameof(level));
@@ -23,6 +22,7 @@ namespace DungeonCrawler
 
             level.InitialLayout = new Tile[level.Size.Height, level.Size.Width];
             level.ExploredLayout = new Tile[level.Size.Height, level.Size.Width];
+            level.Enemies = new Enemy[] {new Enemy(3,2), new Enemy(5,2)};
 
             for (int row = 0; row < level.Size.Height; row++)
             {
@@ -40,6 +40,11 @@ namespace DungeonCrawler
             }
             Array.Copy(level.InitialLayout, level.ExploredLayout, level.InitialLayout.Length);
             level.ExploredLayout[setPlayerStart.row, setPlayerStart.column] = player;
+
+            for (int i = 0; i < level.Enemies.Length; i++)
+            {
+                level.ExploredLayout[level.Enemies[i].Position.row, level.Enemies[i].Position.column] = level.Enemies[i];
+            }
         }
 
         public void DisplayInitialMap()
@@ -104,11 +109,19 @@ namespace DungeonCrawler
             pointsToRender[6] = new Point(playerPosition.row - 1, playerPosition.column - 1);
             pointsToRender[7] = new Point(playerPosition.row + 1, playerPosition.column - 1);
         }
+
         public void UpdatePlayerPosition(Point targetPosition)
         {
             level.ExploredLayout[player.Position.row, player.Position.column] = level.InitialLayout[player.Position.row, player.Position.column];
             player.Position = targetPosition;
             level.ExploredLayout[player.Position.row, player.Position.column] = player;
+        }
+
+        public void UpdateMonsterPosition(Enemy enemy, Point targetPosition)
+        {
+            level.ExploredLayout[enemy.Position.row, enemy.Position.column] = level.InitialLayout[enemy.Position.row, enemy.Position.column];
+            enemy.Position = targetPosition;
+            level.ExploredLayout[enemy.Position.row, enemy.Position.column] = enemy;
         }
     }
 }

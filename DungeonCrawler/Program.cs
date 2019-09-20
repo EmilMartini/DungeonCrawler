@@ -3,6 +3,7 @@ namespace DungeonCrawler
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
@@ -13,12 +14,16 @@ namespace DungeonCrawler
             var mapController = new MapController(levelLayout.Levels[0], player);
             var levelLoader = new LevelLoader(levelLayout.Levels, mapController);
 
+            var enemyController = new EnemyController(levelLayout.Levels[0], mapController);
             var playerController = new PlayerController(levelLayout.Levels[0], player, mapController);
+
 
             mapController.InitializeMap(player.Position);
             mapController.DisplayInitialMap();
             mapController.GetPointsToExplore(levelLayout.Levels[0].PlayerStartingTile);
             mapController.RenderMap();
+            enemyController.Move();
+
 
 
             var standardOutputWriter = Console.Out;
