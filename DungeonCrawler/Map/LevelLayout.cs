@@ -14,7 +14,5 @@
             Levels[1] = level2;
             Levels[2] = level3;
         }
-
     } 
-
 }
