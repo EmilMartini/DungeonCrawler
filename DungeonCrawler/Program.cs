@@ -23,7 +23,6 @@ namespace DungeonCrawler
             levelLoader.DisplayInitialMap();
             levelRenderer.GetTilesToExplore(levelLayout.Levels[0].PlayerStartingTile);
             levelRenderer.RenderLevel();
-            enemyController.Move();
 
 
 
@@ -34,6 +33,7 @@ namespace DungeonCrawler
             {
                 Console.SetOut(consoleOutputFilter);
                 playerController.CheckInput();
+                enemyController.Move();
                 Console.SetOut(standardOutputWriter);
                 levelRenderer.RenderLevel();
             }            
