@@ -27,6 +27,7 @@ namespace DungeonCrawler
                     row = rnd.Next(-1, 2);
                     column = rnd.Next(-1, 2);
                 }
+
                 currentEnemyPosition = new Point(level.Enemies[i].Position.row, level.Enemies[i].Position.column);
                 nextEnemyPosition = new Point(currentEnemyPosition.row + row, currentEnemyPosition.column + column);
 

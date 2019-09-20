@@ -17,12 +17,11 @@ namespace DungeonCrawler
             var enemyController = new EnemyController(levelLayout.Levels[0], mapController);
             var playerController = new PlayerController(levelLayout.Levels[0], player, mapController);
 
-
             mapController.InitializeMap(player.Position);
             mapController.DisplayInitialMap();
             mapController.GetPointsToExplore(levelLayout.Levels[0].PlayerStartingTile);
-            mapController.RenderMap();
             enemyController.Move();
+            mapController.RenderMap();
 
 
 
