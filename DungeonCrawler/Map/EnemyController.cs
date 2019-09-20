@@ -4,7 +4,7 @@ namespace DungeonCrawler
 {
     internal class EnemyController
     {
-        Random rnd = new Random();
+        Random random = new Random();
         public Point currentEnemyPosition;
         private readonly Level level;
         private readonly MapController mapController;
@@ -23,8 +23,8 @@ namespace DungeonCrawler
 
                 while (row == 0 && column == 0)
                 {
-                    row = rnd.Next(-1, 2);
-                    column = rnd.Next(-1, 2);
+                    row = random.Next(-1, 2);
+                    column = random.Next(-1, 2);
                 }
 
                 currentEnemyPosition = new Point(currentEnemyPosition.row + row, currentEnemyPosition.column + column);
