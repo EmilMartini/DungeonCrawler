@@ -7,13 +7,13 @@ namespace DungeonCrawler
         private readonly Player player;
         private readonly Size consoleWindowSize = new Size(72, 36);
 
+        public Point[] pointsToRender = new Point[8];
+
         public MapController(Level level, Player player)
         {
             this.level = level ?? throw new ArgumentNullException(nameof(level));
             this.player = player ?? throw new ArgumentNullException(nameof(player));
         }
-
-        public Point[] pointsToRender = new Point[8];
 
         public void InitializeMap(Point setPlayerStart)
         {
