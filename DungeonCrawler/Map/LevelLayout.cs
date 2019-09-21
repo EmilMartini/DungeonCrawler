@@ -30,6 +30,8 @@ namespace DungeonCrawler
             {
                 Levels[i].InitialLayout = new Tile[Levels[i].Size.Height, Levels[i].Size.Width];
                 Levels[i].ExploredLayout = new Tile[Levels[i].Size.Height, Levels[i].Size.Width];
+                Levels[i].Enemies = new Enemy[Levels[i].NumberOfEnemies];
+                Levels[i].PreviousEnemyPositions = new Point[Levels[i].Enemies.Length];
 
                 for (int row = 0; row < Levels[i].Size.Height; row++)
                 {
@@ -45,11 +47,6 @@ namespace DungeonCrawler
                         }
                     }
                 }
-
-                Levels[i].Enemies = new Enemy[Levels[i].NumberOfEnemies];
-                Levels[i].PreviousEnemyPositions = new Point[Levels[i].Enemies.Length];
-
-
                 Array.Copy(Levels[i].InitialLayout, Levels[i].ExploredLayout, Levels[i].InitialLayout.Length);
             }
         }

@@ -8,34 +8,38 @@ namespace DungeonCrawler
         {
             var levelLayout = new LevelLayout(); 
             var player = new Player(levelLayout.Levels[0].PlayerStartingTile);
-
             var levelRenderer = new LevelRenderer(levelLayout.Levels[0], player);
             var levelLoader = new LevelLoader(levelLayout.Levels, player, consoleWindowSize);
-
             var enemyController = new EnemyController(levelLayout.Levels[0], levelRenderer);
             var playerController = new PlayerController(levelLayout.Levels[0], player, levelRenderer);
-
-            var standardOutputWriter = Console.Out;
             var consoleOutputFilter = new ConsoleOutputFilter();
-    
+
             SetConsoleProperties(consoleWindowSize);
 
-            levelLayout.InitializeLevels();
-            levelLoader.SpawnLevelObjects();
-            levelLoader.DisplayInitialMap();
-            levelRenderer.ExploreTilesAroundPlayer(levelLayout.Levels[0].PlayerStartingTile);
-            levelRenderer.RenderLevel();
+            LoadGameDependecies(levelLayout, levelLoader, levelRenderer);
+            RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer);        
+        }
 
-            while(true)
+        private static void RunGame(ConsoleOutputFilter consoleOutputFilter, System.IO.TextWriter standardOutputWriter, PlayerController playerController, EnemyController enemyController, LevelRenderer levelRenderer)
+        {
+            bool isRunning = true;
+            while(isRunning)
             {
                 Console.SetOut(consoleOutputFilter);
                 playerController.CheckInput();
                 enemyController.Move();
                 Console.SetOut(standardOutputWriter);
                 levelRenderer.RenderLevel();
-            }            
+            }
         }
-
+        private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
+        {
+            levelLayout.InitializeLevels();
+            levelLoader.SpawnLevelObjects();
+            levelLoader.DisplayInitialMap();
+            levelRenderer.ExploreTilesAroundPlayer(levelLayout.Levels[0].PlayerStartingTile);
+            levelRenderer.RenderLevel();
+        }
         private static void SetConsoleProperties(Size windowSize)
         {
             Console.CursorVisible = false;
