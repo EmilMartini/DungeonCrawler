@@ -10,7 +10,7 @@
         public Tile[,] ExploredLayout;
         public Tile[,] InitialLayout;
         public Enemy[] Enemies;
-        public Point[] PreviusEnemyPositions;
+        public Point[] PreviousEnemyPositions;
         public Size Size;
         public Point PlayerStartingTile;
     }

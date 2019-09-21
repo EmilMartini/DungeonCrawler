@@ -42,16 +42,16 @@ namespace DungeonCrawler
                     Console.Write($"{level.ExploredLayout[level.Enemies[i].Position.row, level.Enemies[i].Position.column].Graphic}");
                 }
 
-                if(level.PreviusEnemyPositions == null)
+                if(level.PreviousEnemyPositions == null)
                 {
                     break;
                 } else
                 {
-                    Console.ForegroundColor = level.ExploredLayout[level.PreviusEnemyPositions[i].row, level.PreviusEnemyPositions[i].column].Color;
-                    Console.SetCursorPosition(distanceBetweenTiles.row * level.PreviusEnemyPositions[i].column, distanceBetweenTiles.column * level.PreviusEnemyPositions[i].row);
-                    if (level.ExploredLayout[level.PreviusEnemyPositions[i].row, level.PreviusEnemyPositions[i].column].IsExplored == true)
+                    Console.ForegroundColor = level.ExploredLayout[level.PreviousEnemyPositions[i].row, level.PreviousEnemyPositions[i].column].Color;
+                    Console.SetCursorPosition(distanceBetweenTiles.row * level.PreviousEnemyPositions[i].column, distanceBetweenTiles.column * level.PreviousEnemyPositions[i].row);
+                    if (level.ExploredLayout[level.PreviousEnemyPositions[i].row, level.PreviousEnemyPositions[i].column].IsExplored == true)
                     {
-                        Console.Write($"{level.InitialLayout[level.PreviusEnemyPositions[i].row, level.PreviusEnemyPositions[i].column].Graphic}");
+                        Console.Write($"{level.InitialLayout[level.PreviousEnemyPositions[i].row, level.PreviousEnemyPositions[i].column].Graphic}");
                     } else
                     {
                         Console.Write("");
@@ -94,7 +94,7 @@ namespace DungeonCrawler
 
         public void UpdateEnemyPositions(Enemy enemy, Point targetPosition, Point currentEnemyPosition, int index)
         {
-            level.PreviusEnemyPositions[index] = currentEnemyPosition;
+            level.PreviousEnemyPositions[index] = currentEnemyPosition;
             level.ExploredLayout[enemy.Position.row, enemy.Position.column] = level.InitialLayout[enemy.Position.row, enemy.Position.column];
             enemy.Position = targetPosition;
             level.ExploredLayout[enemy.Position.row, enemy.Position.column] = enemy;

@@ -8,17 +8,33 @@ namespace DungeonCrawler
         private readonly Player player;
         private int currentLevel;
         private readonly Size consoleWindowSize;
+        private Random rnd = new Random();
+
         public LevelLoader(Level[] levels, Player player, Size consoleWindowSize)
         {
             this.levels = levels;
             this.player = player;
             this.consoleWindowSize = consoleWindowSize;
         }
-        public int CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
+        public int CurrentLevel
+        {
+            get { return currentLevel; }
+            set { currentLevel = value; }
+        }
+
         public void SpawnLevelObjects()
         {
-          levels[currentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
+            int enemySpawnPositionRow , enemySpawnPositionColumn;
 
+            for (int i = 0; i < levels[currentLevel].Enemies.Length; i++)
+            {
+                enemySpawnPositionRow = rnd.Next(1, levels[currentLevel].InitialLayout.GetLength(0) - 2);
+                enemySpawnPositionColumn = rnd.Next(1, levels[currentLevel].InitialLayout.GetLength(1) - 2);
+
+                levels[currentLevel].Enemies[i] = new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn);
+            }
+
+            levels[currentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
             for (int i = 0; i < levels[currentLevel].Enemies.Length; i++)
             {
                 levels[currentLevel].ExploredLayout[levels[currentLevel].Enemies[i].Position.row, levels[currentLevel].Enemies[i].Position.column] = levels[currentLevel].Enemies[i];
