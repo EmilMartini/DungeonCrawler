@@ -41,7 +41,7 @@ namespace DungeonCrawler
                     {
                         level.Enemies[i].IsExplored = false;
                     }
-                    levelRenderer.UpdateMonsterPosition(level.Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
+                    levelRenderer.UpdateEnemyPositions(level.Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
                 }
             }     
         }

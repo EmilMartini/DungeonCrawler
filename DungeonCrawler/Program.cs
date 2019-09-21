@@ -23,7 +23,7 @@ namespace DungeonCrawler
             levelLayout.InitializeLevels();
             levelLoader.SpawnLevelObjects();
             levelLoader.DisplayInitialMap();
-            levelRenderer.GetTilesToExplore(levelLayout.Levels[0].PlayerStartingTile);
+            levelRenderer.ExploreTilesAroundPlayer(levelLayout.Levels[0].PlayerStartingTile);
             levelRenderer.RenderLevel();
 
             while(true)
