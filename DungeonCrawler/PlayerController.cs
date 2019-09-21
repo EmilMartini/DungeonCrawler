@@ -3,14 +3,14 @@ namespace DungeonCrawler
 {
     public class PlayerController
     {
-        private readonly Map map;
-        private readonly MapController mapController;
+        private readonly Level level;
+        private readonly LevelRenderer levelRenderer;
         private readonly Player player;
-        public PlayerController(Map map, Player player, MapController mapController)
+        public PlayerController(Level level, Player player, LevelRenderer levelRenderer)
         {
-            this.map = map ?? throw new ArgumentNullException(nameof(map));
+            this.level = level ?? throw new ArgumentNullException(nameof(level));
             this.player = player ?? throw new ArgumentNullException(nameof(player));
-            this.mapController = mapController ?? throw new ArgumentNullException(nameof(mapController));
+            this.levelRenderer = levelRenderer ?? throw new ArgumentNullException(nameof(levelRenderer));
         }
         public void CheckInput()
         {
@@ -38,9 +38,9 @@ namespace DungeonCrawler
             Point currentPosition = player.Position;
             Point targetPosition = new Point(currentPosition.row + directionRow,
                                              currentPosition.column + directionColumn);
-            if (map.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
+            if (level.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {
-                mapController.UpdatePlayerPosition(targetPosition);
+                levelRenderer.UpdatePlayerPosition(targetPosition);
             }
         }
     }

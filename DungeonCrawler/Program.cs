@@ -3,26 +3,44 @@ namespace DungeonCrawler
 {
     class Program
     {
+        private static readonly Size consoleWindowSize = new Size(72, 36);
         static void Main(string[] args)
         {
-            var PlayerStartPosition = new Point(1, 1);
-            var map = new Map(new Size(25, 25));
-            var player = new Player(PlayerStartPosition);
-            var mapController = new MapController(map, player);
-            var playerController = new PlayerController(map, player, mapController);
+            var levelLayout = new LevelLayout(); 
+            var player = new Player(levelLayout.Levels[0].PlayerStartingTile);
 
-            mapController.InitializeMap(player.Position);
-            mapController.DisplayInitialMap();
+            var levelRenderer = new LevelRenderer(levelLayout.Levels[0], player);
+            var levelLoader = new LevelLoader(levelLayout.Levels, player, consoleWindowSize);
+
+            var enemyController = new EnemyController(levelLayout.Levels[0], levelRenderer);
+            var playerController = new PlayerController(levelLayout.Levels[0], player, levelRenderer);
+
             var standardOutputWriter = Console.Out;
             var consoleOutputFilter = new ConsoleOutputFilter();
+    
+            SetConsoleProperties(consoleWindowSize);
+
+            levelLayout.InitializeLevels();
+            levelLoader.SpawnLevelObjects();
+            levelLoader.DisplayInitialMap();
+            levelRenderer.GetTilesToExplore(levelLayout.Levels[0].PlayerStartingTile);
+            levelRenderer.RenderLevel();
 
             while(true)
             {
                 Console.SetOut(consoleOutputFilter);
                 playerController.CheckInput();
+                enemyController.Move();
                 Console.SetOut(standardOutputWriter);
-                mapController.RenderMap();
+                levelRenderer.RenderLevel();
             }            
+        }
+
+        private static void SetConsoleProperties(Size windowSize)
+        {
+            Console.CursorVisible = false;
+            Console.SetWindowSize((int)consoleWindowSize.Width, (int)consoleWindowSize.Height);
+            Console.SetBufferSize((int)consoleWindowSize.Width + 1, (int)consoleWindowSize.Height + 1);
         }
     }
 }
