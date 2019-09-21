@@ -8,7 +8,7 @@ namespace DungeonCrawler
 {
     public class Enemy : Tile
     {
-        public Point Position;
+        private Point position;
 
         public Enemy(int startRow, int startColumn)
         {
@@ -17,6 +17,12 @@ namespace DungeonCrawler
             this.IsExplored = false;
             this.Color = ConsoleColor.Red;
             Position = new Point(startRow, startColumn);
+        }
+
+        public Point Position
+        {
+            get { return position; }
+            set { position = value; }
         }
     }
 }

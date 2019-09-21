@@ -6,26 +6,23 @@ namespace DungeonCrawler
         private readonly Level level;
         private readonly Player player;
         private readonly Size consoleWindowSize = new Size(72, 36);
-
-        public Point[] pointsToRender = new Point[8];
-
+        public Point[] PointsToRender = new Point[8];
         public LevelRenderer(Level level, Player player)
         {
             this.level = level ?? throw new ArgumentNullException(nameof(level));
             this.player = player ?? throw new ArgumentNullException(nameof(player));
         }
-
         public void RenderLevel()
         {
             Point distanceBetweenTiles = new Point(((int)consoleWindowSize.Width / level.ExploredLayout.GetLength(0)), ((int)consoleWindowSize.Height / level.ExploredLayout.GetLength(1)));
             ExploreTilesAroundPlayer(player.Position);
 
             //Render tiles around player
-            for (int i = 0; i < pointsToRender.Length; i++)
+            for (int i = 0; i < PointsToRender.Length; i++)
             {
-                Console.ForegroundColor = level.ExploredLayout[pointsToRender[i].row, pointsToRender[i].column].Color;
-                Console.SetCursorPosition(distanceBetweenTiles.row * pointsToRender[i].column, distanceBetweenTiles.column * pointsToRender[i].row);
-                Console.Write($"{level.ExploredLayout[pointsToRender[i].row,pointsToRender[i].column].Graphic}");
+                Console.ForegroundColor = level.ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].Color;
+                Console.SetCursorPosition(distanceBetweenTiles.row * PointsToRender[i].column, distanceBetweenTiles.column * PointsToRender[i].row);
+                Console.Write($"{level.ExploredLayout[PointsToRender[i].row,PointsToRender[i].column].Graphic}");
 
                 Console.ForegroundColor = level.ExploredLayout[player.Position.row, player.Position.column].Color;
                 Console.SetCursorPosition(distanceBetweenTiles.row * player.Position.column, distanceBetweenTiles.column * player.Position.row);
@@ -64,34 +61,31 @@ namespace DungeonCrawler
             Console.SetCursorPosition(distanceBetweenTiles.column * level.ExploredLayout.GetLength(0) * 2, distanceBetweenTiles.row * 1);
             Console.Write($"Number of moves: {player.NumberOfMoves}");
         }
-
         public void ExploreTilesAroundPlayer(Point playerPosition)
         {   
-            pointsToRender[0] = new Point(playerPosition.row, playerPosition.column - 1);
-            pointsToRender[1] = new Point(playerPosition.row, playerPosition.column + 1);
+            PointsToRender[0] = new Point(playerPosition.row, playerPosition.column - 1);
+            PointsToRender[1] = new Point(playerPosition.row, playerPosition.column + 1);
 
-            pointsToRender[2] = new Point(playerPosition.row - 1, playerPosition.column);
-            pointsToRender[3] = new Point(playerPosition.row + 1, playerPosition.column);
+            PointsToRender[2] = new Point(playerPosition.row - 1, playerPosition.column);
+            PointsToRender[3] = new Point(playerPosition.row + 1, playerPosition.column);
 
-            pointsToRender[4] = new Point(playerPosition.row + 1, playerPosition.column + 1);
-            pointsToRender[5] = new Point(playerPosition.row - 1, playerPosition.column + 1);
+            PointsToRender[4] = new Point(playerPosition.row + 1, playerPosition.column + 1);
+            PointsToRender[5] = new Point(playerPosition.row - 1, playerPosition.column + 1);
 
-            pointsToRender[6] = new Point(playerPosition.row - 1, playerPosition.column - 1);
-            pointsToRender[7] = new Point(playerPosition.row + 1, playerPosition.column - 1);
+            PointsToRender[6] = new Point(playerPosition.row - 1, playerPosition.column - 1);
+            PointsToRender[7] = new Point(playerPosition.row + 1, playerPosition.column - 1);
 
-            for (int i = 0; i < pointsToRender.Length; i++)
+            for (int i = 0; i < PointsToRender.Length; i++)
             {
-                level.ExploredLayout[pointsToRender[i].row, pointsToRender[i].column].IsExplored = true;
+                level.ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].IsExplored = true;
             }
         }
-
         public void UpdatePlayerPosition(Point targetPosition)
         {
             level.ExploredLayout[player.Position.row, player.Position.column] = level.InitialLayout[player.Position.row, player.Position.column];
             player.Position = targetPosition;
             level.ExploredLayout[player.Position.row, player.Position.column] = player;
         }
-
         public void UpdateEnemyPositions(Enemy enemy, Point targetPosition, Point currentEnemyPosition, int index)
         {
             level.PreviousEnemyPositions[index] = currentEnemyPosition;
