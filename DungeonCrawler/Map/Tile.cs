@@ -12,22 +12,22 @@ namespace DungeonCrawler
         public TileType TileType
         {
             get { return tileType; }
-            set { tileType = value; }
+            protected set { tileType = value; }
         }
         public string Graphic
         {
             get { return graphic; }
-            set { graphic = value; }
+            protected set { graphic = value; }
         }
         public bool IsExplored
         {
             get { return isExplored; }
-            set { isExplored = value; }
+            protected set { isExplored = value; }
         }
         public ConsoleColor Color
         {
             get { return color; }
-            set { color = value; }
+            protected set { color = value; }
         }
     }
 }
