@@ -10,9 +10,9 @@ namespace DungeonCrawler
         readonly static Point level1SpawnPoint = new Point(1, 1);
         readonly static Point level2SpawnPoint = new Point(17, 17);
         readonly static Point level3SpawnPoint = new Point(1, 1);
-        readonly Level level1 = new Level(new Size(25, 25), level1SpawnPoint);
-        readonly Level level2 = new Level(new Size(18, 18), level2SpawnPoint);
-        readonly Level level3 = new Level(new Size(24, 14), level3SpawnPoint);
+        readonly Level level1 = new Level(new Size(25, 25), level1SpawnPoint, 8);
+        readonly Level level2 = new Level(new Size(18, 18), level2SpawnPoint, 5);
+        readonly Level level3 = new Level(new Size(24, 14), level3SpawnPoint, 10);
 
         public LevelLayout()
         {
@@ -46,7 +46,7 @@ namespace DungeonCrawler
                     }
                 }
 
-                Levels[i].Enemies = new Enemy[7];
+                Levels[i].Enemies = new Enemy[Levels[i].NumberOfEnemies];
                 Levels[i].PreviousEnemyPositions = new Point[Levels[i].Enemies.Length];
 
 
