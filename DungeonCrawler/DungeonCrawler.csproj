@@ -58,6 +58,7 @@
     <Compile Include="Keys\YellowKey.cs" />
     <Compile Include="Map\Floor.cs" />
     <Compile Include="Keys\Key.cs" />
+    <Compile Include="IInteractable.cs" />
     <Compile Include="Map\LevelLayout.cs" />
     <Compile Include="Map\LevelLoader.cs" />
     <Compile Include="Map\LevelRenderer.cs" />
