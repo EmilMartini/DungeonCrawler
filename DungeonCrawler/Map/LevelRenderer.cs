@@ -55,7 +55,7 @@ namespace DungeonCrawler
                         Console.Write($"{level.InitialLayout[previusEnemyPositions[i].row, previusEnemyPositions[i].column].Graphic}");
                     } else
                     {
-                        Console.Write(" ");
+                        Console.Write("");
                     }
                 }
             }
