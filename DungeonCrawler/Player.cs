@@ -4,7 +4,7 @@ namespace DungeonCrawler
 {
     public class Player : Tile
     {
-        public Point Position;        
+        private Point position;        
         public Player(Point playerSpawn)
         {
             this.Graphic = "@";
@@ -12,8 +12,14 @@ namespace DungeonCrawler
             this.IsExplored = true;
             this.Color = ConsoleColor.Green;
 
-            Position = new Point(playerSpawn.row, playerSpawn.column);
+            this.Position = new Point(playerSpawn.row, playerSpawn.column);
             
+        }
+
+        public Point Position
+        {
+            get { return position; }
+            set { position = value; }
         }
     }
 }

@@ -15,7 +15,6 @@ namespace DungeonCrawler
             var consoleOutputFilter = new ConsoleOutputFilter();
 
             SetConsoleProperties(consoleWindowSize);
-
             LoadGameDependecies(levelLayout, levelLoader, levelRenderer);
             RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer);        
         }
