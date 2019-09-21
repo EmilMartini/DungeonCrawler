@@ -30,7 +30,8 @@ namespace DungeonCrawler
             {
                 Levels[i].InitialLayout = new Tile[Levels[i].Size.Height, Levels[i].Size.Width];
                 Levels[i].ExploredLayout = new Tile[Levels[i].Size.Height, Levels[i].Size.Width];
-                Levels[i].Enemies = new Enemy[] { new Enemy(3, 2) }; //BUG WHEN ENTERING MORE THAN ONE ENEMY
+                Levels[i].Enemies = new Enemy[] { new Enemy(3, 2), new Enemy(21,21) };
+                Levels[i].PreviusEnemyPositions = new Point[Levels[i].Enemies.Length];
 
                 for (int row = 0; row < Levels[i].Size.Height; row++)
                 {
