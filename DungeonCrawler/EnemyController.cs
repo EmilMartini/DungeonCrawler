@@ -5,8 +5,8 @@ namespace DungeonCrawler
     internal class EnemyController
     {
         Random random = new Random();
-        public Point currentEnemyPosition;
-        public Point nextEnemyPosition;
+        private Point currentEnemyPosition;
+        private Point nextEnemyPosition;
         private readonly Level level;
         private readonly LevelRenderer levelRenderer;
 
@@ -44,6 +44,17 @@ namespace DungeonCrawler
                     levelRenderer.UpdateEnemyPositions(level.Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
                 }
             }     
+        }
+
+        public Point CurrentEnemyPosition
+        {
+            get { return currentEnemyPosition; }
+            set { currentEnemyPosition = value; }
+        }
+        public Point NextEnemyPosition
+        {
+            get { return nextEnemyPosition; }
+            set { nextEnemyPosition = value; }
         }
     }
 }

@@ -15,6 +15,5 @@ namespace DungeonCrawler
             this.IsExplored = true;
             this.Color = ConsoleColor.DarkRed;
         }
-
     }
 }
