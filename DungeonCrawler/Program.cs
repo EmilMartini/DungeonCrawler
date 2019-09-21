@@ -26,6 +26,11 @@ namespace DungeonCrawler
             levelRenderer.GetTilesToExplore(levelLayout.Levels[0].PlayerStartingTile);
             levelRenderer.RenderLevel();
 
+
+            Console.CursorVisible = false;
+            var standardOutputWriter = Console.Out;
+            var consoleOutputFilter = new ConsoleOutputFilter();
+
             while(true)
             {
                 Console.SetOut(consoleOutputFilter);
