@@ -12,7 +12,7 @@ namespace DungeonCrawler
 
         public Enemy(int startRow, int startColumn)
         {
-            this.TileType = TileType.Monster;
+            this.TileType = TileType.Enemy;
             this.Graphic = "X";
             this.IsExplored = false;
             this.Color = ConsoleColor.Red;

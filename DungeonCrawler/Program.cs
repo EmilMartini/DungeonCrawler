@@ -6,9 +6,6 @@ namespace DungeonCrawler
         private static readonly Size consoleWindowSize = new Size(72, 36);
         static void Main(string[] args)
         {
-            Console.CursorVisible = false;
-            SetWindowSize(consoleWindowSize);
-
             var levelLayout = new LevelLayout(); 
             var player = new Player(levelLayout.Levels[0].PlayerStartingTile);
 
@@ -18,16 +15,16 @@ namespace DungeonCrawler
             var enemyController = new EnemyController(levelLayout.Levels[0], levelRenderer);
             var playerController = new PlayerController(levelLayout.Levels[0], player, levelRenderer);
 
+            var standardOutputWriter = Console.Out;
+            var consoleOutputFilter = new ConsoleOutputFilter();
+    
+            SetConsoleProperties(consoleWindowSize);
+
             levelLayout.InitializeLevels();
             levelLoader.SpawnLevelObjects();
             levelLoader.DisplayInitialMap();
-            levelRenderer.GetTilesToExplore(levelLayout.Levels[0].PlayerStartingTile);
+            levelRenderer.ExploreTilesAroundPlayer(levelLayout.Levels[0].PlayerStartingTile);
             levelRenderer.RenderLevel();
-
-
-
-            var standardOutputWriter = Console.Out;
-            var consoleOutputFilter = new ConsoleOutputFilter();
 
             while(true)
             {
@@ -39,8 +36,9 @@ namespace DungeonCrawler
             }            
         }
 
-        private static void SetWindowSize(Size windowSize)
+        private static void SetConsoleProperties(Size windowSize)
         {
+            Console.CursorVisible = false;
             Console.SetWindowSize((int)consoleWindowSize.Width, (int)consoleWindowSize.Height);
             Console.SetBufferSize((int)consoleWindowSize.Width + 1, (int)consoleWindowSize.Height + 1);
         }
