@@ -6,6 +6,9 @@ namespace DungeonCrawler
         private readonly Level level;
         private readonly LevelRenderer levelRenderer;
         private readonly Player player;
+        private string outputString;
+        private Key[] inventory = new Key[4];
+
         public PlayerController(Level level, Player player, LevelRenderer levelRenderer)
         {
             this.level = level ?? throw new ArgumentNullException(nameof(level));
@@ -43,6 +46,46 @@ namespace DungeonCrawler
                 levelRenderer.UpdatePlayerPosition(targetPosition);
                 player.NumberOfMoves++;
             }
+        }
+
+        /// <summary>
+        /// MIGHT BE BUGGY
+        /// </summary>
+        public void HandleInventory()
+        {
+            Object itemToPickUp = level.ExploredLayout[player.Position.row, player.Position.column];
+            if(itemToPickUp == null)
+            {
+                outputString = "Nothing to pick up.";
+            } else
+            {
+                for (int i = 0; i < Inventory.Length; i++)
+                {
+                    if(Inventory[i] == null)
+                    {
+                        continue;
+                    } else if(i == Inventory.Length - 1 && Inventory[i] != null)
+                    {
+                        outputString = "Inventory full.";
+                    } else
+                    {
+                        inventory[i] = (Key)itemToPickUp;
+                        level.ExploredLayout[player.Position.row, player.Position.column] = level.InitialLayout[player.Position.row, player.Position.column];
+                        outputString = $"Picked up {itemToPickUp}";
+                    }
+                }
+            }
+        }
+
+        public string OutputString
+        {
+            get { return outputString; }
+            set { outputString = value; }
+        }
+        public Key[] Inventory
+        {
+            get { return inventory; }
+            set { inventory = value; }
         }
     }
 }
