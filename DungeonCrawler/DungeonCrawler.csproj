@@ -44,11 +44,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleOutputFilter.cs" />
-    <Compile Include="Door.cs" />
+    <Compile Include="Doors\BlueDoor.cs" />
+    <Compile Include="Doors\Door.cs" />
+    <Compile Include="Doors\DoorType.cs" />
+    <Compile Include="Doors\PurpleDoor.cs" />
+    <Compile Include="Doors\YellowDoor.cs" />
     <Compile Include="Enemy.cs" />
-    <Compile Include="Map\EnemyController.cs" />
+    <Compile Include="EnemyController.cs" />
+    <Compile Include="Keys\BlueKey.cs" />
+    <Compile Include="Keys\HybridKey.cs" />
+    <Compile Include="Keys\KeyType.cs" />
+    <Compile Include="Keys\PurpleKey.cs" />
+    <Compile Include="Keys\YellowKey.cs" />
     <Compile Include="Map\Floor.cs" />
-    <Compile Include="Key.cs" />
+    <Compile Include="Keys\Key.cs" />
     <Compile Include="Map\LevelLayout.cs" />
     <Compile Include="Map\LevelLoader.cs" />
     <Compile Include="Map\LevelRenderer.cs" />
@@ -60,8 +69,7 @@
     <Compile Include="Map\Level.cs" />
     <Compile Include="Map\Size.cs" />
     <Compile Include="Map\Tile.cs" />
-    <Compile Include="TileType.cs" />
-    <Compile Include="Unexplored.cs" />
+    <Compile Include="Map\TileType.cs" />
     <Compile Include="Map\Wall.cs" />
   </ItemGroup>
   <ItemGroup>

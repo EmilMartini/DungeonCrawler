@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    class Key
-    {
-
-    }
+    public enum KeyType { Yellow, Purple, Blue, Hybrid}
 }

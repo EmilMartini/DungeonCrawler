@@ -41,6 +41,7 @@ namespace DungeonCrawler
             if (level.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {
                 levelRenderer.UpdatePlayerPosition(targetPosition);
+                player.NumberOfMoves++;
             }
         }
     }

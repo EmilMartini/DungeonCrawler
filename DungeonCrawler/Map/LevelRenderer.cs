@@ -62,7 +62,7 @@ namespace DungeonCrawler
             //Render UI
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(distanceBetweenTiles.column * level.ExploredLayout.GetLength(0) * 2, distanceBetweenTiles.row * 1);
-            Console.Write($"Score: ");
+            Console.Write($"Number of moves: {player.NumberOfMoves}");
         }
 
         public void ExploreTilesAroundPlayer(Point playerPosition)

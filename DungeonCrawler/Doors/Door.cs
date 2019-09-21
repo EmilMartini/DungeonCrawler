@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    class Unexplored : Tile
+    public abstract class Door : Tile
     {
+        private DoorType doorType;
 
-        public Unexplored()
+        public DoorType DoorType
         {
-            this.TileType = TileType.Unexplored;
-            this.Graphic = " ";
+            get { return doorType; }
+            set { doorType = value; }
         }
-
     }
 }

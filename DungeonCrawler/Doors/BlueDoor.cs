@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonCrawler
+namespace DungeonCrawler.Doors
 {
-    class Door : Tile
+    public class BlueDoor : Door
     {
-        public Door()
+        public BlueDoor()
         {
+            this.DoorType = DoorType.Blue;
             this.TileType = TileType.Door;
-            this.Graphic = "D";
             this.IsExplored = false;
-            this.Color = ConsoleColor.DarkMagenta;
+            this.Color = ConsoleColor.DarkBlue;
+            this.Graphic = "D";    
         }
     }
 }
