@@ -52,6 +52,7 @@ namespace DungeonCrawler
             levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new PurpleDoor();
             levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new BlueDoor();
 
+            Array.Copy(levels[currentLevel].InitialLayout, levels[currentLevel].ExploredLayout, levels[currentLevel].InitialLayout.Length);
         }
 
         public void DisplayInitialMap()

@@ -47,7 +47,6 @@ namespace DungeonCrawler
                         }
                     }
                 }
-                Array.Copy(Levels[i].InitialLayout, Levels[i].ExploredLayout, Levels[i].InitialLayout.Length);
             }
         }
     }
