@@ -29,7 +29,7 @@ namespace DungeonCrawler
                 currentEnemyPosition = new Point(level.Enemies[i].Position.row, level.Enemies[i].Position.column);
                 nextEnemyPosition = new Point(currentEnemyPosition.row + row, currentEnemyPosition.column + column);
 
-                if(level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Wall)
+                if (level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Wall && level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType != TileType.Door && level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType != TileType.Key)
                 {
                     continue;
                 } else
