@@ -62,15 +62,16 @@ namespace DungeonCrawler
             Console.Write($"Number of moves: {player.NumberOfMoves}");
 
             Console.SetCursorPosition(distanceBetweenTiles.column * level.ExploredLayout.GetLength(0) * 2, distanceBetweenTiles.row * 2);
+            Console.Write($"Enemies hit: {Player.EnemiesInteractedWith}");
+
+            Console.SetCursorPosition(distanceBetweenTiles.column * level.ExploredLayout.GetLength(0) * 2, distanceBetweenTiles.row * 3);
             Console.Write("Keys: ");
+            Console.Write("\t\t");
             for (int i = 0; i < Player.KeysInInventory.Count; i++)
-            {
+            {         
+                Console.SetCursorPosition((distanceBetweenTiles.column * level.ExploredLayout.GetLength(0) * 2) + (i + 5) + 2, distanceBetweenTiles.row * 3);
                 Console.ForegroundColor = Player.KeysInInventory[i].Color;
-                if (Player.KeysInInventory[i].Unlock == Unlock.Skeleton)
-                {
-                    Console.Write($"{Player.KeysInInventory[i].Graphic}x{Player.KeysInInventory[i].NumberOfUses}   ");
-                }
-                Console.Write($"{Player.KeysInInventory[i].Graphic}   ");
+                Console.Write($"{Player.KeysInInventory[i].Graphic}");
             }
         }
         public void ExploreTilesAroundPlayer(Point playerPosition)
