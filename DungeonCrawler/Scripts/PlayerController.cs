@@ -8,7 +8,6 @@ namespace DungeonCrawler
         private readonly LevelRenderer levelRenderer;
         private readonly Player player;
         private string outputString;
-        private Key[] inventory = new Key[4];
 
         public PlayerController(Level level, Player player, LevelRenderer levelRenderer)
         {
@@ -65,11 +64,6 @@ namespace DungeonCrawler
         {
             get { return outputString; }
             set { outputString = value; }
-        }
-        public Key[] Inventory
-        {
-            get { return inventory; }
-            set { inventory = value; }
         }
     }
 }

@@ -60,6 +60,12 @@ namespace DungeonCrawler
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(distanceBetweenTiles.column * level.ExploredLayout.GetLength(0) * 2, distanceBetweenTiles.row * 1);
             Console.Write($"Number of moves: {player.NumberOfMoves}");
+
+            Console.SetCursorPosition(distanceBetweenTiles.column * level.ExploredLayout.GetLength(0) * 2, distanceBetweenTiles.row * 2);
+            for (int i = 0; i < Player.KeysInInventory.Count; i++)
+            {
+                Console.Write($"{Player.KeysInInventory[i].Graphic} ");
+            }
         }
         public void ExploreTilesAroundPlayer(Point playerPosition)
         {   
