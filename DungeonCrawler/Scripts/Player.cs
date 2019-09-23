@@ -8,6 +8,7 @@ namespace DungeonCrawler
         private Point position;
         private uint numberOfMoves;
         private static List<Key> keysInInventory = new List<Key>();
+        private static int enemiesInteractedWith = 0;
 
         public Player(Point playerSpawn)
         {
@@ -15,7 +16,7 @@ namespace DungeonCrawler
             this.TileType = TileType.Player;
             this.IsExplored = true;
             this.Color = ConsoleColor.Green;
-            this.Position = new Point(playerSpawn.row, playerSpawn.column);      
+            this.Position = new Point(playerSpawn.row, playerSpawn.column);
         }
 
         public Point Position
@@ -32,6 +33,11 @@ namespace DungeonCrawler
         {
             get { return keysInInventory; }
             set { keysInInventory = value; }
+        }
+        public static int EnemiesInteractedWith
+        {
+            get { return enemiesInteractedWith; }
+            set { enemiesInteractedWith = value; }
         }
     }
 }
