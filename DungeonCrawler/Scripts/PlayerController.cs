@@ -48,6 +48,10 @@ namespace DungeonCrawler
                 {
                     level.InitialLayout[targetPosition.row, targetPosition.column] = new Floor();
                 }
+                else
+                {
+                    return;
+                }
             }
             if (level.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {

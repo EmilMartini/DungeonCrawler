@@ -16,16 +16,20 @@ namespace DungeonCrawler
             set { unlock = value; }
         }
 
-        public void Interact()
+        public bool Interact()
         {
-            if(CanUnlock)
+            if (CanUnlock())
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool CanUnlock()
         {
-            for (int i = 0; i < keys.Count; i++)
+            for (int i = 0; i < Player.KeysInInventory.Count; i++)
             {
-                if (keys[i].Unlock.Equals((this.Unlock)))
+                if (Player.KeysInInventory[i].Unlock.Equals((this.Unlock)))
                 {
                     return true;
                 }
