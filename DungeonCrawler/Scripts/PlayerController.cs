@@ -44,10 +44,14 @@ namespace DungeonCrawler
                                              currentPosition.column + directionColumn);
             if (level.InitialLayout[targetPosition.row, targetPosition.column] is IInteractable interactable)
             {
-                 bool interactionSucceded = interactable.Interact();
+                bool interactionSucceded = interactable.Interact();
                 if (interactionSucceded)
                 {
                     level.InitialLayout[targetPosition.row, targetPosition.column] = new Floor();
+                }
+                else
+                {
+                    return;
                 }
             }
             if (level.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
