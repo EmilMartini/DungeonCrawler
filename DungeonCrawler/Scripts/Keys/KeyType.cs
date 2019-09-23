@@ -1,4 +1,4 @@
 ﻿namespace DungeonCrawler
 {
-    public enum KeyType { Yellow, Purple, Blue, Hybrid}
+    public enum KeyType { Yellow, Purple, Blue, Skeleton}
 }

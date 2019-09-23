@@ -52,7 +52,7 @@
     <Compile Include="Scripts\Enemy.cs" />
     <Compile Include="Scripts\EnemyController.cs" />
     <Compile Include="Scripts\Keys\BlueKey.cs" />
-    <Compile Include="Scripts\Keys\HybridKey.cs" />
+    <Compile Include="Scripts\Keys\SkeletonKey.cs" />
     <Compile Include="Scripts\Keys\KeyType.cs" />
     <Compile Include="Scripts\Keys\PurpleKey.cs" />
     <Compile Include="Scripts\Keys\YellowKey.cs" />

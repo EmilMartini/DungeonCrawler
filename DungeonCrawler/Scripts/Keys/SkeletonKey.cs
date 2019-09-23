@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonCrawler.Keys
 {
-    public class HybridKey : Key
+    public class SkeletonKey : Key
     {
-        public HybridKey()
+        public SkeletonKey()
         {
-            this.KeyType = KeyType.Hybrid;
+            this.KeyType = KeyType.Skeleton;
             this.TileType = TileType.Key;
             this.IsExplored = false;
             this.IsEquipped = false;

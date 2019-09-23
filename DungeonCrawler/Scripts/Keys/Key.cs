@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace DungeonCrawler
 {
@@ -11,6 +7,7 @@ namespace DungeonCrawler
         private bool isEquipped;
         private KeyType keyType;
         private byte numberOfUses;
+        private Point location;
 
         public bool IsEquipped
         {
@@ -28,9 +25,16 @@ namespace DungeonCrawler
             protected set { numberOfUses = value; }
         }
 
+        public Point Location
+        {
+            get { return location; }
+            set { location = value; }
+        }
+
         public void Interact()
         {
-            throw new NotImplementedException();
+            Player.KeysInInventory.Add(this);        
+            this.IsExplored = false;
         }
     }
 }

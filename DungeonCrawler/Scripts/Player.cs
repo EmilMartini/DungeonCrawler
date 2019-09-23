@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DungeonCrawler
 {
@@ -6,6 +7,8 @@ namespace DungeonCrawler
     {
         private Point position;
         private uint numberOfMoves;
+        private static List<Key> keysInInventory;
+
         public Player(Point playerSpawn)
         {
             this.Graphic = "@";
@@ -24,6 +27,11 @@ namespace DungeonCrawler
         {
             get { return numberOfMoves; }
             set { numberOfMoves = value; }
+        }
+        public static List<Key> KeysInInventory
+        {
+            get { return keysInInventory; }
+            set { keysInInventory = value; }
         }
     }
 }
