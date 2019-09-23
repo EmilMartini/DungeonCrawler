@@ -46,14 +46,13 @@
     <Compile Include="Scripts\ConsoleOutputFilter.cs" />
     <Compile Include="Scripts\Doors\BlueDoor.cs" />
     <Compile Include="Scripts\Doors\Door.cs" />
-    <Compile Include="Scripts\Doors\DoorType.cs" />
     <Compile Include="Scripts\Doors\PurpleDoor.cs" />
     <Compile Include="Scripts\Doors\YellowDoor.cs" />
     <Compile Include="Scripts\Enemy.cs" />
     <Compile Include="Scripts\EnemyController.cs" />
     <Compile Include="Scripts\Keys\BlueKey.cs" />
     <Compile Include="Scripts\Keys\SkeletonKey.cs" />
-    <Compile Include="Scripts\Keys\KeyType.cs" />
+    <Compile Include="Scripts\Keys\Unlock.cs" />
     <Compile Include="Scripts\Keys\PurpleKey.cs" />
     <Compile Include="Scripts\Keys\YellowKey.cs" />
     <Compile Include="Scripts\Map\Floor.cs" />
