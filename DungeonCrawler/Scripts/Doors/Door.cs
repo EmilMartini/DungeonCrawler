@@ -31,6 +31,13 @@ namespace DungeonCrawler
             {
                 if (Player.KeysInInventory[i].Unlock.Equals((this.Unlock)))
                 {
+                    Player.KeysInInventory[i].NumberOfUses--;
+
+                    if (Player.KeysInInventory[i].NumberOfUses <= 0)
+                    {
+                        Player.KeysInInventory.RemoveAt(i);
+                    }
+
                     return true;
                 }
             }

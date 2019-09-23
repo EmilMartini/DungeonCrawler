@@ -22,7 +22,7 @@ namespace DungeonCrawler
         public byte NumberOfUses
         {
             get { return numberOfUses; }
-            protected set { numberOfUses = value; }
+            set { numberOfUses = value; }
         }
         public Point Position
         {
