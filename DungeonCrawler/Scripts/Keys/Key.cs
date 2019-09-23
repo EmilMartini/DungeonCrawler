@@ -24,13 +24,11 @@ namespace DungeonCrawler
             get { return numberOfUses; }
             protected set { numberOfUses = value; }
         }
-
         public Point Position
         {
             get { return position; }
             set { position = value; }
         }
-
         public void Interact()
         {
             Player.KeysInInventory.Add(this);                   

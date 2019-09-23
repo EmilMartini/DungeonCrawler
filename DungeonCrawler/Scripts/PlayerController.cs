@@ -42,9 +42,9 @@ namespace DungeonCrawler
             Point currentPosition = player.Position;
             Point targetPosition = new Point(currentPosition.row + directionRow,
                                              currentPosition.column + directionColumn);
-            if (level.InitialLayout[targetPosition.row, targetPosition.column] is IInteractable)
+            if (level.InitialLayout[targetPosition.row, targetPosition.column] is IInteractable interactable)
             {
-                IInteractable interactable;
+                interactable.Interact();              
             }
             if (level.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {
