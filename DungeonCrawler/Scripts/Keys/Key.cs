@@ -7,7 +7,7 @@ namespace DungeonCrawler
         private bool isEquipped;
         private KeyType keyType;
         private byte numberOfUses;
-        private Point location;
+        private Point position;
 
         public bool IsEquipped
         {
@@ -25,16 +25,15 @@ namespace DungeonCrawler
             protected set { numberOfUses = value; }
         }
 
-        public Point Location
+        public Point Position
         {
-            get { return location; }
-            set { location = value; }
+            get { return position; }
+            set { position = value; }
         }
 
         public void Interact()
         {
-            Player.KeysInInventory.Add(this);        
-            this.IsExplored = false;
+            Player.KeysInInventory.Add(this);                   
         }
     }
 }

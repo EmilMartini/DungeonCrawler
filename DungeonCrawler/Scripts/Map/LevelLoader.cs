@@ -43,7 +43,10 @@ namespace DungeonCrawler
             }
 
             //Spawn Keys TODO: HARDCODE WALLS WITH DOORS
-            levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new YellowKey();
+            //levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2),
+            //rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new YellowKey();
+            levels[currentLevel].InitialLayout[4, 4] = new YellowKey(new Point(4, 4));
+
             levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new PurpleKey();
             levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new BlueKey();
 

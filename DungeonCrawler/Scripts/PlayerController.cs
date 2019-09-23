@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DungeonCrawler.Keys;
+using System;
 namespace DungeonCrawler
 {
     public class PlayerController
@@ -41,6 +42,10 @@ namespace DungeonCrawler
             Point currentPosition = player.Position;
             Point targetPosition = new Point(currentPosition.row + directionRow,
                                              currentPosition.column + directionColumn);
+            if (level.InitialLayout[targetPosition.row, targetPosition.column] is IInteractable)
+            {
+                IInteractable interactable;
+            }
             if (level.InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {
                 levelRenderer.UpdatePlayerPosition(targetPosition);
