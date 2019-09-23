@@ -8,11 +8,11 @@ namespace DungeonCrawler
 {
     class Wall : Tile
     {
-        public Wall()
+        public Wall(bool explored)
         {
             this.TileType = TileType.Wall;
             this.Graphic = "#";
-            this.IsExplored = true;
+            this.IsExplored = explored;
             this.Color = ConsoleColor.DarkRed;
         }
     }

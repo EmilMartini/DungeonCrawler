@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DungeonCrawler.Doors;
+using DungeonCrawler.Keys;
 
 namespace DungeonCrawler
 {
@@ -39,7 +40,7 @@ namespace DungeonCrawler
                     {
                         if (column == 0 || column == Levels[i].Size.Width - 1 || row == 0 || row == Levels[i].Size.Height - 1)
                         {
-                            Levels[i].InitialLayout[row, column] = new Wall();
+                            Levels[i].InitialLayout[row, column] = new Wall(true);
                         }
                         else
                         {
@@ -47,7 +48,55 @@ namespace DungeonCrawler
                         }
                     }
                 }
+
             }
+
+            //Level one
+            //Hardcoded walls
+            Levels[0].InitialLayout[14, 1] = new Wall(false);
+            Levels[0].InitialLayout[14, 2] = new Wall(false);
+            Levels[0].InitialLayout[14, 3] = new Wall(false);
+            Levels[0].InitialLayout[14, 4] = new Wall(false);
+            Levels[0].InitialLayout[14, 5] = new Wall(false);
+            Levels[0].InitialLayout[14, 6] = new Wall(false);
+            Levels[0].InitialLayout[14, 8] = new Wall(false);
+            Levels[0].InitialLayout[14, 9] = new Wall(false);
+            Levels[0].InitialLayout[15, 9] = new Wall(false);
+            Levels[0].InitialLayout[16, 9] = new Wall(false);
+            Levels[0].InitialLayout[17, 9] = new Wall(false);
+            Levels[0].InitialLayout[18, 9] = new Wall(false);
+            Levels[0].InitialLayout[19, 9] = new Wall(false);
+            Levels[0].InitialLayout[20, 9] = new Wall(false);
+            Levels[0].InitialLayout[21, 9] = new Wall(false);
+            Levels[0].InitialLayout[22, 9] = new Wall(false);
+            Levels[0].InitialLayout[23, 9] = new Wall(false);
+
+            Levels[0].InitialLayout[1, 15] = new Wall(false);
+            Levels[0].InitialLayout[2, 15] = new Wall(false);
+            Levels[0].InitialLayout[3, 15] = new Wall(false);
+            Levels[0].InitialLayout[4, 15] = new Wall(false);
+            Levels[0].InitialLayout[5, 15] = new Wall(false);
+            Levels[0].InitialLayout[6, 15] = new Wall(false);
+            Levels[0].InitialLayout[7, 15] = new Wall(false);
+            Levels[0].InitialLayout[8, 15] = new Wall(false);
+            Levels[0].InitialLayout[9, 15] = new Wall(false);
+            Levels[0].InitialLayout[9, 16] = new Wall(false);
+            Levels[0].InitialLayout[9, 17] = new Wall(false);
+            Levels[0].InitialLayout[9, 18] = new Wall(false);
+            Levels[0].InitialLayout[9, 19] = new Wall(false);
+            Levels[0].InitialLayout[9, 21] = new Wall(false);
+            Levels[0].InitialLayout[9, 22] = new Wall(false);
+            Levels[0].InitialLayout[9, 23] = new Wall(false);
+            Levels[0].InitialLayout[9, 24] = new Wall(false);
+
+            //Hardcoded doors
+            Levels[0].InitialLayout[14, 7] = new BlueDoor();
+            Levels[0].InitialLayout[9, 20] = new PurpleDoor();
+
+            //Hardcoded keys
+            Levels[0].InitialLayout[6, 2] = new PurpleKey();
+            Levels[0].InitialLayout[2,18] = new BlueKey();
+            
         }
     }
 }
