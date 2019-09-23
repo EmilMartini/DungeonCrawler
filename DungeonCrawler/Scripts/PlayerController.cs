@@ -8,7 +8,6 @@ namespace DungeonCrawler
         private readonly LevelRenderer levelRenderer;
         private readonly Player player;
         private string outputString;
-        private Key[] inventory = new Key[4];
 
         public PlayerController(Level level, Player player, LevelRenderer levelRenderer)
         {
@@ -44,7 +43,7 @@ namespace DungeonCrawler
                                              currentPosition.column + directionColumn);
             if (level.InitialLayout[targetPosition.row, targetPosition.column] is IInteractable interactable)
             {
-                 bool interactionSucceded = interactable.Interact();
+                bool interactionSucceded = interactable.Interact();
                 if (interactionSucceded)
                 {
                     level.InitialLayout[targetPosition.row, targetPosition.column] = new Floor();
@@ -61,11 +60,6 @@ namespace DungeonCrawler
         {
             get { return outputString; }
             set { outputString = value; }
-        }
-        public Key[] Inventory
-        {
-            get { return inventory; }
-            set { inventory = value; }
         }
     }
 }
