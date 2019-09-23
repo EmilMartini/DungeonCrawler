@@ -51,7 +51,7 @@ namespace DungeonCrawler
 
         private static void WelcomeScreen()
         {
-            SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\main-theme.wav";
+            SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\main-theme-atmosphere.wav";
             SoundPlayer.PlayLooping();
             Console.WriteLine();
             Console.WriteLine($"\tWelcome to a dungeon crawler you'll never forget.");
