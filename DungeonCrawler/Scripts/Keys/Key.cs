@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    public abstract class Key : Tile
+    public abstract class Key : Tile, IInteractable
     {
         private bool isEquipped;
         private KeyType keyType;
@@ -26,6 +26,11 @@ namespace DungeonCrawler
         {
             get { return numberOfUses; }
             protected set { numberOfUses = value; }
+        }
+
+        public void Interact()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    interface IInteractable
+    public interface IInteractable
     {
+        void Interact();
     }
 }

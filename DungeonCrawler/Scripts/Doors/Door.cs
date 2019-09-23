@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    public abstract class Door : Tile
+    public abstract class Door : Tile, IInteractable
     {
         private DoorType doorType;
 
@@ -14,6 +14,11 @@ namespace DungeonCrawler
         {
             get { return doorType; }
             set { doorType = value; }
+        }
+
+        public void Interact()
+        {
+            throw new NotImplementedException();
         }
     }
 }

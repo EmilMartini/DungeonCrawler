@@ -78,7 +78,5 @@
             get { return numberOfDoors; }
             set { numberOfDoors = value; }
         }
-
-
     }
 }
