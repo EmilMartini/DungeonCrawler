@@ -87,7 +87,6 @@ namespace DungeonCrawler
             Levels[0].InitialLayout[9, 21] = new Wall(false);
             Levels[0].InitialLayout[9, 22] = new Wall(false);
             Levels[0].InitialLayout[9, 23] = new Wall(false);
-            Levels[0].InitialLayout[9, 24] = new Wall(false);
 
             //Hardcoded doors
             Levels[0].InitialLayout[14, 7] = new BlueDoor();
