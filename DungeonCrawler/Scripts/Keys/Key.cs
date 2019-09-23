@@ -1,5 +1,8 @@
 ﻿
 
+using System;
+using System.Media;
+
 namespace DungeonCrawler
 {
     public abstract class Key : Tile, IInteractable
@@ -32,6 +35,7 @@ namespace DungeonCrawler
         public bool Interact()
         {
             Player.KeysInInventory.Add(this);
+            Console.Beep();
             return true;
         }
     }

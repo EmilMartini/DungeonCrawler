@@ -16,7 +16,7 @@ namespace DungeonCrawler
         }
         public void RenderLevel()
         {
-            Point distanceBetweenTiles = new Point(((int)consoleWindowSize.Width / level.ExploredLayout.GetLength(0)), ((int)consoleWindowSize.Height / level.ExploredLayout.GetLength(1)));
+            Point distanceBetweenTiles = new Point(((int)consoleWindowSize.Width / level.ExploredLayout.GetLength(0)), ((int)consoleWindowSize.Height / level.ExploredLayout.GetLength(1))); 
             ExploreTilesAroundPlayer(player.Position);
             RenderTilesAroundPlayer(distanceBetweenTiles);
             RenderEnemiesIfExplored(distanceBetweenTiles);
@@ -103,7 +103,6 @@ namespace DungeonCrawler
                 Console.SetCursorPosition(distanceBetweenTiles.row * player.Position.column, distanceBetweenTiles.column * player.Position.row);
                 Console.Write($"{player.Graphic}");
         }
-
         public void UpdatePlayerPosition(Point targetPosition)
         {
             level.ExploredLayout[player.Position.row, player.Position.column] = level.InitialLayout[player.Position.row, player.Position.column];
