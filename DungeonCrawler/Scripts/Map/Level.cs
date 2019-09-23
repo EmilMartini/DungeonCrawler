@@ -11,16 +11,11 @@
         private Size size;
         private Point playerStartingTile;
         private int numberOfEnemies;
-        private int numberOfKeys;
-        private int numberOfDoors;
-
-        public Level(Size size, Point playerStartingTile, int numberOfEnemies, int numberOfKeys, int numberOfDoors)
+        public Level(Size size, Point playerStartingTile, int numberOfEnemies)
         {
             Size = size;
             PlayerStartingTile = playerStartingTile;
             NumberOfEnemies = numberOfEnemies;
-            NumberOfDoors = numberOfDoors;
-            NumberOfKeys = numberOfKeys;
         }
 
         public Tile[,] ExploredLayout
@@ -67,16 +62,6 @@
         {
             get { return numberOfEnemies; }
             set { numberOfEnemies = value; }
-        }
-        public int NumberOfKeys
-        {
-            get { return numberOfKeys; }
-            set { numberOfKeys = value; }
-        }
-        public int NumberOfDoors
-        {
-            get { return numberOfDoors; }
-            set { numberOfDoors = value; }
         }
     }
 }

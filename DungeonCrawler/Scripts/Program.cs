@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 namespace DungeonCrawler
 {
     class Program
@@ -7,11 +8,11 @@ namespace DungeonCrawler
         static void Main(string[] args)
         {
             var levelLayout = new LevelLayout(); 
-            var player = new Player(levelLayout.Levels[0].PlayerStartingTile);
-            var levelRenderer = new LevelRenderer(levelLayout.Levels[0], player);
+            var player = new Player(levelLayout.Levels[1].PlayerStartingTile);
+            var levelRenderer = new LevelRenderer(levelLayout.Levels[1], player);
             var levelLoader = new LevelLoader(levelLayout.Levels, player, consoleWindowSize);
-            var enemyController = new EnemyController(levelLayout.Levels[0], levelRenderer);
-            var playerController = new PlayerController(levelLayout.Levels[0], player, levelRenderer);
+            var enemyController = new EnemyController(levelLayout.Levels[1], levelRenderer);
+            var playerController = new PlayerController(levelLayout.Levels[1], player, levelRenderer);
             var consoleOutputFilter = new ConsoleOutputFilter();
 
             SetConsoleProperties(consoleWindowSize);
@@ -19,7 +20,7 @@ namespace DungeonCrawler
             RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer);        
         }
 
-        private static void RunGame(ConsoleOutputFilter consoleOutputFilter, System.IO.TextWriter standardOutputWriter, PlayerController playerController, EnemyController enemyController, LevelRenderer levelRenderer)
+        private static void RunGame(ConsoleOutputFilter consoleOutputFilter, TextWriter standardOutputWriter, PlayerController playerController, EnemyController enemyController, LevelRenderer levelRenderer)
         {
             bool isRunning = true;
             while(isRunning)
@@ -36,7 +37,7 @@ namespace DungeonCrawler
             levelLayout.InitializeLevels();
             levelLoader.SpawnLevelObjects();
             levelLoader.DisplayInitialMap();
-            levelRenderer.ExploreTilesAroundPlayer(levelLayout.Levels[0].PlayerStartingTile);
+            levelRenderer.ExploreTilesAroundPlayer(levelLayout.Levels[1].PlayerStartingTile);
             levelRenderer.RenderLevel();
         }
         private static void SetConsoleProperties(Size windowSize)
