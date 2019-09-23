@@ -6,7 +6,7 @@ namespace DungeonCrawler.Keys
     {
         public SkeletonKey()
         {
-            this.KeyType = KeyType.Skeleton;
+            this.Unlock = Unlock.Skeleton;
             this.TileType = TileType.Key;
             this.IsExplored = false;
             this.IsEquipped = false;

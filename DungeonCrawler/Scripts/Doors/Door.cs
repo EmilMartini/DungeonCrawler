@@ -8,17 +8,29 @@ namespace DungeonCrawler
 {
     public abstract class Door : Tile, IInteractable
     {
-        private DoorType doorType;
+        private Unlock unlock;
 
-        public DoorType DoorType
+        public Unlock Unlock
         {
-            get { return doorType; }
-            set { doorType = value; }
+            get { return unlock; }
+            set { unlock = value; }
         }
 
         public void Interact()
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public bool CanUnlock(Key[] keys)
+        {
+            for (int i = 0; i < keys.Length; i++)
+            {
+                if (keys[i].Unlock.Equals((Unlock)i))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace DungeonCrawler
     public abstract class Key : Tile, IInteractable
     {
         private bool isEquipped;
-        private KeyType keyType;
+        private Unlock unlock;
         private byte numberOfUses;
         private Point location;
 
@@ -14,10 +14,10 @@ namespace DungeonCrawler
             get { return isEquipped; }
             set { isEquipped = value; }
         }
-        public KeyType KeyType
+        public Unlock Unlock
         {
-            get { return keyType; }
-            set { keyType = value; }
+            get { return unlock; }
+            set { unlock = value; }
         }
         public byte NumberOfUses
         {

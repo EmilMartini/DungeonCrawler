@@ -10,7 +10,7 @@ namespace DungeonCrawler.Keys
     {
         public YellowKey()
         {
-            this.KeyType = KeyType.Yellow;
+            this.Unlock = Unlock.Yellow;
             this.TileType = TileType.Key;
             this.IsExplored = false;
             this.IsEquipped = false;

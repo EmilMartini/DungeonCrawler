@@ -48,35 +48,6 @@ namespace DungeonCrawler
             }
         }
 
-        /// <summary>
-        /// MIGHT BE BUGGY
-        /// </summary>
-        public void HandleInventory()
-        {
-            Object itemToPickUp = level.ExploredLayout[player.Position.row, player.Position.column];
-            if(itemToPickUp == null)
-            {
-                outputString = "Nothing to pick up.";
-            } else
-            {
-                for (int i = 0; i < Inventory.Length; i++)
-                {
-                    if(Inventory[i] == null)
-                    {
-                        continue;
-                    } else if(i == Inventory.Length - 1 && Inventory[i] != null)
-                    {
-                        outputString = "Inventory full.";
-                    } else
-                    {
-                        inventory[i] = (Key)itemToPickUp;
-                        level.ExploredLayout[player.Position.row, player.Position.column] = level.InitialLayout[player.Position.row, player.Position.column];
-                        outputString = $"Picked up {itemToPickUp}";
-                    }
-                }
-            }
-        }
-
         public string OutputString
         {
             get { return outputString; }

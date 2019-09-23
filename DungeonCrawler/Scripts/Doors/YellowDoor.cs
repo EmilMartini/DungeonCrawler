@@ -10,7 +10,7 @@ namespace DungeonCrawler.Doors
     {
         public YellowDoor()
         {
-            this.DoorType = DoorType.Yellow;
+            this.Unlock = Unlock.Yellow;
             this.TileType = TileType.Door;
             this.IsExplored = false;
             this.Color = ConsoleColor.DarkYellow;
