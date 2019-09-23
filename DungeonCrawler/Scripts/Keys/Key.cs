@@ -1,9 +1,13 @@
 ﻿
 
+using System;
+using System.Media;
+
 namespace DungeonCrawler
 {
     public abstract class Key : Tile, IInteractable
     {
+        private SoundPlayer SoundPlayer = new SoundPlayer();
         private bool isEquipped;
         private Unlock unlock;
         private byte numberOfUses;
@@ -32,6 +36,9 @@ namespace DungeonCrawler
         public bool Interact()
         {
             Player.KeysInInventory.Add(this);
+
+            SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\pickup-key.wav";
+            SoundPlayer.Play();
             return true;
         }
     }
