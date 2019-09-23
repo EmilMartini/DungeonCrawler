@@ -1,4 +1,6 @@
 ﻿using System;
+using DungeonCrawler.Doors;
+using DungeonCrawler.Keys;
 
 namespace DungeonCrawler
 {
@@ -24,8 +26,8 @@ namespace DungeonCrawler
 
         public void SpawnLevelObjects()
         {
+            //Spawn enemies
             int enemySpawnPositionRow , enemySpawnPositionColumn;
-
             for (int i = 0; i < levels[currentLevel].Enemies.Length; i++)
             {
                 enemySpawnPositionRow = rnd.Next(1, levels[currentLevel].InitialLayout.GetLength(0) - 2);
@@ -39,6 +41,18 @@ namespace DungeonCrawler
             {
                 levels[currentLevel].ExploredLayout[levels[currentLevel].Enemies[i].Position.row, levels[currentLevel].Enemies[i].Position.column] = levels[currentLevel].Enemies[i];
             }
+
+            //Spawn Keys TODO: HARDCODE WALLS WITH DOORS
+            levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new YellowKey();
+            levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new PurpleKey();
+            levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new BlueKey();
+
+            //Spawn Doors TODO: HARDCODE WALLS WITH DOORS
+            levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new YellowDoor();
+            levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new PurpleDoor();
+            levels[currentLevel].InitialLayout[rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(0) - 2), rnd.Next(2, levels[currentLevel].InitialLayout.GetLength(1) - 2)] = new BlueDoor();
+
+            Array.Copy(levels[currentLevel].InitialLayout, levels[currentLevel].ExploredLayout, levels[currentLevel].InitialLayout.Length);
         }
 
         public void DisplayInitialMap()
