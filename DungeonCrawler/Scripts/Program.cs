@@ -8,8 +8,6 @@ namespace DungeonCrawler
         private static readonly Size consoleWindowSize = new Size(72, 36);
         static void Main(string[] args)
         {
-            SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\main-theme.wav";
-            SoundPlayer.Play();
             var levelLayout = new LevelLayout(); 
             var player = new Player(levelLayout.Levels[0].PlayerStartingTile);
             var levelRenderer = new LevelRenderer(levelLayout.Levels[0], player);
@@ -53,6 +51,8 @@ namespace DungeonCrawler
 
         private static void WelcomeScreen()
         {
+            SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\main-theme.wav";
+            SoundPlayer.PlayLooping();
             Console.WriteLine();
             Console.WriteLine($"\tWelcome to a dungeon crawler you'll never forget.");
             Console.ForegroundColor = ConsoleColor.Green;
