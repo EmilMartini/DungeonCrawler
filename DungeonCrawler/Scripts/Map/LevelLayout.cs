@@ -95,8 +95,8 @@ namespace DungeonCrawler
 
             //Hardcoded keys
             Levels[0].InitialLayout[6, 2] = new PurpleKey();
-            Levels[0].InitialLayout[2,18] = new BlueKey();
-            
+            Levels[0].InitialLayout[2,20] = new BlueKey();
+            Levels[0].InitialLayout[3, 20] = new TrapDoor();         
         }
     }
 }

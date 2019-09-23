@@ -24,11 +24,11 @@ namespace DungeonCrawler
             bool isRunning = true;
             while(isRunning)
             {
+                Console.SetOut(standardOutputWriter);
+                levelRenderer.RenderLevel();
                 Console.SetOut(consoleOutputFilter);
                 playerController.CheckInput();
                 enemyController.Move();
-                Console.SetOut(standardOutputWriter);
-                levelRenderer.RenderLevel();
             }
         }
         private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
