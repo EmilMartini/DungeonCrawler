@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Media;
+using System.Windows;
 
 namespace DungeonCrawler
 {
@@ -29,9 +30,9 @@ namespace DungeonCrawler
             {
                 if (Player.KeysInInventory[i].Unlock.Equals((this.Unlock)))
                 {
-                    Player.KeysInInventory[i].NumberOfUses--;
-                    SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\open-close-door.wav";
-                    SoundPlayer.Play();
+                    //Player.KeysInInventory[i].NumberOfUses--;
+                    //SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\open-close-door.wav";
+                    //SoundPlayer.Play();
 
                     if (Player.KeysInInventory[i].NumberOfUses <= 0)
                     {

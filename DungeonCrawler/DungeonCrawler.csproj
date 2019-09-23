@@ -105,6 +105,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="main-theme-atmosphere.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="main-theme.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
