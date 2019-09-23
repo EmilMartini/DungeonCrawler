@@ -55,10 +55,10 @@ namespace DungeonCrawler
         {
             Console.WriteLine();
             Console.WriteLine($"\tWelcome to a dungeon crawler you'll never forget.");
-            Console.Write($"\tThis is you");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(" @");
+            Console.Write("\t@ ");
             Console.ForegroundColor = ConsoleColor.White;
+            Console.Write($"<- This is you");
             Console.Write("! \n\tCollect keys to advance through the locked doors. \n\tBut be wary, there are ");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("monsters ");
