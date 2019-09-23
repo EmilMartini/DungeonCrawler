@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    public class Enemy : Tile
+    public class Enemy : Tile, IInteractable
     {
         private Point position;
 
@@ -23,6 +23,12 @@ namespace DungeonCrawler
         {
             get { return position; }
             set { position = value; }
+        }
+
+        public bool Interact()
+        {
+            Player.EnemiesInteractedWith++;
+            return true;
         }
     }
 }
