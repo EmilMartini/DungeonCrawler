@@ -29,9 +29,10 @@ namespace DungeonCrawler
             get { return position; }
             set { position = value; }
         }
-        public void Interact()
+        public bool Interact()
         {
-            Player.KeysInInventory.Add(this);                   
+            Player.KeysInInventory.Add(this);
+            return true;
         }
     }
 }

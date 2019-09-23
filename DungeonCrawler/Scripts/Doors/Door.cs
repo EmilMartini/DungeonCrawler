@@ -16,9 +16,9 @@ namespace DungeonCrawler
             set { unlock = value; }
         }
 
-        public void Interact()
+        public bool Interact()
         {
-            
+            return true;
         }
 
         public bool CanUnlock(Key[] keys)

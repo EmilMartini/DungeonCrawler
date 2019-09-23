@@ -7,7 +7,7 @@ namespace DungeonCrawler
     {
         private Point position;
         private uint numberOfMoves;
-        private static List<Key> keysInInventory;
+        private static List<Key> keysInInventory = new List<Key>();
 
         public Player(Point playerSpawn)
         {
