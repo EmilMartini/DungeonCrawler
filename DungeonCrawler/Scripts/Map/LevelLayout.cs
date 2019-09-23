@@ -1,6 +1,7 @@
 ﻿using System;
 using DungeonCrawler.Doors;
 using DungeonCrawler.Keys;
+using DungeonCrawler.Scripts.Map;
 
 namespace DungeonCrawler
 {
@@ -101,6 +102,16 @@ namespace DungeonCrawler
             //Hardcoded keys
             Levels[0].InitialLayout[6, 2] = new PurpleKey();
             Levels[0].InitialLayout[2, 18] = new BlueKey();
+
+            //Hardcoded water
+            Levels[0].InitialLayout[13, 1] = new Water();
+            Levels[0].InitialLayout[13, 2] = new Water();
+            Levels[0].InitialLayout[13, 3] = new Water();
+            Levels[0].InitialLayout[13, 4] = new Water();
+            Levels[0].InitialLayout[13, 5] = new Water();
+            Levels[0].InitialLayout[13, 6] = new Water();
+            Levels[0].InitialLayout[13, 8] = new Water();
+            Levels[0].InitialLayout[13, 9] = new Water();
         }
         //private void SetLevelTwoLayout()
         //{

@@ -1,4 +1,4 @@
 ﻿namespace DungeonCrawler
 {
-        public enum TileType { Wall, Floor, Key, Door, Enemy, Player, TrapDoor}
+        public enum TileType { Water, Wall, Floor, Key, Door, Enemy, Player, TrapDoor}
 }
