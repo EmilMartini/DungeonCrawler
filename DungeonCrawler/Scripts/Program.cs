@@ -6,7 +6,6 @@ namespace DungeonCrawler
 {
     class Program
     {
-        private static readonly Size consoleWindowSize = new Size(72, 36);
         static void Main(string[] args)
         {
             Thread a = new Thread(Mediaplayer.PlayMainTheme);
@@ -15,12 +14,12 @@ namespace DungeonCrawler
             var levelLayout = new LevelLayout(); 
             var player = new Player();
             var levelRenderer = new LevelRenderer(levelLayout.Levels, player);
-            var levelLoader = new LevelLoader(levelLayout.Levels, player, consoleWindowSize);
+            var levelLoader = new LevelLoader(levelLayout.Levels, player);
             var enemyController = new EnemyController(levelLayout.Levels, levelRenderer);
             var playerController = new PlayerController(levelLayout.Levels, player, levelRenderer);
             var consoleOutputFilter = new ConsoleOutputFilter();
 
-            SetConsoleProperties(consoleWindowSize);
+            SetConsoleProperties();
             WelcomeScreen();
             LoadGameDependecies(levelLayout, levelLoader, levelRenderer);
             RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer);        
@@ -31,11 +30,11 @@ namespace DungeonCrawler
             bool isRunning = true;
             while(isRunning)
             {
-                Console.SetOut(standardOutputWriter);
-                levelRenderer.RenderLevel();
                 Console.SetOut(consoleOutputFilter);
                 playerController.CheckInput();
                 enemyController.Move();
+                Console.SetOut(standardOutputWriter);
+                levelRenderer.RenderLevel();
             }
         }
         private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
@@ -45,15 +44,14 @@ namespace DungeonCrawler
             levelLoader.SpawnLevelObjects();
             levelLoader.DisplayInitialMap();
             levelRenderer.RenderLevel();
-
         }
-        private static void SetConsoleProperties(Size windowSize)
+        private static void SetConsoleProperties()
         {
+            Size consoleWindowSize = new Size(77, 36);
             Console.CursorVisible = false;
             Console.SetWindowSize((int)consoleWindowSize.Width, (int)consoleWindowSize.Height);
             Console.SetBufferSize((int)consoleWindowSize.Width + 1, (int)consoleWindowSize.Height + 1);
         }
-
         private static void WelcomeScreen()
         {
             Console.WriteLine();

@@ -50,11 +50,9 @@ namespace DungeonCrawler
                         }
                     }
                 }
-
             }
             SetLevelOneLayout();
             SetLevelTwoLayout();
-
         }
         private void SetLevelOneLayout()
         {

@@ -7,7 +7,6 @@ namespace DungeonCrawler
     {
         private readonly Level[] levels;
         private readonly Player player;
-        private readonly Size consoleWindowSize = new Size(72, 36);
         public Point[] PointsToRender = new Point[8];
         public LevelRenderer(Level[] levels, Player player)
         {
@@ -16,17 +15,10 @@ namespace DungeonCrawler
         }
         public void RenderLevel()
         {
-            Point distanceBetweenTiles = GetDistanceBetweenTiles();
+            RenderEnemiesIfExplored();
             ExploreTilesAroundPlayer(player.Position);
-            RenderTilesAroundPlayer(distanceBetweenTiles);
-            RenderEnemiesIfExplored(distanceBetweenTiles);
-            RenderUI(distanceBetweenTiles);
-        }
-
-        private Point GetDistanceBetweenTiles()
-        {
-            return new Point(((int)consoleWindowSize.Width / levels[LevelLoader.CurrentLevel].ExploredLayout.GetLength(0)),
-                            ((int)consoleWindowSize.Height / levels[LevelLoader.CurrentLevel].ExploredLayout.GetLength(1)));
+            RenderTilesAroundPlayer();
+            RenderUI();
         }
 
         public void ExploreTilesAroundPlayer(Point playerPosition)
@@ -49,35 +41,36 @@ namespace DungeonCrawler
                 levels[LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].IsExplored = true;
             }
         }
-        private void RenderUI(Point distanceBetweenTiles)
+        private void RenderUI()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(distanceBetweenTiles.column * levels[LevelLoader.CurrentLevel].ExploredLayout.GetLength(0) * 2, distanceBetweenTiles.row * 1);
-            Console.Write($"Number of moves: {player.NumberOfMoves}");
+            Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 2);
+            Console.Write($"Number of moves:{player.NumberOfMoves}");
 
-            Console.SetCursorPosition(distanceBetweenTiles.column * levels[LevelLoader.CurrentLevel].ExploredLayout.GetLength(0) * 2, distanceBetweenTiles.row * 2);
+            Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 3);
             Console.Write($"Enemies hit: {Player.EnemiesInteractedWith}");
 
-            Console.SetCursorPosition(distanceBetweenTiles.column * levels[LevelLoader.CurrentLevel].ExploredLayout.GetLength(0) * 2, distanceBetweenTiles.row * 3);
+            Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 4);
             Console.Write("Keys: ");
             Console.Write("\t\t");
             for (int i = 0; i < Player.KeysInInventory.Count; i++)
             {
-                Console.SetCursorPosition((distanceBetweenTiles.column * levels[LevelLoader.CurrentLevel].ExploredLayout.GetLength(0) * 2) + (i + 5), distanceBetweenTiles.row * 3);
+                Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 4) * 2 + i, 4);
                 Console.ForegroundColor = Player.KeysInInventory[i].Color;
                 Console.Write($"{Player.KeysInInventory[i].Graphic}");
             }
         }
-        private void RenderEnemiesIfExplored(Point distanceBetweenTiles)
+        private void RenderEnemiesIfExplored()
         {
             for (int i = 0; i < levels[LevelLoader.CurrentLevel].Enemies.Length; i++)
             {
                 if (levels[LevelLoader.CurrentLevel].Enemies[i].IsExplored)
                 {
                     Console.ForegroundColor = levels[LevelLoader.CurrentLevel].Enemies[i].Color;
-                    Console.SetCursorPosition(distanceBetweenTiles.row * levels[LevelLoader.CurrentLevel].Enemies[i].Position.column, distanceBetweenTiles.column * levels[LevelLoader.CurrentLevel].Enemies[i].Position.row);
+                    Console.SetCursorPosition(levels[LevelLoader.CurrentLevel].Enemies[i].Position.column + (levels[LevelLoader.CurrentLevel].Enemies[i].Position.column + 2), levels[LevelLoader.CurrentLevel].Enemies[i].Position.row);
                     Console.Write($"{levels[LevelLoader.CurrentLevel].ExploredLayout[levels[LevelLoader.CurrentLevel].Enemies[i].Position.row, levels[LevelLoader.CurrentLevel].Enemies[i].Position.column].Graphic}");
                 }
+
                 if (levels[LevelLoader.CurrentLevel].PreviousEnemyPositions == null)
                 {
                     break;
@@ -85,7 +78,7 @@ namespace DungeonCrawler
                 else
                 {
                     Console.ForegroundColor = levels[LevelLoader.CurrentLevel].ExploredLayout[levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].Color;
-                    Console.SetCursorPosition(distanceBetweenTiles.row * levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column, distanceBetweenTiles.column * levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row);
+                    Console.SetCursorPosition(levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column + (levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column + 2), levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row);
                     if (levels[LevelLoader.CurrentLevel].ExploredLayout[levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].IsExplored == true)
                     {
                         Console.Write($"{levels[LevelLoader.CurrentLevel].InitialLayout[levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].Graphic}");
@@ -97,18 +90,17 @@ namespace DungeonCrawler
                 }
             }
         }
-        private void RenderTilesAroundPlayer(Point distanceBetweenTiles)
+        private void RenderTilesAroundPlayer()
         {
             for (int i = 0; i < PointsToRender.Length; i++)
             {
                 Console.ForegroundColor = levels[LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].Color;
-                Console.SetCursorPosition(distanceBetweenTiles.row * PointsToRender[i].column, distanceBetweenTiles.column * PointsToRender[i].row);
+                Console.SetCursorPosition(PointsToRender[i].column + (PointsToRender[i].column + 2), PointsToRender[i].row);
                 Console.Write($"{levels[LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].Graphic}");
-
             }
-                Console.ForegroundColor = player.Color;
-                Console.SetCursorPosition(distanceBetweenTiles.row * player.Position.column, distanceBetweenTiles.column * player.Position.row);
-                Console.Write($"{player.Graphic}");
+            Console.ForegroundColor = player.Color;
+            Console.SetCursorPosition(player.Position.column + (player.Position.column + 2), player.Position.row);
+            Console.Write($"{player.Graphic}");
         }
         public void UpdatePlayerPosition(Point targetPosition)
         {
