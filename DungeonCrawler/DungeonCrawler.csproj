@@ -78,6 +78,7 @@
     <Compile Include="Scripts\Map\LevelRenderer.cs" />
     <Compile Include="Scripts\Map\TrapDoor.cs" />
     <Compile Include="Scripts\Map\Water.cs" />
+    <Compile Include="Scripts\Mediaplayer.cs" />
     <Compile Include="Scripts\Player.cs" />
     <Compile Include="Scripts\PlayerController.cs" />
     <Compile Include="Scripts\Map\Point.cs" />

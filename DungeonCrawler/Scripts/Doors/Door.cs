@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Media;
+using System.Threading;
 using System.Windows;
 
 namespace DungeonCrawler
@@ -7,7 +8,6 @@ namespace DungeonCrawler
     public abstract class Door : Tile, IInteractable
     {
         private Unlock unlock;
-        private SoundPlayer SoundPlayer = new SoundPlayer();
 
         public Unlock Unlock
         {
@@ -34,8 +34,8 @@ namespace DungeonCrawler
                     if (Player.KeysInInventory[i].NumberOfUses <= 0)
                     {
                         Player.KeysInInventory.RemoveAt(i);
-                        SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\open-close-door.wav";
-                        SoundPlayer.Play();
+                        Thread b = new Thread(Mediaplayer.PlayDoorEffect);
+                        b.Start();
                     }
                     return true;
                 }

@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Media;
+using System.Threading;
+
 namespace DungeonCrawler
 {
     class Program
     {
-        public static SoundPlayer SoundPlayer = new SoundPlayer();
         private static readonly Size consoleWindowSize = new Size(72, 36);
         static void Main(string[] args)
         {
+            Thread a = new Thread(Mediaplayer.PlayMainTheme);
+            a.Start();
+
             var levelLayout = new LevelLayout(); 
             var player = new Player();
             var levelRenderer = new LevelRenderer(levelLayout.Levels, player);
@@ -36,7 +40,7 @@ namespace DungeonCrawler
         }
         private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
         {
-            LevelLoader.CurrentLevel = 1;
+            LevelLoader.CurrentLevel = 0;
             levelLayout.InitializeLevels();
             levelLoader.SpawnLevelObjects();
             levelLoader.DisplayInitialMap();
@@ -52,8 +56,6 @@ namespace DungeonCrawler
 
         private static void WelcomeScreen()
         {
-            SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\main-theme-atmosphere.wav";
-            SoundPlayer.PlayLooping();
             Console.WriteLine();
             Console.WriteLine($"\tWelcome to a dungeon crawler you'll never forget.");
             Console.ForegroundColor = ConsoleColor.Green;
