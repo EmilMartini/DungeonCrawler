@@ -7,45 +7,13 @@ namespace DungeonCrawler
         Random random = new Random();
         private Point currentEnemyPosition;
         private Point nextEnemyPosition;
-        private readonly Level level;
+        private readonly Level[] levels;
         private readonly LevelRenderer levelRenderer;
 
-        public EnemyController(Level level, LevelRenderer mapRenderer)
+        public EnemyController(Level[] levels, LevelRenderer mapRenderer)
         {
-            this.level = level ?? throw new ArgumentNullException(nameof(level));
+            this.levels = levels ?? throw new ArgumentNullException(nameof(levels));
             this.levelRenderer = mapRenderer ?? throw new ArgumentNullException(nameof(mapRenderer));
-        }
-
-        public void Move()
-        {
-            for (int i = 0; i < level.Enemies.Length; i++)
-            {
-                int row = 0, column = 0;
-                while (row == 0 && column == 0)
-                {
-                    row = random.Next(-1, 2);
-                    column = random.Next(-1, 2);
-                }
-                currentEnemyPosition = new Point(level.Enemies[i].Position.row, level.Enemies[i].Position.column);
-                nextEnemyPosition = new Point(currentEnemyPosition.row + row, currentEnemyPosition.column + column);
-
-                if (level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Wall ||
-                    level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Door ||
-                    level.InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Key)
-                {
-                    continue;
-                } else
-                {
-                    if (level.ExploredLayout[nextEnemyPosition.row, nextEnemyPosition.column].IsExplored == true)
-                    {
-                        level.Enemies[i].IsExplored = true;
-                    } else
-                    {
-                        level.Enemies[i].IsExplored = false;
-                    }
-                    levelRenderer.UpdateEnemyPositions(level.Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
-                }
-            }     
         }
 
         public Point CurrentEnemyPosition
@@ -58,5 +26,37 @@ namespace DungeonCrawler
             get { return nextEnemyPosition; }
             set { nextEnemyPosition = value; }
         }
+        public void Move()
+        {
+            for (int i = 0; i < levels[LevelLoader.CurrentLevel].Enemies.Length; i++)
+            {
+                int row = 0, column = 0;
+                while (row == 0 && column == 0)
+                {
+                    row = random.Next(-1, 2);
+                    column = random.Next(-1, 2);
+                }
+                currentEnemyPosition = new Point(levels[LevelLoader.CurrentLevel].Enemies[i].Position.row, levels[LevelLoader.CurrentLevel].Enemies[i].Position.column);
+                nextEnemyPosition = new Point(currentEnemyPosition.row + row, currentEnemyPosition.column + column);
+
+                if (levels[LevelLoader.CurrentLevel].InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Wall ||
+                    levels[LevelLoader.CurrentLevel].InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Door ||
+                    levels[LevelLoader.CurrentLevel].InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Key)
+                {
+                    continue;
+                } else
+                {
+                    if (levels[LevelLoader.CurrentLevel].ExploredLayout[nextEnemyPosition.row, nextEnemyPosition.column].IsExplored == true)
+                    {
+                        levels[LevelLoader.CurrentLevel].Enemies[i].IsExplored = true;
+                    } else
+                    {
+                        levels[LevelLoader.CurrentLevel].Enemies[i].IsExplored = false;
+                    }
+                    levelRenderer.UpdateEnemyPositions(levels[LevelLoader.CurrentLevel].Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
+                }
+            }     
+        }
+
     }
 }

@@ -8,7 +8,7 @@ namespace DungeonCrawler
     {
         private Level[] levels;
         private readonly Player player;
-        private int currentLevel;
+        private static int currentLevel;
         private readonly Size consoleWindowSize;
         private Random rnd = new Random();
 
@@ -18,7 +18,7 @@ namespace DungeonCrawler
             this.player = player;
             this.consoleWindowSize = consoleWindowSize;
         }
-        public int CurrentLevel
+        public static int CurrentLevel
         {
             get { return currentLevel; }
             set { currentLevel = value; }
