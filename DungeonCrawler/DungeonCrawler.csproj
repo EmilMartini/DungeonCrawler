@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,30 +58,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleOutputFilter.cs" />
-    <Compile Include="Door.cs" />
-    <Compile Include="Enemy.cs" />
-    <Compile Include="Map\EnemyController.cs" />
-    <Compile Include="Map\Floor.cs" />
-    <Compile Include="Key.cs" />
-    <Compile Include="Map\LevelLayout.cs" />
-    <Compile Include="Map\LevelLoader.cs" />
-    <Compile Include="Map\LevelRenderer.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="PlayerController.cs" />
-    <Compile Include="Map\Point.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Scripts\ConsoleOutputFilter.cs" />
+    <Compile Include="Scripts\Doors\BlueDoor.cs" />
+    <Compile Include="Scripts\Doors\Door.cs" />
+    <Compile Include="Scripts\Doors\PurpleDoor.cs" />
+    <Compile Include="Scripts\Doors\YellowDoor.cs" />
+    <Compile Include="Scripts\Enemy.cs" />
+    <Compile Include="Scripts\EnemyController.cs" />
+    <Compile Include="Scripts\Entity.cs" />
+    <Compile Include="Scripts\Keys\BlueKey.cs" />
+    <Compile Include="Scripts\Keys\SkeletonKey.cs" />
+    <Compile Include="Scripts\Keys\Unlock.cs" />
+    <Compile Include="Scripts\Keys\PurpleKey.cs" />
+    <Compile Include="Scripts\Keys\YellowKey.cs" />
+    <Compile Include="Scripts\Map\Floor.cs" />
+    <Compile Include="Scripts\Keys\Key.cs" />
+    <Compile Include="Scripts\IInteractable.cs" />
+    <Compile Include="Scripts\Map\LevelLayout.cs" />
+    <Compile Include="Scripts\Map\LevelLoader.cs" />
+    <Compile Include="Scripts\Map\LevelRenderer.cs" />
+    <Compile Include="Scripts\Map\TrapDoor.cs" />
+    <Compile Include="Scripts\Map\Water.cs" />
+    <Compile Include="Scripts\Player.cs" />
+    <Compile Include="Scripts\PlayerController.cs" />
+    <Compile Include="Scripts\Map\Point.cs" />
+    <Compile Include="Scripts\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Map\Level.cs" />
-    <Compile Include="Map\Size.cs" />
-    <Compile Include="Map\Tile.cs" />
-    <Compile Include="TileType.cs" />
-    <Compile Include="Unexplored.cs" />
-    <Compile Include="Map\Wall.cs" />
+    <Compile Include="Scripts\Map\Level.cs" />
+    <Compile Include="Scripts\Map\Size.cs" />
+    <Compile Include="Scripts\Map\Tile.cs" />
+    <Compile Include="Scripts\Map\TileType.cs" />
+    <Compile Include="Scripts\Map\Wall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

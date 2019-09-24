@@ -22,7 +22,7 @@ namespace DungeonCrawler
         public bool IsExplored
         {
             get { return isExplored; }
-            protected set { isExplored = value; }
+            set { isExplored = value; }
         }
         public ConsoleColor Color
         {

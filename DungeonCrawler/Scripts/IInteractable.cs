@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    class Key
+    public interface IInteractable
     {
-
+        bool Interact();
     }
 }

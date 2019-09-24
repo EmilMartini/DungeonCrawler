@@ -9,10 +9,8 @@ namespace DungeonCrawler
         {
             get { return Encoding.Unicode; }
         }
-
         public override void Write(char value)
         {
-
         }
     }
 }
