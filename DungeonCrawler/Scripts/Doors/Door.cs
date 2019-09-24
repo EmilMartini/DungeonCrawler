@@ -34,8 +34,6 @@ namespace DungeonCrawler
                     if (Player.KeysInInventory[i].NumberOfUses <= 0)
                     {
                         Player.KeysInInventory.RemoveAt(i);
-                        Thread b = new Thread(Mediaplayer.PlayDoorEffect);
-                        b.Start();
                     }
                     return true;
                 }

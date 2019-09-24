@@ -79,7 +79,6 @@
     <Compile Include="Scripts\Map\LevelRenderer.cs" />
     <Compile Include="Scripts\Map\TrapDoor.cs" />
     <Compile Include="Scripts\Map\Water.cs" />
-    <Compile Include="Scripts\Mediaplayer.cs" />
     <Compile Include="Scripts\Player.cs" />
     <Compile Include="Scripts\PlayerController.cs" />
     <Compile Include="Scripts\Map\Point.cs" />
@@ -105,20 +104,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="main-theme-atmosphere.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="main-theme.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="open-close-door.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="pickup-key.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

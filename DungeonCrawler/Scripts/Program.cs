@@ -8,9 +8,6 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
-            Thread a = new Thread(Mediaplayer.PlayMainTheme);
-            a.Start();
-
             var levelLayout = new LevelLayout(); 
             var player = new Player();
             var levelRenderer = new LevelRenderer(levelLayout.Levels, player);
