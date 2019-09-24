@@ -9,16 +9,14 @@ namespace DungeonCrawler
         private uint numberOfMoves;
         private static List<Key> keysInInventory = new List<Key>();
         private static int enemiesInteractedWith = 0;
-
-        public Player(Point playerSpawn)
+        public Player()
         {
             this.Graphic = "@";
             this.TileType = TileType.Player;
             this.IsExplored = true;
             this.Color = ConsoleColor.Green;
-            this.Position = new Point(playerSpawn.row, playerSpawn.column);
+            this.Position = new Point(2, 2);
         }
-
         public Point Position
         {
             get { return position; }

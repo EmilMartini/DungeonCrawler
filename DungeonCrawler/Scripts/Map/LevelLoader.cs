@@ -8,7 +8,7 @@ namespace DungeonCrawler
     {
         private Level[] levels;
         private readonly Player player;
-        private int currentLevel;
+        private int currentLevel = 0;
         private readonly Size consoleWindowSize;
         private Random rnd = new Random();
 

@@ -30,15 +30,13 @@ namespace DungeonCrawler
             {
                 if (Player.KeysInInventory[i].Unlock.Equals((this.Unlock)))
                 {
-                    //Player.KeysInInventory[i].NumberOfUses--;
-                    //SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\open-close-door.wav";
-                    //SoundPlayer.Play();
-
+                    Player.KeysInInventory[i].NumberOfUses--;
                     if (Player.KeysInInventory[i].NumberOfUses <= 0)
                     {
                         Player.KeysInInventory.RemoveAt(i);
+                        SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\open-close-door.wav";
+                        SoundPlayer.Play();
                     }
-
                     return true;
                 }
             }

@@ -9,7 +9,7 @@ namespace DungeonCrawler
         static void Main(string[] args)
         {
             var levelLayout = new LevelLayout(); 
-            var player = new Player(levelLayout.Levels[0].PlayerStartingTile);
+            var player = new Player();
             var levelRenderer = new LevelRenderer(levelLayout.Levels[0], player);
             var levelLoader = new LevelLoader(levelLayout.Levels, player, consoleWindowSize);
             var enemyController = new EnemyController(levelLayout.Levels[0], levelRenderer);
