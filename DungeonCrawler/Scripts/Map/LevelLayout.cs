@@ -14,7 +14,7 @@ namespace DungeonCrawler
         readonly static Point level2SpawnPoint = new Point(16, 7);
         readonly static Point level3SpawnPoint = new Point(1, 1);
         readonly Level level1 = new Level(new Size(25, 25), level1SpawnPoint, 8);
-        readonly Level level2 = new Level(new Size(17, 17), level2SpawnPoint, 0);
+        readonly Level level2 = new Level(new Size(18, 18), level2SpawnPoint, 0);
         readonly Level level3 = new Level(new Size(23, 13), level3SpawnPoint, 10);
 
         public LevelLayout()
