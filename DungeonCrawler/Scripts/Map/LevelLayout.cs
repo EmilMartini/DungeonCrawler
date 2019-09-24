@@ -118,120 +118,119 @@ namespace DungeonCrawler
             //readonly static Point level2SpawnPoint = new Point(17, 7);
             //Level one
             //Hardcoded walls
-            //Levels[1].InitialLayout[17, 6] = new Wall(false);
-            //Levels[1].InitialLayout[17, 8] = new Wall(false);
-            //Levels[1].InitialLayout[17, 12] = new Wall(false);
-            //Levels[1].InitialLayout[17, 16] = new Wall(false);
-            //Levels[1].InitialLayout[17, 17] = new Wall(false);
-            //
-            //
-            //Levels[1].InitialLayout[16, 6] = new Wall(false);
-            //Levels[1].InitialLayout[16, 8] = new Wall(false);
-            //Levels[1].InitialLayout[16, 12] = new Wall(false);
-            //Levels[1].InitialLayout[16, 14] = new Wall(false);
-            //
-            //
-            //Levels[1].InitialLayout[15, 6] = new Wall(false);
-            //Levels[1].InitialLayout[15, 8] = new Wall(false);
-            //Levels[1].InitialLayout[15, 9] = new Wall(false);
-            //Levels[1].InitialLayout[15, 10] = new Wall(false);
-            //Levels[1].InitialLayout[15, 11] = new Wall(false);
-            //Levels[1].InitialLayout[15, 12] = new Wall(false);
-            //Levels[1].InitialLayout[15, 13] = new Wall(false);
-            //Levels[1].InitialLayout[15, 14] = new Wall(false);
-            //Levels[1].InitialLayout[15, 16] = new Wall(false);
-            //Levels[1].InitialLayout[15, 17] = new Wall(false);
-            //
-            //
-            //Levels[1].InitialLayout[14, 6] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[13, 8] = new Wall(false);
-            //Levels[1].InitialLayout[13, 6] = new Wall(false);
-            //Levels[1].InitialLayout[13, 9] = new Wall(false);
-            //Levels[1].InitialLayout[13, 11] = new Wall(false);
-            //Levels[1].InitialLayout[13, 12] = new Wall(false);
-            //Levels[1].InitialLayout[13, 13] = new Wall(false);
-            //Levels[1].InitialLayout[13, 14] = new Wall(false);
-            //Levels[1].InitialLayout[13, 15] = new Wall(false);
-            //Levels[1].InitialLayout[13, 16] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[12, 6] = new Wall(false);
-            //Levels[1].InitialLayout[12, 8] = new Wall(false);
-            //Levels[1].InitialLayout[12, 9] = new Wall(false);
-            //Levels[1].InitialLayout[12, 11] = new Wall(false);
-            //Levels[1].InitialLayout[12, 16] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[11, 8] = new Wall(false);
-            //Levels[1].InitialLayout[11, 11] = new Wall(false);
-            //Levels[1].InitialLayout[11, 13] = new Wall(false);
-            //Levels[1].InitialLayout[11, 14] = new Wall(false);
-            //Levels[1].InitialLayout[11, 16] = new Wall(false);
-            //
-            //
-            //Levels[1].InitialLayout[10, 6] = new Wall(false);
-            //Levels[1].InitialLayout[10, 8] = new Wall(false);
-            //Levels[1].InitialLayout[10, 9] = new Wall(false);
-            //Levels[1].InitialLayout[10, 11] = new Wall(false);
-            //Levels[1].InitialLayout[10, 14] = new Wall(false);
-            //Levels[1].InitialLayout[10, 15] = new Wall(false);
-            //Levels[1].InitialLayout[10, 16] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[9, 6] = new Wall(false);
-            //Levels[1].InitialLayout[9, 8] = new Wall(false);
-            //Levels[1].InitialLayout[9, 9] = new Wall(false);
-            //Levels[1].InitialLayout[9, 11] = new Wall(false);
-            //Levels[1].InitialLayout[9, 12] = new Wall(false);
-            //Levels[1].InitialLayout[9, 14] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[8, 6] = new Wall(false);
-            //Levels[1].InitialLayout[8, 8] = new Wall(false);
-            //Levels[1].InitialLayout[8, 9] = new Wall(false);
-            //Levels[1].InitialLayout[8, 12] = new Wall(false);
-            //Levels[1].InitialLayout[8, 14] = new Wall(false);
-            //Levels[1].InitialLayout[8, 15] = new Wall(false);
-            //Levels[1].InitialLayout[8, 16] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[7, 8] = new Wall(false);
-            //Levels[1].InitialLayout[7, 9] = new Wall(false);
-            //Levels[1].InitialLayout[7, 11] = new Wall(false);
-            //Levels[1].InitialLayout[7, 12] = new Wall(false);
-            //Levels[1].InitialLayout[7, 14] = new Wall(false);
-            //Levels[1].InitialLayout[7, 16] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[6, 6] = new Wall(false);
-            //Levels[1].InitialLayout[6, 8] = new Wall(false);
-            //Levels[1].InitialLayout[6, 11] = new Wall(false);
-            //Levels[1].InitialLayout[6, 14] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[5, 6] = new Wall(false);
-            //Levels[1].InitialLayout[5, 8] = new Wall(false);
-            //Levels[1].InitialLayout[5, 10] = new Wall(false);
-            //Levels[1].InitialLayout[5, 11] = new Wall(false);
-            //Levels[1].InitialLayout[5, 12] = new Wall(false);
-            //Levels[1].InitialLayout[5, 16] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[4, 10] = new Wall(false);
-            //Levels[1].InitialLayout[4, 14] = new Wall(false);
-            //Levels[1].InitialLayout[4, 16] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[3, 6] = new Wall(false);
-            //Levels[1].InitialLayout[3, 8] = new Wall(false);
-            //Levels[1].InitialLayout[3, 10] = new Wall(false);
-            //Levels[1].InitialLayout[3, 12] = new Wall(false);
-            //Levels[1].InitialLayout[3, 14] = new Wall(false);
-            //Levels[1].InitialLayout[3, 16] = new Wall(false);
-            //
-            //Levels[1].InitialLayout[2, 6] = new Wall(false);
-            //Levels[1].InitialLayout[2, 12] = new Wall(false);
-            //Levels[1].InitialLayout[2, 16] = new Wall(false);
-            //
-            ////    //Hardcoded doors
-            ////    //Levels[0].InitialLayout[14, 7] = new BlueDoor();
-            ////    //Levels[0].InitialLayout[9, 20] = new PurpleDoor();
-            //
-            ////    ////Hardcded keys
-            ////    //Levels[0].InitialLayout[6, 2] = new PurpleKey();
-            ////    //Levels[0].InitialLayout[2, 18] = new BlueKey();
+            Levels[1].InitialLayout[5, 16] = new Wall(false);
+            Levels[1].InitialLayout[7, 16] = new Wall(false);
+            Levels[1].InitialLayout[11, 16] = new Wall(false);
+            Levels[1].InitialLayout[15, 16] = new Wall(false);
+            Levels[1].InitialLayout[16, 16] = new Wall(false);
+
+
+            Levels[1].InitialLayout[5, 15] = new Wall(false);
+            Levels[1].InitialLayout[7, 15] = new Wall(false);
+            Levels[1].InitialLayout[11, 15] = new Wall(false);
+            Levels[1].InitialLayout[13, 15] = new Wall(false);
+
+
+            Levels[1].InitialLayout[5, 14] = new Wall(false);
+            Levels[1].InitialLayout[7, 14] = new Wall(false);
+            Levels[1].InitialLayout[8, 14] = new Wall(false);
+            Levels[1].InitialLayout[10, 14] = new Wall(false);
+            Levels[1].InitialLayout[11, 14] = new Wall(false);
+            Levels[1].InitialLayout[12, 14] = new Wall(false);
+            Levels[1].InitialLayout[13, 14] = new Wall(false);
+            Levels[1].InitialLayout[15, 14] = new Wall(false);
+            Levels[1].InitialLayout[16, 14] = new Wall(false);
+
+
+            Levels[1].InitialLayout[5, 13] = new Wall(false);
+
+            Levels[1].InitialLayout[5, 12] = new Wall(false);
+            Levels[1].InitialLayout[7, 12] = new Wall(false);
+            Levels[1].InitialLayout[8, 12] = new Wall(false);
+            Levels[1].InitialLayout[10, 12] = new Wall(false);
+            Levels[1].InitialLayout[11, 12] = new Wall(false);
+            Levels[1].InitialLayout[12, 12] = new Wall(false);
+            Levels[1].InitialLayout[13, 12] = new Wall(false);
+            Levels[1].InitialLayout[14, 12] = new Wall(false);
+            Levels[1].InitialLayout[15, 12] = new Wall(false);
+
+            Levels[1].InitialLayout[5, 11] = new Wall(false);
+            Levels[1].InitialLayout[7, 11] = new Wall(false);
+            Levels[1].InitialLayout[8, 11] = new Wall(false);
+            Levels[1].InitialLayout[10, 11] = new Wall(false);
+            Levels[1].InitialLayout[15, 11] = new Wall(false);
+
+            Levels[1].InitialLayout[7, 10] = new Wall(false);
+            Levels[1].InitialLayout[10, 10] = new Wall(false);
+            Levels[1].InitialLayout[12, 10] = new Wall(false);
+            Levels[1].InitialLayout[13, 10] = new Wall(false);
+            Levels[1].InitialLayout[15, 10] = new Wall(false);
+
+
+            Levels[1].InitialLayout[5, 9] = new Wall(false);
+            Levels[1].InitialLayout[7, 9] = new Wall(false);
+            Levels[1].InitialLayout[8, 9] = new Wall(false);
+            Levels[1].InitialLayout[10, 9] = new Wall(false);
+            Levels[1].InitialLayout[13, 9] = new Wall(false);
+            Levels[1].InitialLayout[14, 9] = new Wall(false);
+            Levels[1].InitialLayout[15, 9] = new Wall(false);
+
+            Levels[1].InitialLayout[5, 8] = new Wall(false);
+            Levels[1].InitialLayout[7, 8] = new Wall(false);
+            Levels[1].InitialLayout[8, 8] = new Wall(false);
+            Levels[1].InitialLayout[10, 8] = new Wall(false);
+            Levels[1].InitialLayout[11, 8] = new Wall(false);
+            Levels[1].InitialLayout[13, 8] = new Wall(false);
+
+            Levels[1].InitialLayout[5, 7] = new Wall(false);
+            Levels[1].InitialLayout[7, 7] = new Wall(false);
+            Levels[1].InitialLayout[8, 7] = new Wall(false);
+            Levels[1].InitialLayout[11, 7] = new Wall(false);
+            Levels[1].InitialLayout[13, 7] = new Wall(false);
+            Levels[1].InitialLayout[14, 7] = new Wall(false);
+            Levels[1].InitialLayout[15, 7] = new Wall(false);
+
+            Levels[1].InitialLayout[7, 6] = new Wall(false);
+            Levels[1].InitialLayout[8, 6] = new Wall(false);
+            Levels[1].InitialLayout[10, 6] = new Wall(false);
+            Levels[1].InitialLayout[11, 6] = new Wall(false);
+            Levels[1].InitialLayout[13, 6] = new Wall(false);
+            Levels[1].InitialLayout[15, 6] = new Wall(false);
+
+            Levels[1].InitialLayout[5, 5] = new Wall(false);
+            Levels[1].InitialLayout[7, 5] = new Wall(false);
+            Levels[1].InitialLayout[10, 5] = new Wall(false);
+            Levels[1].InitialLayout[13, 5] = new Wall(false);
+
+            Levels[1].InitialLayout[5, 4] = new Wall(false);
+            Levels[1].InitialLayout[7, 4] = new Wall(false);
+            Levels[1].InitialLayout[9, 4] = new Wall(false);
+            Levels[1].InitialLayout[10, 4] = new Wall(false);
+            Levels[1].InitialLayout[11, 4] = new Wall(false);
+            Levels[1].InitialLayout[15, 4] = new Wall(false);
+
+            Levels[1].InitialLayout[9, 3] = new Wall(false);
+            Levels[1].InitialLayout[13, 3] = new Wall(false);
+            Levels[1].InitialLayout[15, 3] = new Wall(false);
+
+            Levels[1].InitialLayout[5, 2] = new Wall(false);
+            Levels[1].InitialLayout[7, 2] = new Wall(false);
+            Levels[1].InitialLayout[9, 2] = new Wall(false);
+            Levels[1].InitialLayout[11, 2] = new Wall(false);
+            Levels[1].InitialLayout[13, 2] = new Wall(false);
+            Levels[1].InitialLayout[15, 2] = new Wall(false);
+
+            Levels[1].InitialLayout[5, 1] = new Wall(false);
+            Levels[1].InitialLayout[11, 1] = new Wall(false);
+            Levels[1].InitialLayout[15, 1] = new Wall(false);
+
+            //    //Hardcoded doors
+            //    //Levels[0].InitialLayout[14, 7] = new BlueDoor();
+            //    //Levels[0].InitialLayout[9, 20] = new PurpleDoor();
+
+            //    ////Hardcded keys
+            //    //Levels[0].InitialLayout[6, 2] = new PurpleKey();
+            //    //Levels[0].InitialLayout[2, 18] = new BlueKey();
             }
         }
 }
