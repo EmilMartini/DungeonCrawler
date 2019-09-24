@@ -65,6 +65,7 @@
     <Compile Include="Scripts\Doors\YellowDoor.cs" />
     <Compile Include="Scripts\Enemy.cs" />
     <Compile Include="Scripts\EnemyController.cs" />
+    <Compile Include="Scripts\Entity.cs" />
     <Compile Include="Scripts\Keys\BlueKey.cs" />
     <Compile Include="Scripts\Keys\SkeletonKey.cs" />
     <Compile Include="Scripts\Keys\Unlock.cs" />
