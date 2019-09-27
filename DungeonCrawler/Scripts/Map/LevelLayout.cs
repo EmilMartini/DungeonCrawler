@@ -114,6 +114,7 @@ namespace DungeonCrawler
         private void SetLevelTwoLayout()
         {
             //readonly static Point level2SpawnPoint = new Point(17, 7);
+
             //Level one
             //Hardcoded walls
             Levels[1].InitialLayout[5, 16] = new Wall(false);
@@ -256,15 +257,10 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[10, 15] = new Water();
             Levels[1].InitialLayout[8, 16] = new Water();
 
-
-
             //Hardcoded doors
             Levels[1].InitialLayout[16, 3] = new BlueDoor();
             Levels[1].InitialLayout[1, 7] = new PurpleDoor();
             Levels[1].InitialLayout[1, 16] = new YellowDoor();
-
-
-            //    //Levels[0].InitialLayout[9, 20] = new PurpleDoor();
 
             ////Hardcded keys
             Levels[1].InitialLayout[16, 2] = new PurpleKey();
