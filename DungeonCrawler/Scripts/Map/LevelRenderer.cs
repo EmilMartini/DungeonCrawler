@@ -22,44 +22,44 @@ namespace DungeonCrawler
         private void RenderUI()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 2);
+            Console.SetCursorPosition((levels[(int)LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 2);
             Console.Write($"Number of moves:{player.NumberOfMoves}");
 
-            Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 3);
+            Console.SetCursorPosition((levels[(int)LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 3);
             Console.Write($"Enemies hit: {Player.EnemiesInteractedWith}");
 
-            Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 4);
+            Console.SetCursorPosition((levels[(int)LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 4);
             Console.Write("Keys: ");
             Console.Write("\t\t");
             for (int i = 0; i < Player.KeysInInventory.Count; i++)
             {
-                Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 4) * 2 + i, 4);
+                Console.SetCursorPosition((levels[(int)LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 4) * 2 + i, 4);
                 Console.ForegroundColor = Player.KeysInInventory[i].Color;
                 Console.Write($"{Player.KeysInInventory[i].Graphic}");
             }
         }
         private void RenderEnemiesIfExplored()
         {
-            for (int i = 0; i < levels[LevelLoader.CurrentLevel].Enemies.Length; i++)
+            for (int i = 0; i < levels[(int)LevelLoader.CurrentLevel].Enemies.Length; i++)
             {
-                if (levels[LevelLoader.CurrentLevel].Enemies[i].IsExplored)
+                if (levels[(int)LevelLoader.CurrentLevel].Enemies[i].IsExplored)
                 {
-                    Console.ForegroundColor = levels[LevelLoader.CurrentLevel].Enemies[i].Color;
-                    Console.SetCursorPosition(levels[LevelLoader.CurrentLevel].Enemies[i].Position.column + (levels[LevelLoader.CurrentLevel].Enemies[i].Position.column + 2), levels[LevelLoader.CurrentLevel].Enemies[i].Position.row);
-                    Console.Write($"{levels[LevelLoader.CurrentLevel].ExploredLayout[levels[LevelLoader.CurrentLevel].Enemies[i].Position.row, levels[LevelLoader.CurrentLevel].Enemies[i].Position.column].Graphic}");
+                    Console.ForegroundColor = levels[(int)LevelLoader.CurrentLevel].Enemies[i].Color;
+                    Console.SetCursorPosition(levels[(int)LevelLoader.CurrentLevel].Enemies[i].Position.column + (levels[(int)LevelLoader.CurrentLevel].Enemies[i].Position.column + 2), levels[(int)LevelLoader.CurrentLevel].Enemies[i].Position.row);
+                    Console.Write($"{levels[(int)LevelLoader.CurrentLevel].ExploredLayout[levels[(int)LevelLoader.CurrentLevel].Enemies[i].Position.row, levels[(int)LevelLoader.CurrentLevel].Enemies[i].Position.column].Graphic}");
                 }
 
-                if (levels[LevelLoader.CurrentLevel].PreviousEnemyPositions == null)
+                if (levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions == null)
                 {
                     break;
                 }
                 else
                 {
-                    Console.ForegroundColor = levels[LevelLoader.CurrentLevel].ExploredLayout[levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].Color;
-                    Console.SetCursorPosition(levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column + (levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column + 2), levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row);
-                    if (levels[LevelLoader.CurrentLevel].ExploredLayout[levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].IsExplored == true)
+                    Console.ForegroundColor = levels[(int)LevelLoader.CurrentLevel].ExploredLayout[levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].Color;
+                    Console.SetCursorPosition(levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column + (levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column + 2), levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row);
+                    if (levels[(int)LevelLoader.CurrentLevel].ExploredLayout[levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].IsExplored == true)
                     {
-                        Console.Write($"{levels[LevelLoader.CurrentLevel].InitialLayout[levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].Graphic}");
+                        Console.Write($"{levels[(int)LevelLoader.CurrentLevel].InitialLayout[levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[(int)LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].Graphic}");
                     }
                     else
                     {
@@ -72,9 +72,9 @@ namespace DungeonCrawler
         {
             for (int i = 0; i < PointsToRender.Length; i++)
             {
-                Console.ForegroundColor = levels[LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].Color;
+                Console.ForegroundColor = levels[(int)LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].Color;
                 Console.SetCursorPosition(PointsToRender[i].column + (PointsToRender[i].column + 2), PointsToRender[i].row);
-                Console.Write($"{levels[LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].Graphic}");
+                Console.Write($"{levels[(int)LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].Graphic}");
             }
             Console.ForegroundColor = player.Color;
             Console.SetCursorPosition(player.Position.column + (player.Position.column + 2), player.Position.row);
@@ -83,16 +83,15 @@ namespace DungeonCrawler
         public void RenderInitialExploredTiles()
         {
             Console.Write("\n \n");
-            for (int row = 0; row < levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(0); row++)
+            for (int row = 0; row < levels[(int)LevelLoader.CurrentLevel].InitialLayout.GetLength(0); row++)
             {
-                for (int column = 0; column < levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1); column++)
+                for (int column = 0; column < levels[(int)LevelLoader.CurrentLevel].InitialLayout.GetLength(1); column++)
                 {
                     Console.SetCursorPosition(column + (column + 2), row);
-
-                    Console.ForegroundColor = levels[LevelLoader.CurrentLevel].InitialLayout[row, column].Color;
-                    if (levels[LevelLoader.CurrentLevel].InitialLayout[row, column].IsExplored == true)
+                    Console.ForegroundColor = levels[(int)LevelLoader.CurrentLevel].InitialLayout[row, column].Color;
+                    if (levels[(int)LevelLoader.CurrentLevel].InitialLayout[row, column].IsExplored == true)
                     {
-                        Console.Write($"{levels[LevelLoader.CurrentLevel].InitialLayout[row, column].Graphic}");
+                        Console.Write($"{levels[(int)LevelLoader.CurrentLevel].InitialLayout[row, column].Graphic}");
                     }
                     else
                     {
@@ -102,7 +101,6 @@ namespace DungeonCrawler
                 Console.Write("");
             }
         }
-
         public Point[] PointsToRender
         {
             get { return pointsToRender; }

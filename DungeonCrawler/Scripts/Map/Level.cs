@@ -6,8 +6,6 @@
         private Tile[,] initialLayout;
         private Enemy[] enemies;
         private Point[] previousEnemyPositions;
-        private Door[] doorsOnMap;
-        private Key[] keysOnMap;
         private Size size;
         private Point playerStartingTile;
         private int numberOfEnemies;
@@ -37,16 +35,6 @@
         {
             get { return previousEnemyPositions; }
             set { previousEnemyPositions = value; }
-        }
-        public Door[] DoorsOnMap
-        {
-            get { return doorsOnMap; }
-            set { doorsOnMap = value; }
-        }
-        public Key[] KeysOnMap
-        {
-            get { return keysOnMap; }
-            set { keysOnMap = value; }
         }
         public Size Size
         {

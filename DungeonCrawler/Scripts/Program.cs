@@ -8,18 +8,21 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
-            var levelLayout = new LevelLayout(); 
-            var player = new Player();
-            var levelRenderer = new LevelRenderer(levelLayout.Levels, player);
-            var levelLoader = new LevelLoader(levelLayout.Levels, player, levelLayout);
-            var enemyController = new EnemyController(levelLayout.Levels, levelRenderer);
-            var playerController = new PlayerController(levelLayout.Levels, player, levelRenderer);
-            var consoleOutputFilter = new ConsoleOutputFilter();
+            //var levelLayout = new LevelLayout(); 
+            //var player = new Player();
+            //var levelRenderer = new LevelRenderer(levelLayout.Levels, player);
+            //var levelLoader = new LevelLoader(levelLayout.Levels, player, levelLayout);
+            //var enemyController = new EnemyController(levelLayout.Levels, levelRenderer);
+            //var playerController = new PlayerController(levelLayout.Levels, player, levelRenderer);
+            //var consoleOutputFilter = new ConsoleOutputFilter();
+            //
+            //SetConsoleProperties();
+            //WelcomeScreen();
+            //LoadGameDependecies(levelLayout, levelLoader, levelRenderer);
+            //RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer, player);
+            var stateMachine = new StateMachine();
+            RunState(stateMachine);
 
-            SetConsoleProperties();
-            WelcomeScreen();
-            LoadGameDependecies(levelLayout, levelLoader, levelRenderer);
-            RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer, player);        
         }
 
         private static void RunGame(ConsoleOutputFilter consoleOutputFilter, System.IO.TextWriter standardOutputWriter, PlayerController playerController, EnemyController enemyController, LevelRenderer levelRenderer, Player player)
@@ -36,7 +39,7 @@ namespace DungeonCrawler
         }
         private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
         {
-            LevelLoader.CurrentLevel = 1;
+            LevelLoader.CurrentLevel = CurrentLevel.LevelOne;
             levelLoader.InitializeLevels();
             levelLoader.SpawnLevelObjects();
             levelRenderer.RenderInitialExploredTiles();
@@ -67,6 +70,26 @@ namespace DungeonCrawler
             Console.WriteLine("\tJohn Andersson & Emil Martini");
             Console.ReadKey(true);
             Console.Clear();
+        }
+        
+        private static void RunState(StateMachine stateMachine)
+        {
+            switch (stateMachine.CurrentState)
+            {
+                case StateMachine.State.InitializeGame:
+
+                    break;
+                case StateMachine.State.InitializeLevel:
+                    break;
+                case StateMachine.State.WelcomeScreen:
+                    break;
+                case StateMachine.State.RunLevel:
+                    break;
+                case StateMachine.State.ExitLevel:
+                    break;
+                case StateMachine.State.ExitGame:
+                    break;
+            }
         }
     }
 }

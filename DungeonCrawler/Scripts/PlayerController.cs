@@ -41,19 +41,19 @@ namespace DungeonCrawler
             Point currentPosition = player.Position;
             Point targetPosition = new Point(currentPosition.row + directionRow,
                                              currentPosition.column + directionColumn);
-            if (levels[LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column] is IInteractable interactable)
+            if (levels[(int)LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column] is IInteractable interactable)
             {
                 bool interactionSucceded = interactable.Interact();
                 if (interactionSucceded)
                 {
-                    levels[LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column] = new Floor();
+                    levels[(int)LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column] = new Floor();
                 }
                 else
                 {
                     return;
                 }
             }
-            if (levels[LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
+            if (levels[(int)LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {
                 UpdatePlayerPosition(targetPosition);
                 player.NumberOfMoves++;  
@@ -61,9 +61,9 @@ namespace DungeonCrawler
         }
         public void UpdatePlayerPosition(Point targetPosition)
         {
-            levels[LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = levels[LevelLoader.CurrentLevel].InitialLayout[player.Position.row, player.Position.column];
+            levels[(int)LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = levels[(int)LevelLoader.CurrentLevel].InitialLayout[player.Position.row, player.Position.column];
             player.Position = targetPosition;
-            levels[LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
+            levels[(int)LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
         }
         public void ExploreTilesAroundPlayer(Point playerPosition)
         {
@@ -79,10 +79,9 @@ namespace DungeonCrawler
                     }
                 }
             }
-
             for (int i = 0; i < levelRenderer.PointsToRender.Length; i++)
             {
-                levels[LevelLoader.CurrentLevel].ExploredLayout[levelRenderer.PointsToRender[i].row, levelRenderer.PointsToRender[i].column].IsExplored = true;
+                levels[(int)LevelLoader.CurrentLevel].ExploredLayout[levelRenderer.PointsToRender[i].row, levelRenderer.PointsToRender[i].column].IsExplored = true;
             }
         }
         public string OutputString

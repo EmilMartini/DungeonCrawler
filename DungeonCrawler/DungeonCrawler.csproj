@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrentLevel.cs" />
     <Compile Include="Scripts\ConsoleOutputFilter.cs" />
     <Compile Include="Scripts\Doors\BlueDoor.cs" />
     <Compile Include="Scripts\Doors\Door.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Scripts\Map\Tile.cs" />
     <Compile Include="Scripts\Map\TileType.cs" />
     <Compile Include="Scripts\Map\Wall.cs" />
+    <Compile Include="StateMachine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
