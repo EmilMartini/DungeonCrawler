@@ -37,7 +37,7 @@ namespace DungeonCrawler
         }
         private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
         {
-            LevelLoader.CurrentLevel = 1;
+            LevelLoader.CurrentLevel = 0;
             levelLayout.InitializeLevels();
             levelLoader.SpawnLevelObjects();
             levelLoader.DisplayInitialMap();

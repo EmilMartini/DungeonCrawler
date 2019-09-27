@@ -4,7 +4,7 @@ namespace DungeonCrawler
 {
     internal class EnemyController
     {
-        Random random = new Random();
+        private Random random = new Random();
         private Point currentEnemyPosition;
         private Point nextEnemyPosition;
         private readonly Level[] levels;
@@ -53,9 +53,16 @@ namespace DungeonCrawler
                     {
                         levels[LevelLoader.CurrentLevel].Enemies[i].IsExplored = false;
                     }
-                    levelRenderer.UpdateEnemyPositions(levels[LevelLoader.CurrentLevel].Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
+                    UpdateEnemyPositions(levels[LevelLoader.CurrentLevel].Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
                 }
             }     
+        }
+        public void UpdateEnemyPositions(Enemy enemy, Point targetPosition, Point currentEnemyPosition, int index)
+        {
+            levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[index] = currentEnemyPosition;
+            levels[LevelLoader.CurrentLevel].ExploredLayout[enemy.Position.row, enemy.Position.column] = levels[LevelLoader.CurrentLevel].InitialLayout[enemy.Position.row, enemy.Position.column];
+            enemy.Position = targetPosition;
+            levels[LevelLoader.CurrentLevel].ExploredLayout[enemy.Position.row, enemy.Position.column] = enemy;
         }
 
     }

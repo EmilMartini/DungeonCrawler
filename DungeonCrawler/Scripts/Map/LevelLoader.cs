@@ -50,9 +50,6 @@ namespace DungeonCrawler
             {
                 for (int column = 0; column < levels[CurrentLevel].InitialLayout.GetLength(1); column++)
                 {
-                    //Console.SetCursorPosition(((int)consoleWindowSize.Width / levels[CurrentLevel].InitialLayout.GetLength(0) * row), 
-                    //                         ((int)consoleWindowSize.Height / levels[CurrentLevel].InitialLayout.GetLength(1) * column));
-
                     Console.SetCursorPosition(column + (column + 2), row);
 
                     Console.ForegroundColor = levels[CurrentLevel].InitialLayout[row, column].Color;

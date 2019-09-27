@@ -7,7 +7,7 @@ namespace DungeonCrawler
     {
         private readonly Level[] levels;
         private readonly Player player;
-        public Point[] PointsToRender = new Point[8];
+        private Point[] pointsToRender = new Point[8];
         public LevelRenderer(Level[] levels, Player player)
         {
             this.levels = levels ?? throw new ArgumentNullException(nameof(levels));
@@ -19,7 +19,6 @@ namespace DungeonCrawler
             RenderTilesAroundPlayer();
             RenderUI();
         }
-
         private void RenderUI()
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -81,18 +80,11 @@ namespace DungeonCrawler
             Console.SetCursorPosition(player.Position.column + (player.Position.column + 2), player.Position.row);
             Console.Write($"{player.Graphic}");
         }
-        public void UpdatePlayerPosition(Point targetPosition)
+
+        public Point[] PointsToRender
         {
-            levels[LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = levels[LevelLoader.CurrentLevel].InitialLayout[player.Position.row, player.Position.column];
-            player.Position = targetPosition;
-            levels[LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
-        }
-        public void UpdateEnemyPositions(Enemy enemy, Point targetPosition, Point currentEnemyPosition, int index)
-        {
-            levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[index] = currentEnemyPosition;
-            levels[LevelLoader.CurrentLevel].ExploredLayout[enemy.Position.row, enemy.Position.column] = levels[LevelLoader.CurrentLevel].InitialLayout[enemy.Position.row, enemy.Position.column];
-            enemy.Position = targetPosition;
-            levels[LevelLoader.CurrentLevel].ExploredLayout[enemy.Position.row, enemy.Position.column] = enemy;
+            get { return pointsToRender; }
+            set { pointsToRender = value; }
         }
     }
 }
