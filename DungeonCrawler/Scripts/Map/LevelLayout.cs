@@ -114,6 +114,7 @@ namespace DungeonCrawler
         private void SetLevelTwoLayout()
         {
             //readonly static Point level2SpawnPoint = new Point(17, 7);
+
             //Level one
             //Hardcoded walls
             Levels[1].InitialLayout[5, 16] = new Wall(false);
@@ -123,6 +124,9 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[16, 16] = new Wall(false);
 
 
+            Levels[1].InitialLayout[1, 15] = new Wall(false);
+            Levels[1].InitialLayout[2, 15] = new Wall(false);
+            Levels[1].InitialLayout[3, 15] = new Wall(false);
             Levels[1].InitialLayout[5, 15] = new Wall(false);
             Levels[1].InitialLayout[7, 15] = new Wall(false);
             Levels[1].InitialLayout[11, 15] = new Wall(false);
@@ -140,6 +144,9 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[16, 14] = new Wall(false);
 
 
+            Levels[1].InitialLayout[2, 13] = new Wall(false);
+            Levels[1].InitialLayout[3, 13] = new Wall(false);
+            Levels[1].InitialLayout[4, 13] = new Wall(false);
             Levels[1].InitialLayout[5, 13] = new Wall(false);
 
             Levels[1].InitialLayout[5, 12] = new Wall(false);
@@ -152,19 +159,23 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[14, 12] = new Wall(false);
             Levels[1].InitialLayout[15, 12] = new Wall(false);
 
+            Levels[1].InitialLayout[2, 11] = new Wall(false);
+            Levels[1].InitialLayout[3, 11] = new Wall(false);
+            Levels[1].InitialLayout[4, 11] = new Wall(false);
             Levels[1].InitialLayout[5, 11] = new Wall(false);
             Levels[1].InitialLayout[7, 11] = new Wall(false);
             Levels[1].InitialLayout[8, 11] = new Wall(false);
             Levels[1].InitialLayout[10, 11] = new Wall(false);
             Levels[1].InitialLayout[15, 11] = new Wall(false);
 
+            Levels[1].InitialLayout[2, 10] = new Wall(false);
             Levels[1].InitialLayout[7, 10] = new Wall(false);
             Levels[1].InitialLayout[10, 10] = new Wall(false);
             Levels[1].InitialLayout[12, 10] = new Wall(false);
             Levels[1].InitialLayout[13, 10] = new Wall(false);
             Levels[1].InitialLayout[15, 10] = new Wall(false);
 
-
+            Levels[1].InitialLayout[2, 9] = new Wall(false);
             Levels[1].InitialLayout[5, 9] = new Wall(false);
             Levels[1].InitialLayout[7, 9] = new Wall(false);
             Levels[1].InitialLayout[8, 9] = new Wall(false);
@@ -173,6 +184,7 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[14, 9] = new Wall(false);
             Levels[1].InitialLayout[15, 9] = new Wall(false);
 
+            Levels[1].InitialLayout[2, 8] = new Wall(false);
             Levels[1].InitialLayout[5, 8] = new Wall(false);
             Levels[1].InitialLayout[7, 8] = new Wall(false);
             Levels[1].InitialLayout[8, 8] = new Wall(false);
@@ -180,7 +192,9 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[11, 8] = new Wall(false);
             Levels[1].InitialLayout[13, 8] = new Wall(false);
 
+            Levels[1].InitialLayout[2, 7] = new Wall(false);
             Levels[1].InitialLayout[5, 7] = new Wall(false);
+            Levels[1].InitialLayout[6, 7] = new Wall(false);
             Levels[1].InitialLayout[7, 7] = new Wall(false);
             Levels[1].InitialLayout[8, 7] = new Wall(false);
             Levels[1].InitialLayout[11, 7] = new Wall(false);
@@ -188,6 +202,7 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[14, 7] = new Wall(false);
             Levels[1].InitialLayout[15, 7] = new Wall(false);
 
+            Levels[1].InitialLayout[2, 6] = new Wall(false);
             Levels[1].InitialLayout[7, 6] = new Wall(false);
             Levels[1].InitialLayout[8, 6] = new Wall(false);
             Levels[1].InitialLayout[10, 6] = new Wall(false);
@@ -195,11 +210,15 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[13, 6] = new Wall(false);
             Levels[1].InitialLayout[15, 6] = new Wall(false);
 
+            Levels[1].InitialLayout[2, 5] = new Wall(false);
+            Levels[1].InitialLayout[3, 5] = new Wall(false);
+            Levels[1].InitialLayout[4, 5] = new Wall(false);
             Levels[1].InitialLayout[5, 5] = new Wall(false);
             Levels[1].InitialLayout[7, 5] = new Wall(false);
             Levels[1].InitialLayout[10, 5] = new Wall(false);
             Levels[1].InitialLayout[13, 5] = new Wall(false);
 
+            Levels[1].InitialLayout[2, 4] = new Wall(false);
             Levels[1].InitialLayout[5, 4] = new Wall(false);
             Levels[1].InitialLayout[7, 4] = new Wall(false);
             Levels[1].InitialLayout[9, 4] = new Wall(false);
@@ -207,6 +226,8 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[11, 4] = new Wall(false);
             Levels[1].InitialLayout[15, 4] = new Wall(false);
 
+            Levels[1].InitialLayout[2, 3] = new Wall(false);
+            Levels[1].InitialLayout[3, 3] = new Wall(false);
             Levels[1].InitialLayout[9, 3] = new Wall(false);
             Levels[1].InitialLayout[13, 3] = new Wall(false);
             Levels[1].InitialLayout[15, 3] = new Wall(false);
@@ -218,18 +239,37 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[13, 2] = new Wall(false);
             Levels[1].InitialLayout[15, 2] = new Wall(false);
 
+            Levels[1].InitialLayout[2, 1] = new Wall(false);
+            Levels[1].InitialLayout[3, 1] = new Wall(false);
             Levels[1].InitialLayout[5, 1] = new Wall(false);
             Levels[1].InitialLayout[11, 1] = new Wall(false);
             Levels[1].InitialLayout[15, 1] = new Wall(false);
 
-            //    //Hardcoded doors
-            //    //Levels[0].InitialLayout[14, 7] = new BlueDoor();
-            //    //Levels[0].InitialLayout[9, 20] = new PurpleDoor();
+            ////Hardcoded water
 
-            //    ////Hardcded keys
-            //    //Levels[0].InitialLayout[6, 2] = new PurpleKey();
-            //    //Levels[0].InitialLayout[2, 18] = new BlueKey();
-            }
+            Levels[1].InitialLayout[3, 6] = new Water();
+            Levels[1].InitialLayout[3, 7] = new Water();
+            Levels[1].InitialLayout[3, 8] = new Water();
+            Levels[1].InitialLayout[3, 9] = new Water();
+            Levels[1].InitialLayout[3, 10] = new Water();
+
+            Levels[1].InitialLayout[8, 15] = new Water();
+            Levels[1].InitialLayout[10, 15] = new Water();
+            Levels[1].InitialLayout[8, 16] = new Water();
+
+            //Hardcoded doors
+            Levels[1].InitialLayout[16, 3] = new BlueDoor();
+            Levels[1].InitialLayout[1, 7] = new PurpleDoor();
+            Levels[1].InitialLayout[1, 16] = new YellowDoor();
+
+            ////Hardcded keys
+            Levels[1].InitialLayout[16, 2] = new PurpleKey();
+            Levels[1].InitialLayout[10, 16] = new BlueKey();
+            Levels[1].InitialLayout[14, 10] = new SkeletonKey();
+            Levels[1].InitialLayout[14, 8] = new YellowKey();
+
+
         }
+    }
 }
             

@@ -8,7 +8,7 @@ namespace DungeonCrawler.Keys
 {
     public class YellowKey : Key
     {
-        public YellowKey(Point position)
+        public YellowKey()
         {
             this.Unlock = Unlock.Yellow;
             this.TileType = TileType.Key;
@@ -17,7 +17,6 @@ namespace DungeonCrawler.Keys
             this.NumberOfUses = 1;
             this.Color = ConsoleColor.DarkYellow;
             this.Graphic = "K";
-            this.Position = position;
         }
     }
 }
