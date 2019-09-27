@@ -16,31 +16,10 @@ namespace DungeonCrawler
         public void RenderLevel()
         {
             RenderEnemiesIfExplored();
-            ExploreTilesAroundPlayer(player.Position);
             RenderTilesAroundPlayer();
             RenderUI();
         }
 
-        public void ExploreTilesAroundPlayer(Point playerPosition)
-        {
-            int index = 0;
-            for (int row = (-1); row < 2; row++)
-            {
-                for (int column = (-1); column < 2; column++)
-                {
-                    if((row != 0 | column != 0))
-                    {
-                        PointsToRender[index] = new Point(playerPosition.row + row, playerPosition.column + column);
-                        index++;
-                    }
-                }
-            }
-
-            for (int i = 0; i < PointsToRender.Length; i++)
-            {
-                levels[LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].IsExplored = true;
-            }
-        }
         private void RenderUI()
         {
             Console.ForegroundColor = ConsoleColor.White;

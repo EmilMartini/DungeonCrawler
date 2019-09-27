@@ -56,9 +56,31 @@ namespace DungeonCrawler
             if (levels[LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {
                 levelRenderer.UpdatePlayerPosition(targetPosition);
-                player.NumberOfMoves++;
+                player.NumberOfMoves++;  
             }
         }
+
+        public void ExploreTilesAroundPlayer(Point playerPosition)
+        {
+            int index = 0;
+            for (int row = (-1); row < 2; row++)
+            {
+                for (int column = (-1); column < 2; column++)
+                {
+                    if ((row != 0 | column != 0))
+                    {
+                        levelRenderer.PointsToRender[index] = new Point(playerPosition.row + row, playerPosition.column + column);
+                        index++;
+                    }
+                }
+            }
+
+            for (int i = 0; i < levelRenderer.PointsToRender.Length; i++)
+            {
+                levels[LevelLoader.CurrentLevel].ExploredLayout[levelRenderer.PointsToRender[i].row, levelRenderer.PointsToRender[i].column].IsExplored = true;
+            }
+        }
+
 
         public string OutputString
         {
