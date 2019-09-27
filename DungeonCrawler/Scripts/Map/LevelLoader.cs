@@ -4,16 +4,16 @@ using DungeonCrawler.Keys;
 
 namespace DungeonCrawler
 {
-    class LevelLoader
+    public class LevelLoader
     {
         private StateMachine stateMachine;
         private Level[] levels;
         private readonly LevelLayout levelLayout;
         private Random rnd = new Random();
 
-        public LevelLoader(Level[] levels, LevelLayout levelLayout, StateMachine stateMachine)
+        public LevelLoader(LevelLayout levelLayout, StateMachine stateMachine)
         {
-            this.levels = levels;
+            this.levels = stateMachine.Levels;
             this.levelLayout = levelLayout;
             this.stateMachine = stateMachine;
         }
@@ -39,7 +39,7 @@ namespace DungeonCrawler
         }
         public void InitializeLevels()
         {
-            for (int i = 0; i < levels.Length; i++)
+            for (int i = 0; i < stateMachine.Levels.Length; i++)
             {
                 levels[i].InitialLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
                 levels[i].ExploredLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];

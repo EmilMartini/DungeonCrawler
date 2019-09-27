@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DungeonCrawler.Scripts;
+using System;
 using System.Media;
 using System.Threading;
 
@@ -8,42 +9,36 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
-            var stateMachine = new StateMachine();
-            var levelLayout = new LevelLayout(); 
-            var player = new Player();
-            var levelRenderer = new LevelRenderer(levelLayout.Levels, player, stateMachine);
-            var levelLoader = new LevelLoader(levelLayout.Levels, levelLayout, stateMachine);
-            var enemyController = new EnemyController(levelLayout.Levels, levelRenderer, stateMachine);
-            var playerController = new PlayerController(levelLayout.Levels, player, levelRenderer, stateMachine);
-            var consoleOutputFilter = new ConsoleOutputFilter();
-            
-            SetConsoleProperties();
-            WelcomeScreen();
-            LoadGameDependecies(levelLayout, levelLoader, levelRenderer, stateMachine);
-            RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer, player);
-            //RunState(stateMachine);
+            StateMachine stateMachine = new StateMachine();
+            DataInitializer dataInitializer = new DataInitializer(stateMachine);
+            stateMachine.DataInitializer = dataInitializer;
 
+            while (stateMachine.CurrentState != StateMachine.State.ExitGame)
+            {              
+                RunState(stateMachine);
+            }        
         }
 
-        private static void RunGame(ConsoleOutputFilter consoleOutputFilter, System.IO.TextWriter standardOutputWriter, PlayerController playerController, EnemyController enemyController, LevelRenderer levelRenderer, Player player)
+        private static void RunGame(StateMachine stateMachine, System.IO.TextWriter standardOutputWriter)
         {
-            while(true)
-            {
-                Console.SetOut(consoleOutputFilter);
-                playerController.CheckInput();
-                enemyController.Move();
-                playerController.ExploreTilesAroundPlayer();
+                Console.SetOut(stateMachine.DataInitializer.ConsoleOutputFilter);
+                stateMachine.DataInitializer.PlayerController.MovePlayer(stateMachine.DataInitializer.PlayerController.GetInput());
+                stateMachine.DataInitializer.EnemyController.Move();
+                stateMachine.DataInitializer.PlayerController.ExploreTilesAroundPlayer();
                 Console.SetOut(standardOutputWriter);
-                levelRenderer.RenderLevel();
-            }
+                stateMachine.DataInitializer.LevelRenderer.RenderLevel();
         }
-        private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer, StateMachine stateMachine)
+        private static void LoadGameDependecies(StateMachine stateMachine)
         {
-            stateMachine.LevelIndex = CurrentLevel.LevelOne;
-            levelLoader.InitializeLevels();
-            levelLoader.SpawnLevelObjects();
-            levelRenderer.RenderInitialExploredTiles();
-            levelRenderer.RenderLevel();
+            stateMachine.DataInitializer.LevelLoader.InitializeLevels();
+            stateMachine.CurrentState = StateMachine.State.WelcomeScreen;
+        }
+        private static void LoadCurrentLevel(StateMachine stateMachine)
+        {
+            stateMachine.DataInitializer.LevelLoader.SpawnLevelObjects();
+            stateMachine.DataInitializer.LevelRenderer.RenderInitialExploredTiles();
+            stateMachine.DataInitializer.LevelRenderer.RenderLevel();
+            stateMachine.CurrentState = StateMachine.State.RunLevel;
         }
         private static void SetConsoleProperties()
         {
@@ -52,7 +47,7 @@ namespace DungeonCrawler
             Console.SetWindowSize((int)consoleWindowSize.Width, (int)consoleWindowSize.Height);
             Console.SetBufferSize((int)consoleWindowSize.Width + 1, (int)consoleWindowSize.Height + 1);
         }
-        private static void WelcomeScreen()
+        private static void WelcomeScreen(StateMachine stateMachine)
         {
             Console.WriteLine();
             Console.WriteLine($"\tWelcome to a dungeon crawler you'll never forget.");
@@ -70,23 +65,24 @@ namespace DungeonCrawler
             Console.WriteLine("\tJohn Andersson & Emil Martini");
             Console.ReadKey(true);
             Console.Clear();
-        }
-        
-        private static void RunState(StateMachine stateMachine)
+            stateMachine.CurrentState = StateMachine.State.InitializeLevel;
+        } 
+        public static void RunState(StateMachine stateMachine)
         {
             switch (stateMachine.CurrentState)
             {
                 case StateMachine.State.InitializeGame:
-
-                    break;
-                case StateMachine.State.InitializeLevel:
-
+                    SetConsoleProperties();
+                    LoadGameDependecies(stateMachine);
                     break;
                 case StateMachine.State.WelcomeScreen:
-
+                    WelcomeScreen(stateMachine);
+                    break;
+                case StateMachine.State.InitializeLevel:
+                    LoadCurrentLevel(stateMachine);
                     break;
                 case StateMachine.State.RunLevel:
-
+                    RunGame(stateMachine, Console.Out);
                     break;
                 case StateMachine.State.ExitLevel:
 

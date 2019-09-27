@@ -15,32 +15,27 @@ namespace DungeonCrawler
             this.stateMachine = stateMachine;
             stateMachine.PlayerPosition = player.Position;
         }
-        public void CheckInput()
+        public Point GetInput()
         {
             var input = Console.ReadKey();
-            switch(input.KeyChar)
+            switch (input.KeyChar)
             {
                 case 'w':
-                    MovePlayer(-1, 0);
-                    break;
+                    return new Point(-1, 0);
                 case 'a':
-                    MovePlayer(0, -1);
-                    break;
+                    return new Point(0, -1);
                 case 's':
-                    MovePlayer(1, 0);
-                    break;
+                    return new Point(1, 0);
                 case 'd':
-                    MovePlayer(0, 1);
-                    break;
+                    return new Point(0, 1);
                 default:
-                    break;
+                    return new Point(0, 0);
             }
         }
-        public void MovePlayer(int directionRow, int directionColumn)
+        public void MovePlayer(Point direction)
         {
             stateMachine.PlayerPosition = player.Position;
-            stateMachine.TargetPlayerPosition = new Point(stateMachine.PlayerPosition.row + directionRow,
-                                                          stateMachine.PlayerPosition.column + directionColumn);
+            stateMachine.TargetPlayerPosition = new Point(stateMachine.PlayerPosition.row + direction.row, stateMachine.PlayerPosition.column + direction.column);
             if (levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
             {
                 bool interactionSucceded = interactable.Interact();
