@@ -23,6 +23,7 @@ namespace DungeonCrawler
         private Point[] wallPositions;
         private Point[] floorPositions;
         private CurrentLevel levelIndex;
+        private CurrentLevel nextLevel;
         private State currentState;
         private DataInitializer dataInitializer;
         private System.IO.TextWriter standardOutputWriter;
@@ -43,5 +44,6 @@ namespace DungeonCrawler
         public Level[] Levels { get { return levels; } set { levels = value; } }
         public DataInitializer DataInitializer { get { return dataInitializer; } set { dataInitializer = value; } }
         public TextWriter StandardOutputWriter { get { return standardOutputWriter; } set { standardOutputWriter = value; } }
+        public CurrentLevel NextLevel { get { return nextLevel; } set { nextLevel = value; } }
     }
 }

@@ -9,6 +9,7 @@ namespace DungeonCrawler
     {
         private Level[] Levels = new Level[3];
         private Point[] spawnPoints = new Point[3];
+        private StateMachine StateMachine;
 
         readonly static Point level1SpawnPoint = new Point(1, 1);
         readonly static Point level2SpawnPoint = new Point(16, 7);
@@ -26,6 +27,7 @@ namespace DungeonCrawler
             spawnPoints[0] = level1SpawnPoint;
             spawnPoints[1] = level2SpawnPoint;
             spawnPoints[2] = level3SpawnPoint;
+            StateMachine = stateMachine;
             stateMachine.Levels = Levels;
         } 
         public void SetLevelOneLayout()
@@ -74,6 +76,7 @@ namespace DungeonCrawler
             //Hardcoded keys
             Levels[0].InitialLayout[6, 2] = new PurpleKey();
             Levels[0].InitialLayout[2, 18] = new BlueKey();
+            Levels[0].InitialLayout[3, 18] = new TrapDoor(StateMachine);
 
             //Hardcoded water
             Levels[0].InitialLayout[13, 1] = new Water();
