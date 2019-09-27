@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace DungeonCrawler
         private CurrentLevel levelIndex;
         private State currentState;
         private DataInitializer dataInitializer;
+        private System.IO.TextWriter standardOutputWriter;
 
         public Point PlayerPosition { get { return currentPlayerPosition; } set { currentPlayerPosition = value; } }
         public Point TargetPlayerPosition { get { return targetPlayerPosition; } set { targetPlayerPosition = value; } }
@@ -40,5 +42,6 @@ namespace DungeonCrawler
         public Point[] PointsToRenderOnMap { get { return pointsToRenderOnMap; } set { pointsToRenderOnMap = value; } }
         public Level[] Levels { get { return levels; } set { levels = value; } }
         public DataInitializer DataInitializer { get { return dataInitializer; } set { dataInitializer = value; } }
+        public TextWriter StandardOutputWriter { get { return standardOutputWriter; } set { standardOutputWriter = value; } }
     }
 }

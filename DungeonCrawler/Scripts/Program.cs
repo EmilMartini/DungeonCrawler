@@ -18,36 +18,19 @@ namespace DungeonCrawler
                 RunState(stateMachine);
             }        
         }
-
-        private static void RunGame(StateMachine stateMachine, System.IO.TextWriter standardOutputWriter)
-        {
-                Console.SetOut(stateMachine.DataInitializer.ConsoleOutputFilter);
-                stateMachine.DataInitializer.PlayerController.MovePlayer(stateMachine.DataInitializer.PlayerController.GetInput());
-                stateMachine.DataInitializer.EnemyController.Move();
-                stateMachine.DataInitializer.PlayerController.ExploreTilesAroundPlayer();
-                Console.SetOut(standardOutputWriter);
-                stateMachine.DataInitializer.LevelRenderer.RenderLevel();
-        }
-        private static void LoadGameDependecies(StateMachine stateMachine)
-        {
-            stateMachine.DataInitializer.LevelLoader.InitializeLevels();
-            stateMachine.CurrentState = StateMachine.State.WelcomeScreen;
-        }
-        private static void LoadCurrentLevel(StateMachine stateMachine)
-        {
-            stateMachine.DataInitializer.LevelLoader.SpawnLevelObjects();
-            stateMachine.DataInitializer.LevelRenderer.RenderInitialExploredTiles();
-            stateMachine.DataInitializer.LevelRenderer.RenderLevel();
-            stateMachine.CurrentState = StateMachine.State.RunLevel;
-        }
-        private static void SetConsoleProperties()
+        static void SetConsoleProperties()
         {
             Size consoleWindowSize = new Size(77, 36);
             Console.CursorVisible = false;
             Console.SetWindowSize((int)consoleWindowSize.Width, (int)consoleWindowSize.Height);
             Console.SetBufferSize((int)consoleWindowSize.Width + 1, (int)consoleWindowSize.Height + 1);
         }
-        private static void WelcomeScreen(StateMachine stateMachine)
+        static void LoadGameDependencies(StateMachine stateMachine)
+        {
+            stateMachine.DataInitializer.LevelLoader.InitializeLevels();
+            stateMachine.CurrentState = StateMachine.State.WelcomeScreen;
+        }
+        static void WelcomeScreen(StateMachine stateMachine)
         {
             Console.WriteLine();
             Console.WriteLine($"\tWelcome to a dungeon crawler you'll never forget.");
@@ -66,14 +49,30 @@ namespace DungeonCrawler
             Console.ReadKey(true);
             Console.Clear();
             stateMachine.CurrentState = StateMachine.State.InitializeLevel;
-        } 
-        public static void RunState(StateMachine stateMachine)
+        }
+        static void LoadCurrentLevel(StateMachine stateMachine)
+        {
+            stateMachine.DataInitializer.LevelLoader.SpawnLevelObjects();
+            stateMachine.DataInitializer.LevelRenderer.RenderInitialExploredTiles();
+            stateMachine.DataInitializer.LevelRenderer.RenderLevel();
+            stateMachine.CurrentState = StateMachine.State.RunLevel;
+        }
+        static void RunGame(StateMachine stateMachine)
+        {
+                Console.SetOut(stateMachine.DataInitializer.ConsoleOutputFilter);
+                stateMachine.DataInitializer.PlayerController.MovePlayer(stateMachine.DataInitializer.PlayerController.GetInput());
+                stateMachine.DataInitializer.EnemyController.Move();
+                stateMachine.DataInitializer.PlayerController.ExploreTilesAroundPlayer();
+                Console.SetOut(stateMachine.StandardOutputWriter);
+                stateMachine.DataInitializer.LevelRenderer.RenderLevel();
+        }    
+        static void RunState(StateMachine stateMachine)
         {
             switch (stateMachine.CurrentState)
             {
                 case StateMachine.State.InitializeGame:
                     SetConsoleProperties();
-                    LoadGameDependecies(stateMachine);
+                    LoadGameDependencies(stateMachine);
                     break;
                 case StateMachine.State.WelcomeScreen:
                     WelcomeScreen(stateMachine);
@@ -82,7 +81,7 @@ namespace DungeonCrawler
                     LoadCurrentLevel(stateMachine);
                     break;
                 case StateMachine.State.RunLevel:
-                    RunGame(stateMachine, Console.Out);
+                    RunGame(stateMachine);
                     break;
                 case StateMachine.State.ExitLevel:
 
