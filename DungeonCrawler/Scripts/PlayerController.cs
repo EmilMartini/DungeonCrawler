@@ -55,11 +55,17 @@ namespace DungeonCrawler
             }
             if (levels[LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
             {
-                levelRenderer.UpdatePlayerPosition(targetPosition);
+                UpdatePlayerPosition(targetPosition);
                 player.NumberOfMoves++;  
             }
         }
 
+        public void UpdatePlayerPosition(Point targetPosition)
+        {
+            levels[LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = levels[LevelLoader.CurrentLevel].InitialLayout[player.Position.row, player.Position.column];
+            player.Position = targetPosition;
+            levels[LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
+        }
         public void ExploreTilesAroundPlayer(Point playerPosition)
         {
             int index = 0;
@@ -80,8 +86,6 @@ namespace DungeonCrawler
                 levels[LevelLoader.CurrentLevel].ExploredLayout[levelRenderer.PointsToRender[i].row, levelRenderer.PointsToRender[i].column].IsExplored = true;
             }
         }
-
-
         public string OutputString
         {
             get { return outputString; }
