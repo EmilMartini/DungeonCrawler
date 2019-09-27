@@ -19,10 +19,10 @@ namespace DungeonCrawler
             SetConsoleProperties();
             WelcomeScreen();
             LoadGameDependecies(levelLayout, levelLoader, levelRenderer);
-            RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer);        
+            RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer, player);        
         }
 
-        private static void RunGame(ConsoleOutputFilter consoleOutputFilter, System.IO.TextWriter standardOutputWriter, PlayerController playerController, EnemyController enemyController, LevelRenderer levelRenderer)
+        private static void RunGame(ConsoleOutputFilter consoleOutputFilter, System.IO.TextWriter standardOutputWriter, PlayerController playerController, EnemyController enemyController, LevelRenderer levelRenderer, Player player)
         {
             bool isRunning = true;
             while(isRunning)
@@ -30,6 +30,7 @@ namespace DungeonCrawler
                 Console.SetOut(consoleOutputFilter);
                 playerController.CheckInput();
                 enemyController.Move();
+                playerController.ExploreTilesAroundPlayer(player.Position);
                 Console.SetOut(standardOutputWriter);
                 levelRenderer.RenderLevel();
             }

@@ -36,9 +36,6 @@ namespace DungeonCrawler
         public bool Interact()
         {
             Player.KeysInInventory.Add(this);
-            //SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\pickup-key.wav";
-            //SoundPlayer.LoadAsync();
-            //SoundPlayer.Play();
             return true;
         }
     }
