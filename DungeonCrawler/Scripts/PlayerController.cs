@@ -59,7 +59,6 @@ namespace DungeonCrawler
                 player.NumberOfMoves++;  
             }
         }
-
         public void UpdatePlayerPosition(Point targetPosition)
         {
             levels[LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = levels[LevelLoader.CurrentLevel].InitialLayout[player.Position.row, player.Position.column];

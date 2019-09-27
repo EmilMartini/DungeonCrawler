@@ -7,7 +7,6 @@ namespace DungeonCrawler
 {
     public abstract class Key : Tile, IInteractable
     {
-        private SoundPlayer SoundPlayer = new SoundPlayer();
         private bool isEquipped;
         private Unlock unlock;
         private byte numberOfUses;

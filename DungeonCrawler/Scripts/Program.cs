@@ -24,8 +24,7 @@ namespace DungeonCrawler
 
         private static void RunGame(ConsoleOutputFilter consoleOutputFilter, System.IO.TextWriter standardOutputWriter, PlayerController playerController, EnemyController enemyController, LevelRenderer levelRenderer, Player player)
         {
-            bool isRunning = true;
-            while(isRunning)
+            while(true)
             {
                 Console.SetOut(consoleOutputFilter);
                 playerController.CheckInput();
@@ -37,7 +36,7 @@ namespace DungeonCrawler
         }
         private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
         {
-            LevelLoader.CurrentLevel = 0;
+            LevelLoader.CurrentLevel = 1;
             levelLayout.InitializeLevels();
             levelLoader.SpawnLevelObjects();
             levelLoader.DisplayInitialMap();
