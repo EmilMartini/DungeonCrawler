@@ -4,16 +4,16 @@ namespace DungeonCrawler
 {
     public class PlayerController
     {
+        private StateMachine stateMachine;
         private readonly Level[] levels;
-        private readonly LevelRenderer levelRenderer;
         private readonly Player player;
-        private string outputString;
 
-        public PlayerController(Level[] levels, Player player, LevelRenderer levelRenderer)
+        public PlayerController(Level[] levels, Player player, LevelRenderer levelRenderer, StateMachine stateMachine)
         {
-            this.levels = levels ?? throw new ArgumentNullException(nameof(levels));
-            this.player = player ?? throw new ArgumentNullException(nameof(player));
-            this.levelRenderer = levelRenderer ?? throw new ArgumentNullException(nameof(levelRenderer));
+            this.levels = levels;
+            this.player = player;
+            this.stateMachine = stateMachine;
+            stateMachine.PlayerPosition = player.Position;
         }
         public void CheckInput()
         {
@@ -38,34 +38,35 @@ namespace DungeonCrawler
         }
         public void MovePlayer(int directionRow, int directionColumn)
         {
-            Point currentPosition = player.Position;
-            Point targetPosition = new Point(currentPosition.row + directionRow,
-                                             currentPosition.column + directionColumn);
-            if (levels[(int)LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column] is IInteractable interactable)
+            stateMachine.PlayerPosition = player.Position;
+            stateMachine.TargetPlayerPosition = new Point(stateMachine.PlayerPosition.row + directionRow,
+                                                          stateMachine.PlayerPosition.column + directionColumn);
+            if (levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
             {
                 bool interactionSucceded = interactable.Interact();
                 if (interactionSucceded)
                 {
-                    levels[(int)LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column] = new Floor();
+                    levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
                 }
                 else
                 {
                     return;
                 }
             }
-            if (levels[(int)LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
+            if (levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column].TileType != TileType.Wall)
             {
-                UpdatePlayerPosition(targetPosition);
-                player.NumberOfMoves++;  
+                UpdatePlayerPosition();
+                stateMachine.PlayerNumberOfMoves++;  
             }
         }
-        public void UpdatePlayerPosition(Point targetPosition)
+        public void UpdatePlayerPosition()
         {
-            levels[(int)LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = levels[(int)LevelLoader.CurrentLevel].InitialLayout[player.Position.row, player.Position.column];
-            player.Position = targetPosition;
-            levels[(int)LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
+            levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column];
+            stateMachine.PlayerPosition = stateMachine.TargetPlayerPosition;
+            levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = player;
+            player.Position = stateMachine.PlayerPosition;
         }
-        public void ExploreTilesAroundPlayer(Point playerPosition)
+        public void ExploreTilesAroundPlayer()
         {
             int index = 0;
             for (int row = (-1); row < 2; row++)
@@ -74,20 +75,15 @@ namespace DungeonCrawler
                 {
                     if ((row != 0 | column != 0))
                     {
-                        levelRenderer.PointsToRender[index] = new Point(playerPosition.row + row, playerPosition.column + column);
+                        stateMachine.PointsToRenderOnMap[index] = new Point(stateMachine.PlayerPosition.row + row, stateMachine.PlayerPosition.column + column);
                         index++;
                     }
                 }
             }
-            for (int i = 0; i < levelRenderer.PointsToRender.Length; i++)
+            for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
             {
-                levels[(int)LevelLoader.CurrentLevel].ExploredLayout[levelRenderer.PointsToRender[i].row, levelRenderer.PointsToRender[i].column].IsExplored = true;
+                levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].IsExplored = true;
             }
-        }
-        public string OutputString
-        {
-            get { return outputString; }
-            set { outputString = value; }
         }
     }
 }

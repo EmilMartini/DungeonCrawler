@@ -8,20 +8,20 @@ namespace DungeonCrawler
     {
         static void Main(string[] args)
         {
-            //var levelLayout = new LevelLayout(); 
-            //var player = new Player();
-            //var levelRenderer = new LevelRenderer(levelLayout.Levels, player);
-            //var levelLoader = new LevelLoader(levelLayout.Levels, player, levelLayout);
-            //var enemyController = new EnemyController(levelLayout.Levels, levelRenderer);
-            //var playerController = new PlayerController(levelLayout.Levels, player, levelRenderer);
-            //var consoleOutputFilter = new ConsoleOutputFilter();
-            //
-            //SetConsoleProperties();
-            //WelcomeScreen();
-            //LoadGameDependecies(levelLayout, levelLoader, levelRenderer);
-            //RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer, player);
             var stateMachine = new StateMachine();
-            RunState(stateMachine);
+            var levelLayout = new LevelLayout(); 
+            var player = new Player();
+            var levelRenderer = new LevelRenderer(levelLayout.Levels, player, stateMachine);
+            var levelLoader = new LevelLoader(levelLayout.Levels, levelLayout, stateMachine);
+            var enemyController = new EnemyController(levelLayout.Levels, levelRenderer, stateMachine);
+            var playerController = new PlayerController(levelLayout.Levels, player, levelRenderer, stateMachine);
+            var consoleOutputFilter = new ConsoleOutputFilter();
+            
+            SetConsoleProperties();
+            WelcomeScreen();
+            LoadGameDependecies(levelLayout, levelLoader, levelRenderer, stateMachine);
+            RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer, player);
+            //RunState(stateMachine);
 
         }
 
@@ -32,14 +32,14 @@ namespace DungeonCrawler
                 Console.SetOut(consoleOutputFilter);
                 playerController.CheckInput();
                 enemyController.Move();
-                playerController.ExploreTilesAroundPlayer(player.Position);
+                playerController.ExploreTilesAroundPlayer();
                 Console.SetOut(standardOutputWriter);
                 levelRenderer.RenderLevel();
             }
         }
-        private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
+        private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer, StateMachine stateMachine)
         {
-            LevelLoader.CurrentLevel = CurrentLevel.LevelOne;
+            stateMachine.LevelIndex = CurrentLevel.LevelOne;
             levelLoader.InitializeLevels();
             levelLoader.SpawnLevelObjects();
             levelRenderer.RenderInitialExploredTiles();
@@ -80,14 +80,19 @@ namespace DungeonCrawler
 
                     break;
                 case StateMachine.State.InitializeLevel:
+
                     break;
                 case StateMachine.State.WelcomeScreen:
+
                     break;
                 case StateMachine.State.RunLevel:
+
                     break;
                 case StateMachine.State.ExitLevel:
+
                     break;
                 case StateMachine.State.ExitGame:
+
                     break;
             }
         }
