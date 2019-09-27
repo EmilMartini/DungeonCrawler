@@ -80,6 +80,28 @@ namespace DungeonCrawler
             Console.SetCursorPosition(player.Position.column + (player.Position.column + 2), player.Position.row);
             Console.Write($"{player.Graphic}");
         }
+        public void RenderInitialExploredTiles()
+        {
+            Console.Write("\n \n");
+            for (int row = 0; row < levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(0); row++)
+            {
+                for (int column = 0; column < levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1); column++)
+                {
+                    Console.SetCursorPosition(column + (column + 2), row);
+
+                    Console.ForegroundColor = levels[LevelLoader.CurrentLevel].InitialLayout[row, column].Color;
+                    if (levels[LevelLoader.CurrentLevel].InitialLayout[row, column].IsExplored == true)
+                    {
+                        Console.Write($"{levels[LevelLoader.CurrentLevel].InitialLayout[row, column].Graphic}");
+                    }
+                    else
+                    {
+                        Console.Write($"");
+                    }
+                }
+                Console.Write("");
+            }
+        }
 
         public Point[] PointsToRender
         {

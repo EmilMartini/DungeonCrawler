@@ -26,35 +26,8 @@ namespace DungeonCrawler
             spawnPoints[0] = level1SpawnPoint;
             spawnPoints[1] = level2SpawnPoint;
             spawnPoints[2] = level3SpawnPoint;
-        }
-        public void InitializeLevels()
-        {
-            for (int i = 0; i < Levels.Length; i++)
-            {
-                Levels[i].InitialLayout = new Tile[Levels[i].Size.Height, Levels[i].Size.Width];
-                Levels[i].ExploredLayout = new Tile[Levels[i].Size.Height, Levels[i].Size.Width];
-                Levels[i].Enemies = new Enemy[Levels[i].NumberOfEnemies];
-                Levels[i].PreviousEnemyPositions = new Point[Levels[i].Enemies.Length];
-
-                for (int row = 0; row < Levels[i].Size.Height; row++)
-                {
-                    for (int column = 0; column < Levels[i].Size.Width; column++)
-                    {
-                        if (column == 0 || column == Levels[i].Size.Width - 1 || row == 0 || row == Levels[i].Size.Height - 1)
-                        {
-                            Levels[i].InitialLayout[row, column] = new Wall(true);
-                        }
-                        else
-                        {
-                            Levels[i].InitialLayout[row, column] = new Floor();
-                        }
-                    }
-                }
-            }
-            SetLevelOneLayout();
-            SetLevelTwoLayout();
-        }
-        private void SetLevelOneLayout()
+        } 
+        public void SetLevelOneLayout()
         {
             //Level one
             //Hardcoded walls
@@ -111,7 +84,7 @@ namespace DungeonCrawler
             Levels[0].InitialLayout[13, 8] = new Water();
             Levels[0].InitialLayout[13, 9] = new Water();
         }
-        private void SetLevelTwoLayout()
+        public void SetLevelTwoLayout()
         {
             //readonly static Point level2SpawnPoint = new Point(17, 7);
 

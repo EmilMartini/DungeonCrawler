@@ -11,7 +11,7 @@ namespace DungeonCrawler
             var levelLayout = new LevelLayout(); 
             var player = new Player();
             var levelRenderer = new LevelRenderer(levelLayout.Levels, player);
-            var levelLoader = new LevelLoader(levelLayout.Levels, player);
+            var levelLoader = new LevelLoader(levelLayout.Levels, player, levelLayout);
             var enemyController = new EnemyController(levelLayout.Levels, levelRenderer);
             var playerController = new PlayerController(levelLayout.Levels, player, levelRenderer);
             var consoleOutputFilter = new ConsoleOutputFilter();
@@ -37,9 +37,9 @@ namespace DungeonCrawler
         private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
         {
             LevelLoader.CurrentLevel = 1;
-            levelLayout.InitializeLevels();
+            levelLoader.InitializeLevels();
             levelLoader.SpawnLevelObjects();
-            levelLoader.DisplayInitialMap();
+            levelRenderer.RenderInitialExploredTiles();
             levelRenderer.RenderLevel();
         }
         private static void SetConsoleProperties()
