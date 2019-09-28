@@ -73,7 +73,7 @@ namespace DungeonCrawler
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
-            Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {(int)stateMachine.LevelIndex + 1}");
+            Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {(int)stateMachine.CurrentLevel + 1}");
             Console.WriteLine($"\t\t\t          Good Luck");
             Console.ReadKey(true);
             Console.Clear();
@@ -82,7 +82,7 @@ namespace DungeonCrawler
         {
             stateMachine.DataInitializer.PlayerController.ResetPlayerData();
             //stateMachine.DataInitializer.EnemyController.ResetEnemyPositions();
-            stateMachine.LevelIndex = stateMachine.NextLevel;
+            stateMachine.CurrentLevel = stateMachine.NextLevel;
             stateMachine.CurrentState = StateMachine.State.InitializeLevel;
             Console.Clear();
         }
