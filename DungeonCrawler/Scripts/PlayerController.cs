@@ -8,7 +8,7 @@ namespace DungeonCrawler
         private readonly Level[] levels;
         private readonly Player player;
 
-        public PlayerController(Level[] levels, Player player, LevelRenderer levelRenderer, StateMachine stateMachine)
+        public PlayerController(Level[] levels, Player player, StateMachine stateMachine)
         {
             this.levels = levels;
             this.player = player;
@@ -50,6 +50,11 @@ namespace DungeonCrawler
             }
             if (levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column].TileType != TileType.Wall)
             {
+                if(levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column].TileType == TileType.TrapDoor)
+                {
+                    stateMachine.CurrentState = StateMachine.State.ExitLevel;
+                    return;
+                }
                 UpdatePlayerPosition();
                 stateMachine.PlayerNumberOfMoves++;  
             }
@@ -79,6 +84,16 @@ namespace DungeonCrawler
             {
                 levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].IsExplored = true;
             }
+        }
+
+        public void ResetPlayerData()
+        {
+            for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
+            {
+                stateMachine.PointsToRenderOnMap[i] = new Point(0, 0);
+            }
+            player.Position = levels[(int)stateMachine.NextLevel].PlayerStartingTile;
+            stateMachine.PlayerPosition = player.Position;
         }
     }
 }

@@ -2,12 +2,10 @@
 
 namespace DungeonCrawler
 {
-    public class TrapDoor : Tile, IInteractable
+    public class TrapDoor : Tile
     {
-        private StateMachine stateMachine;
-        public TrapDoor(StateMachine stateMachine)
+        public TrapDoor( )
         {
-            this.stateMachine = stateMachine;
             this.TileType = TileType.TrapDoor;
             this.IsExplored = false;
             this.Color = ConsoleColor.DarkGray;
@@ -16,7 +14,6 @@ namespace DungeonCrawler
 
         public bool Interact()
         {
-            stateMachine.CurrentState = StateMachine.State.ExitLevel;
             return true;
         }
     }

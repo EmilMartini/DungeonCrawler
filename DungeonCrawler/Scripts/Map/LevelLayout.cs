@@ -9,7 +9,6 @@ namespace DungeonCrawler
     {
         private Level[] Levels = new Level[3];
         private Point[] spawnPoints = new Point[3];
-        private StateMachine StateMachine;
 
         readonly static Point level1SpawnPoint = new Point(1, 1);
         readonly static Point level2SpawnPoint = new Point(16, 7);
@@ -27,12 +26,10 @@ namespace DungeonCrawler
             spawnPoints[0] = level1SpawnPoint;
             spawnPoints[1] = level2SpawnPoint;
             spawnPoints[2] = level3SpawnPoint;
-            StateMachine = stateMachine;
             stateMachine.Levels = Levels;
         } 
         public void SetLevelOneLayout()
         {
-            //Level one
             //Hardcoded walls
             Levels[0].InitialLayout[14, 1] = new Wall(false);
             Levels[0].InitialLayout[14, 2] = new Wall(false);
@@ -68,16 +65,13 @@ namespace DungeonCrawler
             Levels[0].InitialLayout[9, 21] = new Wall(false);
             Levels[0].InitialLayout[9, 22] = new Wall(false);
             Levels[0].InitialLayout[9, 23] = new Wall(false);
-
             //Hardcoded doors
             Levels[0].InitialLayout[14, 7] = new BlueDoor();
             Levels[0].InitialLayout[9, 20] = new PurpleDoor();
-
             //Hardcoded keys
             Levels[0].InitialLayout[6, 2] = new PurpleKey();
             Levels[0].InitialLayout[2, 18] = new BlueKey();
-            Levels[0].InitialLayout[3, 18] = new TrapDoor(StateMachine);
-
+            Levels[0].InitialLayout[3, 18] = new TrapDoor();
             //Hardcoded water
             Levels[0].InitialLayout[13, 1] = new Water();
             Levels[0].InitialLayout[13, 2] = new Water();
@@ -90,16 +84,12 @@ namespace DungeonCrawler
         }
         public void SetLevelTwoLayout()
         {
-            //readonly static Point level2SpawnPoint = new Point(17, 7);
-
-            //Level one
             //Hardcoded walls
             Levels[1].InitialLayout[5, 16] = new Wall(false);
             Levels[1].InitialLayout[7, 16] = new Wall(false);
             Levels[1].InitialLayout[11, 16] = new Wall(false);
             Levels[1].InitialLayout[15, 16] = new Wall(false);
             Levels[1].InitialLayout[16, 16] = new Wall(false);
-
 
             Levels[1].InitialLayout[1, 15] = new Wall(false);
             Levels[1].InitialLayout[2, 15] = new Wall(false);
@@ -108,7 +98,6 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[7, 15] = new Wall(false);
             Levels[1].InitialLayout[11, 15] = new Wall(false);
             Levels[1].InitialLayout[13, 15] = new Wall(false);
-
 
             Levels[1].InitialLayout[5, 14] = new Wall(false);
             Levels[1].InitialLayout[7, 14] = new Wall(false);
@@ -119,7 +108,6 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[13, 14] = new Wall(false);
             Levels[1].InitialLayout[15, 14] = new Wall(false);
             Levels[1].InitialLayout[16, 14] = new Wall(false);
-
 
             Levels[1].InitialLayout[2, 13] = new Wall(false);
             Levels[1].InitialLayout[3, 13] = new Wall(false);
@@ -221,9 +209,7 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[5, 1] = new Wall(false);
             Levels[1].InitialLayout[11, 1] = new Wall(false);
             Levels[1].InitialLayout[15, 1] = new Wall(false);
-
             ////Hardcoded water
-
             Levels[1].InitialLayout[3, 6] = new Water();
             Levels[1].InitialLayout[3, 7] = new Water();
             Levels[1].InitialLayout[3, 8] = new Water();
@@ -233,19 +219,15 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[8, 15] = new Water();
             Levels[1].InitialLayout[10, 15] = new Water();
             Levels[1].InitialLayout[8, 16] = new Water();
-
             //Hardcoded doors
             Levels[1].InitialLayout[16, 3] = new BlueDoor();
             Levels[1].InitialLayout[1, 7] = new PurpleDoor();
             Levels[1].InitialLayout[1, 16] = new YellowDoor();
-
             ////Hardcded keys
             Levels[1].InitialLayout[16, 2] = new PurpleKey();
             Levels[1].InitialLayout[10, 16] = new BlueKey();
             Levels[1].InitialLayout[14, 10] = new SkeletonKey();
             Levels[1].InitialLayout[14, 8] = new YellowKey();
-
-
         }
     }
 }

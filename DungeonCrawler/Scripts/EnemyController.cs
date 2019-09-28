@@ -49,7 +49,6 @@ namespace DungeonCrawler
             enemy.Position = stateMachine.TargetEnemyPosition;
             stateMachine.Levels[(int)stateMachine.LevelIndex].ExploredLayout[enemy.Position.row, enemy.Position.column] = enemy;
         }
-
         public void ResetEnemyPositions()
         {
             if(stateMachine.PreviousEnemyPositions != null)

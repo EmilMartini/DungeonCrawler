@@ -23,9 +23,8 @@ namespace DungeonCrawler
             LevelRenderer = new LevelRenderer(stateMachine.Levels, player, stateMachine);
             LevelLoader = new LevelLoader(LevelLayout, stateMachine);
             EnemyController = new EnemyController(stateMachine);
-            PlayerController = new PlayerController(stateMachine.Levels, player, levelRenderer, stateMachine);
+            PlayerController = new PlayerController(stateMachine.Levels, player, stateMachine);
             ConsoleOutputFilter = new ConsoleOutputFilter();
-
         }
 
         public LevelLayout LevelLayout { get {return levelLayout ;} set { levelLayout = value;} }

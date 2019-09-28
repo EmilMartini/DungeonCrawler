@@ -29,7 +29,7 @@ namespace DungeonCrawler
                 levels[(int)stateMachine.LevelIndex].Enemies[i] = new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn);
             }
 
-            levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = new Player(); ;
+            levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.Levels[(int)stateMachine.LevelIndex].PlayerStartingTile.row, stateMachine.Levels[(int)stateMachine.LevelIndex].PlayerStartingTile.column] = new Player();
 
             for (int i = 0; i < levels[(int)stateMachine.LevelIndex].Enemies.Length; i++)
             {

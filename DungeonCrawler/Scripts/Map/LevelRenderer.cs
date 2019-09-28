@@ -89,7 +89,7 @@ namespace DungeonCrawler
             Console.SetCursorPosition(stateMachine.PlayerPosition.column + (stateMachine.PlayerPosition.column + 2), stateMachine.PlayerPosition.row);
             Console.Write($"{player.Graphic}");
         }
-        public void RenderInitialExploredTiles()
+        public void RenderOuterWalls()
         {
             Console.Write("\n \n");
             for (int row = 0; row < levels[(int)stateMachine.LevelIndex].InitialLayout.GetLength(0); row++)
@@ -109,6 +109,12 @@ namespace DungeonCrawler
                 }
                 Console.Write("");
             }
+        }
+        public void RenderPlayerWhenEnteringLevel()
+        {
+            Console.ForegroundColor = player.Color;
+            Console.SetCursorPosition(stateMachine.PlayerPosition.column + (stateMachine.PlayerPosition.column + 2), stateMachine.PlayerPosition.row);
+            Console.Write($"{player.Graphic}");
         }
     }
 }
