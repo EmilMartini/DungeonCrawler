@@ -44,7 +44,8 @@ namespace DungeonCrawler
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("lurking these halls....\n\n\n\t\t\t\tGood luck!\n");
             Console.WriteLine("\t\t\tPress any key to start...");
-            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\tMade by:");
+            Console.Write($"\n\n\n\n\n\t|Legend\n\t|\n\t|Keys: K\n\t|Door: D\n\t|Player: @\n\t|Monsters: M");
+            Console.WriteLine("\n\n\n\n\n\n\n\n\tMade by:");
             Console.WriteLine("\tJohn Andersson & Emil Martini");
             Console.ReadKey(true);
             Console.Clear();
