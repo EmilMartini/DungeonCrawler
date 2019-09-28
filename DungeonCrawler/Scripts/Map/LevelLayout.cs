@@ -233,6 +233,13 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[14, 10] = new SkeletonKey();
             Levels[1].InitialLayout[16, 7] = new YellowKey();
         }
+        public void SetLevelThreeLayout()
+        {
+            Levels[2].InitialLayout[1, 1] = new YellowDoor(CurrentLevel.LevelTwo, true);
+            Levels[2].InitialLayout[11, 19] = new ExitDoor();
+            Levels[2].InitialLayout[11, 20] = new Wall(false);
+            Levels[2].InitialLayout[11, 18] = new Wall(false);
+        }
     }
 }
             

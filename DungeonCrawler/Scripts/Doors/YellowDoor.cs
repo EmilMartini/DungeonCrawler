@@ -25,6 +25,6 @@ namespace DungeonCrawler
                 this.Color = ConsoleColor.White;
             }
         }
-         public CurrentLevel NextLevel { get => nextLevel; set => nextLevel = value; }
+        public CurrentLevel NextLevel { get => nextLevel; set => nextLevel = value; }
     }
 }

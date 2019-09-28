@@ -68,7 +68,7 @@ namespace DungeonCrawler
             Console.SetOut(standardOutputFilter);
             stateMachine.DataInitializer.LevelRenderer.RenderLevel();
         }    
-        private static void DisplayLevelInfo(StateMachine stateMachine)
+        static void DisplayLevelInfo(StateMachine stateMachine)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();

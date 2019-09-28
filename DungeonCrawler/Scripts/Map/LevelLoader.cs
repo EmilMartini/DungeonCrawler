@@ -63,6 +63,7 @@ namespace DungeonCrawler
             }
             levelLayout.SetLevelOneLayout();
             levelLayout.SetLevelTwoLayout();
+            levelLayout.SetLevelThreeLayout();
         }
     }
 }

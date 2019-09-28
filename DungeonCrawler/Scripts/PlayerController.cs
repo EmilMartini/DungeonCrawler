@@ -50,6 +50,9 @@ namespace DungeonCrawler
                         stateMachine.NextLevel = door.NextLevel;
                         stateMachine.Levels[(int)stateMachine.LevelIndex].PlayerPositionWhenExit = stateMachine.PlayerPosition;
                         stateMachine.CurrentState = StateMachine.State.ExitLevel;
+                    } else if(interactable is ExitDoor)
+                    {
+                        stateMachine.CurrentState = StateMachine.State.ExitGame;
                     }
                 } else
                 {
