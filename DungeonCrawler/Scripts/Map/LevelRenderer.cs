@@ -77,7 +77,7 @@ namespace DungeonCrawler
                 }
             }
         }
-        private void RenderTilesAroundPlayer()
+        public void RenderTilesAroundPlayer()
         {
             for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
             {
@@ -109,12 +109,6 @@ namespace DungeonCrawler
                 }
                 Console.Write("");
             }
-        }
-        public void RenderPlayerWhenEnteringLevel()
-        {
-            Console.ForegroundColor = player.Color;
-            Console.SetCursorPosition(stateMachine.PlayerPosition.column + (stateMachine.PlayerPosition.column + 2), stateMachine.PlayerPosition.row);
-            Console.Write($"{player.Graphic}");
         }
     }
 }

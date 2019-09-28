@@ -8,6 +8,7 @@ namespace DungeonCrawler
     public abstract class Door : Tile, IInteractable
     {
         private Unlock unlock;
+        public bool isUnlocked;
 
         public Unlock Unlock
         {
@@ -17,9 +18,17 @@ namespace DungeonCrawler
 
         public bool Interact()
         {
-            if (CanUnlock())
+            if(isUnlocked)
             {
                 return true;
+            } else
+            {
+                if (CanUnlock())
+                {
+                    this.Color = ConsoleColor.White;
+                    this.isUnlocked = true;
+                    return true;
+                }
             }
             return false;
         }

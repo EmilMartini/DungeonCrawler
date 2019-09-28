@@ -54,8 +54,8 @@ namespace DungeonCrawler
         {
             stateMachine.DataInitializer.LevelLoader.SpawnLevelObjects();
             stateMachine.DataInitializer.LevelRenderer.RenderOuterWalls();
-            stateMachine.DataInitializer.LevelRenderer.RenderPlayerWhenEnteringLevel();
             stateMachine.DataInitializer.PlayerController.ExploreTilesAroundPlayer();
+            stateMachine.DataInitializer.LevelRenderer.RenderTilesAroundPlayer();
             stateMachine.DataInitializer.LevelRenderer.RenderLevel();
             stateMachine.CurrentState = StateMachine.State.RunLevel;
         }

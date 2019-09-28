@@ -41,7 +41,10 @@ namespace DungeonCrawler
                 bool interactionSucceded = interactable.Interact();
                 if (interactionSucceded)
                 {
-                    levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
+                    if(levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column].TileType != TileType.Door)
+                    {
+                        levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
+                    }
                 }
                 else
                 {
@@ -50,11 +53,6 @@ namespace DungeonCrawler
             }
             if (levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column].TileType != TileType.Wall)
             {
-                if(levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column].TileType == TileType.TrapDoor)
-                {
-                    stateMachine.CurrentState = StateMachine.State.ExitLevel;
-                    return;
-                }
                 UpdatePlayerPosition();
                 stateMachine.PlayerNumberOfMoves++;  
             }
