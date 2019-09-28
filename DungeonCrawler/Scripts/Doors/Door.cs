@@ -8,31 +8,22 @@ namespace DungeonCrawler
     public abstract class Door : Tile, IInteractable
     {
         private Unlock unlock;
-        public bool isUnlocked;
-
-        public Unlock Unlock
-        {
-            get { return unlock; }
-            set { unlock = value; }
-        }
-
+        private bool isUnlocked;
         public bool Interact()
         {
-            if(isUnlocked)
+            if(IsUnlocked)
             {
                 return true;
+            } else if (!CanUnlock())
+            {
+                return false;
             } else
             {
-                if (CanUnlock())
-                {
-                    this.Color = ConsoleColor.White;
-                    this.isUnlocked = true;
-                    return true;
-                }
+                this.Color = ConsoleColor.White;
+                this.IsUnlocked = true;
+                return true;
             }
-            return false;
         }
-
         public bool CanUnlock()
         {
             for (int i = 0; i < Player.KeysInInventory.Count; i++)
@@ -49,5 +40,21 @@ namespace DungeonCrawler
             }
             return false;
         }
+        protected bool hasUnlocked()
+        {
+            if(this.isUnlocked)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        public Unlock Unlock
+        {
+            get { return unlock; }
+            set { unlock = value; }
+        }
+        public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }
     }
 }

@@ -23,7 +23,7 @@ namespace DungeonCrawler
             LevelRenderer = new LevelRenderer(stateMachine.Levels, player, stateMachine);
             LevelLoader = new LevelLoader(LevelLayout, stateMachine);
             EnemyController = new EnemyController(stateMachine);
-            PlayerController = new PlayerController(stateMachine.Levels, player, stateMachine);
+            PlayerController = new PlayerController(Player, stateMachine);
             ConsoleOutputFilter = new ConsoleOutputFilter();
         }
 

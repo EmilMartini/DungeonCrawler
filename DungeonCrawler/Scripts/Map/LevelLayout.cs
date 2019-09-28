@@ -11,7 +11,7 @@ namespace DungeonCrawler
         private Point[] spawnPoints = new Point[3];
 
         readonly static Point level1SpawnPoint = new Point(1, 1);
-        readonly static Point level2SpawnPoint = new Point(16, 7);
+        readonly static Point level2SpawnPoint = new Point(14, 8);
         readonly static Point level3SpawnPoint = new Point(1, 1);
         readonly Level level1 = new Level(new Size(25, 25), level1SpawnPoint, 8);
         readonly Level level2 = new Level(new Size(18, 18), level2SpawnPoint, 0);
@@ -65,13 +65,16 @@ namespace DungeonCrawler
             Levels[0].InitialLayout[9, 21] = new Wall(false);
             Levels[0].InitialLayout[9, 22] = new Wall(false);
             Levels[0].InitialLayout[9, 23] = new Wall(false);
+            Levels[0].InitialLayout[23, 3] = new Wall(false);
+            Levels[0].InitialLayout[23, 5] = new Wall(false);
             //Hardcoded doors
             Levels[0].InitialLayout[14, 7] = new BlueDoor();
             Levels[0].InitialLayout[9, 20] = new PurpleDoor();
+            Levels[0].InitialLayout[23, 4] = new YellowDoor(CurrentLevel.LevelTwo, false);
             //Hardcoded keys
             Levels[0].InitialLayout[6, 2] = new PurpleKey();
             Levels[0].InitialLayout[2, 18] = new BlueKey();
-            Levels[0].InitialLayout[3, 18] = new TrapDoor();
+            Levels[0].InitialLayout[22, 22] = new YellowKey();
             //Hardcoded water
             Levels[0].InitialLayout[13, 1] = new Water();
             Levels[0].InitialLayout[13, 2] = new Water();
@@ -222,12 +225,13 @@ namespace DungeonCrawler
             //Hardcoded doors
             Levels[1].InitialLayout[16, 3] = new BlueDoor();
             Levels[1].InitialLayout[1, 7] = new PurpleDoor();
-            Levels[1].InitialLayout[1, 16] = new YellowDoor();
+            Levels[1].InitialLayout[1, 16] = new YellowDoor(CurrentLevel.LevelThree, false);
+            Levels[1].InitialLayout[14, 8] = new YellowDoor(CurrentLevel.LevelOne, true);
             ////Hardcded keys
             Levels[1].InitialLayout[16, 2] = new PurpleKey();
             Levels[1].InitialLayout[10, 16] = new BlueKey();
             Levels[1].InitialLayout[14, 10] = new SkeletonKey();
-            Levels[1].InitialLayout[14, 8] = new YellowKey();
+            Levels[1].InitialLayout[16, 7] = new YellowKey();
         }
     }
 }

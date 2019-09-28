@@ -9,11 +9,13 @@
         private Size size;
         private Point playerStartingTile;
         private int numberOfEnemies;
+        private Point playerPositionWhenExit;
         public Level(Size size, Point playerStartingTile, int numberOfEnemies)
         {
             Size = size;
             PlayerStartingTile = playerStartingTile;
             NumberOfEnemies = numberOfEnemies;
+            PlayerPositionWhenExit = PlayerStartingTile;
         }
 
         public Tile[,] ExploredLayout
@@ -51,5 +53,6 @@
             get { return numberOfEnemies; }
             set { numberOfEnemies = value; }
         }
+        public Point PlayerPositionWhenExit { get => playerPositionWhenExit; set => playerPositionWhenExit = value; }
     }
 }

@@ -70,6 +70,7 @@ namespace DungeonCrawler
         }    
         private static void DisplayLevelInfo(StateMachine stateMachine)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
             Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {(int)stateMachine.LevelIndex + 1}");
             Console.WriteLine($"\t\t\t          Good Luck");
@@ -78,9 +79,8 @@ namespace DungeonCrawler
         }
         static void NextLevel(StateMachine stateMachine)
         {
-            stateMachine.NextLevel = CurrentLevel.LevelTwo;
             stateMachine.DataInitializer.PlayerController.ResetPlayerData();
-            stateMachine.DataInitializer.EnemyController.ResetEnemyPositions();
+            //stateMachine.DataInitializer.EnemyController.ResetEnemyPositions();
             stateMachine.LevelIndex = stateMachine.NextLevel;
             stateMachine.CurrentState = StateMachine.State.InitializeLevel;
             Console.Clear();
