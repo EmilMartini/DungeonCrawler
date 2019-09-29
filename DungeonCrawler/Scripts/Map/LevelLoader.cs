@@ -21,21 +21,21 @@ namespace DungeonCrawler
         {
             //Spawn enemies
             int enemySpawnPositionRow, enemySpawnPositionColumn;
-            for (int i = 0; i < levels[(int)stateMachine.LevelIndex].Enemies.Length; i++)
+            for (int i = 0; i < levels[(int)stateMachine.CurrentLevel].Enemies.Length; i++)
             {
-                enemySpawnPositionRow = rnd.Next(1, levels[(int)stateMachine.LevelIndex].InitialLayout.GetLength(0) - 2);
-                enemySpawnPositionColumn = rnd.Next(1, levels[(int)stateMachine.LevelIndex].InitialLayout.GetLength(1) - 2);
+                enemySpawnPositionRow = rnd.Next(1, levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(0) - 2);
+                enemySpawnPositionColumn = rnd.Next(1, levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) - 2);
 
-                levels[(int)stateMachine.LevelIndex].Enemies[i] = new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn);
+                levels[(int)stateMachine.CurrentLevel].Enemies[i] = new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn);
             }
 
-            levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.Levels[(int)stateMachine.LevelIndex].PlayerStartingTile.row, stateMachine.Levels[(int)stateMachine.LevelIndex].PlayerStartingTile.column] = new Player();
+            levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerStartingTile.row, stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerStartingTile.column] = new Player();
 
-            for (int i = 0; i < levels[(int)stateMachine.LevelIndex].Enemies.Length; i++)
+            for (int i = 0; i < levels[(int)stateMachine.CurrentLevel].Enemies.Length; i++)
             {
-                levels[(int)stateMachine.LevelIndex].ExploredLayout[levels[(int)stateMachine.LevelIndex].Enemies[i].Position.row, levels[(int)stateMachine.LevelIndex].Enemies[i].Position.column] = levels[(int)stateMachine.LevelIndex].Enemies[i];
+                levels[(int)stateMachine.CurrentLevel].ExploredLayout[levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row, levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column] = levels[(int)stateMachine.CurrentLevel].Enemies[i];
             }
-            Array.Copy(levels[(int)stateMachine.LevelIndex].InitialLayout, levels[(int)stateMachine.LevelIndex].ExploredLayout, levels[(int)stateMachine.LevelIndex].InitialLayout.Length);
+            Array.Copy(levels[(int)stateMachine.CurrentLevel].InitialLayout, levels[(int)stateMachine.CurrentLevel].ExploredLayout, levels[(int)stateMachine.CurrentLevel].InitialLayout.Length);
         }
         public void InitializeLevels()
         {

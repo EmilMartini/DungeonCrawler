@@ -1,6 +1,5 @@
 ﻿using DungeonCrawler.Scripts;
 using System;
-using System.Media;
 using System.Threading;
 
 namespace DungeonCrawler
@@ -19,6 +18,31 @@ namespace DungeonCrawler
             {              
                 RunState(stateMachine);
             }        
+        }
+        static void RunState(StateMachine stateMachine)
+        {
+            switch (stateMachine.CurrentState)
+            {
+                case StateMachine.State.InitializeGame:
+                    SetConsoleProperties();
+                    LoadGameDependencies(stateMachine);
+                    break;
+                case StateMachine.State.WelcomeScreen:
+                    WelcomeScreen(stateMachine);
+                    break;
+                case StateMachine.State.InitializeLevel:
+                    DisplayLevelInfo(stateMachine);
+                    LoadCurrentLevel(stateMachine);
+                    break;
+                case StateMachine.State.RunLevel:
+                    RunGame(stateMachine, Console.Out);
+                    break;
+                case StateMachine.State.ExitLevel:
+                    NextLevel(stateMachine);
+                    break;
+                case StateMachine.State.ExitGame:
+                    break;
+            }
         }
         static void SetConsoleProperties()
         {
@@ -75,51 +99,18 @@ namespace DungeonCrawler
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
-            Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {(int)stateMachine.LevelIndex + 1}");
+            Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {(int)stateMachine.CurrentLevel + 1}");
             Console.WriteLine($"\t\t\t          Good Luck");
-            Console.ReadKey(true);
+            Thread.Sleep(2500);
             Console.Clear();
         }
         static void NextLevel(StateMachine stateMachine)
         {
             stateMachine.DataInitializer.PlayerController.ResetPlayerData();
             //stateMachine.DataInitializer.EnemyController.ResetEnemyPositions();
-            stateMachine.LevelIndex = stateMachine.NextLevel;
+            stateMachine.CurrentLevel = stateMachine.NextLevel;
             stateMachine.CurrentState = StateMachine.State.InitializeLevel;
             Console.Clear();
-        }
-        static void RunState(StateMachine stateMachine)
-        {
-            switch (stateMachine.CurrentState)
-            {
-                case StateMachine.State.InitializeGame:
-                    SetConsoleProperties();
-                    LoadGameDependencies(stateMachine);
-                    break;
-                case StateMachine.State.WelcomeScreen:
-                    WelcomeScreen(stateMachine);
-                    break;
-                case StateMachine.State.InitializeLevel:
-                    DisplayLevelInfo(stateMachine);
-                    LoadCurrentLevel(stateMachine);
-                    break;
-                case StateMachine.State.RunLevel:
-                    RunGame(stateMachine, Console.Out);
-                    break;
-                case StateMachine.State.ExitLevel:
-                    NextLevel(stateMachine);
-                    break;
-                case StateMachine.State.ExitGame:
-                    ScoreScreen(stateMachine);
-                    exitGame = true;
-                    break;
-            }
-        }
-
-        static void ScoreScreen(StateMachine stateMachine)
-        {    
-            Console.Write($"\n\n\"");
-            Console.ReadKey(true);
         }
     }
 }

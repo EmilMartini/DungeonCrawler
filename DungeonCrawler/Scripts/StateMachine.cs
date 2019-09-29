@@ -18,11 +18,7 @@ namespace DungeonCrawler
         private Level[] levels;
         private Point[] pointsToRenderOnMap;
         private Point[] previousEnemyPositions;
-        private Point[] keyPositions;
-        private Point[] doorPositions;
-        private Point[] wallPositions;
-        private Point[] floorPositions;
-        private CurrentLevel levelIndex;
+        private CurrentLevel currentLevel;
         private CurrentLevel nextLevel;
         private State currentState;
         private DataInitializer dataInitializer;
@@ -34,12 +30,8 @@ namespace DungeonCrawler
         public Point CurrentEnemyPosition { get { return currentEnemyPosition; } set { currentEnemyPosition = value; } }
         public Point TargetEnemyPosition { get { return targetEnemyPosition; } set { targetEnemyPosition = value; } }
         public Point[] PreviousEnemyPositions { get { return previousEnemyPositions; } set { previousEnemyPositions = value; } }
-        public Point[] KeyPositions { get { return keyPositions; } set { keyPositions = value; } }
-        public Point[] DoorPositions { get { return doorPositions; } set { doorPositions = value; } }
-        public Point[] WallPositions { get { return wallPositions; } set { wallPositions = value; } }
-        public Point[] FloorPositions { get { return floorPositions; } set { floorPositions = value; } }
         public State CurrentState { get { return currentState; } set { currentState = value; } }
-        public CurrentLevel LevelIndex { get { return levelIndex; } set { levelIndex = value; } }
+        public CurrentLevel CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
         public Point[] PointsToRenderOnMap { get { return pointsToRenderOnMap; } set { pointsToRenderOnMap = value; } }
         public Level[] Levels { get { return levels; } set { levels = value; } }
         public DataInitializer DataInitializer { get { return dataInitializer; } set { dataInitializer = value; } }

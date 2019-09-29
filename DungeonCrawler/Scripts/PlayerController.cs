@@ -37,18 +37,18 @@ namespace DungeonCrawler
             stateMachine.PlayerPosition = player.Position;
             stateMachine.TargetPlayerPosition = new Point(stateMachine.PlayerPosition.row + direction.row, stateMachine.PlayerPosition.column + direction.column);
 
-            if (levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
+            if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
             {
                 if (interactable.Interact())
                 {
                     if(!(interactable is Door))
                     {
-                        levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
+                        levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
                     }
                     else if(interactable is YellowDoor door && door.IsUnlocked)
                     {
                         stateMachine.NextLevel = door.NextLevel;
-                        stateMachine.Levels[(int)stateMachine.LevelIndex].PlayerPositionWhenExit = stateMachine.PlayerPosition;
+                        stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerPositionWhenExit = stateMachine.PlayerPosition;
                         stateMachine.CurrentState = StateMachine.State.ExitLevel;
                     } else if(interactable is ExitDoor)
                     {
@@ -59,7 +59,7 @@ namespace DungeonCrawler
                     return;
                 }
             }
-            if (levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column].TileType != TileType.Wall)
+            if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column].TileType != TileType.Wall)
             {
                 UpdatePlayerPosition();
                 stateMachine.PlayerNumberOfMoves++;  
@@ -67,9 +67,9 @@ namespace DungeonCrawler
         }
         public void UpdatePlayerPosition()
         {
-            levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = levels[(int)stateMachine.LevelIndex].InitialLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column];
+            levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column];
             stateMachine.PlayerPosition = stateMachine.TargetPlayerPosition;
-            levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = player;
+            levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = player;
             player.Position = stateMachine.PlayerPosition;
         }
         public void ExploreTilesAroundPlayer()
@@ -88,7 +88,7 @@ namespace DungeonCrawler
             }
             for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
             {
-                levels[(int)stateMachine.LevelIndex].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].IsExplored = true;
+                levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].IsExplored = true;
             }
         }
         public void ResetPlayerData()
@@ -97,7 +97,8 @@ namespace DungeonCrawler
             {
                 stateMachine.PointsToRenderOnMap[i] = new Point(0, 0);
             }
-            stateMachine.Levels[(int)stateMachine.LevelIndex].PlayerPositionWhenExit = player.Position;
+            stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerPositionWhenExit = player.Position;
+
             if (stateMachine.Levels[(int)stateMachine.NextLevel].PlayerPositionWhenExit.Equals(levels[(int)stateMachine.NextLevel].PlayerStartingTile))
             {
                 player.Position = levels[(int)stateMachine.NextLevel].PlayerStartingTile;
