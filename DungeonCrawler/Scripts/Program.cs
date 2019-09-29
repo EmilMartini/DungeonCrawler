@@ -7,13 +7,15 @@ namespace DungeonCrawler
 {
     class Program
     {
+        private static bool exitGame;
+
         static void Main(string[] args)
         {
             StateMachine stateMachine = new StateMachine();
             DataInitializer dataInitializer = new DataInitializer(stateMachine);
             stateMachine.DataInitializer = dataInitializer;
 
-            while (stateMachine.CurrentState != StateMachine.State.ExitGame)
+            while (!exitGame)
             {              
                 RunState(stateMachine);
             }        
@@ -108,8 +110,16 @@ namespace DungeonCrawler
                     NextLevel(stateMachine);
                     break;
                 case StateMachine.State.ExitGame:
+                    ScoreScreen(stateMachine);
+                    exitGame = true;
                     break;
             }
+        }
+
+        static void ScoreScreen(StateMachine stateMachine)
+        {    
+            Console.Write($"\n\n\"");
+            Console.ReadKey(true);
         }
     }
 }
