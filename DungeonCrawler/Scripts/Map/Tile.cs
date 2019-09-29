@@ -9,6 +9,7 @@ namespace DungeonCrawler
         private bool isExplored;
         private ConsoleColor color;
 
+        //Remove isexplored field, will use a third array of type Bool as a filter when rendering instead
         public TileType TileType
         {
             get { return tileType; }

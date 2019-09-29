@@ -110,5 +110,16 @@ namespace DungeonCrawler
                 Console.Write("");
             }
         }
+
+        //New rendering methods
+        //
+        //  new Array in levels = Tile[,] BottomLayer;
+        //  new Array in levels = Entity[,] MidLayer;
+        //  new Array in levels = Bool[] isExplored;
+        //
+        //  render using 3 for loops and run them differently depending on which state "Statemachine" returns
+        //
+        //
+        //
     }
 }

@@ -24,6 +24,7 @@ namespace DungeonCrawler
                 return true;
             }
         }
+        //REMOVE LOGIC AND PUT IN PLAYERCONTROLLER CLASS, REMOVE STATIC LIST FROM PLAYER
         public bool CanUnlock()
         {
             for (int i = 0; i < Player.KeysInInventory.Count; i++)

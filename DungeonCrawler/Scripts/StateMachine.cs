@@ -24,6 +24,19 @@ namespace DungeonCrawler
         private DataInitializer dataInitializer;
         private System.IO.TextWriter standardOutputWriter;
 
+        // void GetData(State);
+        //  should get different data depending on state. void or return Data class? Maybe redo dataInitializer class?
+        //
+        //  method to return a state. State GetState(Data onject?);
+        //      main should only run one method, void RunState(state) with a returned state from statemachine as param
+        //
+        //  Remove most references in statemachine class and create a dataholder class. Dataholder class will
+        //  instantiate a new object when GetData is called and that object is then passed into GetState and GetState will return a state depending on dataparam
+        //  Dataholder doesnt handle logic, only data. Will fetch data from some major statedetermening methods and/or variables
+        //  e.g playerposition, levels etc.
+        //
+        //  Not 100% sure, but will probably work.
+
         public Point PlayerPosition { get { return currentPlayerPosition; } set { currentPlayerPosition = value; } }
         public Point TargetPlayerPosition { get { return targetPlayerPosition; } set { targetPlayerPosition = value; } }
         public int PlayerNumberOfMoves { get { return playerNumberOfMoves; } set { playerNumberOfMoves = value; } }
