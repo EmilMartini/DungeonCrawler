@@ -18,6 +18,31 @@ namespace DungeonCrawler
                 RunState(stateMachine);
             }        
         }
+        static void RunState(StateMachine stateMachine)
+        {
+            switch (stateMachine.CurrentState)
+            {
+                case StateMachine.State.InitializeGame:
+                    SetConsoleProperties();
+                    LoadGameDependencies(stateMachine);
+                    break;
+                case StateMachine.State.WelcomeScreen:
+                    WelcomeScreen(stateMachine);
+                    break;
+                case StateMachine.State.InitializeLevel:
+                    DisplayLevelInfo(stateMachine);
+                    LoadCurrentLevel(stateMachine);
+                    break;
+                case StateMachine.State.RunLevel:
+                    RunGame(stateMachine, Console.Out);
+                    break;
+                case StateMachine.State.ExitLevel:
+                    NextLevel(stateMachine);
+                    break;
+                case StateMachine.State.ExitGame:
+                    break;
+            }
+        }
         static void SetConsoleProperties()
         {
             Size consoleWindowSize = new Size(77, 36);
@@ -85,31 +110,6 @@ namespace DungeonCrawler
             stateMachine.CurrentLevel = stateMachine.NextLevel;
             stateMachine.CurrentState = StateMachine.State.InitializeLevel;
             Console.Clear();
-        }
-        static void RunState(StateMachine stateMachine)
-        {
-            switch (stateMachine.CurrentState)
-            {
-                case StateMachine.State.InitializeGame:
-                    SetConsoleProperties();
-                    LoadGameDependencies(stateMachine);
-                    break;
-                case StateMachine.State.WelcomeScreen:
-                    WelcomeScreen(stateMachine);
-                    break;
-                case StateMachine.State.InitializeLevel:
-                    DisplayLevelInfo(stateMachine);
-                    LoadCurrentLevel(stateMachine);
-                    break;
-                case StateMachine.State.RunLevel:
-                    RunGame(stateMachine, Console.Out);
-                    break;
-                case StateMachine.State.ExitLevel:
-                    NextLevel(stateMachine);
-                    break;
-                case StateMachine.State.ExitGame:
-                    break;
-            }
         }
     }
 }
