@@ -1,6 +1,5 @@
 ﻿using DungeonCrawler.Scripts;
 using System;
-using System.Media;
 using System.Threading;
 
 namespace DungeonCrawler
@@ -100,7 +99,7 @@ namespace DungeonCrawler
             Console.WriteLine();
             Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {(int)stateMachine.CurrentLevel + 1}");
             Console.WriteLine($"\t\t\t          Good Luck");
-            Console.ReadKey(true);
+            Thread.Sleep(2500);
             Console.Clear();
         }
         static void NextLevel(StateMachine stateMachine)
