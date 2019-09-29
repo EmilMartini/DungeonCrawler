@@ -28,25 +28,6 @@ namespace DungeonCrawler
             RenderTilesAroundPlayer();
             RenderUI();
         }
-        private void RenderUI()
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 2);
-            Console.Write($"Number of moves:{stateMachine.PlayerNumberOfMoves}");
-
-            Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 3);
-            Console.Write($"Enemies hit: {Player.EnemiesInteractedWith}");
-
-            Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 4);
-            Console.Write("Keys: ");
-            Console.Write("\t\t");
-            for (int i = 0; i < Player.KeysInInventory.Count; i++)
-            {
-                Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 4) * 2 + i, 4);
-                Console.ForegroundColor = Player.KeysInInventory[i].Color;
-                Console.Write($"{Player.KeysInInventory[i].Graphic}");
-            }
-        }
         private void RenderEnemiesIfExplored()
         {
             for (int i = 0; i < levels[(int)stateMachine.CurrentLevel].Enemies.Length; i++)
@@ -88,6 +69,25 @@ namespace DungeonCrawler
             Console.ForegroundColor = player.Color;
             Console.SetCursorPosition(stateMachine.PlayerPosition.column + (stateMachine.PlayerPosition.column + 2), stateMachine.PlayerPosition.row);
             Console.Write($"{player.Graphic}");
+        }
+        private void RenderUI()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 2);
+            Console.Write($"Number of moves:{stateMachine.PlayerNumberOfMoves}");
+
+            Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 3);
+            Console.Write($"Enemies hit: {Player.EnemiesInteractedWith}");
+
+            Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 4);
+            Console.Write("Keys: ");
+            Console.Write("\t\t");
+            for (int i = 0; i < Player.KeysInInventory.Count; i++)
+            {
+                Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 4) * 2 + i, 4);
+                Console.ForegroundColor = Player.KeysInInventory[i].Color;
+                Console.Write($"{Player.KeysInInventory[i].Graphic}");
+            }
         }
         public void RenderOuterWalls()
         {
