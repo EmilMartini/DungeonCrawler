@@ -17,7 +17,6 @@ namespace DungeonCrawler
         readonly Level level2 = new Level(new Size(18, 18), level2SpawnPoint, 0);
         readonly Level level3 = new Level(new Size(23, 13), level3SpawnPoint, 10);
 
-
         public LevelLayout(StateMachine stateMachine)
         {
             Levels[0] = level1;
@@ -73,9 +72,9 @@ namespace DungeonCrawler
             Levels[0].InitialLayout[9, 20] = new PurpleDoor();
             Levels[0].InitialLayout[23, 4] = new YellowDoor(CurrentLevel.LevelTwo, false);
             //Hardcoded keys
-            Levels[0].InitialLayout[6, 2] = new PurpleKey();
-            Levels[0].InitialLayout[2, 18] = new BlueKey();
-            Levels[0].InitialLayout[22, 22] = new YellowKey();
+            Levels[0].GameObjects[6, 2] = new PurpleKey();
+            Levels[0].GameObjects[2, 18] = new BlueKey();
+            Levels[0].GameObjects[22, 22] = new YellowKey();
             //Hardcoded water
             Levels[0].InitialLayout[13, 1] = new Water();
             Levels[0].InitialLayout[13, 2] = new Water();

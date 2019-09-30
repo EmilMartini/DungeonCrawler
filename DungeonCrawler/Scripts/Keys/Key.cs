@@ -5,7 +5,7 @@ using System.Media;
 
 namespace DungeonCrawler
 {
-    public abstract class Key : Tile, IInteractable
+    public abstract class Key : Entity, IInteractable
     {
         private bool isEquipped;
         private Unlock unlock;

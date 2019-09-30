@@ -24,11 +24,8 @@ namespace DungeonCrawler
                     row = random.Next(-1, 2);
                     column = random.Next(-1, 2);
                 }
-                CurrentEnemyPosition = new Point(stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row, stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column);
-                TargetEnemyPosition = new Point(stateMachine.CurrentEnemyPosition.row + row, stateMachine.CurrentEnemyPosition.column + column);
-
-                stateMachine.CurrentEnemyPosition = CurrentEnemyPosition;
-                stateMachine.TargetEnemyPosition = TargetEnemyPosition;
+                stateMachine.CurrentEnemyPosition = new Point(stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row, stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column);
+                stateMachine.TargetEnemyPosition = new Point(stateMachine.CurrentEnemyPosition.row + row, stateMachine.CurrentEnemyPosition.column + column);
 
                 if (stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].TileType == TileType.Wall ||
                     stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].TileType == TileType.Door ||

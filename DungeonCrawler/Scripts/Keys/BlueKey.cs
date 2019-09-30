@@ -11,7 +11,6 @@ namespace DungeonCrawler.Keys
         public BlueKey()
         {
             this.Unlock = Unlock.Blue;
-            this.TileType = TileType.Key;
             this.IsExplored = false;
             this.IsEquipped = false;
             this.NumberOfUses = 1;

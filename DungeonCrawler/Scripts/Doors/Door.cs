@@ -27,19 +27,6 @@ namespace DungeonCrawler
         //REMOVE LOGIC AND PUT IN PLAYERCONTROLLER CLASS, REMOVE STATIC LIST FROM PLAYER
         public bool CanUnlock()
         {
-            for (int i = 0; i < Player.KeysInInventory.Count; i++)
-            {
-                if (Player.KeysInInventory[i].Unlock.Equals((this.Unlock)))
-                {
-                    Player.KeysInInventory[i].NumberOfUses--;
-                    if (Player.KeysInInventory[i].NumberOfUses <= 0)
-                    {
-                        Player.KeysInInventory.RemoveAt(i);
-                    }
-                    return true;
-                }
-            }
-            return false;
         }
         protected bool hasUnlocked()
         {

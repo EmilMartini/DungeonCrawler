@@ -37,15 +37,15 @@ namespace DungeonCrawler
             stateMachine.PlayerPosition = player.Position;
 
             player.TargetPlayerPosition = new Point(stateMachine.PlayerPosition.row + direction.row, stateMachine.PlayerPosition.column + direction.column);
-
             stateMachine.TargetPlayerPosition = player.TargetPlayerPosition;
 
             if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
             {
                 if (interactable.Interact())
                 {
-                    if(!(interactable is Door))
+                    if(!(interactable is Door door))
                     {
+                        if(canUnlock(door))
                         levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
                     }
                     else if(interactable is YellowDoor door && door.IsUnlocked)
@@ -68,6 +68,24 @@ namespace DungeonCrawler
                 stateMachine.PlayerNumberOfMoves++;  
             }
         }
+
+        private bool canUnlock(Door door)
+        {
+            for (int i = 0; i < player.KeysInInventory.Count; i++)
+            {
+                if (player.KeysInInventory[i].Unlock.Equals((door.Unlock)))
+                {
+                    player.KeysInInventory[i].NumberOfUses--;
+                    if (player.KeysInInventory[i].NumberOfUses <= 0)
+                    {
+                        player.KeysInInventory.RemoveAt(i);
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void UpdatePlayerPosition()
         {
             levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column];

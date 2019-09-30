@@ -4,6 +4,7 @@
     {
         private Tile[,] exploredLayout;
         private Tile[,] initialLayout;
+        private Entity[,] gameObjects;
         private Enemy[] enemies;
         private Point[] previousEnemyPositions;
         private Size size;
@@ -54,5 +55,6 @@
             set { numberOfEnemies = value; }
         }
         public Point PlayerPositionWhenExit { get => playerPositionWhenExit; set => playerPositionWhenExit = value; }
+        public Entity[,] GameObjects { get => gameObjects; set => gameObjects = value; }
     }
 }
