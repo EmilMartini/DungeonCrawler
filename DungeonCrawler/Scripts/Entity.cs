@@ -14,6 +14,8 @@ namespace DungeonCrawler
         public string Graphic { get => graphic; set => graphic = value; }
         public Point Position { get => position; set => position = value; }
 
+        public ConsoleColor Color { get => color; set => color = value; }
+
         //This class should hold a "Color" field,
     }
 }
