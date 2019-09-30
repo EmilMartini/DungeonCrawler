@@ -6,6 +6,7 @@ namespace DungeonCrawler
     public class Player : Tile
     {
         private Point position;
+        private Point targetPlayerPosition;
         private static List<Key> keysInInventory = new List<Key>();
         private static int enemiesInteractedWith = 0;
 
@@ -33,5 +34,7 @@ namespace DungeonCrawler
             get { return enemiesInteractedWith; }
             set { enemiesInteractedWith = value; }
         }
+
+        public Point TargetPlayerPosition { get; set; }
     }
 }

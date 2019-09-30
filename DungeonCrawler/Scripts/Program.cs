@@ -13,7 +13,6 @@ namespace DungeonCrawler
             StateMachine stateMachine = new StateMachine();
             DataInitializer dataInitializer = new DataInitializer(stateMachine);
             stateMachine.DataInitializer = dataInitializer;
-
             while (!exitGame)
             {              
                 RunState(stateMachine);

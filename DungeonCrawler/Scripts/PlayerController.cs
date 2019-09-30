@@ -35,7 +35,10 @@ namespace DungeonCrawler
         public void MovePlayer(Point direction)
         {
             stateMachine.PlayerPosition = player.Position;
-            stateMachine.TargetPlayerPosition = new Point(stateMachine.PlayerPosition.row + direction.row, stateMachine.PlayerPosition.column + direction.column);
+
+            player.TargetPlayerPosition = new Point(stateMachine.PlayerPosition.row + direction.row, stateMachine.PlayerPosition.column + direction.column);
+
+            stateMachine.TargetPlayerPosition = player.TargetPlayerPosition;
 
             if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
             {

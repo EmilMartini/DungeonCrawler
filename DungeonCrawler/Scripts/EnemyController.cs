@@ -6,6 +6,9 @@ namespace DungeonCrawler
     {
         private Random random = new Random();
         private StateMachine stateMachine;
+        private Point currentEnemyPosition;
+        private Point targetEnemyPosition;
+
 
         public EnemyController(StateMachine stateMachine)
         {
@@ -21,8 +24,11 @@ namespace DungeonCrawler
                     row = random.Next(-1, 2);
                     column = random.Next(-1, 2);
                 }
-                stateMachine.CurrentEnemyPosition = new Point(stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row, stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column);
-                stateMachine.TargetEnemyPosition = new Point(stateMachine.CurrentEnemyPosition.row + row, stateMachine.CurrentEnemyPosition.column + column);
+                CurrentEnemyPosition = new Point(stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row, stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column);
+                TargetEnemyPosition = new Point(stateMachine.CurrentEnemyPosition.row + row, stateMachine.CurrentEnemyPosition.column + column);
+
+                stateMachine.CurrentEnemyPosition = CurrentEnemyPosition;
+                stateMachine.TargetEnemyPosition = TargetEnemyPosition;
 
                 if (stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].TileType == TileType.Wall ||
                     stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].TileType == TileType.Door ||
@@ -59,5 +65,7 @@ namespace DungeonCrawler
                 }
             }
         }
+        public Point TargetEnemyPosition { get => targetEnemyPosition; set => targetEnemyPosition = value; }
+        public Point CurrentEnemyPosition { get => currentEnemyPosition; set => currentEnemyPosition = value; }
     }
 }

@@ -7,7 +7,7 @@ namespace DungeonCrawler
 {
     public class LevelLayout
     {
-        private Level[] Levels = new Level[3];
+        private Level[] levels = new Level[3];
         private Point[] spawnPoints = new Point[3];
 
         readonly static Point level1SpawnPoint = new Point(1, 1);
@@ -16,6 +16,7 @@ namespace DungeonCrawler
         readonly Level level1 = new Level(new Size(25, 25), level1SpawnPoint, 8);
         readonly Level level2 = new Level(new Size(18, 18), level2SpawnPoint, 0);
         readonly Level level3 = new Level(new Size(23, 13), level3SpawnPoint, 10);
+
 
         public LevelLayout(StateMachine stateMachine)
         {
@@ -240,6 +241,7 @@ namespace DungeonCrawler
             Levels[2].InitialLayout[11, 20] = new Wall(false);
             Levels[2].InitialLayout[11, 18] = new Wall(false);
         }
+        public Level[] Levels { get => levels; set => levels = value; }
     }
 }
             
