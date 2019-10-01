@@ -1,7 +1,6 @@
 ﻿using System;
 using DungeonCrawler.Doors;
 using DungeonCrawler.Keys;
-using DungeonCrawler.Scripts.Map;
 
 namespace DungeonCrawler
 {
@@ -72,18 +71,9 @@ namespace DungeonCrawler
             Levels[0].InitialLayout[9, 20] = new PurpleDoor();
             Levels[0].InitialLayout[23, 4] = new YellowDoor(CurrentLevel.LevelTwo, false);
             //Hardcoded keys
-            Levels[0].GameObjects[6, 2] = new PurpleKey();
-            Levels[0].GameObjects[2, 18] = new BlueKey();
-            Levels[0].GameObjects[22, 22] = new YellowKey();
-            //Hardcoded water
-            Levels[0].InitialLayout[13, 1] = new Water();
-            Levels[0].InitialLayout[13, 2] = new Water();
-            Levels[0].InitialLayout[13, 3] = new Water();
-            Levels[0].InitialLayout[13, 4] = new Water();
-            Levels[0].InitialLayout[13, 5] = new Water();
-            Levels[0].InitialLayout[13, 6] = new Water();
-            Levels[0].InitialLayout[13, 8] = new Water();
-            Levels[0].InitialLayout[13, 9] = new Water();
+            Levels[0].ActiveGameObjects.Add(new PurpleKey(6,2));
+            Levels[0].ActiveGameObjects.Add(new BlueKey(2,18));
+            Levels[0].ActiveGameObjects.Add(new YellowKey(22,22));
         }
         public void SetLevelTwoLayout()
         {
@@ -212,26 +202,17 @@ namespace DungeonCrawler
             Levels[1].InitialLayout[5, 1] = new Wall(false);
             Levels[1].InitialLayout[11, 1] = new Wall(false);
             Levels[1].InitialLayout[15, 1] = new Wall(false);
-            ////Hardcoded water
-            Levels[1].InitialLayout[3, 6] = new Water();
-            Levels[1].InitialLayout[3, 7] = new Water();
-            Levels[1].InitialLayout[3, 8] = new Water();
-            Levels[1].InitialLayout[3, 9] = new Water();
-            Levels[1].InitialLayout[3, 10] = new Water();
-
-            Levels[1].InitialLayout[8, 15] = new Water();
-            Levels[1].InitialLayout[10, 15] = new Water();
-            Levels[1].InitialLayout[8, 16] = new Water();
+            
             //Hardcoded doors
             Levels[1].InitialLayout[16, 3] = new BlueDoor();
             Levels[1].InitialLayout[1, 7] = new PurpleDoor();
             Levels[1].InitialLayout[1, 16] = new YellowDoor(CurrentLevel.LevelThree, false);
             Levels[1].InitialLayout[14, 8] = new YellowDoor(CurrentLevel.LevelOne, true);
             ////Hardcded keys
-            Levels[1].InitialLayout[16, 2] = new PurpleKey();
-            Levels[1].InitialLayout[10, 16] = new BlueKey();
-            Levels[1].InitialLayout[14, 10] = new SkeletonKey();
-            Levels[1].InitialLayout[16, 7] = new YellowKey();
+            Levels[1].ActiveGameObjects.Add(new PurpleKey(16,2));
+            Levels[1].ActiveGameObjects.Add(new BlueKey(10,16));
+            Levels[1].ActiveGameObjects.Add(new SkeletonKey(14,10));
+            Levels[1].ActiveGameObjects.Add(new YellowKey(16,7));
         }
         public void SetLevelThreeLayout()
         {

@@ -16,41 +16,26 @@ namespace DungeonCrawler
         }
         public void Move()
         {
-            for (int i = 0; i < stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies.Length; i++)
+            foreach (GameObject gameObject in stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
             {
-                int row = 0, column = 0;
-                while (row == 0 && column == 0)
-                {
-                    row = random.Next(-1, 2);
-                    column = random.Next(-1, 2);
-                }
-                stateMachine.CurrentEnemyPosition = new Point(stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row, stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column);
-                stateMachine.TargetEnemyPosition = new Point(stateMachine.CurrentEnemyPosition.row + row, stateMachine.CurrentEnemyPosition.column + column);
-
-                if (stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].TileType == TileType.Wall ||
-                    stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].TileType == TileType.Door ||
-                    stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].TileType == TileType.Key)
+                if(!gameObject.GetType().Equals(typeof(Enemy)))
                 {
                     continue;
                 } else
                 {
-                    if (stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].IsExplored == true)
+                    int row = 0, column = 0;
+                    while (row == 0 && column == 0)
                     {
-                        stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].IsExplored = true;
-                    } else
-                    {
-                        stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i].IsExplored = false;
+                        row = random.Next(-1, 2);
+                        column = random.Next(-1, 2);
                     }
-                    UpdateEnemyPositions(stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies[i], i);
+                    targetEnemyPosition = new Point(gameObject.Position.row + row, gameObject.Position.column + column);
+                    if(PathAvailable(targetEnemyPosition))
+                    {
+                        gameObject.Position = targetEnemyPosition;
+                    }
                 }
-            }     
-        }
-        public void UpdateEnemyPositions(Enemy enemy, int index)
-        {
-            stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[index] = stateMachine.CurrentEnemyPosition;
-            stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[enemy.Position.row, enemy.Position.column] = stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[enemy.Position.row, enemy.Position.column];
-            enemy.Position = stateMachine.TargetEnemyPosition;
-            stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[enemy.Position.row, enemy.Position.column] = enemy;
+            }
         }
         public void ResetEnemyPositions()
         {
@@ -61,6 +46,23 @@ namespace DungeonCrawler
                     stateMachine.PreviousEnemyPositions[i] = new Point(0,0);
                 }
             }
+        }
+        private bool PathAvailable(Point targetEnemyPosition)
+        {
+            var activeGameObjects = stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects;
+            for (int i = 0; i < activeGameObjects.Count; i++)
+            {
+                if (activeGameObjects[i].Position.Equals(targetEnemyPosition))
+                {
+                    return false;
+                }
+            }
+            if(stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].GetType().Equals(typeof(Door)) ||
+               stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].GetType().Equals(typeof(Wall)))
+            {
+                return false;
+            }
+            return true;
         }
         public Point TargetEnemyPosition { get => targetEnemyPosition; set => targetEnemyPosition = value; }
         public Point CurrentEnemyPosition { get => currentEnemyPosition; set => currentEnemyPosition = value; }

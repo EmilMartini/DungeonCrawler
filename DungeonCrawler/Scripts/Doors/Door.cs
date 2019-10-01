@@ -27,6 +27,7 @@ namespace DungeonCrawler
         //REMOVE LOGIC AND PUT IN PLAYERCONTROLLER CLASS, REMOVE STATIC LIST FROM PLAYER
         public bool CanUnlock()
         {
+            return true;
         }
         protected bool hasUnlocked()
         {

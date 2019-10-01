@@ -11,7 +11,6 @@ namespace DungeonCrawler.Doors
         public PurpleDoor()
         {
             this.Unlock = Unlock.Purple;
-            this.TileType = TileType.Door;
             this.IsExplored = false;
             this.Color = ConsoleColor.DarkMagenta;
             this.Graphic = "D";

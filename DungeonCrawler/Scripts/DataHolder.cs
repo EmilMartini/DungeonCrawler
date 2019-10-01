@@ -37,7 +37,7 @@ namespace DungeonCrawler.Scripts
                     break;
                 case StateMachine.State.RunLevel:
                     this.currentPlayerPosition = dataInitializer.Player.Position;
-                    this.targetPlayerPosition = dataInitializer.Player.TargetPlayerPosition;
+                    this.targetPlayerPosition = dataInitializer.Player.TargetPosition;
                     this.CurrentEnemyPosition = dataInitializer.EnemyController.CurrentEnemyPosition;
                     this.TargetEnemyPosition = dataInitializer.EnemyController.TargetEnemyPosition;
                     break;

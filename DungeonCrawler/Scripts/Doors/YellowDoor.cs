@@ -12,7 +12,6 @@ namespace DungeonCrawler
         public YellowDoor(CurrentLevel nextLevel, bool isUnlocked)
         {
             this.Unlock = Unlock.Yellow;
-            this.TileType = TileType.Door;
             this.IsExplored = false;
             this.Graphic = "D";
             this.NextLevel = nextLevel;

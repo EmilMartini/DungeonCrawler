@@ -6,7 +6,6 @@ namespace DungeonCrawler
     {
         public TrapDoor( )
         {
-            this.TileType = TileType.TrapDoor;
             this.IsExplored = false;
             this.Color = ConsoleColor.DarkGray;
             this.Graphic = ".";

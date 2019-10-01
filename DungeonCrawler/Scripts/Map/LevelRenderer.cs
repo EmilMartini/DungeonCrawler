@@ -16,59 +16,65 @@ namespace DungeonCrawler
             stateMachine.PointsToRenderOnMap = new Point[8];
         }
 
-        /*
-        //
-        //TODO har flera lager med rendering, spara ner i en och samma aray, första lagret(walls, golv), andra lagret (keys, doors), tredje lager (enemies, player), fjärde lager (isExplored).
-        //
-        */
-
         public void RenderLevel()
         {
-            RenderEnemiesIfExplored();
             RenderTilesAroundPlayer();
+            RenderGameObjects();
             RenderUI();
         }
-        private void RenderEnemiesIfExplored()
-        {
-            for (int i = 0; i < levels[(int)stateMachine.CurrentLevel].Enemies.Length; i++)
-            {
-                if (levels[(int)stateMachine.CurrentLevel].Enemies[i].IsExplored)
-                {
-                    Console.ForegroundColor = levels[(int)stateMachine.CurrentLevel].Enemies[i].Color;
-                    Console.SetCursorPosition(levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column + (levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column + 2), levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row);
-                    Console.Write($"{levels[(int)stateMachine.CurrentLevel].ExploredLayout[levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row, levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column].Graphic}");
-                }
 
-                if (levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions == null)
+
+        void RenderGameObjects()
+        {
+            foreach (GameObject gameObject in levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
+            {
+                if (levels[(int)stateMachine.CurrentLevel].ExploredLayout[gameObject.Position.row, gameObject.Position.column].IsExplored)
                 {
-                    break;
-                }
-                else
-                {
-                    Console.ForegroundColor = levels[(int)stateMachine.CurrentLevel].ExploredLayout[levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].row, levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column].Color;
-                    Console.SetCursorPosition(levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column + (levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column + 2), levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].row);
-                    if (levels[(int)stateMachine.CurrentLevel].ExploredLayout[levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].row, levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column].IsExplored == true)
-                    {
-                        Console.Write($"{levels[(int)stateMachine.CurrentLevel].InitialLayout[levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].row, levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column].Graphic}");
-                    }
-                    else
-                    {
-                        Console.Write(" ");
-                    }
+                    Console.SetCursorPosition(gameObject.Position.column + (gameObject.Position.column + 2), gameObject.Position.row);
+                    Console.ForegroundColor = gameObject.Color;
+                    Console.Write(gameObject.Graphic);
                 }
             }
         }
+
+        //private void RenderEnemiesIfExplored()
+        //{
+        //    for (int i = 0; i < levels[(int)stateMachine.CurrentLevel].Enemies.Length; i++)
+        //    {
+        //        if (levels[(int)stateMachine.CurrentLevel].Enemies[i].IsExplored)
+        //        {
+        //            Console.ForegroundColor = levels[(int)stateMachine.CurrentLevel].Enemies[i].Color;
+        //            Console.SetCursorPosition(levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column + (levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column + 2), levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row);
+        //            Console.Write($"{levels[(int)stateMachine.CurrentLevel].ExploredLayout[levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.row, levels[(int)stateMachine.CurrentLevel].Enemies[i].Position.column].Graphic}");
+        //        }
+        //
+        //        if (levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions == null)
+        //        {
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            Console.ForegroundColor = levels[(int)stateMachine.CurrentLevel].ExploredLayout[levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].row, levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column].Color;
+        //            Console.SetCursorPosition(levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column + (levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column + 2), levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].row);
+        //            if (levels[(int)stateMachine.CurrentLevel].ExploredLayout[levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].row, levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column].IsExplored == true)
+        //            {
+        //                Console.Write($"{levels[(int)stateMachine.CurrentLevel].InitialLayout[levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].row, levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i].column].Graphic}");
+        //            }
+        //            else
+        //            {
+        //                Console.Write(" ");
+        //            }
+        //        }
+        //    }
+        //}
         public void RenderTilesAroundPlayer()
         {
             for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
             {
-                Console.ForegroundColor = levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].Color;
                 Console.SetCursorPosition(stateMachine.PointsToRenderOnMap[i].column + (stateMachine.PointsToRenderOnMap[i].column + 2), stateMachine.PointsToRenderOnMap[i].row);
-                Console.Write($"{levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].Graphic}");
+                Console.ForegroundColor = stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].Color;
+                Console.Write(stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].Graphic);
             }
-            Console.ForegroundColor = player.Color;
-            Console.SetCursorPosition(stateMachine.PlayerPosition.column + (stateMachine.PlayerPosition.column + 2), stateMachine.PlayerPosition.row);
-            Console.Write($"{player.Graphic}");
         }
         private void RenderUI()
         {
@@ -110,16 +116,5 @@ namespace DungeonCrawler
                 Console.Write("");
             }
         }
-
-        //New rendering methods
-        //
-        //  new Array in levels = Tile[,] BottomLayer;
-        //  new Array in levels = Entity[,] MidLayer;
-        //  new Array in levels = Bool[] isExplored;
-        //
-        //  render using 3 for loops and run them differently depending on which state "Statemachine" returns
-        //
-        //
-        //
     }
 }

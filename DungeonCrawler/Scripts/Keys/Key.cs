@@ -5,18 +5,15 @@ using System.Media;
 
 namespace DungeonCrawler
 {
-    public abstract class Key : Entity, IInteractable
+    public abstract class Key : GameObject, IInteractable
     {
-        private bool isEquipped;
         private Unlock unlock;
         private byte numberOfUses;
-        private Point position;
-
-        public bool IsEquipped
+        public Key(int x, int y)
         {
-            get { return isEquipped; }
-            set { isEquipped = value; }
+            this.Position = new Point(x, y);
         }
+
         public Unlock Unlock
         {
             get { return unlock; }
@@ -27,14 +24,9 @@ namespace DungeonCrawler
             get { return numberOfUses; }
             set { numberOfUses = value; }
         }
-        public Point Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
         public bool Interact()
         {
-            Player.KeysInInventory.Add(this);
+            
             return true;
         }
     }

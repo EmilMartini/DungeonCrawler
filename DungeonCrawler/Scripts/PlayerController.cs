@@ -34,41 +34,41 @@ namespace DungeonCrawler
         }
         public void MovePlayer(Point direction)
         {
-            stateMachine.PlayerPosition = player.Position;
-
-            player.TargetPlayerPosition = new Point(stateMachine.PlayerPosition.row + direction.row, stateMachine.PlayerPosition.column + direction.column);
-            stateMachine.TargetPlayerPosition = player.TargetPlayerPosition;
-
-            if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
+            if(!direction.Equals(new Point(0,0)))
             {
-                if (interactable.Interact())
+                player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
+                if (!levels[(int)stateMachine.CurrentLevel].InitialLayout[player.TargetPosition.row, player.TargetPosition.column].GetType().Equals(typeof(Wall)))
                 {
-                    if(!(interactable is Door door))
-                    {
-                        if(canUnlock(door))
-                        levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
-                    }
-                    else if(interactable is YellowDoor door && door.IsUnlocked)
-                    {
-                        stateMachine.NextLevel = door.NextLevel;
-                        stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerPositionWhenExit = stateMachine.PlayerPosition;
-                        stateMachine.CurrentState = StateMachine.State.ExitLevel;
-                    } else if(interactable is ExitDoor)
-                    {
-                        stateMachine.CurrentState = StateMachine.State.ExitGame;
-                    }
-                } else
-                {
-                    return;
+                    UpdatePlayerPosition();
+                    stateMachine.PlayerNumberOfMoves++;  
                 }
             }
-            if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column].TileType != TileType.Wall)
-            {
-                UpdatePlayerPosition();
-                stateMachine.PlayerNumberOfMoves++;  
-            }
+            //if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
+            //{
+            //    if (interactable.Interact())
+            //    {
+            //        if(!(interactable is Door))
+            //        {                 
+            //            levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
+            //        }
+            //        else if(interactable is YellowDoor door && door.IsUnlocked)
+            //        {
+            //            stateMachine.NextLevel = door.NextLevel;
+            //            stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerPositionWhenExit = stateMachine.PlayerPosition;
+            //            stateMachine.CurrentState = StateMachine.State.ExitLevel;
+            //        } else if(interactable is ExitDoor)
+            //        {
+            //            stateMachine.CurrentState = StateMachine.State.ExitGame;
+            //        }
+            //    } else if (interactable is Door door)
+            //    {
+            //        if (canUnlock(door));
+            //    } else
+            //    {
+            //        return;
+            //    }
+            //}
         }
-
         private bool canUnlock(Door door)
         {
             for (int i = 0; i < player.KeysInInventory.Count; i++)
@@ -85,13 +85,9 @@ namespace DungeonCrawler
             }
             return false;
         }
-
         public void UpdatePlayerPosition()
         {
-            levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column];
-            stateMachine.PlayerPosition = stateMachine.TargetPlayerPosition;
-            levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PlayerPosition.row, stateMachine.PlayerPosition.column] = player;
-            player.Position = stateMachine.PlayerPosition;
+            player.Position = player.TargetPosition;
         }
         public void ExploreTilesAroundPlayer()
         {
@@ -102,7 +98,7 @@ namespace DungeonCrawler
                 {
                     if ((row != 0 | column != 0))
                     {
-                        stateMachine.PointsToRenderOnMap[index] = new Point(stateMachine.PlayerPosition.row + row, stateMachine.PlayerPosition.column + column);
+                        stateMachine.PointsToRenderOnMap[index] = new Point(player.Position.row + row, player.Position.column + column);
                         index++;
                     }
                 }

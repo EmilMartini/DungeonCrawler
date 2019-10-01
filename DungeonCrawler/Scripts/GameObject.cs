@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    public class Floor : Tile
+    public abstract class GameObject : Entity
     {
-        public Floor()
-        {
-            this.Graphic = "-";
-            this.Color = ConsoleColor.White;
-        }
+        
     }
 }

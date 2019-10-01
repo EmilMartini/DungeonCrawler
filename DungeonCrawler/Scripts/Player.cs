@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace DungeonCrawler
 {
-    public class Player : Tile
+    public class Player : GameObject
     {
-        private Point position;
         private Point targetPlayerPosition;
         private List<Key> keysInInventory = new List<Key>();
         private static int enemiesInteractedWith = 0;
@@ -13,16 +12,8 @@ namespace DungeonCrawler
         public Player()
         {
             this.Graphic = "@";
-            this.TileType = TileType.Player;
-            this.IsExplored = true;
             this.Color = ConsoleColor.Green;
             this.Position = new Point(1,1);
-        }
-
-        public Point Position
-        {
-            get { return position; }
-            set { position = value; }
         }
         public List<Key> KeysInInventory
         {
@@ -34,7 +25,6 @@ namespace DungeonCrawler
             get { return enemiesInteractedWith; }
             set { enemiesInteractedWith = value; }
         }
-
-        public Point TargetPlayerPosition { get; set; }
+        public Point TargetPosition { get; set; }
     }
 }
