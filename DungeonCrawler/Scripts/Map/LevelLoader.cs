@@ -37,7 +37,6 @@ namespace DungeonCrawler
                 levels[i].InitialLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
                 levels[i].ExploredLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
                 levels[i].Enemies = new Enemy[levels[i].NumberOfEnemies];
-                levels[i].PreviousEnemyPositions = new Point[levels[i].Enemies.Length];
 
                 for (int row = 0; row < levels[i].Size.Height; row++)
                 {

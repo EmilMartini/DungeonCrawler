@@ -17,7 +17,6 @@ namespace DungeonCrawler
         private Point targetEnemyPosition;
         private Level[] levels;
         private Point[] pointsToRenderOnMap;
-        private Point[] previousEnemyPositions;
         private CurrentLevel currentLevel;
         private CurrentLevel nextLevel;
         private State currentState;
@@ -43,7 +42,6 @@ namespace DungeonCrawler
         public int PlayerNumberOfMoves { get { return playerNumberOfMoves; } set { playerNumberOfMoves = value; } }
         public Point CurrentEnemyPosition { get { return currentEnemyPosition; } set { currentEnemyPosition = value; } }
         public Point TargetEnemyPosition { get { return targetEnemyPosition; } set { targetEnemyPosition = value; } }
-        public Point[] PreviousEnemyPositions { get { return previousEnemyPositions; } set { previousEnemyPositions = value; } }
         public State CurrentState { get { return currentState; } set { currentState = value; } }
         public CurrentLevel CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
         public Point[] PointsToRenderOnMap { get { return pointsToRenderOnMap; } set { pointsToRenderOnMap = value; } }

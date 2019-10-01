@@ -16,9 +16,10 @@ namespace DungeonCrawler
         }
         public void Move()
         {
+            int index = 0;
             foreach (GameObject gameObject in stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
             {
-                if(!gameObject.GetType().Equals(typeof(Enemy)))
+                if(!(gameObject is Enemy))
                 {
                     continue;
                 } else
@@ -32,18 +33,20 @@ namespace DungeonCrawler
                     targetEnemyPosition = new Point(gameObject.Position.row + row, gameObject.Position.column + column);
                     if(PathAvailable(targetEnemyPosition))
                     {
+                        stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[index] = new Point(gameObject.Position.row, gameObject.Position.column);
                         gameObject.Position = targetEnemyPosition;
+                        index++;
                     }
                 }
             }
         }
         public void ResetEnemyPositions()
         {
-            if(stateMachine.PreviousEnemyPositions != null)
+            if(stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions != null)
             {
                 for (int i = 0; i < stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies.Length; i++)
                 {
-                    stateMachine.PreviousEnemyPositions[i] = new Point(0,0);
+                    stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i] = new Point(0,0);
                 }
             }
         }
@@ -52,13 +55,19 @@ namespace DungeonCrawler
             var activeGameObjects = stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects;
             for (int i = 0; i < activeGameObjects.Count; i++)
             {
-                if (activeGameObjects[i].Position.Equals(targetEnemyPosition))
+                if(activeGameObjects[i] is Enemy)
                 {
-                    return false;
+                    continue;
+                } else
+                {
+                    if (activeGameObjects[i].Position.Equals(targetEnemyPosition))
+                    {
+                        return false;
+                    }
                 }
             }
-            if(stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].GetType().Equals(typeof(Door)) ||
-               stateMachine.Levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetEnemyPosition.row, stateMachine.TargetEnemyPosition.column].GetType().Equals(typeof(Wall)))
+            if(stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Door ||
+               stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Wall)
             {
                 return false;
             }

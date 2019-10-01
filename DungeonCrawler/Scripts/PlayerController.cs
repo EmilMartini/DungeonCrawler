@@ -14,6 +14,7 @@ namespace DungeonCrawler
             this.levels = stateMachine.Levels;
             this.stateMachine = stateMachine;
             stateMachine.PlayerPosition = player.Position;
+            stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects.Add(player);
         }
         public Point GetInput()
         {

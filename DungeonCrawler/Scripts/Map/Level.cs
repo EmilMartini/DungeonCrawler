@@ -20,6 +20,7 @@ namespace DungeonCrawler
             NumberOfEnemies = numberOfEnemies;
             PlayerPositionWhenExit = PlayerStartingTile;
             activeGameObjects = new List<GameObject>();
+            previousEnemyPositions = new Point[numberOfEnemies];
         }
 
         public Tile[,] ExploredLayout
