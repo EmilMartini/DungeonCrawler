@@ -6,7 +6,7 @@ namespace DungeonCrawler.Keys
         public YellowKey(int x, int y) : base(x,y)
         {
             this.Position = base.Position;
-            this.Unlock = LockColor.Yellow;
+            this.LockColor = LockColor.Yellow;
             this.NumberOfUses = 1;
             this.Color = ConsoleColor.DarkYellow;
             this.Graphic = "K";

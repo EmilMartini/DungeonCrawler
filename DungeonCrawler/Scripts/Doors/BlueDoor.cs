@@ -5,7 +5,7 @@ namespace DungeonCrawler.Doors
     {
         public BlueDoor()
         {
-            this.Unlock = LockColor.Blue;
+            this.LockColor = LockColor.Blue;
             this.IsExplored = false;
             this.Color = ConsoleColor.DarkBlue;
             this.Graphic = "D";    

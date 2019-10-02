@@ -5,7 +5,7 @@ namespace DungeonCrawler.Keys
     {
         public BlueKey(int x, int y) : base(x,y)
         {
-            this.Unlock = LockColor.Blue;
+            this.LockColor = LockColor.Blue;
             this.NumberOfUses = 1;
             this.Color = ConsoleColor.DarkBlue;
             this.Graphic = "K";

@@ -7,7 +7,7 @@ namespace DungeonCrawler
         private CurrentLevel nextLevel;
         public YellowDoor(CurrentLevel nextLevel, bool isUnlocked, GameplayManager gameplayManager)
         {
-            this.Unlock = LockColor.Yellow;
+            this.LockColor = LockColor.Yellow;
             this.IsExplored = false;
             this.Color = ConsoleColor.DarkYellow;
             this.Graphic = "D";
@@ -27,7 +27,7 @@ namespace DungeonCrawler
             {
                 foreach (Key key in player.KeysInInventory)
                 {
-                    if (key.Unlock == this.Unlock)
+                    if (key.LockColor == this.LockColor)
                     {
                         IsUnlocked = true;
                         player.KeysInInventory.Remove(key);
