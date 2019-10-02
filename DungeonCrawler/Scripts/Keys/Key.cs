@@ -2,13 +2,13 @@
 {
     public abstract class Key : GameObject, IInteractable
     {
-        private Unlock unlock;
+        private LockColor unlock;
         private byte numberOfUses;
         public Key(int x, int y)
         {
             this.Position = new Point(x, y);
         }
-        public Unlock Unlock
+        public LockColor Unlock
         {
             get { return unlock; }
             set { unlock = value; }

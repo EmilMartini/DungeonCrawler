@@ -5,7 +5,7 @@ namespace DungeonCrawler
     {
         public ExitDoor()
         {
-            this.Unlock = Unlock.Skeleton;
+            this.Unlock = LockColor.Skeleton;
             this.IsExplored = false;
             this.Graphic = "D";
             this.Color = ConsoleColor.DarkGreen;

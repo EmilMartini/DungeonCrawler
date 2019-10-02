@@ -5,7 +5,7 @@ namespace DungeonCrawler.Keys
     {
         public SkeletonKey(int x, int y) : base(x,y)
         {
-            this.Unlock = Unlock.Skeleton;
+            this.Unlock = LockColor.Skeleton;
             this.NumberOfUses = 2;
             this.Color = ConsoleColor.DarkGreen;
             this.Graphic = "K";

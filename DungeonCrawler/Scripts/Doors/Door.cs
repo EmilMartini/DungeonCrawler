@@ -3,7 +3,7 @@ namespace DungeonCrawler
 {
     public abstract class Door : Tile, IInteractable
     {
-        private Unlock unlock;
+        private LockColor unlock;
         private bool isUnlocked;
         public virtual bool Interact(Player player)
         {
@@ -40,7 +40,7 @@ namespace DungeonCrawler
                 return false;
             }
         }
-        public Unlock Unlock
+        public LockColor Unlock
         {
             get { return unlock; }
             set { unlock = value; }
