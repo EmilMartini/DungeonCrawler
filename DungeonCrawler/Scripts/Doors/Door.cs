@@ -9,7 +9,7 @@ namespace DungeonCrawler
     {
         private Unlock unlock;
         private bool isUnlocked;
-        public bool Interact()
+        public virtual bool Interact(Player player)
         {
             if (isUnlocked)
             {
@@ -17,12 +17,12 @@ namespace DungeonCrawler
             }
             else
             {
-                foreach (Key key in Player.KeysInInventory)
+                foreach (Key key in player.KeysInInventory)
                 {
                     if (key.Unlock == this.unlock)
                     {
                         isUnlocked = true;
-                        Player.KeysInInventory.Remove(key);
+                        player.KeysInInventory.Remove(key);
                         return true;
                     }
                 }

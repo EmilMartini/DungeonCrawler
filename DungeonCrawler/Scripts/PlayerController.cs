@@ -81,7 +81,7 @@ namespace DungeonCrawler
             if (stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)
             {
                 
-                return interactableTile.Interact();
+                return interactableTile.Interact(player);
             }
             foreach (GameObject gameObject in stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
             {
@@ -91,7 +91,7 @@ namespace DungeonCrawler
                 }
                 else if (gameObject.Position.Equals(targetPosition) && gameObject is IInteractable interactableGameObject)
                 {
-                    interactableGameObject.Interact();
+                    interactableGameObject.Interact(player);
                     if (interactableGameObject is Key key)
                     {
                         stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects.Remove(key);
@@ -104,14 +104,14 @@ namespace DungeonCrawler
 
         private bool canUnlock(Door door)
         {
-            for (int i = 0; i < Player.KeysInInventory.Count; i++)
+            for (int i = 0; i < player.KeysInInventory.Count; i++)
             {
-                if (Player.KeysInInventory[i].Unlock.Equals((door.Unlock)))
+                if (player.KeysInInventory[i].Unlock.Equals((door.Unlock)))
                 {
-                    Player.KeysInInventory[i].NumberOfUses--;
-                    if (Player.KeysInInventory[i].NumberOfUses <= 0)
+                    player.KeysInInventory[i].NumberOfUses--;
+                    if (player.KeysInInventory[i].NumberOfUses <= 0)
                     {
-                        Player.KeysInInventory.RemoveAt(i);
+                        player.KeysInInventory.RemoveAt(i);
                     }
                     return true;
                 }

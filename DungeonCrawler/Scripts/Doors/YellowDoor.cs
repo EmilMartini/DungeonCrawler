@@ -25,5 +25,27 @@ namespace DungeonCrawler
             }
         }
         public CurrentLevel NextLevel { get => nextLevel; set => nextLevel = value; }
+
+        public override bool Interact(Player player)
+        {
+            if (IsUnlocked)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (Key key in player.KeysInInventory)
+                {
+                    if (key.Unlock == this.Unlock)
+                    {
+                        IsUnlocked = true;
+                        player.KeysInInventory.Remove(key);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
     }
 }
