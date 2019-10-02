@@ -26,7 +26,7 @@ namespace DungeonCrawler
                         return true;
                     }
                 }
-                //return false;
+                return false;
             }
         }
         public bool CanUnlock()
