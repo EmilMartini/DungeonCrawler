@@ -11,7 +11,6 @@ namespace DungeonCrawler
             this.levels = levels;
             this.player = player;
             this.gameplayManager = gameplayManager;
-            gameplayManager.PointsToRenderOnMap = new Point[8]; //Kanske ska ta en PointsToRenderOnMap från player istället för gameplayManager
         }
         public void RenderLevel()
         {
@@ -78,11 +77,11 @@ namespace DungeonCrawler
         }
         public void RenderTilesAroundPlayer()   //Samma med pointsToRenderOnMap här
         {
-            for (int i = 0; i < gameplayManager.PointsToRenderOnMap.Length; i++)
+            for (int i = 0; i < player.PointsAroundPlayer.Length; i++)
             {
-                Console.SetCursorPosition(gameplayManager.PointsToRenderOnMap[i].column + (gameplayManager.PointsToRenderOnMap[i].column + 2), gameplayManager.PointsToRenderOnMap[i].row);
-                Console.ForegroundColor = gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[gameplayManager.PointsToRenderOnMap[i].row, gameplayManager.PointsToRenderOnMap[i].column].Color;
-                Console.Write(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[gameplayManager.PointsToRenderOnMap[i].row, gameplayManager.PointsToRenderOnMap[i].column].Graphic);
+                Console.SetCursorPosition(player.PointsAroundPlayer[i].column + (player.PointsAroundPlayer[i].column + 2), player.PointsAroundPlayer[i].row);
+                Console.ForegroundColor = gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[player.PointsAroundPlayer[i].row, player.PointsAroundPlayer[i].column].Color;
+                Console.Write(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[player.PointsAroundPlayer[i].row, player.PointsAroundPlayer[i].column].Graphic);
             }
         }
         public void RenderOuterWalls()

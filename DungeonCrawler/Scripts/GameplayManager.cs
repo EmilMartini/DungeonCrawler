@@ -12,10 +12,10 @@ namespace DungeonCrawler
         private PlayerController playerController;
         private ConsoleOutputFilter consoleOutputFilter;    //Kan nog klara oss utan denna
         private Level[] levels;
-        private Point[] pointsToRenderOnMap;
         private CurrentLevel currentLevel;
         private CurrentLevel nextLevel;
         private State currentState;
+
         public GameplayManager()
         {
             LevelLayout = new LevelLayout(this);
@@ -126,7 +126,6 @@ namespace DungeonCrawler
 
         public State CurrentState { get { return currentState; } set { currentState = value; } }
         public CurrentLevel CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
-        public Point[] PointsToRenderOnMap { get { return pointsToRenderOnMap; } set { pointsToRenderOnMap = value; } }
         public Level[] Levels { get { return levels; } set { levels = value; } }
         public CurrentLevel NextLevel { get { return nextLevel; } set { nextLevel = value; } }
         public LevelLayout LevelLayout { get { return levelLayout; } set { levelLayout = value; } }

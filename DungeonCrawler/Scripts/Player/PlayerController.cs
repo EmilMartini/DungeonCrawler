@@ -85,21 +85,21 @@ namespace DungeonCrawler
                 {
                     if ((row != 0 | column != 0))
                     {
-                        gameplayManager.PointsToRenderOnMap[index] = new Point(player.Position.row + row, player.Position.column + column);
+                        player.PointsAroundPlayer[index] = new Point(player.Position.row + row, player.Position.column + column);
                         index++;
                     }
                 }
             }
-            for (int i = 0; i < gameplayManager.PointsToRenderOnMap.Length; i++)
+            for (int i = 0; i < player.PointsAroundPlayer.Length; i++)
             {
-                levels[(int)gameplayManager.CurrentLevel].Layout[gameplayManager.PointsToRenderOnMap[i].row, gameplayManager.PointsToRenderOnMap[i].column].IsExplored = true; //Kanske snyggare syntax
+                levels[(int)gameplayManager.CurrentLevel].Layout[player.PointsAroundPlayer[i].row, player.PointsAroundPlayer[i].column].IsExplored = true; //Kanske snyggare syntax
             }
         }
         public void ResetPlayerData()   //Kommentera, otydlig inuti
         {
-            for (int i = 0; i < gameplayManager.PointsToRenderOnMap.Length; i++)
+            for (int i = 0; i < player.PointsAroundPlayer.Length; i++)
             {
-                gameplayManager.PointsToRenderOnMap[i] = new Point(0, 0);
+                player.PointsAroundPlayer[i] = new Point(0, 0);
             }
             gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PlayerPositionWhenExit = player.Position;
 
