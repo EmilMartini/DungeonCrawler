@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DungeonCrawler
+﻿namespace DungeonCrawler
 {
     public abstract class Tile : Entity
     {

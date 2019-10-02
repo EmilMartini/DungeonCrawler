@@ -72,7 +72,7 @@
     <Compile Include="Scripts\GameplayManager.cs" />
     <Compile Include="Scripts\Keys\BlueKey.cs" />
     <Compile Include="Scripts\Keys\SkeletonKey.cs" />
-    <Compile Include="Scripts\Keys\Unlock.cs" />
+    <Compile Include="Scripts\Keys\LockColor.cs" />
     <Compile Include="Scripts\Keys\PurpleKey.cs" />
     <Compile Include="Scripts\Keys\YellowKey.cs" />
     <Compile Include="Scripts\Map\Floor.cs" />
@@ -90,7 +90,6 @@
     <Compile Include="Scripts\Map\Level.cs" />
     <Compile Include="Scripts\Map\Size.cs" />
     <Compile Include="Scripts\Map\Tile.cs" />
-    <Compile Include="Scripts\Map\TileType.cs" />
     <Compile Include="Scripts\Map\Wall.cs" />
     <Compile Include="Scripts\State.cs" />
   </ItemGroup>

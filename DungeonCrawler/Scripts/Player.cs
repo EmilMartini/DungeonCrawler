@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 namespace DungeonCrawler
 {
     public class Player : GameObject
@@ -9,7 +8,6 @@ namespace DungeonCrawler
         private List<Key> keysInInventory = new List<Key>();
         private int enemiesInteractedWith = 0;
         private int numberOfMoves;
-
         public Player()
         {
             this.Graphic = "@";

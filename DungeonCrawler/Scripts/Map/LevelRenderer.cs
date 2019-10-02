@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
 namespace DungeonCrawler
 {
     public class LevelRenderer
@@ -15,7 +13,6 @@ namespace DungeonCrawler
             this.gameplayManager = gameplayManager;
             gameplayManager.PointsToRenderOnMap = new Point[8]; //Kanske ska ta en PointsToRenderOnMap från player istället för gameplayManager
         }
-
         public void RenderLevel()
         {
             RenderTilesAroundPlayer();
@@ -40,7 +37,6 @@ namespace DungeonCrawler
                     }
                 }
             }
-
             //Clear previous enemy positions from map
             if(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions != null)
             {
@@ -52,7 +48,6 @@ namespace DungeonCrawler
                         Console.ForegroundColor = levels[(int)gameplayManager.CurrentLevel].ExploredLayout[previousEnemyPosition.row, previousEnemyPosition.column].Color;
                         Console.Write(levels[(int)gameplayManager.CurrentLevel].ExploredLayout[previousEnemyPosition.row, previousEnemyPosition.column].Graphic);
                     }
-                    
                 }
             }
         }

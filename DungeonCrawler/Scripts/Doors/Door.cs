@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Media;
-using System.Threading;
-using System.Windows;
-
 namespace DungeonCrawler
 {
     public abstract class Door : Tile, IInteractable
     {
-        private Unlock unlock;
+        private LockColor lockColor;
         private bool isUnlocked;
         public virtual bool Interact(Player player)
         {
@@ -19,7 +15,7 @@ namespace DungeonCrawler
             {
                 foreach (Key key in player.KeysInInventory)
                 {
-                    if (key.Unlock == this.unlock)
+                    if (key.LockColor == this.LockColor)
                     {
                         isUnlocked = true;
                         this.Color = ConsoleColor.White;
@@ -32,8 +28,8 @@ namespace DungeonCrawler
         }
         public Unlock Unlock
         {
-            get { return unlock; }
-            set { unlock = value; }
+            get { return lockColor; }
+            set { lockColor = value; }
         }
         public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }    //Fixa enkapsulering
     }

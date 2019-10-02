@@ -1,5 +1,4 @@
-﻿using DungeonCrawler.Keys;
-using System;
+﻿using System;
 namespace DungeonCrawler
 {
     public class PlayerController
@@ -7,8 +6,6 @@ namespace DungeonCrawler
         private GameplayManager gameplayManager;
         private readonly Level[] levels;    //Ta bort?
         private readonly Player player;
-
-
         public PlayerController(Player player, GameplayManager gameplayManager)
         {
             this.player = player;

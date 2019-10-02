@@ -1,21 +1,17 @@
-﻿using System;
-using System.Media;
-
-namespace DungeonCrawler
+﻿namespace DungeonCrawler
 {
     public abstract class Key : GameObject, IInteractable
     {
-        private Unlock unlock;
+        private LockColor lockColor;
         private byte numberOfUses;
         public Key(int x, int y)
         {
             this.Position = new Point(x, y);
         }
-
-        public Unlock Unlock
+        public LockColor LockColor
         {
-            get { return unlock; }
-            set { unlock = value; }
+            get { return lockColor; }
+            set { lockColor = value; }
         }
         public byte NumberOfUses
         {

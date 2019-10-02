@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DungeonCrawler.Keys
 {
     public class PurpleKey : Key
@@ -11,7 +6,7 @@ namespace DungeonCrawler.Keys
         public PurpleKey(int x, int y) : base(x, y)
         {
             this.Position = base.Position;
-            this.Unlock = Unlock.Purple;
+            this.LockColor = LockColor.Purple;
             this.NumberOfUses = 1;
             this.Color = ConsoleColor.DarkMagenta;
             this.Graphic = "K";

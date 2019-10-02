@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DungeonCrawler
 {
     public class YellowDoor : Door
@@ -12,7 +7,7 @@ namespace DungeonCrawler
         private CurrentLevel nextLevel;
         public YellowDoor(CurrentLevel nextLevel, bool isUnlocked, GameplayManager gameplayManager)
         {
-            this.Unlock = Unlock.Yellow;
+            this.LockColor = LockColor.Yellow;
             this.IsExplored = false;
             this.Color = ConsoleColor.DarkYellow;
             this.Graphic = "D";
@@ -21,7 +16,6 @@ namespace DungeonCrawler
             this.IsUnlocked = isUnlocked;
         }
         public CurrentLevel NextLevel { get => nextLevel; set => nextLevel = value; }
-
         public override bool Interact(Player player)
         {
             if (IsUnlocked)
@@ -33,7 +27,7 @@ namespace DungeonCrawler
             {
                 foreach (Key key in player.KeysInInventory)
                 {
-                    if (key.Unlock == this.Unlock)
+                    if (key.LockColor == this.LockColor)
                     {
                         IsUnlocked = true;
                         player.KeysInInventory.Remove(key);

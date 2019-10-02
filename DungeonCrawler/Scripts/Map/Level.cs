@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 namespace DungeonCrawler
 {
     public class Level
@@ -22,7 +21,6 @@ namespace DungeonCrawler
             activeGameObjects = new List<GameObject>();
             previousEnemyPositions = new Point[NumberOfEnemies];
         }
-
         public Tile[,] ExploredLayout
         {
             get { return exploredLayout; }
