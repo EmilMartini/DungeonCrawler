@@ -5,19 +5,19 @@ namespace DungeonCrawler
     public class EnemyController
     {
         private Random random = new Random();
-        private StateMachine stateMachine;
+        private GameplayManager gameplayManager;
         private Point currentEnemyPosition;
         private Point targetEnemyPosition;
 
 
-        public EnemyController(StateMachine stateMachine)
+        public EnemyController(GameplayManager gameplayManager)
         {
-            this.stateMachine = stateMachine;
+            this.gameplayManager = gameplayManager;
         }
         public void Move()
         {
             int index = 0;
-            foreach (GameObject gameObject in stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
+            foreach (GameObject gameObject in gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
             {
                 if(!(gameObject is Enemy))
                 {
@@ -33,7 +33,7 @@ namespace DungeonCrawler
                     targetEnemyPosition = new Point(gameObject.Position.row + row, gameObject.Position.column + column);
                     if(PathAvailable(targetEnemyPosition))
                     {
-                        stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[index] = new Point(gameObject.Position.row, gameObject.Position.column);
+                        gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions[index] = new Point(gameObject.Position.row, gameObject.Position.column);
                         gameObject.Position = targetEnemyPosition;
                         index++;
                     }
@@ -42,17 +42,17 @@ namespace DungeonCrawler
         }
         public void ResetEnemyPositions()
         {
-            if(stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions != null)
+            if(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions != null)
             {
-                for (int i = 0; i < stateMachine.Levels[(int)stateMachine.CurrentLevel].NumberOfEnemies; i++)
+                for (int i = 0; i < gameplayManager.Levels[(int)gameplayManager.CurrentLevel].NumberOfEnemies; i++)
                 {
-                    stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i] = new Point(0,0);
+                    gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions[i] = new Point(0,0);
                 }
             }
         }
         private bool PathAvailable(Point targetEnemyPosition)
         {
-            var activeGameObjects = stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects;
+            var activeGameObjects = gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects;
             for (int i = 0; i < activeGameObjects.Count; i++)
             {
                 if(activeGameObjects[i] is Enemy)
@@ -66,8 +66,8 @@ namespace DungeonCrawler
                     }
                 }
             }
-            if(stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Door ||
-               stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Wall)
+            if(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Door ||
+               gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Wall)
             {
                 return false;
             }

@@ -8,16 +8,16 @@ namespace DungeonCrawler
 {
     public class YellowDoor : Door
     {
-        private readonly StateMachine stateMachine;
+        private readonly GameplayManager gameplayManager;
         private CurrentLevel nextLevel;
-        public YellowDoor(CurrentLevel nextLevel, bool isUnlocked, StateMachine stateMachine)
+        public YellowDoor(CurrentLevel nextLevel, bool isUnlocked, GameplayManager gameplayManager)
         {
             this.Unlock = Unlock.Yellow;
             this.IsExplored = false;
             this.Color = ConsoleColor.DarkYellow;
             this.Graphic = "D";
             this.NextLevel = nextLevel;
-            this.stateMachine = stateMachine;
+            this.gameplayManager = gameplayManager;
             this.IsUnlocked = isUnlocked;
         }
         public CurrentLevel NextLevel { get => nextLevel; set => nextLevel = value; }
@@ -46,8 +46,8 @@ namespace DungeonCrawler
         }
         private void ChangeLevel()
         {
-            stateMachine.NextLevel = this.NextLevel;
-            stateMachine.CurrentState = StateMachine.State.ExitLevel;
+            gameplayManager.NextLevel = this.NextLevel;
+            gameplayManager.CurrentState = State.ExitLevel;
         }
     }
 }

@@ -6,20 +6,20 @@ namespace DungeonCrawler
 {
     public class LevelLoader
     {
-        private StateMachine stateMachine;
+        private GameplayManager gameplayManager;
         private Level[] levels;
         private readonly LevelLayout levelLayout;
         private Random rnd = new Random();
 
-        public LevelLoader(LevelLayout levelLayout, StateMachine stateMachine)
+        public LevelLoader(LevelLayout levelLayout, GameplayManager gameplayManager)
         {
-            this.levels = stateMachine.Levels;
+            this.levels = gameplayManager.Levels;
             this.levelLayout = levelLayout;
-            this.stateMachine = stateMachine;
+            this.gameplayManager = gameplayManager;
         }
         public void InitializeLevels()
         {
-            for (int i = 0; i < stateMachine.Levels.Length; i++)
+            for (int i = 0; i < gameplayManager.Levels.Length; i++)
             {
                 levels[i].InitialLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
                 levels[i].ExploredLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
@@ -53,10 +53,9 @@ namespace DungeonCrawler
             levelLayout.SetLevelTwoLayout();
             levelLayout.SetLevelThreeLayout();
         }
-
         internal void SpawnLevelObjects()
         {
-            Array.Copy(levels[(int)stateMachine.CurrentLevel].InitialLayout, levels[(int)stateMachine.CurrentLevel].ExploredLayout, levels[(int)stateMachine.CurrentLevel].InitialLayout.Length);
+            Array.Copy(levels[(int)gameplayManager.CurrentLevel].InitialLayout, levels[(int)gameplayManager.CurrentLevel].ExploredLayout, levels[(int)gameplayManager.CurrentLevel].InitialLayout.Length);
         }
     }
 }

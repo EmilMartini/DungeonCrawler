@@ -4,17 +4,17 @@ namespace DungeonCrawler
 {
     public class PlayerController
     {
-        private StateMachine stateMachine;
+        private GameplayManager gameplayManager;
         private readonly Level[] levels;
         private readonly Player player;
 
-        public PlayerController(Player player, StateMachine stateMachine)
+
+        public PlayerController(Player player, GameplayManager gameplayManager)
         {
             this.player = player;
-            this.levels = stateMachine.Levels;
-            this.stateMachine = stateMachine;
-            stateMachine.PlayerPosition = player.Position;
-            stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects.Add(player);
+            this.levels = gameplayManager.Levels;
+            this.gameplayManager = gameplayManager;
+            gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects.Add(player);
         }
         public Point GetInput()
         {
@@ -38,52 +38,26 @@ namespace DungeonCrawler
             if(!direction.Equals(new Point(0,0)))
             {
                 player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
-                if (!(levels[(int)stateMachine.CurrentLevel].InitialLayout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
+                if (!(levels[(int)gameplayManager.CurrentLevel].InitialLayout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
                 {
 
                     if (CheckInteraction(player.TargetPosition))
                     {
                         UpdatePlayerPosition();
-                        stateMachine.PlayerNumberOfMoves++;  
+                        player.NumberOfMoves++;  
                     }
                 }
                 
             }
-            //if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
-            //{
-            //    if (interactable.Interact())
-            //    {
-            //        if(!(interactable is Door))
-            //        {                 
-            //            levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
-            //        }
-            //        else if(interactable is YellowDoor door && door.IsUnlocked)
-            //        {
-            //            stateMachine.NextLevel = door.NextLevel;
-            //            stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerPositionWhenExit = stateMachine.PlayerPosition;
-            //            stateMachine.CurrentState = StateMachine.State.ExitLevel;
-            //        } else if(interactable is ExitDoor)
-            //        {
-            //            stateMachine.CurrentState = StateMachine.State.ExitGame;
-            //        }
-            //    } else if (interactable is Door door)
-            //    {
-            //        if (canUnlock(door));
-            //    } else
-            //    {
-            //        return;
-            //    }
-            //}
         }
-
         private bool CheckInteraction(Point targetPosition)
         {
-            if (stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)
+            if (gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)
             {
                 
                 return interactableTile.Interact(player);
             }
-            foreach (GameObject gameObject in stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
+            foreach (GameObject gameObject in gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
             {
                 if (gameObject is Player)
                 {
@@ -94,29 +68,12 @@ namespace DungeonCrawler
                     interactableGameObject.Interact(player);
                     if (interactableGameObject is Key key)
                     {
-                        stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects.Remove(key);
+                        gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects.Remove(key);
                         return true;
                     }
                 }
             }
             return true;
-        }
-
-        private bool canUnlock(Door door)
-        {
-            for (int i = 0; i < player.KeysInInventory.Count; i++)
-            {
-                if (player.KeysInInventory[i].Unlock.Equals((door.Unlock)))
-                {
-                    player.KeysInInventory[i].NumberOfUses--;
-                    if (player.KeysInInventory[i].NumberOfUses <= 0)
-                    {
-                        player.KeysInInventory.RemoveAt(i);
-                    }
-                    return true;
-                }
-            }
-            return false;
         }
         public void UpdatePlayerPosition()
         {
@@ -131,32 +88,30 @@ namespace DungeonCrawler
                 {
                     if ((row != 0 | column != 0))
                     {
-                        stateMachine.PointsToRenderOnMap[index] = new Point(player.Position.row + row, player.Position.column + column);
+                        gameplayManager.PointsToRenderOnMap[index] = new Point(player.Position.row + row, player.Position.column + column);
                         index++;
                     }
                 }
             }
-            for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
+            for (int i = 0; i < gameplayManager.PointsToRenderOnMap.Length; i++)
             {
-                levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].IsExplored = true;
+                levels[(int)gameplayManager.CurrentLevel].ExploredLayout[gameplayManager.PointsToRenderOnMap[i].row, gameplayManager.PointsToRenderOnMap[i].column].IsExplored = true;
             }
         }
         public void ResetPlayerData()
         {
-            for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
+            for (int i = 0; i < gameplayManager.PointsToRenderOnMap.Length; i++)
             {
-                stateMachine.PointsToRenderOnMap[i] = new Point(0, 0);
+                gameplayManager.PointsToRenderOnMap[i] = new Point(0, 0);
             }
-            stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerPositionWhenExit = player.Position;
+            gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PlayerPositionWhenExit = player.Position;
 
-            if (stateMachine.Levels[(int)stateMachine.NextLevel].PlayerPositionWhenExit.Equals(levels[(int)stateMachine.NextLevel].PlayerStartingTile))
+            if (gameplayManager.Levels[(int)gameplayManager.NextLevel].PlayerPositionWhenExit.Equals(levels[(int)gameplayManager.NextLevel].PlayerStartingTile))
             {
-                player.Position = levels[(int)stateMachine.NextLevel].PlayerStartingTile;
-                stateMachine.PlayerPosition = player.Position;
+                player.Position = levels[(int)gameplayManager.NextLevel].PlayerStartingTile;
             } else
             {
-                player.Position = levels[(int)stateMachine.NextLevel].PlayerPositionWhenExit;
-                stateMachine.PlayerPosition = player.Position;
+                player.Position = levels[(int)gameplayManager.NextLevel].PlayerPositionWhenExit;
             }
         }
     }
