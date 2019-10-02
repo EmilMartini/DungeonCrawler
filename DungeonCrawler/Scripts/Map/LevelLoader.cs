@@ -17,8 +17,7 @@ namespace DungeonCrawler
         {
             for (int i = 0; i < gameplayManager.Levels.Length; i++)
             {
-                levels[i].InitialLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
-                levels[i].ExploredLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
+                levels[i].Layout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
 
                 for (int row = 0; row < levels[i].Size.Height; row++)
                 {
@@ -26,11 +25,11 @@ namespace DungeonCrawler
                     {
                         if (column == 0 || column == levels[i].Size.Width - 1 || row == 0 || row == levels[i].Size.Height - 1)
                         {
-                            levels[i].InitialLayout[row, column] = new Wall(true);
+                            levels[i].Layout[row, column] = new Wall(true);
                         }
                         else
                         {
-                            levels[i].InitialLayout[row, column] = new Floor();
+                            levels[i].Layout[row, column] = new Floor();
                         }
                     }
                 }
@@ -39,8 +38,8 @@ namespace DungeonCrawler
                 for (int enemyIndex = 0; enemyIndex < levels[i].NumberOfEnemies; enemyIndex++)
                 {
                     int enemySpawnPositionRow, enemySpawnPositionColumn;
-                    enemySpawnPositionRow = rnd.Next(1, levels[i].InitialLayout.GetLength(0) - 2);
-                    enemySpawnPositionColumn = rnd.Next(1, levels[i].InitialLayout.GetLength(1) - 2);
+                    enemySpawnPositionRow = rnd.Next(1, levels[i].Layout.GetLength(0) - 2);
+                    enemySpawnPositionColumn = rnd.Next(1, levels[i].Layout.GetLength(1) - 2);
 
                     levels[i].ActiveGameObjects.Add(new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn));
                 }
@@ -48,10 +47,6 @@ namespace DungeonCrawler
             levelLayout.SetLevelOneLayout();
             levelLayout.SetLevelTwoLayout();
             levelLayout.SetLevelThreeLayout();
-        }
-        internal void SpawnLevelObjects()   //Ta bort ena arrayn (Eventuellt tankekrävande så lägg energi på att det blir rätt)
-        {
-            Array.Copy(levels[(int)gameplayManager.CurrentLevel].InitialLayout, levels[(int)gameplayManager.CurrentLevel].ExploredLayout, levels[(int)gameplayManager.CurrentLevel].InitialLayout.Length);
         }
     }
 }

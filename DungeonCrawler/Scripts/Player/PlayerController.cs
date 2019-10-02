@@ -38,7 +38,7 @@ namespace DungeonCrawler
             if(!direction.Equals(new Point(0,0)))
             {
                 player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
-                if (!(levels[(int)gameplayManager.CurrentLevel].InitialLayout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
+                if (!(levels[(int)gameplayManager.CurrentLevel].Layout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
                 {
                     if (CheckInteraction(player.TargetPosition))
                     {
@@ -50,7 +50,7 @@ namespace DungeonCrawler
         }
         private bool CheckInteraction(Point targetPosition)
         {
-            if (gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)  //borde gå att få bättre syntax
+            if (gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)  //borde gå att få bättre syntax
             {           
                 return interactableTile.Interact(player);
             }
@@ -92,7 +92,7 @@ namespace DungeonCrawler
             }
             for (int i = 0; i < gameplayManager.PointsToRenderOnMap.Length; i++)
             {
-                levels[(int)gameplayManager.CurrentLevel].ExploredLayout[gameplayManager.PointsToRenderOnMap[i].row, gameplayManager.PointsToRenderOnMap[i].column].IsExplored = true; //Kanske snyggare syntax
+                levels[(int)gameplayManager.CurrentLevel].Layout[gameplayManager.PointsToRenderOnMap[i].row, gameplayManager.PointsToRenderOnMap[i].column].IsExplored = true; //Kanske snyggare syntax
             }
         }
         public void ResetPlayerData()   //Kommentera, otydlig inuti

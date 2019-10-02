@@ -86,7 +86,7 @@ namespace DungeonCrawler
         }
         void LoadCurrentLevel()
         {
-            LevelLoader.SpawnLevelObjects();
+            //LevelLoader.SpawnLevelObjects();
             LevelRenderer.RenderOuterWalls();
             PlayerController.ExploreTilesAroundPlayer();
             LevelRenderer.RenderTilesAroundPlayer();

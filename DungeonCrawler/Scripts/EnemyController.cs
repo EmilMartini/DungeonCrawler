@@ -63,8 +63,8 @@ namespace DungeonCrawler
                     }
                 }
             }
-            if(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Door ||
-               gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Wall)
+            if(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[targetEnemyPosition.row, targetEnemyPosition.column] is Door ||
+               gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[targetEnemyPosition.row, targetEnemyPosition.column] is Wall)
             {
                 return false;
             }
