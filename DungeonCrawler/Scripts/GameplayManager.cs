@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-
 namespace DungeonCrawler
 {
     public class GameplayManager
@@ -21,7 +16,6 @@ namespace DungeonCrawler
         private CurrentLevel currentLevel;
         private CurrentLevel nextLevel;
         private State currentState;
-
         public GameplayManager()
         {
             LevelLayout = new LevelLayout(this);
@@ -32,7 +26,6 @@ namespace DungeonCrawler
             PlayerController = new PlayerController(Player, this);
             ConsoleOutputFilter = new ConsoleOutputFilter();
         }
-
         public void RunState()
         {
             switch (CurrentState)
@@ -130,8 +123,6 @@ namespace DungeonCrawler
             CurrentState = State.InitializeLevel;
             Console.Clear();
         }
-
-
         public State CurrentState { get { return currentState; } set { currentState = value; } }
         public CurrentLevel CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
         public Point[] PointsToRenderOnMap { get { return pointsToRenderOnMap; } set { pointsToRenderOnMap = value; } }

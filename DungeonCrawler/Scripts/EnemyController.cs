@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace DungeonCrawler
 {
     public class EnemyController
@@ -8,8 +7,6 @@ namespace DungeonCrawler
         private GameplayManager gameplayManager;
         private Point currentEnemyPosition;
         private Point targetEnemyPosition;
-
-
         public EnemyController(GameplayManager gameplayManager)
         {
             this.gameplayManager = gameplayManager;

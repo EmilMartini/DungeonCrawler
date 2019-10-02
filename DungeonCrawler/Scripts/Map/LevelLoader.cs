@@ -1,7 +1,4 @@
 ﻿using System;
-using DungeonCrawler.Doors;
-using DungeonCrawler.Keys;
-
 namespace DungeonCrawler
 {
     public class LevelLoader
@@ -10,7 +7,6 @@ namespace DungeonCrawler
         private Level[] levels;
         private readonly LevelLayout levelLayout;
         private Random rnd = new Random();
-
         public LevelLoader(LevelLayout levelLayout, GameplayManager gameplayManager)
         {
             this.levels = gameplayManager.Levels;

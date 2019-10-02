@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Media;
-using System.Threading;
-using System.Windows;
-
 namespace DungeonCrawler
 {
     public abstract class Door : Tile, IInteractable

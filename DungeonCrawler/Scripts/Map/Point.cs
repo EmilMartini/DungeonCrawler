@@ -1,5 +1,4 @@
-﻿
-namespace DungeonCrawler
+﻿namespace DungeonCrawler
 {
     public struct Point
     {

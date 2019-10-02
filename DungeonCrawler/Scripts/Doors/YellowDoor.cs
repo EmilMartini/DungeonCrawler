@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DungeonCrawler
 {
     public class YellowDoor : Door
@@ -21,7 +16,6 @@ namespace DungeonCrawler
             this.IsUnlocked = isUnlocked;
         }
         public CurrentLevel NextLevel { get => nextLevel; set => nextLevel = value; }
-
         public override bool Interact(Player player)
         {
             if (IsUnlocked)

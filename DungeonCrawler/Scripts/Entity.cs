@@ -1,6 +1,4 @@
-﻿
-using System;
-
+﻿using System;
 namespace DungeonCrawler
 {
     public abstract class Entity
@@ -8,7 +6,6 @@ namespace DungeonCrawler
         private string graphic;
         private ConsoleColor color;
         private Point position;
-
         public string Graphic
         {
             get { return graphic; }
@@ -19,7 +16,6 @@ namespace DungeonCrawler
             get { return color; }
             protected set { color = value; }
         }
-
         public Point Position { get => position; set => position = value; }
     }
 }

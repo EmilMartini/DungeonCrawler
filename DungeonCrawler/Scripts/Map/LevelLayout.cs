@@ -1,14 +1,11 @@
-﻿using System;
-using DungeonCrawler.Doors;
+﻿using DungeonCrawler.Doors;
 using DungeonCrawler.Keys;
-
 namespace DungeonCrawler
 {
     public class LevelLayout
     {
         private Level[] levels = new Level[3];
         private Point[] spawnPoints = new Point[3];
-
         readonly static Point level1SpawnPoint = new Point(1, 1);
         readonly static Point level2SpawnPoint = new Point(14, 8);
         readonly static Point level3SpawnPoint = new Point(1, 1);
@@ -16,7 +13,6 @@ namespace DungeonCrawler
         readonly Level level2 = new Level(new Size(18, 18), level2SpawnPoint, 0);
         readonly Level level3 = new Level(new Size(23, 13), level3SpawnPoint, 10);
         private readonly GameplayManager gameplayManager;
-
         public LevelLayout(GameplayManager gameplayManager)
         {
             Levels[0] = level1;

@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace DungeonCrawler
 {
     public class TrapDoor : Tile
@@ -10,7 +9,6 @@ namespace DungeonCrawler
             this.Color = ConsoleColor.DarkGray;
             this.Graphic = ".";
         }
-
         public bool Interact()
         {
             return true;

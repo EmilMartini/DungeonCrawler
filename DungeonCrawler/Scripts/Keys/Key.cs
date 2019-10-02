@@ -1,7 +1,4 @@
-﻿using System;
-using System.Media;
-
-namespace DungeonCrawler
+﻿namespace DungeonCrawler
 {
     public abstract class Key : GameObject, IInteractable
     {
@@ -11,7 +8,6 @@ namespace DungeonCrawler
         {
             this.Position = new Point(x, y);
         }
-
         public Unlock Unlock
         {
             get { return unlock; }
