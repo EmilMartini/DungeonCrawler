@@ -26,8 +26,8 @@ namespace DungeonCrawler
             spawnPoints[0] = level1SpawnPoint;
             spawnPoints[1] = level2SpawnPoint;
             spawnPoints[2] = level3SpawnPoint;
-            stateMachine.Levels = Levels;
             this.stateMachine = stateMachine;
+            stateMachine.Levels = Levels;
         } 
         public void SetLevelOneLayout()
         {

@@ -22,7 +22,7 @@ namespace DungeonCrawler
                 if(!(gameObject is Enemy))
                 {
                     continue;
-                } else
+                } else 
                 {
                     int row = 0, column = 0;
                     while (row == 0 && column == 0)
@@ -44,7 +44,7 @@ namespace DungeonCrawler
         {
             if(stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions != null)
             {
-                for (int i = 0; i < stateMachine.Levels[(int)stateMachine.CurrentLevel].Enemies.Length; i++)
+                for (int i = 0; i < stateMachine.Levels[(int)stateMachine.CurrentLevel].NumberOfEnemies; i++)
                 {
                     stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions[i] = new Point(0,0);
                 }

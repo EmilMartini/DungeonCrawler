@@ -14,17 +14,11 @@ namespace DungeonCrawler
         {
             this.Unlock = Unlock.Yellow;
             this.IsExplored = false;
+            this.Color = ConsoleColor.DarkYellow;
             this.Graphic = "D";
             this.NextLevel = nextLevel;
             this.stateMachine = stateMachine;
             this.IsUnlocked = isUnlocked;
-            if (!isUnlocked)
-            {
-                this.Color = ConsoleColor.DarkYellow;
-            } else
-            {
-                this.Color = ConsoleColor.White;
-            }
         }
         public CurrentLevel NextLevel { get => nextLevel; set => nextLevel = value; }
 
@@ -32,6 +26,7 @@ namespace DungeonCrawler
         {
             if (IsUnlocked)
             {
+                ChangeLevel();
                 return true;
             }
             else
@@ -42,13 +37,17 @@ namespace DungeonCrawler
                     {
                         IsUnlocked = true;
                         player.KeysInInventory.Remove(key);
-                        stateMachine.CurrentState = StateMachine.State.ExitLevel;
+                        ChangeLevel();
                         return true;
                     }
                 }
                 return false;
             }
         }
-
+        private void ChangeLevel()
+        {
+            stateMachine.NextLevel = this.NextLevel;
+            stateMachine.CurrentState = StateMachine.State.ExitLevel;
+        }
     }
 }

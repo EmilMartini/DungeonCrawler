@@ -17,26 +17,12 @@ namespace DungeonCrawler
             this.levelLayout = levelLayout;
             this.stateMachine = stateMachine;
         }
-        public void SpawnLevelObjects()
-        {
-            //Spawn enemies
-            int enemySpawnPositionRow, enemySpawnPositionColumn;
-            for (int i = 0; i < levels[(int)stateMachine.CurrentLevel].Enemies.Length; i++)
-            {
-                enemySpawnPositionRow = rnd.Next(1, levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(0) - 2);
-                enemySpawnPositionColumn = rnd.Next(1, levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) - 2);
-
-                levels[(int)stateMachine.CurrentLevel].ActiveGameObjects.Add(new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn));
-            }
-            Array.Copy(levels[(int)stateMachine.CurrentLevel].InitialLayout, levels[(int)stateMachine.CurrentLevel].ExploredLayout, levels[(int)stateMachine.CurrentLevel].InitialLayout.Length);
-        }
         public void InitializeLevels()
         {
             for (int i = 0; i < stateMachine.Levels.Length; i++)
             {
                 levels[i].InitialLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
                 levels[i].ExploredLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
-                levels[i].Enemies = new Enemy[levels[i].NumberOfEnemies];
 
                 for (int row = 0; row < levels[i].Size.Height; row++)
                 {
@@ -52,10 +38,25 @@ namespace DungeonCrawler
                         }
                     }
                 }
+
+                //Spawn enemies
+                for (int enemyIndex = 0; enemyIndex < levels[i].NumberOfEnemies; enemyIndex++)
+                {
+                    int enemySpawnPositionRow, enemySpawnPositionColumn;
+                    enemySpawnPositionRow = rnd.Next(1, levels[i].InitialLayout.GetLength(0) - 2);
+                    enemySpawnPositionColumn = rnd.Next(1, levels[i].InitialLayout.GetLength(1) - 2);
+
+                    levels[i].ActiveGameObjects.Add(new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn));
+                }
             }
             levelLayout.SetLevelOneLayout();
             levelLayout.SetLevelTwoLayout();
             levelLayout.SetLevelThreeLayout();
+        }
+
+        internal void SpawnLevelObjects()
+        {
+            Array.Copy(levels[(int)stateMachine.CurrentLevel].InitialLayout, levels[(int)stateMachine.CurrentLevel].ExploredLayout, levels[(int)stateMachine.CurrentLevel].InitialLayout.Length);
         }
     }
 }

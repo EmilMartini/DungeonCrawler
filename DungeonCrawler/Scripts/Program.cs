@@ -89,11 +89,12 @@ namespace DungeonCrawler
         {
             Console.SetOut(stateMachine.DataInitializer.ConsoleOutputFilter);
             stateMachine.DataInitializer.EnemyController.Move();
+            stateMachine.DataInitializer.PlayerController.MovePlayer(stateMachine.DataInitializer.PlayerController.GetInput());
             if (stateMachine.CurrentState == StateMachine.State.ExitLevel)
             {
+                Console.SetOut(standardOutputFilter);
                 return;
             }
-            stateMachine.DataInitializer.PlayerController.MovePlayer(stateMachine.DataInitializer.PlayerController.GetInput());
             stateMachine.DataInitializer.PlayerController.ExploreTilesAroundPlayer();
             Console.SetOut(standardOutputFilter);
             stateMachine.DataInitializer.LevelRenderer.RenderLevel();
@@ -110,7 +111,6 @@ namespace DungeonCrawler
         static void NextLevel(StateMachine stateMachine)
         {
             stateMachine.DataInitializer.PlayerController.ResetPlayerData();
-            //stateMachine.DataInitializer.EnemyController.ResetEnemyPositions();
             stateMachine.CurrentLevel = stateMachine.NextLevel;
             stateMachine.CurrentState = StateMachine.State.InitializeLevel;
             Console.Clear();
