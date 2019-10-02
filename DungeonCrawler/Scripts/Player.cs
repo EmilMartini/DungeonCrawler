@@ -6,7 +6,7 @@ namespace DungeonCrawler
     public class Player : GameObject
     {
         private Point targetPlayerPosition;
-        private List<Key> keysInInventory = new List<Key>();
+        private static List<Key> keysInInventory = new List<Key>();
         private static int enemiesInteractedWith = 0;
 
         public Player()
@@ -15,7 +15,7 @@ namespace DungeonCrawler
             this.Color = ConsoleColor.Green;
             this.Position = new Point(1,1);
         }
-        public List<Key> KeysInInventory
+        public static List<Key> KeysInInventory
         {
             get { return keysInInventory; }
             set { keysInInventory = value; }

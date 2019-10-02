@@ -38,11 +38,13 @@ namespace DungeonCrawler
             if(!direction.Equals(new Point(0,0)))
             {
                 player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
-                if (!levels[(int)stateMachine.CurrentLevel].InitialLayout[player.TargetPosition.row, player.TargetPosition.column].GetType().Equals(typeof(Wall)))
+                if (!(levels[(int)stateMachine.CurrentLevel].InitialLayout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
                 {
+                    CheckInteraction(player.TargetPosition);
                     UpdatePlayerPosition();
                     stateMachine.PlayerNumberOfMoves++;  
                 }
+                
             }
             //if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
             //{
@@ -70,16 +72,37 @@ namespace DungeonCrawler
             //    }
             //}
         }
+
+        private void CheckInteraction(Point targetPosition)
+        {
+            foreach (GameObject gameObject in stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
+            {
+                if (gameObject is Player)
+                {
+                    continue;
+                }
+                else if (gameObject.Position.Equals(targetPosition) && gameObject is IInteractable interactable)
+                {
+                    interactable.Interact();
+                    if(interactable is Key key)
+                    {
+                        stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects.Remove(key);
+                        break;
+                    }
+                }
+            }
+        }
+
         private bool canUnlock(Door door)
         {
-            for (int i = 0; i < player.KeysInInventory.Count; i++)
+            for (int i = 0; i < Player.KeysInInventory.Count; i++)
             {
-                if (player.KeysInInventory[i].Unlock.Equals((door.Unlock)))
+                if (Player.KeysInInventory[i].Unlock.Equals((door.Unlock)))
                 {
-                    player.KeysInInventory[i].NumberOfUses--;
-                    if (player.KeysInInventory[i].NumberOfUses <= 0)
+                    Player.KeysInInventory[i].NumberOfUses--;
+                    if (Player.KeysInInventory[i].NumberOfUses <= 0)
                     {
-                        player.KeysInInventory.RemoveAt(i);
+                        Player.KeysInInventory.RemoveAt(i);
                     }
                     return true;
                 }

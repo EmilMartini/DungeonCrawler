@@ -9,20 +9,9 @@ namespace DungeonCrawler
     {
         private Unlock unlock;
         private bool isUnlocked;
-        public bool Interact()
+        public void Interact()
         {
-            if(IsUnlocked)
-            {
-                return true;
-            } else if (!CanUnlock())
-            {
-                return false;
-            } else
-            {
-                this.Color = ConsoleColor.White;
-                this.IsUnlocked = true;
-                return true;
-            }
+            
         }
         //REMOVE LOGIC AND PUT IN PLAYERCONTROLLER CLASS, REMOVE STATIC LIST FROM PLAYER
         public bool CanUnlock()
