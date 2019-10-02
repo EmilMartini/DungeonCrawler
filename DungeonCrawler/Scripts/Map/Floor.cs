@@ -10,7 +10,6 @@ namespace DungeonCrawler
     {
         public Floor()
         {
-            this.TileType = TileType.Floor;
             this.Graphic = "-";
             this.Color = ConsoleColor.White;
         }

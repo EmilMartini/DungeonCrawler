@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    public interface IInteractable
-    {
-        bool Interact(Player player);
-    }
+    public enum State { InitializeGame, InitializeLevel, WelcomeScreen, RunLevel, ExitLevel, ExitGame }
 }

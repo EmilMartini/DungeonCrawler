@@ -6,28 +6,17 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    public class Enemy : Tile, IInteractable
+    public class Enemy : GameObject, IInteractable
     {
-        private Point position;
-
         public Enemy(int startRow, int startColumn)
         {
-            this.TileType = TileType.Enemy;
             this.Graphic = "X";
-            this.IsExplored = false;
             this.Color = ConsoleColor.Red;
             Position = new Point(startRow, startColumn);
         }
-
-        public Point Position
+        public bool Interact(Player player)
         {
-            get { return position; }
-            set { position = value; }
-        }
-
-        public bool Interact()
-        {
-            Player.EnemiesInteractedWith++;
+            player.EnemiesInteractedWith++;
             return true;
         }
     }

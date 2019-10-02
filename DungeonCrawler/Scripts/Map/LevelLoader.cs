@@ -4,69 +4,58 @@ using DungeonCrawler.Keys;
 
 namespace DungeonCrawler
 {
-    class LevelLoader
+    public class LevelLoader
     {
+        private GameplayManager gameplayManager;
         private Level[] levels;
-        private readonly Player player;
-        private static int currentLevel;
+        private readonly LevelLayout levelLayout;
         private Random rnd = new Random();
 
-        public LevelLoader(Level[] levels, Player player)
+        public LevelLoader(LevelLayout levelLayout, GameplayManager gameplayManager)
         {
-            this.levels = levels;
-            this.player = player;
+            this.levels = gameplayManager.Levels;
+            this.levelLayout = levelLayout;
+            this.gameplayManager = gameplayManager;
         }
-        public static int CurrentLevel
+        public void InitializeLevels()
         {
-            get { return currentLevel; }
-            set { currentLevel = value; }
-        }
-
-        public void SpawnLevelObjects()
-        {
-            //Spawn enemies
-            int enemySpawnPositionRow , enemySpawnPositionColumn;
-            for (int i = 0; i < levels[CurrentLevel].Enemies.Length; i++)
+            for (int i = 0; i < gameplayManager.Levels.Length; i++)
             {
-                enemySpawnPositionRow = rnd.Next(1, levels[CurrentLevel].InitialLayout.GetLength(0) - 2);
-                enemySpawnPositionColumn = rnd.Next(1, levels[CurrentLevel].InitialLayout.GetLength(1) - 2);
+                levels[i].InitialLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
+                levels[i].ExploredLayout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
 
-                levels[CurrentLevel].Enemies[i] = new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn);
-            }
-
-            levels[CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
-
-            for (int i = 0; i < levels[CurrentLevel].Enemies.Length; i++)
-            {
-                levels[CurrentLevel].ExploredLayout[levels[CurrentLevel].Enemies[i].Position.row, levels[CurrentLevel].Enemies[i].Position.column] = levels[CurrentLevel].Enemies[i];
-            }
-            Array.Copy(levels[CurrentLevel].InitialLayout, levels[CurrentLevel].ExploredLayout, levels[CurrentLevel].InitialLayout.Length);
-        }
-
-        public void DisplayInitialMap()
-        {
-            Console.Write("\n \n");
-            for (int row = 0; row < levels[CurrentLevel].InitialLayout.GetLength(0); row++)
-            {
-                for (int column = 0; column < levels[CurrentLevel].InitialLayout.GetLength(1); column++)
+                for (int row = 0; row < levels[i].Size.Height; row++)
                 {
-                    //Console.SetCursorPosition(((int)consoleWindowSize.Width / levels[CurrentLevel].InitialLayout.GetLength(0) * row), 
-                    //                         ((int)consoleWindowSize.Height / levels[CurrentLevel].InitialLayout.GetLength(1) * column));
-
-                    Console.SetCursorPosition(column + (column + 2), row);
-
-                    Console.ForegroundColor = levels[CurrentLevel].InitialLayout[row, column].Color;
-                    if (levels[CurrentLevel].InitialLayout[row, column].IsExplored == true)
+                    for (int column = 0; column < levels[i].Size.Width; column++)
                     {
-                        Console.Write($"{levels[CurrentLevel].InitialLayout[row, column].Graphic}");
-                    }
-                    else
-                    {
-                        Console.Write($"");
+                        if (column == 0 || column == levels[i].Size.Width - 1 || row == 0 || row == levels[i].Size.Height - 1)
+                        {
+                            levels[i].InitialLayout[row, column] = new Wall(true);
+                        }
+                        else
+                        {
+                            levels[i].InitialLayout[row, column] = new Floor();
+                        }
                     }
                 }
-                Console.Write("");
+
+                //Spawn enemies
+                for (int enemyIndex = 0; enemyIndex < levels[i].NumberOfEnemies; enemyIndex++)
+                {
+                    int enemySpawnPositionRow, enemySpawnPositionColumn;
+                    enemySpawnPositionRow = rnd.Next(1, levels[i].InitialLayout.GetLength(0) - 2);
+                    enemySpawnPositionColumn = rnd.Next(1, levels[i].InitialLayout.GetLength(1) - 2);
+
+                    levels[i].ActiveGameObjects.Add(new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn));
+                }
             }
+            levelLayout.SetLevelOneLayout();
+            levelLayout.SetLevelTwoLayout();
+            levelLayout.SetLevelThreeLayout();
+        }
+        internal void SpawnLevelObjects()
+        {
+            Array.Copy(levels[(int)gameplayManager.CurrentLevel].InitialLayout, levels[(int)gameplayManager.CurrentLevel].ExploredLayout, levels[(int)gameplayManager.CurrentLevel].InitialLayout.Length);
         }
     }
 }

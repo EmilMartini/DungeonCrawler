@@ -1,23 +1,17 @@
-﻿
-
-using System;
+﻿using System;
 using System.Media;
 
 namespace DungeonCrawler
 {
-    public abstract class Key : Tile, IInteractable
+    public abstract class Key : GameObject, IInteractable
     {
-        private SoundPlayer SoundPlayer = new SoundPlayer();
-        private bool isEquipped;
         private Unlock unlock;
         private byte numberOfUses;
-        private Point position;
-
-        public bool IsEquipped
+        public Key(int x, int y)
         {
-            get { return isEquipped; }
-            set { isEquipped = value; }
+            this.Position = new Point(x, y);
         }
+
         public Unlock Unlock
         {
             get { return unlock; }
@@ -28,18 +22,10 @@ namespace DungeonCrawler
             get { return numberOfUses; }
             set { numberOfUses = value; }
         }
-        public Point Position
+        public bool Interact(Player player)
         {
-            get { return position; }
-            set { position = value; }
-        }
-        public bool Interact()
-        {
-            Player.KeysInInventory.Add(this);
-            //SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\pickup-key.wav";
-            //SoundPlayer.LoadAsync();
-            //SoundPlayer.Play();
-            return true;
+            player.KeysInInventory.Add(this);
+            return true;            
         }
     }
 }

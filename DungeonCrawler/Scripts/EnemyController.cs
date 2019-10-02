@@ -2,61 +2,78 @@
 
 namespace DungeonCrawler
 {
-    internal class EnemyController
+    public class EnemyController
     {
-        Random random = new Random();
+        private Random random = new Random();
+        private GameplayManager gameplayManager;
         private Point currentEnemyPosition;
-        private Point nextEnemyPosition;
-        private readonly Level[] levels;
-        private readonly LevelRenderer levelRenderer;
+        private Point targetEnemyPosition;
 
-        public EnemyController(Level[] levels, LevelRenderer mapRenderer)
-        {
-            this.levels = levels ?? throw new ArgumentNullException(nameof(levels));
-            this.levelRenderer = mapRenderer ?? throw new ArgumentNullException(nameof(mapRenderer));
-        }
 
-        public Point CurrentEnemyPosition
+        public EnemyController(GameplayManager gameplayManager)
         {
-            get { return currentEnemyPosition; }
-            set { currentEnemyPosition = value; }
-        }
-        public Point NextEnemyPosition
-        {
-            get { return nextEnemyPosition; }
-            set { nextEnemyPosition = value; }
+            this.gameplayManager = gameplayManager;
         }
         public void Move()
         {
-            for (int i = 0; i < levels[LevelLoader.CurrentLevel].Enemies.Length; i++)
+            int index = 0;
+            foreach (GameObject gameObject in gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
             {
-                int row = 0, column = 0;
-                while (row == 0 && column == 0)
+                if(!(gameObject is Enemy))
                 {
-                    row = random.Next(-1, 2);
-                    column = random.Next(-1, 2);
+                    continue;
+                } else 
+                {
+                    int row = 0, column = 0;
+                    while (row == 0 && column == 0)
+                    {
+                        row = random.Next(-1, 2);
+                        column = random.Next(-1, 2);
+                    }
+                    targetEnemyPosition = new Point(gameObject.Position.row + row, gameObject.Position.column + column);
+                    if(PathAvailable(targetEnemyPosition))
+                    {
+                        gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions[index] = new Point(gameObject.Position.row, gameObject.Position.column);
+                        gameObject.Position = targetEnemyPosition;
+                        index++;
+                    }
                 }
-                currentEnemyPosition = new Point(levels[LevelLoader.CurrentLevel].Enemies[i].Position.row, levels[LevelLoader.CurrentLevel].Enemies[i].Position.column);
-                nextEnemyPosition = new Point(currentEnemyPosition.row + row, currentEnemyPosition.column + column);
-
-                if (levels[LevelLoader.CurrentLevel].InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Wall ||
-                    levels[LevelLoader.CurrentLevel].InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Door ||
-                    levels[LevelLoader.CurrentLevel].InitialLayout[nextEnemyPosition.row, nextEnemyPosition.column].TileType == TileType.Key)
+            }
+        }
+        public void ResetEnemyPositions()
+        {
+            if(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions != null)
+            {
+                for (int i = 0; i < gameplayManager.Levels[(int)gameplayManager.CurrentLevel].NumberOfEnemies; i++)
+                {
+                    gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions[i] = new Point(0,0);
+                }
+            }
+        }
+        private bool PathAvailable(Point targetEnemyPosition)
+        {
+            var activeGameObjects = gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects;
+            for (int i = 0; i < activeGameObjects.Count; i++)
+            {
+                if(activeGameObjects[i] is Enemy)
                 {
                     continue;
                 } else
                 {
-                    if (levels[LevelLoader.CurrentLevel].ExploredLayout[nextEnemyPosition.row, nextEnemyPosition.column].IsExplored == true)
+                    if (activeGameObjects[i].Position.Equals(targetEnemyPosition))
                     {
-                        levels[LevelLoader.CurrentLevel].Enemies[i].IsExplored = true;
-                    } else
-                    {
-                        levels[LevelLoader.CurrentLevel].Enemies[i].IsExplored = false;
+                        return false;
                     }
-                    levelRenderer.UpdateEnemyPositions(levels[LevelLoader.CurrentLevel].Enemies[i], nextEnemyPosition, currentEnemyPosition, i);
                 }
-            }     
+            }
+            if(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Door ||
+               gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetEnemyPosition.row, targetEnemyPosition.column] is Wall)
+            {
+                return false;
+            }
+            return true;
         }
-
+        public Point TargetEnemyPosition { get => targetEnemyPosition; set => targetEnemyPosition = value; }
+        public Point CurrentEnemyPosition { get => currentEnemyPosition; set => currentEnemyPosition = value; }
     }
 }

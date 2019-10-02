@@ -1,21 +1,26 @@
-﻿namespace DungeonCrawler
+﻿using System.Collections.Generic;
+
+namespace DungeonCrawler
 {
     public class Level
     {
         private Tile[,] exploredLayout;
         private Tile[,] initialLayout;
+        private List<GameObject> activeGameObjects;
         private Enemy[] enemies;
         private Point[] previousEnemyPositions;
-        private Door[] doorsOnMap;
-        private Key[] keysOnMap;
         private Size size;
         private Point playerStartingTile;
         private int numberOfEnemies;
+        private Point playerPositionWhenExit;
         public Level(Size size, Point playerStartingTile, int numberOfEnemies)
         {
             Size = size;
             PlayerStartingTile = playerStartingTile;
             NumberOfEnemies = numberOfEnemies;
+            PlayerPositionWhenExit = PlayerStartingTile;
+            activeGameObjects = new List<GameObject>();
+            previousEnemyPositions = new Point[NumberOfEnemies];
         }
 
         public Tile[,] ExploredLayout
@@ -38,16 +43,6 @@
             get { return previousEnemyPositions; }
             set { previousEnemyPositions = value; }
         }
-        public Door[] DoorsOnMap
-        {
-            get { return doorsOnMap; }
-            set { doorsOnMap = value; }
-        }
-        public Key[] KeysOnMap
-        {
-            get { return keysOnMap; }
-            set { keysOnMap = value; }
-        }
         public Size Size
         {
             get { return size; }
@@ -63,5 +58,7 @@
             get { return numberOfEnemies; }
             set { numberOfEnemies = value; }
         }
+        public Point PlayerPositionWhenExit { get => playerPositionWhenExit; set => playerPositionWhenExit = value; }
+        public List<GameObject> ActiveGameObjects { get => activeGameObjects; set => activeGameObjects = value; }
     }
 }
