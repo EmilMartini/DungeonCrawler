@@ -7,7 +7,7 @@ namespace DungeonCrawler
     {
         private Point targetPlayerPosition;
         private List<Key> keysInInventory = new List<Key>();
-        private static int enemiesInteractedWith = 0;
+        private int enemiesInteractedWith = 0;
 
         public Player()
         {
@@ -20,7 +20,7 @@ namespace DungeonCrawler
             get { return keysInInventory; }
             set { keysInInventory = value; }
         }
-        public static int EnemiesInteractedWith
+        public int EnemiesInteractedWith
         {
             get { return enemiesInteractedWith; }
             set { enemiesInteractedWith = value; }

@@ -8,13 +8,15 @@ namespace DungeonCrawler
 {
     public class YellowDoor : Door
     {
+        private readonly StateMachine stateMachine;
         private CurrentLevel nextLevel;
-        public YellowDoor(CurrentLevel nextLevel, bool isUnlocked)
+        public YellowDoor(CurrentLevel nextLevel, bool isUnlocked, StateMachine stateMachine)
         {
             this.Unlock = Unlock.Yellow;
             this.IsExplored = false;
             this.Graphic = "D";
             this.NextLevel = nextLevel;
+            this.stateMachine = stateMachine;
             this.IsUnlocked = isUnlocked;
             if (!isUnlocked)
             {
@@ -40,6 +42,7 @@ namespace DungeonCrawler
                     {
                         IsUnlocked = true;
                         player.KeysInInventory.Remove(key);
+                        stateMachine.CurrentState = StateMachine.State.ExitLevel;
                         return true;
                     }
                 }

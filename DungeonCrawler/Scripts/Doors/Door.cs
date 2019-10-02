@@ -22,6 +22,7 @@ namespace DungeonCrawler
                     if (key.Unlock == this.unlock)
                     {
                         isUnlocked = true;
+                        this.Color = ConsoleColor.White;
                         player.KeysInInventory.Remove(key);
                         return true;
                     }

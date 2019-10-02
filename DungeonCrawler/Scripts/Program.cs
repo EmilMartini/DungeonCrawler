@@ -89,6 +89,10 @@ namespace DungeonCrawler
         {
             Console.SetOut(stateMachine.DataInitializer.ConsoleOutputFilter);
             stateMachine.DataInitializer.EnemyController.Move();
+            if (stateMachine.CurrentState == StateMachine.State.ExitLevel)
+            {
+                return;
+            }
             stateMachine.DataInitializer.PlayerController.MovePlayer(stateMachine.DataInitializer.PlayerController.GetInput());
             stateMachine.DataInitializer.PlayerController.ExploreTilesAroundPlayer();
             Console.SetOut(standardOutputFilter);

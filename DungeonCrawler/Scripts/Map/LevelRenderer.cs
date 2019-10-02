@@ -70,16 +70,16 @@ namespace DungeonCrawler
             Console.Write($"Number of moves:{stateMachine.PlayerNumberOfMoves}");
 
             Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 3);
-            Console.Write($"Enemies hit: {Player.EnemiesInteractedWith}");
+            Console.Write($"Enemies hit: {player.EnemiesInteractedWith}");
 
             Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 4);
             Console.Write("Keys: ");
             Console.Write("\t\t");
-            for (int i = 0; i < Player.KeysInInventory.Count; i++)
+            for (int i = 0; i < player.KeysInInventory.Count; i++)
             {
                 Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 4) * 2 + i, 4);
-                Console.ForegroundColor = Player.KeysInInventory[i].Color;
-                Console.Write($"{Player.KeysInInventory[i].Graphic}");
+                Console.ForegroundColor = player.KeysInInventory[i].Color;
+                Console.Write($"{player.KeysInInventory[i].Graphic}");
             }
         }
         public void RenderTilesAroundPlayer()
