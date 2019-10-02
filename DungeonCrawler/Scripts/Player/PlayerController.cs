@@ -56,7 +56,7 @@ namespace DungeonCrawler
                 if(interactableTile.Interact(player))
                 {
                     if(interactableTile is ExitDoor)
-                    {
+                    {                       
                         gameplayManager.CurrentState = State.ExitGame;
                         return true;
                     } else if(interactableTile is PressurePlate)

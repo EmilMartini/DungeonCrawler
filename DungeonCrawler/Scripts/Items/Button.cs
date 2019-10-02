@@ -16,7 +16,8 @@ namespace DungeonCrawler
             this.Position = new Point(x, y);
         }
         public bool Interact(Player player)
-        { 
+        {
+            GameplayManager.PlaySound("UnlockDoor");
             return true;
         }
     }

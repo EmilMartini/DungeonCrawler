@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Media;
 using System.Threading;
 namespace DungeonCrawler
 {
     public class GameplayManager
     {
+        private static SoundPlayer soundPlayer;
         private LevelLayout levelLayout;    //Kan nog klara oss utan denna
         private Player player;      
         private LevelRenderer levelRenderer;
@@ -25,6 +27,7 @@ namespace DungeonCrawler
             EnemyController = new EnemyController(this);
             PlayerController = new PlayerController(Player, this);
             ConsoleOutputFilter = new ConsoleOutputFilter();
+            SoundPlayer = new SoundPlayer();
         }
         public void RunState()
         {
@@ -138,6 +141,11 @@ namespace DungeonCrawler
         {
             doorToUnlock.IsUnlocked = true;
         }
+        public static void PlaySound(string fileName)
+        {
+            SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\" + fileName + ".wav";
+            SoundPlayer.Play();
+        }
 
         public State CurrentState { get { return currentState; } set { currentState = value; } }
         public CurrentLevel CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
@@ -150,5 +158,10 @@ namespace DungeonCrawler
         public EnemyController EnemyController { get => enemyController; set => enemyController = value; }
         public PlayerController PlayerController { get => playerController; set => playerController = value; }
         public ConsoleOutputFilter ConsoleOutputFilter { get => consoleOutputFilter; set => consoleOutputFilter = value; }
+        public static SoundPlayer SoundPlayer
+        {
+            get { return soundPlayer; }
+            set { soundPlayer = value; }
+        }
     }
 }
