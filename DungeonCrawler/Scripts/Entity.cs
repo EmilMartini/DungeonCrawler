@@ -20,6 +20,6 @@ namespace DungeonCrawler
             protected set { color = value; }
         }
 
-        public Point Position { get => position; set => position = value; }
+        public Point Position { get => position; set => position = value; } //Fixa enkapsulering
     }
 }

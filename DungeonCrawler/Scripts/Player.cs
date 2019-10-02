@@ -16,7 +16,7 @@ namespace DungeonCrawler
             this.Color = ConsoleColor.Green;
             this.Position = new Point(1,1);
         }
-        public List<Key> KeysInInventory
+        public List<Key> KeysInInventory    //skapa egen klass "PlayerInventory"
         {
             get { return keysInInventory; }
             set { keysInInventory = value; }
@@ -27,6 +27,6 @@ namespace DungeonCrawler
             set { enemiesInteractedWith = value; }
         }
         public Point TargetPosition { get; set; }
-        public int NumberOfMoves { get => numberOfMoves; set => numberOfMoves = value; }
+        public int NumberOfMoves { get => numberOfMoves; set => numberOfMoves = value; }    //Fixa samma enkapsulering som andra properties
     }
 }

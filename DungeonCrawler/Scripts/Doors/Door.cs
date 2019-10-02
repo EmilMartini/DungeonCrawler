@@ -30,25 +30,11 @@ namespace DungeonCrawler
                 return false;
             }
         }
-        public bool CanUnlock()
-        {
-            return true;
-        }
-        protected bool hasUnlocked()
-        {
-            if(this.isUnlocked)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
-        }
         public Unlock Unlock
         {
             get { return unlock; }
             set { unlock = value; }
         }
-        public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }
+        public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }    //Fixa enkapsulering
     }
 }

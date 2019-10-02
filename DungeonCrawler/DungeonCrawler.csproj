@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="Scripts\CurrentLevel.cs" />
     <Compile Include="Scripts\ConsoleOutputFilter.cs" />
-    <Compile Include="Scripts\DataHolder.cs" />
     <Compile Include="Scripts\Doors\BlueDoor.cs" />
     <Compile Include="Scripts\Doors\Door.cs" />
     <Compile Include="Scripts\Doors\PurpleDoor.cs" />

@@ -9,13 +9,13 @@ namespace DungeonCrawler
 {
     public class GameplayManager
     {
-        private LevelLayout levelLayout;
-        private Player player;
+        private LevelLayout levelLayout;    //Kan nog klara oss utan denna
+        private Player player;      
         private LevelRenderer levelRenderer;
         private LevelLoader levelLoader;
         private EnemyController enemyController;
         private PlayerController playerController;
-        private ConsoleOutputFilter consoleOutputFilter;
+        private ConsoleOutputFilter consoleOutputFilter;    //Kan nog klara oss utan denna
         private Level[] levels;
         private Point[] pointsToRenderOnMap;
         private CurrentLevel currentLevel;
@@ -130,7 +130,6 @@ namespace DungeonCrawler
             CurrentState = State.InitializeLevel;
             Console.Clear();
         }
-
 
         public State CurrentState { get { return currentState; } set { currentState = value; } }
         public CurrentLevel CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }

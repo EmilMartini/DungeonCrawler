@@ -7,7 +7,7 @@
             Width = width;
             Height = height;
         }
-        public readonly uint Width;
-        public readonly uint Height;
+        public readonly uint Width; //Readonly nödvändigt?
+        public readonly uint Height;//Readonly nödvändigt?
     }
 }

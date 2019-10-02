@@ -5,7 +5,7 @@ namespace DungeonCrawler
 {
     class Program
     {
-        private static bool exitGame;
+        private static bool exitGame;   //Fixa riktigt wincondition istället för bool
 
         static void Main(string[] args)
         {

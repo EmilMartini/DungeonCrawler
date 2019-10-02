@@ -13,7 +13,7 @@ namespace DungeonCrawler
             this.levels = levels;
             this.player = player;
             this.gameplayManager = gameplayManager;
-            gameplayManager.PointsToRenderOnMap = new Point[8];
+            gameplayManager.PointsToRenderOnMap = new Point[8]; //Kanske ska ta en PointsToRenderOnMap från player istället för gameplayManager
         }
 
         public void RenderLevel()
@@ -23,7 +23,6 @@ namespace DungeonCrawler
             RenderPlayer();
             RenderUI();
         }
-
         void RenderGameObjects()
         {
             foreach (GameObject gameObject in levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
@@ -82,7 +81,7 @@ namespace DungeonCrawler
                 Console.Write($"{player.KeysInInventory[i].Graphic}");
             }
         }
-        public void RenderTilesAroundPlayer()
+        public void RenderTilesAroundPlayer()   //Samma med pointsToRenderOnMap här
         {
             for (int i = 0; i < gameplayManager.PointsToRenderOnMap.Length; i++)
             {

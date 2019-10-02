@@ -9,12 +9,11 @@ namespace DungeonCrawler
         private Point currentEnemyPosition;
         private Point targetEnemyPosition;
 
-
         public EnemyController(GameplayManager gameplayManager)
         {
             this.gameplayManager = gameplayManager;
         }
-        public void Move()
+        public void Move()  //Kanske  någon kommentar inuti, får se
         {
             int index = 0;
             foreach (GameObject gameObject in gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
@@ -73,7 +72,7 @@ namespace DungeonCrawler
             }
             return true;
         }
-        public Point TargetEnemyPosition { get => targetEnemyPosition; set => targetEnemyPosition = value; }
-        public Point CurrentEnemyPosition { get => currentEnemyPosition; set => currentEnemyPosition = value; }
+        public Point TargetEnemyPosition { get => targetEnemyPosition; set => targetEnemyPosition = value; }    //FIxa enkapsuleringen
+        public Point CurrentEnemyPosition { get => currentEnemyPosition; set => currentEnemyPosition = value; } //FIxa enkapsuleringen
     }
 }

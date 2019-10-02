@@ -5,7 +5,7 @@ namespace DungeonCrawler
     public class PlayerController
     {
         private GameplayManager gameplayManager;
-        private readonly Level[] levels;
+        private readonly Level[] levels;    //Ta bort?
         private readonly Player player;
 
 
@@ -40,21 +40,18 @@ namespace DungeonCrawler
                 player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
                 if (!(levels[(int)gameplayManager.CurrentLevel].InitialLayout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
                 {
-
                     if (CheckInteraction(player.TargetPosition))
                     {
                         UpdatePlayerPosition();
                         player.NumberOfMoves++;  
                     }
-                }
-                
+                }          
             }
         }
         private bool CheckInteraction(Point targetPosition)
         {
-            if (gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)
-            {
-                
+            if (gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ExploredLayout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)  //borde gå att få bättre syntax
+            {           
                 return interactableTile.Interact(player);
             }
             foreach (GameObject gameObject in gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
@@ -68,7 +65,7 @@ namespace DungeonCrawler
                     interactableGameObject.Interact(player);
                     if (interactableGameObject is Key key)
                     {
-                        gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects.Remove(key);
+                        gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects.Remove(key);    //Eventuellt ropa på metod i framtida PlayerInventoryKlassen
                         return true;
                     }
                 }
@@ -77,7 +74,7 @@ namespace DungeonCrawler
         }
         public void UpdatePlayerPosition()
         {
-            player.Position = player.TargetPosition;
+            player.Position = player.TargetPosition;    //onödig?
         }
         public void ExploreTilesAroundPlayer()
         {
@@ -95,10 +92,10 @@ namespace DungeonCrawler
             }
             for (int i = 0; i < gameplayManager.PointsToRenderOnMap.Length; i++)
             {
-                levels[(int)gameplayManager.CurrentLevel].ExploredLayout[gameplayManager.PointsToRenderOnMap[i].row, gameplayManager.PointsToRenderOnMap[i].column].IsExplored = true;
+                levels[(int)gameplayManager.CurrentLevel].ExploredLayout[gameplayManager.PointsToRenderOnMap[i].row, gameplayManager.PointsToRenderOnMap[i].column].IsExplored = true; //Kanske snyggare syntax
             }
         }
-        public void ResetPlayerData()
+        public void ResetPlayerData()   //Kommentera, otydlig inuti
         {
             for (int i = 0; i < gameplayManager.PointsToRenderOnMap.Length; i++)
             {

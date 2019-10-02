@@ -53,7 +53,7 @@ namespace DungeonCrawler
             levelLayout.SetLevelTwoLayout();
             levelLayout.SetLevelThreeLayout();
         }
-        internal void SpawnLevelObjects()
+        internal void SpawnLevelObjects()   //Ta bort ena arrayn (Eventuellt tankekrävande så lägg energi på att det blir rätt)
         {
             Array.Copy(levels[(int)gameplayManager.CurrentLevel].InitialLayout, levels[(int)gameplayManager.CurrentLevel].ExploredLayout, levels[(int)gameplayManager.CurrentLevel].InitialLayout.Length);
         }

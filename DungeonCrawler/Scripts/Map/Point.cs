@@ -8,7 +8,7 @@ namespace DungeonCrawler
             row = x;
             column = y;
         }
-        public readonly int row;
-        public readonly int column;
+        public readonly int row;    //Readonly nödvändigt?
+        public readonly int column; //Readonly nödvändigt?
     }
 }
