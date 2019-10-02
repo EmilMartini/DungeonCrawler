@@ -13,16 +13,6 @@ namespace DungeonCrawler
             this.player = player;
         }
 
-        public void AddToInventory(GameObject objectToAdd, List<GameObject> targetList)
-        {
-            targetList.Add(objectToAdd);
-        }
-
-        public void RemoveFromInventory(GameObject objectToRemove, List<GameObject> targetList)
-        {
-            targetList.Remove(objectToRemove);
-        }
-
         public Player Player
         {
             get { return player; }

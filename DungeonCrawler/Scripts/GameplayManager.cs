@@ -126,7 +126,6 @@ namespace DungeonCrawler
             CurrentState = State.InitializeLevel;
             Console.Clear();
         }
-
         public void RemoveGameObject(GameObject objectToRemove)
         {
             if(Levels[(int)CurrentLevel].ActiveGameObjects.Contains(objectToRemove))
@@ -146,7 +145,6 @@ namespace DungeonCrawler
             SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\" + fileName + ".wav";
             SoundPlayer.Play();
         }
-
         public State CurrentState { get { return currentState; } set { currentState = value; } }
         public CurrentLevel CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
         public Level[] Levels { get { return levels; } set { levels = value; } }

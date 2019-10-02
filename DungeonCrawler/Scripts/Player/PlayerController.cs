@@ -67,6 +67,9 @@ namespace DungeonCrawler
                     {
                         return true;
                     }
+                } else
+                {
+                    return false;
                 }
             }
 
