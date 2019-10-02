@@ -19,7 +19,7 @@ namespace DungeonCrawler
         public GameplayManager()
         {
             LevelLayout = new LevelLayout(this);
-            Player = new Player();
+            Player = new Player(); ;
             LevelRenderer = new LevelRenderer(Levels, player, this);
             LevelLoader = new LevelLoader(LevelLayout, this);
             EnemyController = new EnemyController(this);

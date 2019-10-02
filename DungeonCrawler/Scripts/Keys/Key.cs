@@ -20,7 +20,7 @@
         }
         public bool Interact(Player player)
         {
-            player.KeysInInventory.Add(this);
+            player.PlayerInventory.KeyRing.Add(this);
             return true;            
         }
     }

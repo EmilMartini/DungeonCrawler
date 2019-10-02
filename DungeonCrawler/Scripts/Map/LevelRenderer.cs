@@ -69,11 +69,11 @@ namespace DungeonCrawler
             Console.SetCursorPosition((levels[(int)gameplayManager.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 4);
             Console.Write("Keys: ");
             Console.Write("\t\t");
-            for (int i = 0; i < player.KeysInInventory.Count; i++)
+            for (int i = 0; i < player.PlayerInventory.KeyRing.Count; i++)
             {
                 Console.SetCursorPosition((levels[(int)gameplayManager.CurrentLevel].InitialLayout.GetLength(1) + 4) * 2 + i, 4);
-                Console.ForegroundColor = player.KeysInInventory[i].Color;
-                Console.Write($"{player.KeysInInventory[i].Graphic}");
+                Console.ForegroundColor = player.PlayerInventory.KeyRing[i].Color;
+                Console.Write($"{player.PlayerInventory.KeyRing[i].Graphic}");
             }
         }
         public void RenderTilesAroundPlayer()   //Samma med pointsToRenderOnMap här

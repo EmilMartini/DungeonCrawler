@@ -3,21 +3,16 @@ using System.Collections.Generic;
 namespace DungeonCrawler
 {
     public class Player : GameObject
-    {
-        private Point targetPlayerPosition;
-        private List<Key> keysInInventory = new List<Key>();
+    {   //Add playerposition
+        private PlayerInventory playerInventory;
         private int enemiesInteractedWith = 0;
         private int numberOfMoves;
         public Player()
         {
+            this.PlayerInventory = new PlayerInventory(this);   //Kanske ska ta playerInventory som parameter? Men då måste vi ha playerInventory som referens i gameplayManager
             this.Graphic = "@";
             this.Color = ConsoleColor.Green;
             this.Position = new Point(1,1);
-        }
-        public List<Key> KeysInInventory    //skapa egen klass "PlayerInventory"
-        {
-            get { return keysInInventory; }
-            set { keysInInventory = value; }
         }
         public int EnemiesInteractedWith
         {
@@ -26,5 +21,6 @@ namespace DungeonCrawler
         }
         public Point TargetPosition { get; set; }
         public int NumberOfMoves { get => numberOfMoves; set => numberOfMoves = value; }    //Fixa samma enkapsulering som andra properties
+        internal PlayerInventory PlayerInventory { get => playerInventory; set => playerInventory = value; } //Fixa samma enkapsulering som andra properties
     }
 }

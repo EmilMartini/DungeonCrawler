@@ -6,9 +6,12 @@ namespace DungeonCrawler
         private GameplayManager gameplayManager;
         private readonly Level[] levels;    //Ta bort?
         private readonly Player player;
+        private readonly PlayerInventory playerInventory;
+
         public PlayerController(Player player, GameplayManager gameplayManager)
         {
             this.player = player;
+            this.playerInventory = player.PlayerInventory;
             this.levels = gameplayManager.Levels;
             this.gameplayManager = gameplayManager;
             gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects.Add(player);
