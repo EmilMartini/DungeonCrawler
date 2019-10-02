@@ -24,9 +24,10 @@ namespace DungeonCrawler
             get { return numberOfUses; }
             set { numberOfUses = value; }
         }
-        public void Interact()
+        public bool Interact()
         {
-            Player.KeysInInventory.Add(this);     
+            Player.KeysInInventory.Add(this);
+            return true;
             
         }
     }

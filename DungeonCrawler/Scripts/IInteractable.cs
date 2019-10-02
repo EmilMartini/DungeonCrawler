@@ -8,6 +8,6 @@ namespace DungeonCrawler
 {
     public interface IInteractable
     {
-        void Interact();
+        bool Interact();
     }
 }

@@ -9,11 +9,26 @@ namespace DungeonCrawler
     {
         private Unlock unlock;
         private bool isUnlocked;
-        public void Interact()
+        public bool Interact()
         {
-            
+            if (isUnlocked)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (Key key in Player.KeysInInventory)
+                {
+                    if (key.Unlock == this.unlock)
+                    {
+                        isUnlocked = true;
+                        Player.KeysInInventory.Remove(key);
+                        return true;
+                    }
+                }
+                //return false;
+            }
         }
-        //REMOVE LOGIC AND PUT IN PLAYERCONTROLLER CLASS, REMOVE STATIC LIST FROM PLAYER
         public bool CanUnlock()
         {
             return true;

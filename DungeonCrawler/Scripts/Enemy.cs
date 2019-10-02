@@ -14,9 +14,10 @@ namespace DungeonCrawler
             this.Color = ConsoleColor.Red;
             Position = new Point(startRow, startColumn);
         }
-        public void Interact()
+        public bool Interact()
         {
             Player.EnemiesInteractedWith++;
+            return true;
         }
     }
 }

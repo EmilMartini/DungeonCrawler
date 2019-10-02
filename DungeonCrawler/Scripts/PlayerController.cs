@@ -40,9 +40,12 @@ namespace DungeonCrawler
                 player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
                 if (!(levels[(int)stateMachine.CurrentLevel].InitialLayout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
                 {
-                    CheckInteraction(player.TargetPosition);
-                    UpdatePlayerPosition();
-                    stateMachine.PlayerNumberOfMoves++;  
+
+                    if (CheckInteraction(player.TargetPosition))
+                    {
+                        UpdatePlayerPosition();
+                        stateMachine.PlayerNumberOfMoves++;  
+                    }
                 }
                 
             }
@@ -73,24 +76,30 @@ namespace DungeonCrawler
             //}
         }
 
-        private void CheckInteraction(Point targetPosition)
+        private bool CheckInteraction(Point targetPosition)
         {
+            if (stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)
+            {
+                
+                return interactableTile.Interact();
+            }
             foreach (GameObject gameObject in stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
             {
                 if (gameObject is Player)
                 {
                     continue;
                 }
-                else if (gameObject.Position.Equals(targetPosition) && gameObject is IInteractable interactable)
+                else if (gameObject.Position.Equals(targetPosition) && gameObject is IInteractable interactableGameObject)
                 {
-                    interactable.Interact();
-                    if(interactable is Key key)
+                    interactableGameObject.Interact();
+                    if (interactableGameObject is Key key)
                     {
                         stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects.Remove(key);
-                        break;
+                        return true;
                     }
                 }
             }
+            return true;
         }
 
         private bool canUnlock(Door door)
