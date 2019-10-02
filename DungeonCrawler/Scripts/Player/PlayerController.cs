@@ -11,7 +11,7 @@ namespace DungeonCrawler
         public PlayerController(Player player, GameplayManager gameplayManager)
         {
             this.player = player;
-            this.playerInventory = player.PlayerInventory;
+            this.playerInventory = player.Inventory;
             this.levels = gameplayManager.Levels;
             this.gameplayManager = gameplayManager;
             gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects.Add(player);
@@ -50,25 +50,43 @@ namespace DungeonCrawler
         }
         private bool CheckInteraction(Point targetPosition)
         {
-            if (gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)  //borde gå att få bättre syntax
-            {           
-                return interactableTile.Interact(player);
+            //Check if interactable is tile
+            if (levels[(int)gameplayManager.CurrentLevel].Layout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)  //borde gå att få bättre syntax
+            {   
+                if(interactableTile.Interact(player))
+                {
+                    if(interactableTile is ExitDoor)
+                    {
+                        gameplayManager.CurrentState = State.ExitGame;
+                        return true;
+                    } else if(interactableTile is PressurePlate)
+                    {
+                        gameplayManager.UnlockHiddenDoor((Door)levels[(int)gameplayManager.CurrentLevel].Layout[1, 1]);
+                        return true;
+                    } else
+                    {
+                        return true;
+                    }
+                }
             }
-            foreach (GameObject gameObject in gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
+
+            //Check if interactable is gameobject
+            foreach (GameObject gameObject in levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
             {
                 if (gameObject is Player)
                 {
                     continue;
-                }
-                else if (gameObject.Position.Equals(targetPosition) && gameObject is IInteractable interactableGameObject)
+                } else if (gameObject.Position.Equals(targetPosition) && gameObject is IInteractable interactableGameObject)
                 {
-                    interactableGameObject.Interact(player);
-                    if (interactableGameObject is Key key)
+                    if (interactableGameObject.Interact(player))
                     {
-                        gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects.Remove(key);    //Eventuellt ropa på metod i framtida PlayerInventoryKlassen
+                        gameplayManager.RemoveGameObject(gameObject);
                         return true;
+                    } else
+                    {
+                        return false;
                     }
-                }
+                } 
             }
             return true;
         }
@@ -76,7 +94,7 @@ namespace DungeonCrawler
         {
             player.Position = player.TargetPosition;    //onödig?
         }
-        public void ExploreTilesAroundPlayer()
+        public void ExploreSurroundingTiles()
         {
             int index = 0;
             for (int row = (-1); row < 2; row++)
@@ -85,21 +103,21 @@ namespace DungeonCrawler
                 {
                     if ((row != 0 | column != 0))
                     {
-                        player.PointsAroundPlayer[index] = new Point(player.Position.row + row, player.Position.column + column);
+                        player.SurroundingPoints[index] = new Point(player.Position.row + row, player.Position.column + column);
                         index++;
                     }
                 }
             }
-            for (int i = 0; i < player.PointsAroundPlayer.Length; i++)
+            for (int i = 0; i < player.SurroundingPoints.Length; i++)
             {
-                levels[(int)gameplayManager.CurrentLevel].Layout[player.PointsAroundPlayer[i].row, player.PointsAroundPlayer[i].column].IsExplored = true; //Kanske snyggare syntax
+                levels[(int)gameplayManager.CurrentLevel].Layout[player.SurroundingPoints[i].row, player.SurroundingPoints[i].column].IsExplored = true; //Kanske snyggare syntax
             }
         }
-        public void ResetPlayerData()   //Kommentera, otydlig inuti
+        public void ResetData()   //Kommentera, otydlig inuti
         {
-            for (int i = 0; i < player.PointsAroundPlayer.Length; i++)
+            for (int i = 0; i < player.SurroundingPoints.Length; i++)
             {
-                player.PointsAroundPlayer[i] = new Point(0, 0);
+                player.SurroundingPoints[i] = new Point(0, 0);
             }
             gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PlayerPositionWhenExit = player.Position;
 

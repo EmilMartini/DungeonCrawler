@@ -24,7 +24,7 @@ namespace DungeonCrawler
             spawnPoints[2] = level3SpawnPoint;
             this.gameplayManager = gameplayManager; //Inte snyggt?
             gameplayManager.Levels = Levels;        //Inte snyggt?
-        } 
+        }
         //Alla setLevelLayout ser fruktansvärda ut, borde kanske gå att lösa på annat sätt (Kolla Alex och Anders lösning)
         public void SetLevelOneLayout()
         {
@@ -66,13 +66,16 @@ namespace DungeonCrawler
             Levels[0].Layout[23, 3] = new Wall(false);
             Levels[0].Layout[23, 5] = new Wall(false);
             //Hardcoded doors
+            Levels[0].Layout[1, 1] = new ExitDoor(false);
             Levels[0].Layout[14, 7] = new BlueDoor();
             Levels[0].Layout[9, 20] = new PurpleDoor();
             Levels[0].Layout[23, 4] = new YellowDoor(CurrentLevel.LevelTwo, false, gameplayManager);
+            Levels[0].Layout[23,23] = new PressurePlate(23, 23);
             //Hardcoded keys
             Levels[0].ActiveGameObjects.Add(new PurpleKey(6,2));
             Levels[0].ActiveGameObjects.Add(new BlueKey(2,18));
             Levels[0].ActiveGameObjects.Add(new YellowKey(22,22));
+            Levels[0].ActiveGameObjects.Add(new Potion(4, 6));           
         }
         public void SetLevelTwoLayout()
         {
@@ -216,7 +219,7 @@ namespace DungeonCrawler
         public void SetLevelThreeLayout()
         {
             Levels[2].Layout[1, 1] = new YellowDoor(CurrentLevel.LevelTwo, true, gameplayManager);
-            Levels[2].Layout[11, 19] = new ExitDoor();
+            Levels[2].Layout[11, 19] = new ExitDoor(false);
             Levels[2].Layout[11, 20] = new Wall(false);
             Levels[2].Layout[11, 18] = new Wall(false);
         }

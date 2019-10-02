@@ -88,7 +88,7 @@ namespace DungeonCrawler
         {
             //LevelLoader.SpawnLevelObjects();
             LevelRenderer.RenderOuterWalls();
-            PlayerController.ExploreTilesAroundPlayer();
+            PlayerController.ExploreSurroundingTiles();
             LevelRenderer.RenderTilesAroundPlayer();
             LevelRenderer.RenderLevel();
             CurrentState = State.RunLevel;
@@ -103,7 +103,7 @@ namespace DungeonCrawler
                 Console.SetOut(standardOutputFilter);
                 return;
             }
-            PlayerController.ExploreTilesAroundPlayer();
+            PlayerController.ExploreSurroundingTiles();
             Console.SetOut(standardOutputFilter);
             LevelRenderer.RenderLevel();
         }
@@ -118,10 +118,25 @@ namespace DungeonCrawler
         }
         void ExitLevel()
         {
-            PlayerController.ResetPlayerData();
+            PlayerController.ResetData();
             CurrentLevel = NextLevel;
             CurrentState = State.InitializeLevel;
             Console.Clear();
+        }
+
+        public void RemoveGameObject(GameObject objectToRemove)
+        {
+            if(Levels[(int)CurrentLevel].ActiveGameObjects.Contains(objectToRemove))
+            {
+                Levels[(int)CurrentLevel].ActiveGameObjects.Remove(objectToRemove);
+            } else
+            {
+                return;
+            }
+        }
+        public void UnlockHiddenDoor(Door doorToUnlock)
+        {
+            doorToUnlock.IsUnlocked = true;
         }
 
         public State CurrentState { get { return currentState; } set { currentState = value; } }

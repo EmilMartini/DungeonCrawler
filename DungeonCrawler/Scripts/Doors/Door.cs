@@ -13,13 +13,13 @@ namespace DungeonCrawler
             }
             else
             {
-                foreach (Key key in player.PlayerInventory.KeyRing)
+                foreach (Key key in player.Inventory.KeyRing)
                 {
                     if (key.LockColor == this.LockColor)
                     {
                         isUnlocked = true;
                         this.Color = ConsoleColor.White;
-                        player.PlayerInventory.KeyRing.Remove(key);
+                        player.Inventory.KeyRing.Remove(key);
                         return true;
                     }
                 }

@@ -68,20 +68,20 @@ namespace DungeonCrawler
             Console.SetCursorPosition((levels[(int)gameplayManager.CurrentLevel].Layout.GetLength(1) + 1) * 2, 4);
             Console.Write("Keys: ");
             Console.Write("\t\t");
-            for (int i = 0; i < player.PlayerInventory.KeyRing.Count; i++)
+            for (int i = 0; i < player.Inventory.KeyRing.Count; i++)
             {
                 Console.SetCursorPosition((levels[(int)gameplayManager.CurrentLevel].Layout.GetLength(1) + 4) * 2 + i, 4);
-                Console.ForegroundColor = player.PlayerInventory.KeyRing[i].Color;
-                Console.Write($"{player.PlayerInventory.KeyRing[i].Graphic}");
+                Console.ForegroundColor = player.Inventory.KeyRing[i].Color;
+                Console.Write($"{player.Inventory.KeyRing[i].Graphic}");
             }
         }
         public void RenderTilesAroundPlayer()   //Samma med pointsToRenderOnMap här
         {
-            for (int i = 0; i < player.PointsAroundPlayer.Length; i++)
+            for (int i = 0; i < player.SurroundingPoints.Length; i++)
             {
-                Console.SetCursorPosition(player.PointsAroundPlayer[i].column + (player.PointsAroundPlayer[i].column + 2), player.PointsAroundPlayer[i].row);
-                Console.ForegroundColor = gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[player.PointsAroundPlayer[i].row, player.PointsAroundPlayer[i].column].Color;
-                Console.Write(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[player.PointsAroundPlayer[i].row, player.PointsAroundPlayer[i].column].Graphic);
+                Console.SetCursorPosition(player.SurroundingPoints[i].column + (player.SurroundingPoints[i].column + 2), player.SurroundingPoints[i].row);
+                Console.ForegroundColor = gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[player.SurroundingPoints[i].row, player.SurroundingPoints[i].column].Color;
+                Console.Write(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[player.SurroundingPoints[i].row, player.SurroundingPoints[i].column].Graphic);
             }
         }
         public void RenderOuterWalls()
