@@ -4,66 +4,160 @@ namespace DungeonCrawler
 {
     public class PlayerController
     {
+        private StateMachine stateMachine;
         private readonly Level[] levels;
-        private readonly LevelRenderer levelRenderer;
         private readonly Player player;
-        private string outputString;
 
-        public PlayerController(Level[] levels, Player player, LevelRenderer levelRenderer)
+        public PlayerController(Player player, StateMachine stateMachine)
         {
-            this.levels = levels ?? throw new ArgumentNullException(nameof(levels));
-            this.player = player ?? throw new ArgumentNullException(nameof(player));
-            this.levelRenderer = levelRenderer ?? throw new ArgumentNullException(nameof(levelRenderer));
+            this.player = player;
+            this.levels = stateMachine.Levels;
+            this.stateMachine = stateMachine;
+            stateMachine.PlayerPosition = player.Position;
+            stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects.Add(player);
         }
-        public void CheckInput()
+        public Point GetInput()
         {
             var input = Console.ReadKey();
-            switch(input.KeyChar)
+            switch (input.KeyChar)
             {
                 case 'w':
-                    MovePlayer(-1, 0);
-                    break;
+                    return new Point(-1, 0);
                 case 'a':
-                    MovePlayer(0, -1);
-                    break;
+                    return new Point(0, -1);
                 case 's':
-                    MovePlayer(1, 0);
-                    break;
+                    return new Point(1, 0);
                 case 'd':
-                    MovePlayer(0, 1);
-                    break;
+                    return new Point(0, 1);
                 default:
-                    break;
+                    return new Point(0, 0);
             }
         }
-        public void MovePlayer(int directionRow, int directionColumn)
+        public void MovePlayer(Point direction)
         {
-            Point currentPosition = player.Position;
-            Point targetPosition = new Point(currentPosition.row + directionRow,
-                                             currentPosition.column + directionColumn);
-            if (levels[LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column] is IInteractable interactable)
+            if(!direction.Equals(new Point(0,0)))
             {
-                bool interactionSucceded = interactable.Interact();
-                if (interactionSucceded)
+                player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
+                if (!(levels[(int)stateMachine.CurrentLevel].InitialLayout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
                 {
-                    levels[LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column] = new Floor();
+
+                    if (CheckInteraction(player.TargetPosition))
+                    {
+                        UpdatePlayerPosition();
+                        stateMachine.PlayerNumberOfMoves++;  
+                    }
                 }
-                else
-                {
-                    return;
-                }
+                
             }
-            if (levels[LevelLoader.CurrentLevel].InitialLayout[targetPosition.row, targetPosition.column].TileType != TileType.Wall)
-            {
-                levelRenderer.UpdatePlayerPosition(targetPosition);
-                player.NumberOfMoves++;
-            }
+            //if (levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] is IInteractable interactable)
+            //{
+            //    if (interactable.Interact())
+            //    {
+            //        if(!(interactable is Door))
+            //        {                 
+            //            levels[(int)stateMachine.CurrentLevel].InitialLayout[stateMachine.TargetPlayerPosition.row, stateMachine.TargetPlayerPosition.column] = new Floor();
+            //        }
+            //        else if(interactable is YellowDoor door && door.IsUnlocked)
+            //        {
+            //            stateMachine.NextLevel = door.NextLevel;
+            //            stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerPositionWhenExit = stateMachine.PlayerPosition;
+            //            stateMachine.CurrentState = StateMachine.State.ExitLevel;
+            //        } else if(interactable is ExitDoor)
+            //        {
+            //            stateMachine.CurrentState = StateMachine.State.ExitGame;
+            //        }
+            //    } else if (interactable is Door door)
+            //    {
+            //        if (canUnlock(door));
+            //    } else
+            //    {
+            //        return;
+            //    }
+            //}
         }
 
-        public string OutputString
+        private bool CheckInteraction(Point targetPosition)
         {
-            get { return outputString; }
-            set { outputString = value; }
+            if (stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)
+            {
+                
+                return interactableTile.Interact(player);
+            }
+            foreach (GameObject gameObject in stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
+            {
+                if (gameObject is Player)
+                {
+                    continue;
+                }
+                else if (gameObject.Position.Equals(targetPosition) && gameObject is IInteractable interactableGameObject)
+                {
+                    interactableGameObject.Interact(player);
+                    if (interactableGameObject is Key key)
+                    {
+                        stateMachine.Levels[(int)stateMachine.CurrentLevel].ActiveGameObjects.Remove(key);
+                        return true;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private bool canUnlock(Door door)
+        {
+            for (int i = 0; i < player.KeysInInventory.Count; i++)
+            {
+                if (player.KeysInInventory[i].Unlock.Equals((door.Unlock)))
+                {
+                    player.KeysInInventory[i].NumberOfUses--;
+                    if (player.KeysInInventory[i].NumberOfUses <= 0)
+                    {
+                        player.KeysInInventory.RemoveAt(i);
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void UpdatePlayerPosition()
+        {
+            player.Position = player.TargetPosition;
+        }
+        public void ExploreTilesAroundPlayer()
+        {
+            int index = 0;
+            for (int row = (-1); row < 2; row++)
+            {
+                for (int column = (-1); column < 2; column++)
+                {
+                    if ((row != 0 | column != 0))
+                    {
+                        stateMachine.PointsToRenderOnMap[index] = new Point(player.Position.row + row, player.Position.column + column);
+                        index++;
+                    }
+                }
+            }
+            for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
+            {
+                levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].IsExplored = true;
+            }
+        }
+        public void ResetPlayerData()
+        {
+            for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
+            {
+                stateMachine.PointsToRenderOnMap[i] = new Point(0, 0);
+            }
+            stateMachine.Levels[(int)stateMachine.CurrentLevel].PlayerPositionWhenExit = player.Position;
+
+            if (stateMachine.Levels[(int)stateMachine.NextLevel].PlayerPositionWhenExit.Equals(levels[(int)stateMachine.NextLevel].PlayerStartingTile))
+            {
+                player.Position = levels[(int)stateMachine.NextLevel].PlayerStartingTile;
+                stateMachine.PlayerPosition = player.Position;
+            } else
+            {
+                player.Position = levels[(int)stateMachine.NextLevel].PlayerPositionWhenExit;
+                stateMachine.PlayerPosition = player.Position;
+            }
         }
     }
 }

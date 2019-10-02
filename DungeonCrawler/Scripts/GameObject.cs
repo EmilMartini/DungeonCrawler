@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    public interface IInteractable
+    public abstract class GameObject : Entity
     {
-        bool Interact(Player player);
+        public GameObject()
+        {
+        }
     }
 }

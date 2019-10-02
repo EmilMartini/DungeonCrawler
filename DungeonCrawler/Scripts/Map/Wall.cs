@@ -10,7 +10,6 @@ namespace DungeonCrawler
     {
         public Wall(bool explored)
         {
-            this.TileType = TileType.Wall;
             this.Graphic = "#";
             this.IsExplored = explored;
             this.Color = ConsoleColor.DarkRed;

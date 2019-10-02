@@ -5,115 +5,112 @@ namespace DungeonCrawler
 {
     public class LevelRenderer
     {
+        private StateMachine stateMachine;
         private readonly Level[] levels;
         private readonly Player player;
-        public Point[] PointsToRender = new Point[8];
-        public LevelRenderer(Level[] levels, Player player)
+        public LevelRenderer(Level[] levels, Player player, StateMachine stateMachine)
         {
-            this.levels = levels ?? throw new ArgumentNullException(nameof(levels));
-            this.player = player ?? throw new ArgumentNullException(nameof(player));
+            this.levels = levels;
+            this.player = player;
+            this.stateMachine = stateMachine;
+            stateMachine.PointsToRenderOnMap = new Point[8];
         }
+
         public void RenderLevel()
         {
-            RenderEnemiesIfExplored();
-            ExploreTilesAroundPlayer(player.Position);
             RenderTilesAroundPlayer();
+            RenderGameObjects();
+            RenderPlayer();
             RenderUI();
         }
 
-        public void ExploreTilesAroundPlayer(Point playerPosition)
+        void RenderGameObjects()
         {
-            int index = 0;
-            for (int row = (-1); row < 2; row++)
+            foreach (GameObject gameObject in levels[(int)stateMachine.CurrentLevel].ActiveGameObjects)
             {
-                for (int column = (-1); column < 2; column++)
+                if(gameObject is Player)
                 {
-                    if((row != 0 | column != 0))
+                    continue;
+                } else
+                {
+                    if (levels[(int)stateMachine.CurrentLevel].ExploredLayout[gameObject.Position.row, gameObject.Position.column].IsExplored)
                     {
-                        PointsToRender[index] = new Point(playerPosition.row + row, playerPosition.column + column);
-                        index++;
+                        Console.SetCursorPosition(gameObject.Position.column + (gameObject.Position.column + 2), gameObject.Position.row);
+                        Console.ForegroundColor = gameObject.Color;
+                        Console.Write(gameObject.Graphic);
                     }
                 }
             }
 
-            for (int i = 0; i < PointsToRender.Length; i++)
+            //Clear previous enemy positions from map
+            if(stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions != null)
             {
-                levels[LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].IsExplored = true;
+                foreach (Point previousEnemyPosition in stateMachine.Levels[(int)stateMachine.CurrentLevel].PreviousEnemyPositions)
+                {
+                    if (levels[(int)stateMachine.CurrentLevel].ExploredLayout[previousEnemyPosition.row, previousEnemyPosition.column].IsExplored)
+                    {
+                        Console.SetCursorPosition(previousEnemyPosition.column + (previousEnemyPosition.column + 2), previousEnemyPosition.row);
+                        Console.ForegroundColor = levels[(int)stateMachine.CurrentLevel].ExploredLayout[previousEnemyPosition.row, previousEnemyPosition.column].Color;
+                        Console.Write(levels[(int)stateMachine.CurrentLevel].ExploredLayout[previousEnemyPosition.row, previousEnemyPosition.column].Graphic);
+                    }
+                    
+                }
             }
         }
-        private void RenderUI()
+        void RenderPlayer()
+        {
+            Console.SetCursorPosition(player.Position.column + (player.Position.column + 2), player.Position.row);
+            Console.ForegroundColor = player.Color;
+            Console.Write(player.Graphic);
+        }
+        void RenderUI()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 2);
-            Console.Write($"Number of moves:{player.NumberOfMoves}");
+            Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 2);
+            Console.Write($"Number of moves:{stateMachine.PlayerNumberOfMoves}");
 
-            Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 3);
-            Console.Write($"Enemies hit: {Player.EnemiesInteractedWith}");
+            Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 3);
+            Console.Write($"Enemies hit: {player.EnemiesInteractedWith}");
 
-            Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 4);
+            Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 1) * 2, 4);
             Console.Write("Keys: ");
             Console.Write("\t\t");
-            for (int i = 0; i < Player.KeysInInventory.Count; i++)
+            for (int i = 0; i < player.KeysInInventory.Count; i++)
             {
-                Console.SetCursorPosition((levels[LevelLoader.CurrentLevel].InitialLayout.GetLength(1) + 4) * 2 + i, 4);
-                Console.ForegroundColor = Player.KeysInInventory[i].Color;
-                Console.Write($"{Player.KeysInInventory[i].Graphic}");
+                Console.SetCursorPosition((levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1) + 4) * 2 + i, 4);
+                Console.ForegroundColor = player.KeysInInventory[i].Color;
+                Console.Write($"{player.KeysInInventory[i].Graphic}");
             }
         }
-        private void RenderEnemiesIfExplored()
+        public void RenderTilesAroundPlayer()
         {
-            for (int i = 0; i < levels[LevelLoader.CurrentLevel].Enemies.Length; i++)
+            for (int i = 0; i < stateMachine.PointsToRenderOnMap.Length; i++)
             {
-                if (levels[LevelLoader.CurrentLevel].Enemies[i].IsExplored)
+                Console.SetCursorPosition(stateMachine.PointsToRenderOnMap[i].column + (stateMachine.PointsToRenderOnMap[i].column + 2), stateMachine.PointsToRenderOnMap[i].row);
+                Console.ForegroundColor = stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].Color;
+                Console.Write(stateMachine.Levels[(int)stateMachine.CurrentLevel].ExploredLayout[stateMachine.PointsToRenderOnMap[i].row, stateMachine.PointsToRenderOnMap[i].column].Graphic);
+            }
+        }
+        public void RenderOuterWalls()
+        {
+            Console.Write("\n \n");
+            for (int row = 0; row < levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(0); row++)
+            {
+                for (int column = 0; column < levels[(int)stateMachine.CurrentLevel].InitialLayout.GetLength(1); column++)
                 {
-                    Console.ForegroundColor = levels[LevelLoader.CurrentLevel].Enemies[i].Color;
-                    Console.SetCursorPosition(levels[LevelLoader.CurrentLevel].Enemies[i].Position.column + (levels[LevelLoader.CurrentLevel].Enemies[i].Position.column + 2), levels[LevelLoader.CurrentLevel].Enemies[i].Position.row);
-                    Console.Write($"{levels[LevelLoader.CurrentLevel].ExploredLayout[levels[LevelLoader.CurrentLevel].Enemies[i].Position.row, levels[LevelLoader.CurrentLevel].Enemies[i].Position.column].Graphic}");
-                }
-
-                if (levels[LevelLoader.CurrentLevel].PreviousEnemyPositions == null)
-                {
-                    break;
-                }
-                else
-                {
-                    Console.ForegroundColor = levels[LevelLoader.CurrentLevel].ExploredLayout[levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].Color;
-                    Console.SetCursorPosition(levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column + (levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column + 2), levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row);
-                    if (levels[LevelLoader.CurrentLevel].ExploredLayout[levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].IsExplored == true)
+                    Console.SetCursorPosition(column + (column + 2), row);
+                    Console.ForegroundColor = levels[(int)stateMachine.CurrentLevel].InitialLayout[row, column].Color;
+                    if (levels[(int)stateMachine.CurrentLevel].InitialLayout[row, column].IsExplored == true)
                     {
-                        Console.Write($"{levels[LevelLoader.CurrentLevel].InitialLayout[levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].row, levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[i].column].Graphic}");
+                        Console.Write($"{levels[(int)stateMachine.CurrentLevel].InitialLayout[row, column].Graphic}");
                     }
                     else
                     {
-                        Console.Write(" ");
+                        Console.Write($"");
                     }
                 }
+                Console.Write("");
             }
-        }
-        private void RenderTilesAroundPlayer()
-        {
-            for (int i = 0; i < PointsToRender.Length; i++)
-            {
-                Console.ForegroundColor = levels[LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].Color;
-                Console.SetCursorPosition(PointsToRender[i].column + (PointsToRender[i].column + 2), PointsToRender[i].row);
-                Console.Write($"{levels[LevelLoader.CurrentLevel].ExploredLayout[PointsToRender[i].row, PointsToRender[i].column].Graphic}");
-            }
-            Console.ForegroundColor = player.Color;
-            Console.SetCursorPosition(player.Position.column + (player.Position.column + 2), player.Position.row);
-            Console.Write($"{player.Graphic}");
-        }
-        public void UpdatePlayerPosition(Point targetPosition)
-        {
-            levels[LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = levels[LevelLoader.CurrentLevel].InitialLayout[player.Position.row, player.Position.column];
-            player.Position = targetPosition;
-            levels[LevelLoader.CurrentLevel].ExploredLayout[player.Position.row, player.Position.column] = player;
-        }
-        public void UpdateEnemyPositions(Enemy enemy, Point targetPosition, Point currentEnemyPosition, int index)
-        {
-            levels[LevelLoader.CurrentLevel].PreviousEnemyPositions[index] = currentEnemyPosition;
-            levels[LevelLoader.CurrentLevel].ExploredLayout[enemy.Position.row, enemy.Position.column] = levels[LevelLoader.CurrentLevel].InitialLayout[enemy.Position.row, enemy.Position.column];
-            enemy.Position = targetPosition;
-            levels[LevelLoader.CurrentLevel].ExploredLayout[enemy.Position.row, enemy.Position.column] = enemy;
         }
     }
 }

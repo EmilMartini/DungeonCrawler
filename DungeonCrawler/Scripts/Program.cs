@@ -1,55 +1,61 @@
-﻿using System;
-using System.Media;
+﻿using DungeonCrawler.Scripts;
+using System;
 using System.Threading;
 
 namespace DungeonCrawler
 {
     class Program
     {
+        private static bool exitGame;
+
         static void Main(string[] args)
         {
-            var levelLayout = new LevelLayout(); 
-            var player = new Player();
-            var levelRenderer = new LevelRenderer(levelLayout.Levels, player);
-            var levelLoader = new LevelLoader(levelLayout.Levels, player);
-            var enemyController = new EnemyController(levelLayout.Levels, levelRenderer);
-            var playerController = new PlayerController(levelLayout.Levels, player, levelRenderer);
-            var consoleOutputFilter = new ConsoleOutputFilter();
-
-            SetConsoleProperties();
-            WelcomeScreen();
-            LoadGameDependecies(levelLayout, levelLoader, levelRenderer);
-            RunGame(consoleOutputFilter, Console.Out, playerController, enemyController, levelRenderer);        
+            StateMachine stateMachine = new StateMachine();
+            DataInitializer dataInitializer = new DataInitializer(stateMachine);
+            stateMachine.DataInitializer = dataInitializer;
+            while (!exitGame)
+            {              
+                RunState(stateMachine);
+            }        
         }
-
-        private static void RunGame(ConsoleOutputFilter consoleOutputFilter, System.IO.TextWriter standardOutputWriter, PlayerController playerController, EnemyController enemyController, LevelRenderer levelRenderer)
+        static void RunState(StateMachine stateMachine)
         {
-            bool isRunning = true;
-            while(isRunning)
+            switch (stateMachine.CurrentState)
             {
-                Console.SetOut(consoleOutputFilter);
-                playerController.CheckInput();
-                enemyController.Move();
-                Console.SetOut(standardOutputWriter);
-                levelRenderer.RenderLevel();
+                case StateMachine.State.InitializeGame:
+                    SetConsoleProperties();
+                    LoadGameDependencies(stateMachine);
+                    break;
+                case StateMachine.State.WelcomeScreen:
+                    WelcomeScreen(stateMachine);
+                    break;
+                case StateMachine.State.InitializeLevel:
+                    DisplayLevelInfo(stateMachine);
+                    LoadCurrentLevel(stateMachine);
+                    break;
+                case StateMachine.State.RunLevel:
+                    RunGame(stateMachine, Console.Out);
+                    break;
+                case StateMachine.State.ExitLevel:
+                    NextLevel(stateMachine);
+                    break;
+                case StateMachine.State.ExitGame:
+                    break;
             }
         }
-        private static void LoadGameDependecies(LevelLayout levelLayout, LevelLoader levelLoader, LevelRenderer levelRenderer)
-        {
-            LevelLoader.CurrentLevel = 1;
-            levelLayout.InitializeLevels();
-            levelLoader.SpawnLevelObjects();
-            levelLoader.DisplayInitialMap();
-            levelRenderer.RenderLevel();
-        }
-        private static void SetConsoleProperties()
+        static void SetConsoleProperties()
         {
             Size consoleWindowSize = new Size(77, 36);
             Console.CursorVisible = false;
             Console.SetWindowSize((int)consoleWindowSize.Width, (int)consoleWindowSize.Height);
             Console.SetBufferSize((int)consoleWindowSize.Width + 1, (int)consoleWindowSize.Height + 1);
         }
-        private static void WelcomeScreen()
+        static void LoadGameDependencies(StateMachine stateMachine)
+        {
+            stateMachine.DataInitializer.LevelLoader.InitializeLevels();
+            stateMachine.CurrentState = StateMachine.State.WelcomeScreen;
+        }
+        static void WelcomeScreen(StateMachine stateMachine)
         {
             Console.WriteLine();
             Console.WriteLine($"\tWelcome to a dungeon crawler you'll never forget.");
@@ -63,9 +69,50 @@ namespace DungeonCrawler
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("lurking these halls....\n\n\n\t\t\t\tGood luck!\n");
             Console.WriteLine("\t\t\tPress any key to start...");
-            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\tMade by:");
+            Console.Write($"\n\n\n\n\n\t|Legend\n\t|\n\t|Keys: K\n\t|Door: D\n\t|Player: @\n\t|Monsters: M");
+            Console.WriteLine("\n\n\n\n\n\n\n\n\tMade by:");
             Console.WriteLine("\tJohn Andersson & Emil Martini");
             Console.ReadKey(true);
+            Console.Clear();
+            stateMachine.CurrentState = StateMachine.State.InitializeLevel;
+        }
+        static void LoadCurrentLevel(StateMachine stateMachine)
+        {
+            stateMachine.DataInitializer.LevelLoader.SpawnLevelObjects();
+            stateMachine.DataInitializer.LevelRenderer.RenderOuterWalls();
+            stateMachine.DataInitializer.PlayerController.ExploreTilesAroundPlayer();
+            stateMachine.DataInitializer.LevelRenderer.RenderTilesAroundPlayer();
+            stateMachine.DataInitializer.LevelRenderer.RenderLevel();
+            stateMachine.CurrentState = StateMachine.State.RunLevel;
+        }
+        static void RunGame(StateMachine stateMachine, System.IO.TextWriter standardOutputFilter)
+        {
+            Console.SetOut(stateMachine.DataInitializer.ConsoleOutputFilter);
+            stateMachine.DataInitializer.EnemyController.Move();
+            if (stateMachine.CurrentState == StateMachine.State.ExitLevel)
+            {
+                return;
+            }
+            stateMachine.DataInitializer.PlayerController.MovePlayer(stateMachine.DataInitializer.PlayerController.GetInput());
+            stateMachine.DataInitializer.PlayerController.ExploreTilesAroundPlayer();
+            Console.SetOut(standardOutputFilter);
+            stateMachine.DataInitializer.LevelRenderer.RenderLevel();
+        }    
+        static void DisplayLevelInfo(StateMachine stateMachine)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {(int)stateMachine.CurrentLevel + 1}");
+            Console.WriteLine($"\t\t\t          Good Luck");
+            Thread.Sleep(2500);
+            Console.Clear();
+        }
+        static void NextLevel(StateMachine stateMachine)
+        {
+            stateMachine.DataInitializer.PlayerController.ResetPlayerData();
+            //stateMachine.DataInitializer.EnemyController.ResetEnemyPositions();
+            stateMachine.CurrentLevel = stateMachine.NextLevel;
+            stateMachine.CurrentState = StateMachine.State.InitializeLevel;
             Console.Clear();
         }
     }
