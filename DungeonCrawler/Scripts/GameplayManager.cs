@@ -6,13 +6,13 @@ namespace DungeonCrawler
     public class GameplayManager
     {
         private static SoundPlayer soundPlayer;
-        private LevelLayout levelLayout;    //Kan nog klara oss utan denna
+        private LevelLayout levelLayout;   
         private Player player;      
         private LevelRenderer levelRenderer;
         private LevelController levelController;
         private EnemyController enemyController;
         private PlayerController playerController;
-        private ConsoleOutputFilter consoleOutputFilter;    //Kan nog klara oss utan denna
+        private ConsoleOutputFilter consoleOutputFilter;  
         private Level[] levels;
         private CurrentLevel currentLevel;
         private CurrentLevel nextLevel;
@@ -21,7 +21,7 @@ namespace DungeonCrawler
         public GameplayManager()
         {
             LevelLayout = new LevelLayout(this);
-            Player = new Player(); ;
+            Player = new Player();
             LevelRenderer = new LevelRenderer(Levels, player, this);
             LevelController = new LevelController(LevelLayout, this);
             EnemyController = new EnemyController(this);

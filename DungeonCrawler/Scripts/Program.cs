@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace DungeonCrawler
 {
     class Program
@@ -13,6 +12,5 @@ namespace DungeonCrawler
             }
             Console.Clear();
         }
-
     }
 }
