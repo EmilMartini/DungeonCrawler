@@ -1,16 +1,16 @@
 ﻿using System;
 namespace DungeonCrawler
 {
-    public class LevelLoader
+    public class LevelController
     {
         private GameplayManager gameplayManager;
         private Level[] levels;
-        private readonly LevelLayout levelLayout;
+        private readonly LevelController levelController;
         private Random rnd = new Random();
-        public LevelLoader(LevelLayout levelLayout, GameplayManager gameplayManager)
+        public LevelController(LevelLayout levelLayout, GameplayManager gameplayManager)
         {
             this.levels = gameplayManager.Levels;
-            this.levelLayout = levelLayout;
+            this.levelController = levelLayout;
             this.gameplayManager = gameplayManager;
         }
         public void InitializeLevels()
@@ -44,9 +44,9 @@ namespace DungeonCrawler
                     levels[i].ActiveGameObjects.Add(new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn));
                 }
             }
-            levelLayout.SetLevelOneLayout();
-            levelLayout.SetLevelTwoLayout();
-            levelLayout.SetLevelThreeLayout();
+            levelController.SetLevelOneLayout();
+            levelController.SetLevelTwoLayout();
+            levelController.SetLevelThreeLayout();
         }
     }
 }

@@ -1,15 +1,19 @@
-﻿namespace DungeonCrawler
+﻿using System;
+
+namespace DungeonCrawler
 {
     class Program
     {
-        private static bool exitGame;   //Fixa riktigt wincondition istället för bool
         static void Main(string[] args)
         {
             GameplayManager gameplayManager = new GameplayManager();
-            while (!exitGame)
+            while (gameplayManager.CurrentState != State.ExitGame)
             {              
                 gameplayManager.RunState();
-            }        
+            }
+            Console.Clear();
+            Console.WriteLine("Press any key to continue....");
+            Console.ReadKey();
         }
 
     }

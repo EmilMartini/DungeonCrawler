@@ -9,7 +9,7 @@ namespace DungeonCrawler
         private LevelLayout levelLayout;    //Kan nog klara oss utan denna
         private Player player;      
         private LevelRenderer levelRenderer;
-        private LevelLoader levelLoader;
+        private LevelController levelController;
         private EnemyController enemyController;
         private PlayerController playerController;
         private ConsoleOutputFilter consoleOutputFilter;    //Kan nog klara oss utan denna
@@ -23,7 +23,7 @@ namespace DungeonCrawler
             LevelLayout = new LevelLayout(this);
             Player = new Player(); ;
             LevelRenderer = new LevelRenderer(Levels, player, this);
-            LevelLoader = new LevelLoader(LevelLayout, this);
+            LevelController = new LevelController(LevelLayout, this);
             EnemyController = new EnemyController(this);
             PlayerController = new PlayerController(Player, this);
             ConsoleOutputFilter = new ConsoleOutputFilter();
@@ -50,10 +50,23 @@ namespace DungeonCrawler
                 case State.ExitLevel:
                     ExitLevel();
                     break;
+                case State.ShowScore:
+                    DisplayScore();
+                    break;
                 case State.ExitGame:
                     break;
             }
         }
+
+        private void DisplayScore()
+        {
+            Console.Clear();
+            Console.Write($"\n\n\n\n\n\n\n\t\t\tScore: {player.NumberOfMoves}\n");
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            CurrentState = State.ExitGame;
+        }
+
         void SetConsoleProperties()
         {
             Size consoleWindowSize = new Size(77, 36);
@@ -63,7 +76,7 @@ namespace DungeonCrawler
         }
         void LoadGameDependencies()
         {
-            LevelLoader.InitializeLevels();
+            LevelController.InitializeLevels();
             CurrentState = State.WelcomeScreen;
         }
         void WelcomeScreen()
@@ -152,7 +165,7 @@ namespace DungeonCrawler
         public LevelLayout LevelLayout { get { return levelLayout; } set { levelLayout = value; } }
         public Player Player { get => player; set => player = value; }
         public LevelRenderer LevelRenderer { get => levelRenderer; set => levelRenderer = value; }
-        public LevelLoader LevelLoader { get => levelLoader; set => levelLoader = value; }
+        public LevelController LevelController { get => levelController; set => levelController = value; }
         public EnemyController EnemyController { get => enemyController; set => enemyController = value; }
         public PlayerController PlayerController { get => playerController; set => playerController = value; }
         public ConsoleOutputFilter ConsoleOutputFilter { get => consoleOutputFilter; set => consoleOutputFilter = value; }
