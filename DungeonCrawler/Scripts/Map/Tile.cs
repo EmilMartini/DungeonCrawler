@@ -3,6 +3,10 @@
     public abstract class Tile : Entity
     {
         private bool isExplored;
-        public bool IsExplored { get => isExplored; set => isExplored = value; }    //Fixa enkapsulering
+        public bool IsExplored
+        {
+            get { return isExplored; }
+            set { isExplored = value; }
+        }
     }
 }
