@@ -101,10 +101,8 @@ namespace DungeonCrawler
         }
         void LoadCurrentLevel()
         {
-            //LevelLoader.SpawnLevelObjects();
             LevelRenderer.RenderOuterWalls();
             PlayerController.ExploreSurroundingTiles();
-            LevelRenderer.RenderTilesAroundPlayer();
             LevelRenderer.RenderLevel();
             CurrentState = State.RunLevel;
         }
