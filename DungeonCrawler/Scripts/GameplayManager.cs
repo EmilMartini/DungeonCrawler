@@ -61,8 +61,11 @@ namespace DungeonCrawler
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write($"\n\n\n\n\n\n\n\t\t\t\t  Score: {player.NumberOfMoves}\n");
-            Console.WriteLine("\t\t\t  Press any key to exit game...");
+            Console.Write($"\n\n\n\n\n\n\n\t\t\t\t   Moves: {player.NumberOfMoves}\n\n");
+            Console.Write($"\t\t\t     Enemies Hit: {player.EnemiesInteractedWith} * 20\n\n");
+            Console.Write($"\t\t\t       Final Score: {(player.EnemiesInteractedWith * 20) + player.NumberOfMoves}\n");
+
+            Console.WriteLine("\n\n\n\t\t\t  Press any key to exit game...");
             Console.ReadKey();
             CurrentState = State.ExitGame;
         }
