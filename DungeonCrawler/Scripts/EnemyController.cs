@@ -5,8 +5,6 @@ namespace DungeonCrawler
     {
         private Random random = new Random();
         private GameplayManager gameplayManager;
-        private Point currentEnemyPosition;
-        private Point targetEnemyPosition;
         public EnemyController(GameplayManager gameplayManager)
         {
             this.gameplayManager = gameplayManager;
@@ -28,7 +26,7 @@ namespace DungeonCrawler
                         row = random.Next(-1, 2);
                         column = random.Next(-1, 2);
                     }
-                    targetEnemyPosition = new Point(gameObject.Position.row + row, gameObject.Position.column + column);
+                    Point targetEnemyPosition = new Point(gameObject.Position.row + row, gameObject.Position.column + column);
                     if(PathAvailable(targetEnemyPosition, currentLevel))
                     {
                         currentLevel.PreviousEnemyPositions[index] = new Point(gameObject.Position.row, gameObject.Position.column);
@@ -61,7 +59,5 @@ namespace DungeonCrawler
             }
             return true;
         }
-        public Point TargetEnemyPosition { get => targetEnemyPosition; set => targetEnemyPosition = value; }    //FIxa enkapsuleringen
-        public Point CurrentEnemyPosition { get => currentEnemyPosition; set => currentEnemyPosition = value; } //FIxa enkapsuleringen
     }
 }

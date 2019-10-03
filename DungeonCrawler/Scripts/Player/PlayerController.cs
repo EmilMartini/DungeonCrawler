@@ -35,12 +35,13 @@ namespace DungeonCrawler
         }
         public void MovePlayer(Point direction)
         {
+            var currentLevel = levels[(int)gameplayManager.CurrentLevel];
             if(!direction.Equals(new Point(0,0)))
             {
                 player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
-                if (!(levels[(int)gameplayManager.CurrentLevel].Layout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
+                if (!(currentLevel.Layout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
                 {
-                    if (CheckInteraction(player.TargetPosition))
+                    if (CheckInteraction(player.TargetPosition, currentLevel))
                     {
                         UpdatePlayerPosition();
                         player.NumberOfMoves++;  
@@ -48,10 +49,9 @@ namespace DungeonCrawler
                 }          
             }
         }
-        private bool CheckInteraction(Point targetPosition)
+        private bool CheckInteraction(Point targetPosition, Level currentLevel)
         {
-            //Check if interactable is tile
-            if (levels[(int)gameplayManager.CurrentLevel].Layout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)  //borde gå att få bättre syntax
+            if (currentLevel.Layout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)
             {   
                 if(interactableTile.Interact(player))
                 {
@@ -59,27 +59,29 @@ namespace DungeonCrawler
                     {                       
                         gameplayManager.CurrentState = State.ShowScore;
                         return true;
-                    } else if(interactableTile is PressurePlate)
+                    }
+                    else if(interactableTile is PressurePlate)
                     {
-                        gameplayManager.UnlockHiddenDoor((Door)levels[(int)gameplayManager.CurrentLevel].Layout[1, 1]);
+                        gameplayManager.UnlockHiddenDoor((Door)currentLevel.Layout[1, 1]);
                         return true;
-                    } else
+                    }
+                    else
                     {
                         return true;
                     }
-                } else
+                }
+                else
                 {
                     return false;
                 }
             }
-
-            //Check if interactable is gameobject
-            foreach (GameObject gameObject in levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
+            foreach (GameObject gameObject in currentLevel.ActiveGameObjects)
             {
                 if (gameObject is Player)
                 {
                     continue;
-                } else if (gameObject.Position.Equals(targetPosition) && gameObject is IInteractable interactableGameObject)
+                }
+                else if (gameObject.Position.Equals(targetPosition) && gameObject is IInteractable interactableGameObject)
                 {
                     if (interactableGameObject.Interact(player))
                     {
