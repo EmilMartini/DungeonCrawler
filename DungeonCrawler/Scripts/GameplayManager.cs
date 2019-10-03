@@ -130,6 +130,7 @@ namespace DungeonCrawler
             Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {(int)CurrentLevel + 1}");
             Console.WriteLine($"\t\t\t          Good Luck");
             Thread.Sleep(2500);
+            PlaySound("open-close-door");
             Console.Clear();
         }
         void ExitLevel()
