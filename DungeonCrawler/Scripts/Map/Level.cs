@@ -16,7 +16,7 @@ namespace DungeonCrawler
             Size = size;
             PlayerStartingTile = playerStartingTile;
             NumberOfEnemies = numberOfEnemies;
-            PlayerPositionWhenExit = PlayerStartingTile;
+            PlayerExitPosition = PlayerStartingTile;
             activeGameObjects = new List<GameObject>();
             previousEnemyPositions = new Point[NumberOfEnemies];
         }
@@ -46,7 +46,7 @@ namespace DungeonCrawler
             get { return numberOfEnemies; }
             set { numberOfEnemies = value; }
         }
-        public Point PlayerPositionWhenExit
+        public Point PlayerExitPosition
         {
             get { return playerPositionWhenExit; }
             set { playerPositionWhenExit = value; }

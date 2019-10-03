@@ -4,7 +4,6 @@ namespace DungeonCrawler
     public class PlayerController
     {
         private GameplayManager gameplayManager;
-        private readonly Level[] levels;    //Ta bort?
         private readonly Player player;
         private readonly PlayerInventory playerInventory;
 
@@ -12,7 +11,6 @@ namespace DungeonCrawler
         {
             this.player = player;
             this.playerInventory = player.Inventory;
-            this.levels = gameplayManager.Levels;
             this.gameplayManager = gameplayManager;
             gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects.Add(player);
         }
@@ -35,7 +33,7 @@ namespace DungeonCrawler
         }
         public void MovePlayer(Point direction)
         {
-            var currentLevel = levels[(int)gameplayManager.CurrentLevel];
+            var currentLevel = gameplayManager.Levels[(int)gameplayManager.CurrentLevel];
             if(!direction.Equals(new Point(0,0)))
             {
                 player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
@@ -102,6 +100,7 @@ namespace DungeonCrawler
         public void ExploreSurroundingTiles()
         {
             int index = 0;
+            Tile[,] currentLevelLayout = gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout;
             for (int row = (-1); row < 2; row++)
             {
                 for (int column = (-1); column < 2; column++)
@@ -115,23 +114,24 @@ namespace DungeonCrawler
             }
             for (int i = 0; i < player.SurroundingPoints.Length; i++)
             {
-                levels[(int)gameplayManager.CurrentLevel].Layout[player.SurroundingPoints[i].row, player.SurroundingPoints[i].column].IsExplored = true; //Kanske snyggare syntax
+                currentLevelLayout[player.SurroundingPoints[i].row, player.SurroundingPoints[i].column].IsExplored = true;
             }
         }
-        public void ResetData()   //Kommentera, otydlig inuti
+        public void ResetPositionData()
         {
+            var currentLevel = gameplayManager.Levels[(int)gameplayManager.CurrentLevel];
+            var nextLevel = gameplayManager.Levels[(int)gameplayManager.NextLevel];
             for (int i = 0; i < player.SurroundingPoints.Length; i++)
             {
                 player.SurroundingPoints[i] = new Point(0, 0);
             }
-            gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PlayerPositionWhenExit = player.Position;
-
-            if (gameplayManager.Levels[(int)gameplayManager.NextLevel].PlayerPositionWhenExit.Equals(levels[(int)gameplayManager.NextLevel].PlayerStartingTile))
+            currentLevel.PlayerExitPosition = player.Position;
+            if (nextLevel.PlayerExitPosition.Equals(nextLevel.PlayerStartingTile))
             {
-                player.Position = levels[(int)gameplayManager.NextLevel].PlayerStartingTile;
+                player.Position = nextLevel.PlayerStartingTile;
             } else
             {
-                player.Position = levels[(int)gameplayManager.NextLevel].PlayerPositionWhenExit;
+                player.Position = nextLevel.PlayerExitPosition;
             }
         }
     }

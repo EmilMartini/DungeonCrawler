@@ -133,7 +133,7 @@ namespace DungeonCrawler
         }
         void ExitLevel()
         {
-            PlayerController.ResetData();
+            PlayerController.ResetPositionData();
             CurrentLevel = NextLevel;
             CurrentState = State.InitializeLevel;
             Console.Clear();
