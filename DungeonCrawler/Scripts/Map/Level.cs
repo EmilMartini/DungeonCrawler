@@ -10,7 +10,6 @@ namespace DungeonCrawler
         private Point playerStartingTile;
         private int numberOfEnemies;
         private Point playerPositionWhenExit;
-
         public Level(Size size, Point playerStartingTile, int numberOfEnemies)
         {
             Size = size;
@@ -20,7 +19,6 @@ namespace DungeonCrawler
             activeGameObjects = new List<GameObject>();
             previousEnemyPositions = new Point[NumberOfEnemies];
         }
-
         public Tile[,] Layout
         {
             get { return layout; }

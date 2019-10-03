@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DungeonCrawler
 {
     public class Potion : Consumable, IInteractable
@@ -15,7 +10,6 @@ namespace DungeonCrawler
             this.Graphic = "P";
             this.Position = new Point(x, y);
         }
-
         public bool Interact(Player player)
         {
             if(player.NumberOfMoves - 50 <= 0)
