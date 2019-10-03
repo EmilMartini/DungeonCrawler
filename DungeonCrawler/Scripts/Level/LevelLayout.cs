@@ -2,7 +2,7 @@
 using DungeonCrawler.Keys;
 namespace DungeonCrawler
 {
-    public class LevelLayout
+    public class LevelController
     {
         private Level[] levels = new Level[3];
         private Point[] spawnPoints = new Point[3];
@@ -13,7 +13,7 @@ namespace DungeonCrawler
         readonly Level level2 = new Level(new Size(18, 18), level2SpawnPoint, 0);
         readonly Level level3 = new Level(new Size(23, 13), level3SpawnPoint, 10);
         private readonly GameplayManager gameplayManager;
-        public LevelLayout(GameplayManager gameplayManager)
+        public LevelController(GameplayManager gameplayManager)
         {
             Levels[0] = level1;
             Levels[1] = level2;
@@ -22,12 +22,12 @@ namespace DungeonCrawler
             spawnPoints[0] = level1SpawnPoint;
             spawnPoints[1] = level2SpawnPoint;
             spawnPoints[2] = level3SpawnPoint;
-            this.gameplayManager = gameplayManager;
-            gameplayManager.Levels = Levels;
+            this.gameplayManager = gameplayManager; //Inte snyggt?
+            gameplayManager.Levels = Levels;        //Inte snyggt?
         }
+        //Alla setLevelLayout ser fruktansvärda ut, borde kanske gå att lösa på annat sätt (Kolla Alex och Anders lösning)
         public void SetLevelOneLayout()
         {
-            
             //Hardcoded walls
             Levels[0].Layout[14, 1] = new Wall(false);
             Levels[0].Layout[14, 2] = new Wall(false);
@@ -214,7 +214,7 @@ namespace DungeonCrawler
             Levels[1].ActiveGameObjects.Add(new PurpleKey(16,2));
             Levels[1].ActiveGameObjects.Add(new BlueKey(10,16));
             Levels[1].ActiveGameObjects.Add(new SkeletonKey(14,10));
-            Levels[1].ActiveGameObjects.Add(new YellowKey(12,15));
+            Levels[1].ActiveGameObjects.Add(new YellowKey(16,7));
         }
         public void SetLevelThreeLayout()
         {

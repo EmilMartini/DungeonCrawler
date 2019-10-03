@@ -20,7 +20,8 @@
         }
         public bool Interact(Player player)
         {
-            player.KeysInInventory.Add(this);
+            GameplayManager.PlaySound("pickup-key");
+            player.Inventory.KeyRing.Add(this);
             return true;            
         }
     }

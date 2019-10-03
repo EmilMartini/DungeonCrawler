@@ -3,6 +3,7 @@ namespace DungeonCrawler
 {
     public class TrapDoor : Tile
     {
+        //Använda alls?
         public TrapDoor( )
         {
             this.IsExplored = false;
