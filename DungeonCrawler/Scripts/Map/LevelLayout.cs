@@ -27,6 +27,7 @@ namespace DungeonCrawler
         }
         public void SetLevelOneLayout()
         {
+            
             //Hardcoded walls
             Levels[0].Layout[14, 1] = new Wall(false);
             Levels[0].Layout[14, 2] = new Wall(false);

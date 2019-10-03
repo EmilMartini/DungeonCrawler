@@ -34,17 +34,14 @@ namespace DungeonCrawler
             foreach (GameObject gameObject in currentLevel.ActiveGameObjects)
             {
                 if(gameObject is Player)
-                {
                     continue;
-                } else
-                {
-                    if (currentLevel.Layout[gameObject.Position.row, gameObject.Position.column].IsExplored)
-                    {
-                        Console.SetCursorPosition(gameObject.Position.column + (gameObject.Position.column + 2), gameObject.Position.row);
-                        Console.ForegroundColor = gameObject.Color;
-                        Console.Write(gameObject.Graphic);
-                    }
-                }
+
+                if (currentLevel.Layout[gameObject.Position.row, gameObject.Position.column].IsExplored == false)
+                    continue;
+
+                Console.SetCursorPosition(gameObject.Position.column + (gameObject.Position.column + 2), gameObject.Position.row);
+                Console.ForegroundColor = gameObject.Color;
+                Console.Write(gameObject.Graphic);
             }
             //Clear previous enemy positions from map
             if(currentLevel.PreviousEnemyPositions != null)

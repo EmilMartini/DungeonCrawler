@@ -17,7 +17,15 @@ namespace DungeonCrawler
         private CurrentLevel currentLevel;
         private CurrentLevel nextLevel;
         private State currentState;
-
+        //brytit ut level skapandet till en klass. inte ha det i tre olika metoder
+        //och så hade jag se till att enemycontroller och player controller manipulerar gameplay datan
+        //och sedana så hade gameplaymanagern läst av hela staten och sedan bestämt om vi ska byta state(typ, win, dö, nextlevel, vad det nu är).
+        //och renderaren bör va separat ifrån level logiken. utan bör bara ta in all gameplaydata och rendera, då kan ni lägga in consoleoutput filter overriden där med
+        // exit early prylarna
+        //dvs:
+        //en klass för levelcreation
+        //en klass för rendering
+        //en klass för gamestaten / level / activeLevel
         public GameplayManager()
         {
             LevelLayout = new LevelLayout(this);
@@ -26,7 +34,7 @@ namespace DungeonCrawler
             LevelController = new LevelController(LevelLayout, this);
             EnemyController = new EnemyController(this);
             PlayerController = new PlayerController(Player, this);
-            ConsoleOutputFilter = new ConsoleOutputFilter();
+            ConsoleOutputFilter = new ConsoleOutputFilter(); 
             SoundPlayer = new SoundPlayer();
         }
         public void RunState()
