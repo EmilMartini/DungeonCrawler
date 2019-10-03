@@ -18,7 +18,7 @@ namespace DungeonCrawler
 
         public bool Interact(Player player)
         {
-            if(player.NumberOfMoves - 50 < 0)
+            if(player.NumberOfMoves - 50 <= 0)
             {
                 player.NumberOfMoves = 0;
             } else
