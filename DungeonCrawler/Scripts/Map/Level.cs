@@ -6,13 +6,13 @@ namespace DungeonCrawler
         private Tile[,] layout;
         private List<GameObject> activeGameObjects;
         private Point[] previousEnemyPositions;
-        private Size size;
         private Point playerStartingTile;
         private int numberOfEnemies;
         private Point playerPositionWhenExit;
-        public Level(Size size, Point playerStartingTile, int numberOfEnemies)
+        public Level(Tile[,] layout,List<GameObject> gameObjects, Point playerStartingTile, int numberOfEnemies)
         {
-            Size = size;
+            activeGameObjects = gameObjects;
+            this.layout = layout;
             PlayerStartingTile = playerStartingTile;
             NumberOfEnemies = numberOfEnemies;
             PlayerExitPosition = PlayerStartingTile;
