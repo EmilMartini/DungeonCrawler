@@ -58,7 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Scripts\Items\Button.cs" />
+    <Compile Include="Scripts\Map\PressurePlate.cs" />
     <Compile Include="Scripts\Items\Consumable.cs" />
     <Compile Include="Scripts\Items\Potion.cs" />
     <Compile Include="Scripts\Map\CurrentLevel.cs" />
