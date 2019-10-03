@@ -213,7 +213,7 @@ namespace DungeonCrawler
             Levels[1].ActiveGameObjects.Add(new PurpleKey(16,2));
             Levels[1].ActiveGameObjects.Add(new BlueKey(10,16));
             Levels[1].ActiveGameObjects.Add(new SkeletonKey(14,10));
-            Levels[1].ActiveGameObjects.Add(new YellowKey(16,7));
+            Levels[1].ActiveGameObjects.Add(new YellowKey(12,15));
         }
         public void SetLevelThreeLayout()
         {
