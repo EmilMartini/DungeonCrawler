@@ -112,7 +112,7 @@ namespace DungeonCrawler
         void RunGame(System.IO.TextWriter standardOutputFilter)
         {
             Console.SetOut(ConsoleOutputFilter);
-            EnemyController.Move();
+            EnemyController.MoveEnemies();
             PlayerController.MovePlayer(PlayerController.GetInput());
             if (CurrentState == State.ExitLevel)
             {

@@ -11,10 +11,11 @@ namespace DungeonCrawler
         {
             this.gameplayManager = gameplayManager;
         }
-        public void Move()  //Kanske  någon kommentar inuti, får se
+        public void MoveEnemies()
         {
             int index = 0;
-            foreach (GameObject gameObject in gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects)
+            Level currentLevel = gameplayManager.Levels[(int)gameplayManager.CurrentLevel];
+            foreach (GameObject gameObject in currentLevel.ActiveGameObjects)
             {
                 if(!(gameObject is Enemy))
                 {
@@ -28,28 +29,19 @@ namespace DungeonCrawler
                         column = random.Next(-1, 2);
                     }
                     targetEnemyPosition = new Point(gameObject.Position.row + row, gameObject.Position.column + column);
-                    if(PathAvailable(targetEnemyPosition))
+                    if(PathAvailable(targetEnemyPosition, currentLevel))
                     {
-                        gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions[index] = new Point(gameObject.Position.row, gameObject.Position.column);
+                        currentLevel.PreviousEnemyPositions[index] = new Point(gameObject.Position.row, gameObject.Position.column);
                         gameObject.Position = targetEnemyPosition;
                         index++;
                     }
                 }
             }
         }
-        public void ResetEnemyPositions()
+        private bool PathAvailable(Point targetEnemyPosition, Level currentLevel)
         {
-            if(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions != null)
-            {
-                for (int i = 0; i < gameplayManager.Levels[(int)gameplayManager.CurrentLevel].NumberOfEnemies; i++)
-                {
-                    gameplayManager.Levels[(int)gameplayManager.CurrentLevel].PreviousEnemyPositions[i] = new Point(0,0);
-                }
-            }
-        }
-        private bool PathAvailable(Point targetEnemyPosition)
-        {
-            var activeGameObjects = gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects;
+            var activeGameObjects = currentLevel.ActiveGameObjects;
+            var targetTile = currentLevel.Layout[targetEnemyPosition.row, targetEnemyPosition.column];
             for (int i = 0; i < activeGameObjects.Count; i++)
             {
                 if(activeGameObjects[i] is Enemy)
@@ -63,8 +55,7 @@ namespace DungeonCrawler
                     }
                 }
             }
-            if(gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[targetEnemyPosition.row, targetEnemyPosition.column] is Door ||
-               gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout[targetEnemyPosition.row, targetEnemyPosition.column] is Wall)
+            if (targetTile is Door || targetTile is Wall)
             {
                 return false;
             }
