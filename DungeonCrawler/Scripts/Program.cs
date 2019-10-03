@@ -12,8 +12,6 @@ namespace DungeonCrawler
                 gameplayManager.RunState();
             }
             Console.Clear();
-            Console.WriteLine("Press any key to continue....");
-            Console.ReadKey();
         }
 
     }

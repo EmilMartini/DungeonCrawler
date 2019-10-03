@@ -57,16 +57,15 @@ namespace DungeonCrawler
                     break;
             }
         }
-
         private void DisplayScore()
         {
             Console.Clear();
-            Console.Write($"\n\n\n\n\n\n\n\t\t\tScore: {player.NumberOfMoves}\n");
-            Console.WriteLine("Press any key to continue...");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write($"\n\n\n\n\n\n\n\t\t\t\t  Score: {player.NumberOfMoves}\n");
+            Console.WriteLine("\t\t\t  Press any key to exit game...");
             Console.ReadKey();
             CurrentState = State.ExitGame;
         }
-
         void SetConsoleProperties()
         {
             Size consoleWindowSize = new Size(77, 36);
@@ -158,17 +157,62 @@ namespace DungeonCrawler
             SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\" + fileName + ".wav";
             SoundPlayer.Play();
         }
-        public State CurrentState { get { return currentState; } set { currentState = value; } }
-        public CurrentLevel CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
-        public Level[] Levels { get { return levels; } set { levels = value; } }
-        public CurrentLevel NextLevel { get { return nextLevel; } set { nextLevel = value; } }
-        public LevelLayout LevelLayout { get { return levelLayout; } set { levelLayout = value; } }
-        public Player Player { get => player; set => player = value; }
-        public LevelRenderer LevelRenderer { get => levelRenderer; set => levelRenderer = value; }
-        public LevelController LevelController { get => levelController; set => levelController = value; }
-        public EnemyController EnemyController { get => enemyController; set => enemyController = value; }
-        public PlayerController PlayerController { get => playerController; set => playerController = value; }
-        public ConsoleOutputFilter ConsoleOutputFilter { get => consoleOutputFilter; set => consoleOutputFilter = value; }
+
+        public State CurrentState
+        {
+            get { return currentState; }
+            set { currentState = value; }
+        }
+        public CurrentLevel CurrentLevel
+        {
+            get { return currentLevel; }
+            set { currentLevel = value; }
+        }
+        public Level[] Levels
+        {
+            get { return levels; }
+            set { levels = value; }
+        }
+        public CurrentLevel NextLevel
+        {
+            get { return nextLevel; }
+            set { nextLevel = value; }
+        }
+        public LevelLayout LevelLayout
+        {
+            get { return levelLayout; }
+            set { levelLayout = value; }
+        }
+        public Player Player
+        {
+            get { return player; }
+            set { player = value; }
+        }
+        public LevelRenderer LevelRenderer
+        {
+            get { return levelRenderer; }
+            set { levelRenderer = value; }
+        }
+        public LevelController LevelController
+        {
+            get { return levelController; }
+            set { levelController = value; }
+        }
+        public EnemyController EnemyController
+        {
+            get { return enemyController; }
+            set { enemyController = value; }
+        }
+        public PlayerController PlayerController
+        {
+            get { return playerController; }
+            set { playerController = value; }
+        }
+        public ConsoleOutputFilter ConsoleOutputFilter
+        {
+            get { return consoleOutputFilter; }
+            set { consoleOutputFilter = value; }
+        }
         public static SoundPlayer SoundPlayer
         {
             get { return soundPlayer; }
