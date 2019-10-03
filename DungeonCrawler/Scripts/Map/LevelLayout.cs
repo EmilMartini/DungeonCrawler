@@ -22,10 +22,9 @@ namespace DungeonCrawler
             spawnPoints[0] = level1SpawnPoint;
             spawnPoints[1] = level2SpawnPoint;
             spawnPoints[2] = level3SpawnPoint;
-            this.gameplayManager = gameplayManager; //Inte snyggt?
-            gameplayManager.Levels = Levels;        //Inte snyggt?
+            this.gameplayManager = gameplayManager;
+            gameplayManager.Levels = Levels;
         }
-        //Alla setLevelLayout ser fruktansvärda ut, borde kanske gå att lösa på annat sätt (Kolla Alex och Anders lösning)
         public void SetLevelOneLayout()
         {
             //Hardcoded walls

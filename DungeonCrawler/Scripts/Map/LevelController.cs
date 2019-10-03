@@ -15,38 +15,42 @@ namespace DungeonCrawler
         }
         public void InitializeLevels()
         {
-            for (int i = 0; i < gameplayManager.Levels.Length; i++)
+            for (int levelIndex = 0; levelIndex < gameplayManager.Levels.Length; levelIndex++)
             {
-                levels[i].Layout = new Tile[levels[i].Size.Height, levels[i].Size.Width];
-
-                for (int row = 0; row < levels[i].Size.Height; row++)
-                {
-                    for (int column = 0; column < levels[i].Size.Width; column++)
-                    {
-                        if (column == 0 || column == levels[i].Size.Width - 1 || row == 0 || row == levels[i].Size.Height - 1)
-                        {
-                            levels[i].Layout[row, column] = new Wall(true);
-                        }
-                        else
-                        {
-                            levels[i].Layout[row, column] = new Floor();
-                        }
-                    }
-                }
-
-                //Spawn enemies
-                for (int enemyIndex = 0; enemyIndex < levels[i].NumberOfEnemies; enemyIndex++)
-                {
-                    int enemySpawnPositionRow, enemySpawnPositionColumn;
-                    enemySpawnPositionRow = rnd.Next(1, levels[i].Layout.GetLength(0) - 2);
-                    enemySpawnPositionColumn = rnd.Next(1, levels[i].Layout.GetLength(1) - 2);
-
-                    levels[i].ActiveGameObjects.Add(new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn));
-                }
+                levels[levelIndex].Layout = new Tile[levels[levelIndex].Size.Height, levels[levelIndex].Size.Width];
+                SetOuterWallsAndFloor(levelIndex);
+                SpawnEnemies(levelIndex);
             }
             levelLayout.SetLevelOneLayout();
             levelLayout.SetLevelTwoLayout();
             levelLayout.SetLevelThreeLayout();
+        }
+        void SetOuterWallsAndFloor(int levelIndex)
+        {
+            for (int row = 0; row < levels[levelIndex].Size.Height; row++)
+            {
+                for (int column = 0; column < levels[levelIndex].Size.Width; column++)
+                {
+                    if (column == 0 || column == levels[levelIndex].Size.Width - 1 || row == 0 || row == levels[levelIndex].Size.Height - 1)
+                    {
+                        levels[levelIndex].Layout[row, column] = new Wall(true);
+                    }
+                    else
+                    {
+                        levels[levelIndex].Layout[row, column] = new Floor();
+                    }
+                }
+            }
+        }
+        void SpawnEnemies(int levelIndex)
+        {
+            for (int i = 0; i < levels[levelIndex].NumberOfEnemies; i++)
+            {
+                int enemySpawnPositionRow, enemySpawnPositionColumn;
+                enemySpawnPositionRow = rnd.Next(1, levels[levelIndex].Layout.GetLength(0) - 2);
+                enemySpawnPositionColumn = rnd.Next(1, levels[levelIndex].Layout.GetLength(1) - 2);
+                levels[levelIndex].ActiveGameObjects.Add(new Enemy(enemySpawnPositionRow, enemySpawnPositionColumn));
+            }
         }
     }
 }
