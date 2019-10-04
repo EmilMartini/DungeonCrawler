@@ -14,27 +14,27 @@ namespace DungeonCrawler
             this.IsUnlocked = isUnlocked;
         }
         public CurrentLevel NextLevel { get => nextLevel; set => nextLevel = value; }
-        public override bool Interact(Player player)
-        {
-            if (IsUnlocked)
-            {
-                ChangeLevel();
-                return true;
-            }
-            else
-            {
-                foreach (Key key in player.Inventory.KeyRing)
-                {
-                    if (key.LockColor == this.LockColor)
-                    {
-                        IsUnlocked = true;
-                        player.Inventory.KeyRing.Remove(key);
-                        ChangeLevel();
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
+        //public override bool Interact(Player player)
+        //{
+        //    if (IsUnlocked)
+        //    {
+        //        ChangeLevel();
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        foreach (Key key in player.Inventory.KeyRing)
+        //        {
+        //            if (key.LockColor == this.LockColor)
+        //            {
+        //                IsUnlocked = true;
+        //                player.Inventory.KeyRing.Remove(key);
+        //                ChangeLevel();
+        //                return true;
+        //            }
+        //        }
+        //        return false;
+        //    }
+        //}
     }
 }

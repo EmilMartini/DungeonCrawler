@@ -82,8 +82,6 @@
     <Compile Include="Scripts\Map\Floor.cs" />
     <Compile Include="Scripts\Keys\Key.cs" />
     <Compile Include="Scripts\IInteractable.cs" />
-    <Compile Include="Scripts\Map\LevelLayout.cs" />
-    <Compile Include="Scripts\Map\LevelController.cs" />
     <Compile Include="Scripts\Map\LevelRenderer.cs" />
     <Compile Include="Scripts\Map\TrapDoor.cs" />
     <Compile Include="Scripts\Player\Player.cs" />

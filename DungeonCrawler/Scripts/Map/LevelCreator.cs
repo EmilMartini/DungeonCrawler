@@ -10,9 +10,9 @@ namespace DungeonCrawler
         private readonly static Point level1SpawnPoint = new Point(1, 1);
         private readonly static Point level2SpawnPoint = new Point(14, 8);
         private readonly static Point level3SpawnPoint = new Point(1, 1);
-        private Random rnd = new Random();
-        readonly char[,] LevelOne = new char[,] {       { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-                                                        { '#', 'E', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'b', '-', '#', 'p', '-', '-', '-', '-', '-', '-', '-', '#' },
+        private static Random rnd = new Random();
+        static readonly char[,] LevelOne = new char[,] {{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
+                                                        { '#', '1', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'b', '-', '#', 'p', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
@@ -32,10 +32,11 @@ namespace DungeonCrawler
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '#', '#', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '#', 'y', '#' },
-                                                        { '#', 'c', '-', '#', 'Y', '#', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
+                                                        { '#', 'c', '-', '#', '2', '#', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' } };
-        readonly char[,] LevelTwo = new char[,] {       { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-                                                        { '#', '-', '-', '-', '-', '-', '-', 'P', '-', '-', '-', '-', '-', '-', '-', '#', 'Y', '#' },
+
+        static readonly char[,] LevelTwo = new char[,] {{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
+                                                        { '#', '-', '-', '-', '-', '-', '-', 'P', '-', '-', '-', '-', '-', '-', '-', '#', '2', '#' },
                                                         { '#', '#', '-', '#', '#', '#', '#', '#', '#', '#', '#', '#', '-', '#', '-', '#', '-', '#' },
                                                         { '#', '#', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '#', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '#', '-', '#', '-', '-', '-', '#' },
@@ -43,17 +44,18 @@ namespace DungeonCrawler
                                                         { '#', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '#', '-', '#', '#', '#', '#', '#', '#', '#', '#', '#', '-', '#', '#', '#', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '#', '#', '#', '#', '-', '#', '#', '-', '#', '-', '-', '#' },
-                                                        { '#', '-', '#', '#', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '.', '-', '-', '#' },
+                                                        { '#', '-', '#', '#', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '#', '#', '#', '-', '#', '#', '#', '#', '#', '-', '#', '-', 'b', '#' },
                                                         { '#', '#', '#', '-', '#', '-', '#', '#', '#', '-', '-', '-', '#', '-', '#', '#', '#', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '#', '-', '#', 'y', '-', '#' },
                                                         { '#', '-', '#', '#', '-', '#', '#', '#', '#', '#', '#', '-', '#', '-', '#', '#', '-', '#' },
-                                                        { '#', '-', '-', '-', '-', '-', '-', '#', 'Y', '#', 'g', '-', '#', '-', '-', '-', '-', '#' },
+                                                        { '#', '-', '-', '-', '-', '-', '-', '#', '1', '#', 'g', '-', '#', '-', '-', '-', '-', '#' },
                                                         { '#', '#', '#', '#', '#', '-', '#', '#', '-', '#', '#', '#', '#', '-', '#', '-', '#', '#' },
                                                         { '#', 'p', '-', 'B', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '#', '#' },
                                                         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' } };
-        readonly char[,] LevelThree = new char[,] {       { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-                                                        { '#', 'E', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'b', '-', '#', 'p', '-', '-', '-', '-', '-', '-', '-', '#' },
+
+        static readonly char[,] LevelThree = new char[,]{{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
+                                                        { '#', '1', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'b', '-', '#', 'p', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
@@ -61,7 +63,7 @@ namespace DungeonCrawler
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
-                                                        { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '.', '-', '-', '-', '-', '-', '-', '-', '#' },
+                                                        { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '#', '#', '#', '#', 'B', '#', '#', '#', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
@@ -72,8 +74,8 @@ namespace DungeonCrawler
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '#', '#', '#' },
-                                                        { '#', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '#', 'y', '#' },
-                                                        { '#', 'c', '-', '#', 'Y', '#', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
+                                                        { '#', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '#', '-', '#' },
+                                                        { '#', 'c', '-', '#', 'G', '#', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }
         };
         public LevelCreator()
@@ -82,13 +84,16 @@ namespace DungeonCrawler
             Level level2 = CreateLevel(LevelTwo, 0);
             Level level3 = CreateLevel(LevelThree, 10);
         }
-        public Level CreateLevel(char[,] charLayout, int amountOfEnemies)
+        public static Level CreateLevel(char[,] charLayout, int amountOfEnemies)
         {
-            List<GameObject> activeGameObjects = new List<GameObject>();
+            Point entryDoor = new Point(0, 0);
+            Point exitDoor = new Point(0,0);
+            Point playerStartingPosition = new Point(0, 0);
             int levelHeight = charLayout.GetLength(0);
             int levelWidth = charLayout.GetLength(1);
             Tile[,] levelLayout = new Tile[levelHeight, levelWidth];
-            Point playerStartingPosition = new Point(0, 0);
+            List<GameObject> activeGameObjects = new List<GameObject>();
+
             for (int row = 0; row < levelHeight; row++)
             {
                 for (int column = 0; column < levelWidth; column++)
@@ -97,19 +102,12 @@ namespace DungeonCrawler
                     {
                         case '#':
                             if (row == 0 || row == levelHeight - 1 || column == 0 || column == levelWidth - 1)
-                            {
                                 levelLayout[row, column] = new Wall(true);
-                            }
                             else
-                            {
                                 levelLayout[row, column] = new Wall(false);
-                            }
                             break;
                         case '-':
                             levelLayout[row, column] = new Floor();
-                            break;
-                        case 'Y':
-                            levelLayout[row, column] = new YellowDoor(false);
                             break;
                         case 'P':
                             levelLayout[row, column] = new PurpleDoor();
@@ -123,25 +121,37 @@ namespace DungeonCrawler
                         case '.':
                             levelLayout[row, column] = new PressurePlate(row, column);
                             break;
-                        case '@':
-                            playerStartingPosition = new Point(row, column);
-                            break;
                         case 'y':
                             activeGameObjects.Add(new YellowKey(row, column));
+                            levelLayout[row, column] = new Floor();
                             break;
                         case 'p':
                             activeGameObjects.Add(new PurpleKey(row, column));
+                            levelLayout[row, column] = new Floor();
                             break;
                         case 'b':
                             activeGameObjects.Add(new BlueKey(row, column));
+                            levelLayout[row, column] = new Floor();
                             break;
                         case 'g':
                             activeGameObjects.Add(new SkeletonKey(row, column));
+                            levelLayout[row, column] = new Floor();
                             break;
                         case 'c':
                             activeGameObjects.Add(new Potion(row, column));
+                            levelLayout[row, column] = new Floor();
+                            break;
+                        case '1':
+                            entryDoor = new Point(row, column);
+                            playerStartingPosition = new Point(row, column);
+                            levelLayout[row, column] = new YellowDoor(true);
+                            break;
+                        case '2':
+                            exitDoor = new Point(row, column);
+                            levelLayout[row, column] = new YellowDoor(false);
                             break;
                         default:
+                            levelLayout[row, column] = new Floor();
                             break;
                     }
                 }
@@ -150,11 +160,19 @@ namespace DungeonCrawler
             {
                 activeGameObjects.Add(new Enemy(CreateRandomPoint(levelHeight - 2, levelWidth - 2)));
             }
-            return new Level(levelLayout, activeGameObjects, playerStartingPosition, amountOfEnemies);
+            return new Level(levelLayout, activeGameObjects, playerStartingPosition, amountOfEnemies, entryDoor, exitDoor);
         }
-        private Point CreateRandomPoint(int x, int y)
+        private static Point CreateRandomPoint(int x, int y)
         {
             return new Point(rnd.Next(1, x), rnd.Next(1, y));
+        }
+        public static Level[] GetLevels()
+        {
+            Level[] levelsToReturn = new Level[3];
+            levelsToReturn[0] = CreateLevel(LevelOne, 5);
+            levelsToReturn[1] = CreateLevel(LevelTwo, 0);
+            levelsToReturn[2] = CreateLevel(LevelThree, 10);
+            return levelsToReturn;
         }
     }
 }

@@ -12,7 +12,6 @@ namespace DungeonCrawler
             this.player = player;
             this.playerInventory = player.Inventory;
             this.gameplayManager = gameplayManager;
-            gameplayManager.Levels[(int)gameplayManager.CurrentLevel].ActiveGameObjects.Add(player);
         }
         public Point GetInput()
         {
@@ -55,12 +54,12 @@ namespace DungeonCrawler
                 {
                     if(interactableTile is ExitDoor)
                     {                       
-                        gameplayManager.CurrentState = State.ShowScore;
+                        gameplayManager.CurrentState = GameplayState.ShowScore;
                         return true;
                     }
                     else if(interactableTile is PressurePlate)
                     {
-                        gameplayManager.UnlockHiddenDoor((Door)currentLevel.Layout[1, 1]);
+                        //gameplayManager.UnlockHiddenDoor((Door)currentLevel.Layout[1, 1]);
                         return true;
                     }
                     else

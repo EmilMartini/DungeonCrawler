@@ -6,17 +6,19 @@ namespace DungeonCrawler
     public class GameplayManager
     {
         private static SoundPlayer soundPlayer;
-        private LevelLayout levelLayout;   
         private Player player;      
         private LevelRenderer levelRenderer;
-        private LevelController levelController;
         private EnemyController enemyController;
         private PlayerController playerController;
         private ConsoleOutputFilter consoleOutputFilter;  
         private Level[] levels;
-        private CurrentLevel currentLevel;
-        private CurrentLevel nextLevel;
-        private State currentState;
+        private int currentLevel;
+        private int nextLevel;
+        private GameplayState currentState;
+        private bool SuccessfulLoadLevel;
+        private bool SuccesfulExitLevel;
+        private bool SuccesfulDisplayScore;
+
         //brytit ut level skapandet till en klass. inte ha det i tre olika metoder
         //och så hade jag se till att enemycontroller och player controller manipulerar gameplay datan
         //och sedana så hade gameplaymanagern läst av hela staten och sedan bestämt om vi ska byta state(typ, win, dö, nextlevel, vad det nu är).
@@ -26,103 +28,77 @@ namespace DungeonCrawler
         //en klass för levelcreation
         //en klass för rendering
         //en klass för gamestaten / level / activeLevel
-        public GameplayManager()
+        public GameplayManager(Level[] levels)
         {
-            LevelLayout = new LevelLayout(this);
+            this.Levels = levels;
             Player = new Player();
-            LevelRenderer = new LevelRenderer(Levels, player, this);
-            LevelController = new LevelController();
+            LevelRenderer = new LevelRenderer(Levels, player);
             EnemyController = new EnemyController(this);
             PlayerController = new PlayerController(Player, this);
             ConsoleOutputFilter = new ConsoleOutputFilter(); 
             SoundPlayer = new SoundPlayer();
+            currentLevel = default;
         }
         public void RunState()
         {
             switch (CurrentState)
             {
-                case State.InitializeGame:
-                    LoadGameDependencies();
-                    break;
-                case State.WelcomeScreen:
-                    WelcomeScreen();
-                    break;
-                case State.InitializeLevel:
+                case GameplayState.InitializeLevel:
                     DisplayLevelInfo();
                     LoadCurrentLevel();
                     break;
-                case State.RunLevel:
+                case GameplayState.RunLevel:
                     RunGame(Console.Out);
                     break;
-                case State.ExitLevel:
+                case GameplayState.ExitLevel:
                     ExitLevel();
                     break;
-                case State.ShowScore:
+                case GameplayState.ShowScore:
                     DisplayScore();
-                    break;
-                case State.ExitGame:
                     break;
             }
         }
         private void DisplayScore()
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write($"\n\n\n\n\n\n\n\t\t\t\t   Moves: {player.NumberOfMoves}\n\n");
-            Console.Write($"\t\t\t     Enemies Hit: {player.EnemiesInteractedWith} * 20\n\n");
-            Console.Write($"\t\t\t       Final Score: {(player.EnemiesInteractedWith * 20) + player.NumberOfMoves}\n");
+            try
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"\n\n\n\n\n\n\n\t\t\t\t   Moves: {player.NumberOfMoves}\n\n");
+                Console.Write($"\t\t\t     Enemies Hit: {player.EnemiesInteractedWith} * 20\n\n");
+                Console.Write($"\t\t\t       Final Score: {(player.EnemiesInteractedWith * 20) + player.NumberOfMoves}\n");
 
-            Console.WriteLine("\n\n\n\t\t\t  Press any key to exit game...");
-            Console.ReadKey();
-            CurrentState = State.ExitGame;
-        }
-
-        void LoadGameDependencies()
-        {
-            LevelController.InitializeLevels();
-            CurrentState = State.WelcomeScreen;
-        }
-        void WelcomeScreen()
-        {
-            Console.WriteLine();
-            Console.WriteLine($"\tWelcome to a dungeon crawler you'll never forget.");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("\t@ ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write($"<- This is you");
-            Console.Write("! \n\tCollect keys to advance through the locked doors. \n\tBut be wary, there are ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("monsters ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("lurking these halls....\n\n\n\t\t\t\tGood luck!\n");
-            Console.WriteLine("\t\t\tPress any key to start...");
-            Console.Write($"\n\n\n\n\n\t|Legend\n\t|\n\t|Keys: K\n\t|Door: D\n\t|Player: @\n\t|Monsters: M");
-            Console.WriteLine("\n\n\n\n\n\n\n\n\tMade by:");
-            Console.WriteLine("\tJohn Andersson & Emil Martini");
-            Console.ReadKey(true);
-            Console.Clear();
-            CurrentState = State.InitializeLevel;
+                Console.WriteLine("\n\n\n\t\t\t  Press any key to exit game...");
+                Console.ReadKey();
+                SuccesfulDisplayScore = true;
+            }
+            catch (Exception)
+            {
+                SuccesfulDisplayScore = false;
+            }
         }
         void LoadCurrentLevel()
         {
-            LevelRenderer.RenderOuterWalls();
-            PlayerController.ExploreSurroundingTiles();
-            LevelRenderer.RenderLevel();
-            CurrentState = State.RunLevel;
+            try
+            {
+                LevelRenderer.RenderOuterWalls(currentLevel);
+                PlayerController.ExploreSurroundingTiles();
+                LevelRenderer.RenderLevel(currentLevel);
+                SuccessfulLoadLevel = true;
+            }
+            catch (Exception)
+            {
+                SuccessfulLoadLevel = false;
+            }
         }
         void RunGame(System.IO.TextWriter standardOutputFilter)
         {
             Console.SetOut(ConsoleOutputFilter);
             EnemyController.MoveEnemies();
             PlayerController.MovePlayer(PlayerController.GetInput());
-            if (CurrentState == State.ExitLevel)
-            {
-                Console.SetOut(standardOutputFilter);
-                return;
-            }
             PlayerController.ExploreSurroundingTiles();
             Console.SetOut(standardOutputFilter);
-            LevelRenderer.RenderLevel();
+            LevelRenderer.RenderLevel(currentLevel);
         }
         void DisplayLevelInfo()
         {
@@ -136,10 +112,16 @@ namespace DungeonCrawler
         }
         void ExitLevel()
         {
-            PlayerController.ResetPositionData();
-            CurrentLevel = NextLevel;
-            CurrentState = State.InitializeLevel;
-            Console.Clear();
+            try
+            {
+                PlayerController.ResetPositionData();
+                Console.Clear();
+                SuccesfulExitLevel = true;
+            }
+            catch (Exception)
+            {
+                SuccesfulExitLevel = false;
+            }
         }
         public void RemoveGameObject(GameObject objectToRemove)
         {
@@ -160,31 +142,76 @@ namespace DungeonCrawler
             SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\" + fileName + ".wav";
             SoundPlayer.Play();
         }
+        public GameplayState CheckState(GameplayState currentState)
+        {
+            switch (currentState)
+            {
+                case GameplayState.InitializeLevel:
+                    if (SuccessfulLoadLevel)
+                        return GameplayState.RunLevel;
+                    else
+                        return GameplayState.InitializeLevel;
 
-        public State CurrentState
+                case GameplayState.RunLevel:
+                    if (player.Position.Equals(levels[currentLevel].EntryDoor))
+                    {
+                        if (currentLevel - 1 > -1)
+                        {
+                            nextLevel = currentLevel - 1;
+                            return GameplayState.ExitLevel;
+                        } else
+                        {
+                            return GameplayState.ShowScore;
+                        }
+                    } else if(player.Position.Equals(levels[currentLevel].ExitDoor))
+                    {
+                        nextLevel = currentLevel + 1;
+                        return GameplayState.ExitLevel;
+                    }
+                    else
+                        return GameplayState.RunLevel;
+
+                case GameplayState.ExitLevel:
+                    if (SuccesfulExitLevel && nextLevel != 4)
+                    {
+                        currentLevel = nextLevel;
+                        return GameplayState.InitializeLevel;
+                    } else if (SuccesfulExitLevel && nextLevel == 4)
+                    {
+                        return GameplayState.ShowScore;
+                    }
+                    else
+                        return GameplayState.ExitLevel;
+
+                case GameplayState.ShowScore:
+                    if (SuccesfulDisplayScore)
+                        return GameplayState.ExitGame;
+                    else
+                        return GameplayState.ShowScore;
+
+                default:
+                    return GameplayState.InitializeLevel;
+            }
+        }
+        public GameplayState CurrentState
         {
             get { return currentState; }
             set { currentState = value; }
         }
-        public CurrentLevel CurrentLevel
+        public int CurrentLevel
         {
             get { return currentLevel; }
             set { currentLevel = value; }
+        }
+        public int NextLevel
+        {
+            get { return nextLevel; }
+            set { nextLevel = value; }
         }
         public Level[] Levels
         {
             get { return levels; }
             set { levels = value; }
-        }
-        public CurrentLevel NextLevel
-        {
-            get { return nextLevel; }
-            set { nextLevel = value; }
-        }
-        public LevelLayout LevelLayout
-        {
-            get { return levelLayout; }
-            set { levelLayout = value; }
         }
         public Player Player
         {
@@ -195,11 +222,6 @@ namespace DungeonCrawler
         {
             get { return levelRenderer; }
             set { levelRenderer = value; }
-        }
-        public LevelController LevelController
-        {
-            get { return levelController; }
-            set { levelController = value; }
         }
         public EnemyController EnemyController
         {

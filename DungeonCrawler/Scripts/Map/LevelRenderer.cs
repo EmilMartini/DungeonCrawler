@@ -3,18 +3,16 @@ namespace DungeonCrawler
 {
     public class LevelRenderer
     {
-        private GameplayManager gameplayManager;
         private readonly Level[] levels;
         private readonly Player player;
-        public LevelRenderer(Level[] levels, Player player, GameplayManager gameplayManager)
+        public LevelRenderer(Level[] levels, Player player)
         {
             this.levels = levels;
             this.player = player;
-            this.gameplayManager = gameplayManager;
         }
-        public void RenderLevel()
+        public void RenderLevel(int CurrentLevel)
         {
-            var currentLevel = levels[(int)gameplayManager.CurrentLevel];
+            var currentLevel = levels[CurrentLevel];
             RenderTilesAroundPlayer(currentLevel);
             RenderGameObjects(currentLevel);
             RenderPlayer();
@@ -82,9 +80,9 @@ namespace DungeonCrawler
                 Console.Write($"{player.Inventory.KeyRing[i].Graphic}");
             }
         }
-        public void RenderOuterWalls()
+        public void RenderOuterWalls(int CurrentLevel)
         {
-            var currentLevel = levels[(int)gameplayManager.CurrentLevel];
+            var currentLevel = levels[CurrentLevel];
             Console.Write("\n \n");
             for (int row = 0; row < currentLevel.Layout.GetLength(0); row++)
             {
