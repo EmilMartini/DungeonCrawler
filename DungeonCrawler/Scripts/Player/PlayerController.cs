@@ -9,7 +9,7 @@ namespace DungeonCrawler
         public PlayerController(Player player)
         {
             this.player = player;
-            this.playerInventory = player.Inventory;
+            playerInventory = player.Inventory;
         }
         public Point GetInput()
         {

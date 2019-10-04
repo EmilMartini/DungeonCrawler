@@ -5,8 +5,8 @@ namespace DungeonCrawler
     {
         public Floor()
         {
-            this.Graphic = "-";
-            this.Color = ConsoleColor.White;
+            Graphic = "-";
+            Color = ConsoleColor.White;
         }
     }
 }

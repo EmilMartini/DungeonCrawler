@@ -5,11 +5,11 @@ namespace DungeonCrawler
     {
         public YellowKey(int x, int y) : base(x,y)
         {
-            this.Position = base.Position;
-            this.LockColor = LockColor.Yellow;
-            this.NumberOfUses = 1;
-            this.Color = ConsoleColor.DarkYellow;
-            this.Graphic = "K";
+            Position = Position;
+            LockColor = LockColor.Yellow;
+            NumberOfUses = 1;
+            Color = ConsoleColor.DarkYellow;
+            Graphic = "K";
         }
     }
 }

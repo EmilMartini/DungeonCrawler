@@ -5,10 +5,10 @@ namespace DungeonCrawler
     {
         public BlueKey(int x, int y) : base(x,y)
         {
-            this.LockColor = LockColor.Blue;
-            this.NumberOfUses = 1;
-            this.Color = ConsoleColor.DarkBlue;
-            this.Graphic = "K";
+            LockColor = LockColor.Blue;
+            NumberOfUses = 1;
+            Color = ConsoleColor.DarkBlue;
+            Graphic = "K";
         }
     }
 }

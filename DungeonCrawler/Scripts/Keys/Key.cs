@@ -6,7 +6,7 @@
         private byte numberOfUses;
         public Key(int x, int y)
         {
-            this.Position = new Point(x, y);
+            Position = new Point(x, y);
         }
         public LockColor LockColor
         {

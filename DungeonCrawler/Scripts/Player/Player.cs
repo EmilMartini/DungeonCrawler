@@ -11,11 +11,11 @@ namespace DungeonCrawler
         private int numberOfMoves;
         public Player()
         {
-            this.Inventory = new PlayerInventory(this);
-            this.Graphic = "@";
-            this.Color = ConsoleColor.Green;
-            this.Position = new Point(1,1);
-            this.SurroundingPoints = new Point[8];
+            Inventory = new PlayerInventory(this);
+            Graphic = "@";
+            Color = ConsoleColor.Green;
+            Position = new Point(1,1);
+            SurroundingPoints = new Point[8];
         }
         public int EnemiesInteractedWith
         {

@@ -13,11 +13,11 @@ namespace DungeonCrawler
             {
                 foreach (Key key in player.Inventory.KeyRing)
                 {
-                    if (key.LockColor != this.LockColor)
+                    if (key.LockColor != LockColor)
                         continue;
                     
                     IsUnlocked = true;
-                    this.Color = ConsoleColor.White;
+                    Color = ConsoleColor.White;
                     player.Inventory.KeyRing.Remove(key);
                     GameplayManager.PlaySound("open-close-door");
                     return true;                    

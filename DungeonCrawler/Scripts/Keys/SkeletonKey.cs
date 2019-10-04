@@ -5,10 +5,10 @@ namespace DungeonCrawler
     {
         public SkeletonKey(int x, int y) : base(x,y)
         {
-            this.LockColor = LockColor.Skeleton;
-            this.NumberOfUses = 2;
-            this.Color = ConsoleColor.DarkGreen;
-            this.Graphic = "K";
+            LockColor = LockColor.Skeleton;
+            NumberOfUses = 2;
+            Color = ConsoleColor.DarkGreen;
+            Graphic = "K";
         }
     }
 }

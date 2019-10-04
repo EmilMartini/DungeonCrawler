@@ -5,11 +5,11 @@ namespace DungeonCrawler
     {
         public ExitDoor(bool isUnlocked)
         {
-            this.LockColor = LockColor.Skeleton;
-            this.IsExplored = false;
-            this.Graphic = "D";
-            this.Color = ConsoleColor.DarkGreen;
-            this.IsUnlocked = isUnlocked;
+            LockColor = LockColor.Skeleton;
+            IsExplored = false;
+            Graphic = "D";
+            Color = ConsoleColor.DarkGreen;
+            IsUnlocked = isUnlocked;
         }
     }
 }

@@ -10,8 +10,8 @@ namespace DungeonCrawler
     {
         public Enemy(Point spawnPoint)
         {
-            this.Graphic = "X";
-            this.Color = ConsoleColor.Red;
+            Graphic = "X";
+            Color = ConsoleColor.Red;
             Position = spawnPoint;
         }
         public bool Interact(Player player)

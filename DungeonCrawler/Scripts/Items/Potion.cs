@@ -5,10 +5,10 @@ namespace DungeonCrawler
     {
         public Potion(int x, int y)
         {
-            this.NumberOfUses = 1;
-            this.Color = ConsoleColor.Cyan;
-            this.Graphic = "P";
-            this.Position = new Point(x, y);
+            NumberOfUses = 1;
+            Color = ConsoleColor.Cyan;
+            Graphic = "P";
+            Position = new Point(x, y);
         }
         public bool Interact(Player player)
         {

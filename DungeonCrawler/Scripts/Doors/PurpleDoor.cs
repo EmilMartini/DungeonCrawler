@@ -5,10 +5,10 @@ namespace DungeonCrawler
     {
         public PurpleDoor()
         {
-            this.LockColor = LockColor.Purple;
-            this.IsExplored = false;
-            this.Color = ConsoleColor.DarkMagenta;
-            this.Graphic = "D";
+            LockColor = LockColor.Purple;
+            IsExplored = false;
+            Color = ConsoleColor.DarkMagenta;
+            Graphic = "D";
         }
     }
 }

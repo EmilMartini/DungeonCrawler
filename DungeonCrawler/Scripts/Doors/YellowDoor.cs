@@ -5,11 +5,11 @@ namespace DungeonCrawler
     {
         public YellowDoor(bool isUnlocked)
         {
-            this.LockColor = LockColor.Yellow;
-            this.IsExplored = false;
-            this.Color = ConsoleColor.DarkYellow;
-            this.Graphic = "D";
-            this.IsUnlocked = isUnlocked;
+            LockColor = LockColor.Yellow;
+            IsExplored = false;
+            Color = ConsoleColor.DarkYellow;
+            Graphic = "D";
+            IsUnlocked = isUnlocked;
         }
     }
 }
