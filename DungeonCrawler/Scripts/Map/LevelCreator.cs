@@ -74,7 +74,7 @@ namespace DungeonCrawler
         public static Level CreateLevel(char[,] charLayout, int amountOfEnemies)
         {
             Point entryDoor = new Point(0, 0);
-            Point exitDoor = new Point(0,0);
+            Point exitDoor = new Point(0, 0);
             Point playerStartingPosition = new Point(0, 0);
             int levelHeight = charLayout.GetLength(0);
             int levelWidth = charLayout.GetLength(1);
@@ -153,13 +153,14 @@ namespace DungeonCrawler
         {
             return new Point(rnd.Next(1, x), rnd.Next(1, y));
         }
-        public static Level[] GetLevels(int amount)
+        public static List<Level> GetLevels()
         {
-            Level[] levelsToReturn = new Level[amount];
-            levelsToReturn[0] = CreateLevel(LevelOne, 5);
-            levelsToReturn[1] = CreateLevel(LevelTwo, 0);
-            levelsToReturn[2] = CreateLevel(LevelThree, 10);
-            return levelsToReturn;
+            return new List<Level>
+            {
+                CreateLevel(LevelOne, 5),
+                CreateLevel(LevelTwo, 0),
+                CreateLevel(LevelThree, 10)
+            };
         }
     }
 }

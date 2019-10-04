@@ -1,20 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Media;
 using System.Threading;
 namespace DungeonCrawler
 {
     public class GameplayManager
     {
-        private static SoundPlayer soundPlayer;
-        static GameplayManager instance;
-        private Player player;      
-        private EnemyController enemyController;
-        private PlayerController playerController;
-        private ConsoleOutputFilter consoleOutputFilter;  
-        private Level[] levels;
-        private GameplayState currentState;
-        private int currentLevel;
-        private int nextLevel;
         private bool SuccessfulLoadLevel;
         private bool SuccesfulExitLevel;
         private bool SuccesfulDisplayScore;
@@ -32,7 +23,7 @@ namespace DungeonCrawler
         // exit early prylarna
         // fixa dependencies
 
-        public GameplayManager(Level[] levels, Player player)
+        public GameplayManager(List<Level> levels, Player player)
         {
             SoundPlayer = new SoundPlayer();
             Levels = levels;
@@ -40,7 +31,6 @@ namespace DungeonCrawler
             EnemyController = new EnemyController();
             PlayerController = new PlayerController(Player);
             ConsoleOutputFilter = new ConsoleOutputFilter(); 
-            currentLevel = default;
         }
         public void RunState()
         {
@@ -72,11 +62,11 @@ namespace DungeonCrawler
                         return GameplayState.InitializeLevel;
 
                 case GameplayState.RunLevel:
-                    if (player.Position.Equals(levels[currentLevel].EntryDoor))
+                    if (Player.Position.Equals(Levels[CurrentLevel].EntryDoor))
                     {
-                        if (currentLevel - 1 > -1)  
+                        if (CurrentLevel - 1 > -1)  
                         {
-                            nextLevel = currentLevel - 1;
+                            NextLevel = CurrentLevel - 1;
                             return GameplayState.ExitLevel;
                         }
                         else
@@ -84,20 +74,20 @@ namespace DungeonCrawler
                             return GameplayState.ShowScore;
                         }
                     }
-                    else if(player.Position.Equals(levels[currentLevel].ExitDoor))
+                    else if(Player.Position.Equals(Levels[CurrentLevel].ExitDoor))
                     {
-                        nextLevel = currentLevel + 1;
+                        NextLevel = CurrentLevel + 1;
                         return GameplayState.ExitLevel;
                     }
                     else
                         return GameplayState.RunLevel;
 
                 case GameplayState.ExitLevel:
-                    if (SuccesfulExitLevel && nextLevel != levels.Length + 1)
+                    if (SuccesfulExitLevel && NextLevel != Levels.Count + 1)
                     {
-                        currentLevel = nextLevel;
+                        CurrentLevel = NextLevel;
                         return GameplayState.InitializeLevel;
-                    } else if (SuccesfulExitLevel && nextLevel == levels.Length + 1)
+                    } else if (SuccesfulExitLevel && NextLevel == Levels.Count + 1)
                     {
                         return GameplayState.ShowScore;
                     }
@@ -121,9 +111,9 @@ namespace DungeonCrawler
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($"\n\n\n\n\n\n\n\t\t\t\t  Moves: {player.NumberOfMoves}\n\n");
-                Console.Write($"\t\t\t     Enemies Hit: {player.EnemiesInteractedWith} * 20\n\n");
-                Console.Write($"\t\t\t       Final Score: {(player.EnemiesInteractedWith * 20) + player.NumberOfMoves}\n");
+                Console.Write($"\n\n\n\n\n\n\n\t\t\t\t  Moves: {Player.NumberOfMoves}\n\n");
+                Console.Write($"\t\t\t     Enemies Hit: {Player.EnemiesInteractedWith} * 20\n\n");
+                Console.Write($"\t\t\t       Final Score: {(Player.EnemiesInteractedWith * 20) + Player.NumberOfMoves}\n");
 
                 Console.WriteLine("\n\n\n\t\t\t  Press any key to exit game...");
                 Console.ReadKey();
@@ -194,50 +184,14 @@ namespace DungeonCrawler
             }
         }
 
-        public GameplayState CurrentState
-        {
-            get { return currentState; }
-            set { currentState = value; }
-        }
-        public int CurrentLevel
-        {
-            get { return currentLevel; }
-            set { currentLevel = value; }
-        }
-        public int NextLevel
-        {
-            get { return nextLevel; }
-            set { nextLevel = value; }
-        }
-        public Level[] Levels
-        {
-            get { return levels; }
-            set { levels = value; }
-        }
-        public Player Player
-        {
-            get { return player; }
-            set { player = value; }
-        }
-        public EnemyController EnemyController
-        {
-            get { return enemyController; }
-            set { enemyController = value; }
-        }
-        public PlayerController PlayerController
-        {
-            get { return playerController; }
-            set { playerController = value; }
-        }
-        public ConsoleOutputFilter ConsoleOutputFilter
-        {
-            get { return consoleOutputFilter; }
-            set { consoleOutputFilter = value; }
-        }
-        public static SoundPlayer SoundPlayer
-        {
-            get { return soundPlayer; }
-            set { soundPlayer = value; }
-        }
+        public GameplayState CurrentState { get; set; }
+        public int CurrentLevel { get; set; }
+        public int NextLevel { get; set; }
+        public List<Level> Levels { get; set; }
+        public Player Player { get; set; }
+        public EnemyController EnemyController { get; set; }
+        public PlayerController PlayerController { get; set; }
+        public ConsoleOutputFilter ConsoleOutputFilter { get; set; }
+        public static SoundPlayer SoundPlayer { get; set; }
     }
 }

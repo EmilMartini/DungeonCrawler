@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace DungeonCrawler
 {
     class Program
@@ -18,8 +20,7 @@ namespace DungeonCrawler
 
         private static void InitGame()
         {
-            gameLevels = new Level[3];
-            gameLevels = LevelCreator.GetLevels(3);
+            List<Level> gameLevels = LevelCreator.GetLevels(); 
             player = new Player();
             gameplayManager = new GameplayManager(gameLevels, player);
             gameplayManager.CurrentState = GameplayState.InitializeLevel;
