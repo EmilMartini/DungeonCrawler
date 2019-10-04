@@ -78,12 +78,6 @@ namespace DungeonCrawler
                                                         { '#', 'c', '-', '#', 'G', '#', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }
         };
-        public LevelCreator()
-        {
-            Level level1 = CreateLevel(LevelOne, 8);
-            Level level2 = CreateLevel(LevelTwo, 0);
-            Level level3 = CreateLevel(LevelThree, 10);
-        }
         public static Level CreateLevel(char[,] charLayout, int amountOfEnemies)
         {
             Point entryDoor = new Point(0, 0);

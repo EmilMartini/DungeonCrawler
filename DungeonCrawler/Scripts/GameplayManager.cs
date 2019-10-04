@@ -8,7 +8,6 @@ namespace DungeonCrawler
         private static SoundPlayer soundPlayer;
         static GameplayManager instance;
         private Player player;      
-        private LevelRenderer levelRenderer;
         private EnemyController enemyController;
         private PlayerController playerController;
         private ConsoleOutputFilter consoleOutputFilter;  
@@ -20,24 +19,27 @@ namespace DungeonCrawler
         private bool SuccesfulExitLevel;
         private bool SuccesfulDisplayScore;
 
-        //brytit ut level skapandet till en klass. inte ha det i tre olika metoder
-        //och så hade jag se till att enemycontroller och player controller manipulerar gameplay datan
-        //och sedana så hade gameplaymanagern läst av hela staten och sedan bestämt om vi ska byta state(typ, win, dö, nextlevel, vad det nu är).
-        //och renderaren bör va separat ifrån level logiken. utan bör bara ta in all gameplaydata och rendera, då kan ni lägga in consoleoutput filter overriden där med
+        //DONE// brytit ut level skapandet till en klass. inte ha det i tre olika metoder
+
+        //DONE// och så hade jag se till att enemycontroller och player controller manipulerar gameplay datan
+        //DONE// och sedana så hade gameplaymanagern läst av hela staten och sedan bestämt om vi ska byta state(typ, win, dö, nextlevel, vad det nu är).
+        //DONE// och renderaren bör va separat ifrån level logiken. utan bör bara ta in all gameplaydata och rendera, då kan ni lägga in consoleoutput filter overriden där med
+        //DONE// dvs:
+        //DONE// en klass för levelcreation
+        //DONE// en klass för rendering
+
+        // typ done// en klass för gamestaten / level / activeLevel
         // exit early prylarna
-        //dvs:
-        //en klass för levelcreation
-        //en klass för rendering
-        //en klass för gamestaten / level / activeLevel
-        public GameplayManager(Level[] levels, Player player, LevelRenderer levelRenderer)
+        // fixa dependencies
+
+        public GameplayManager(Level[] levels, Player player)
         {
-            this.Levels = levels;
-            this.Player = player;
-            this.LevelRenderer = levelRenderer;
+            SoundPlayer = new SoundPlayer();
+            Levels = levels;
+            Player = player;
             EnemyController = new EnemyController();
             PlayerController = new PlayerController(Player);
             ConsoleOutputFilter = new ConsoleOutputFilter(); 
-            SoundPlayer = new SoundPlayer();
             currentLevel = default;
             Instance = this;
         }
@@ -90,11 +92,11 @@ namespace DungeonCrawler
                         return GameplayState.RunLevel;
 
                 case GameplayState.ExitLevel:
-                    if (SuccesfulExitLevel && nextLevel != 4)
+                    if (SuccesfulExitLevel && nextLevel != levels.Length + 1)
                     {
                         currentLevel = nextLevel;
                         return GameplayState.InitializeLevel;
-                    } else if (SuccesfulExitLevel && nextLevel == 4)
+                    } else if (SuccesfulExitLevel && nextLevel == levels.Length + 1)
                     {
                         return GameplayState.ShowScore;
                     }
@@ -111,7 +113,8 @@ namespace DungeonCrawler
                     return GameplayState.InitializeLevel;
             }
         }
-     private void DisplayScore()
+
+        void DisplayScore()
         {
             try
             {
@@ -181,10 +184,6 @@ namespace DungeonCrawler
             SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\" + fileName + ".wav";
             SoundPlayer.Play();
         }
-        public static GameplayManager GetManager()
-        {
-            return Instance;
-        }
         public void Update()
         {
             while (CurrentState != GameplayState.ExitGame)
@@ -218,11 +217,6 @@ namespace DungeonCrawler
         {
             get { return player; }
             set { player = value; }
-        }
-        public LevelRenderer LevelRenderer
-        {
-            get { return levelRenderer; }
-            set { levelRenderer = value; }
         }
         public EnemyController EnemyController
         {

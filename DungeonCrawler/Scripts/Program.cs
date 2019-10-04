@@ -5,12 +5,10 @@ namespace DungeonCrawler
     {
         private static Level[] gameLevels;
         private static Player player;
-        private static LevelRenderer levelRenderer;
         private static GameplayManager gameplayManager;
 
         static void Main(string[] args)
         {
-
             InitGame();
             SetConsoleProperties();
             WelcomeScreen();
@@ -23,8 +21,7 @@ namespace DungeonCrawler
             gameLevels = new Level[3];
             gameLevels = LevelCreator.GetLevels();
             player = new Player();
-            levelRenderer = new LevelRenderer(gameLevels, player);
-            gameplayManager = new GameplayManager(gameLevels, player, levelRenderer);
+            gameplayManager = new GameplayManager(gameLevels, player);
             gameplayManager.CurrentState = GameplayState.InitializeLevel;
         }
         public static void WelcomeScreen()
