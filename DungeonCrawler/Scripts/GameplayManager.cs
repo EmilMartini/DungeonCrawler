@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Media;
-using System.Threading;
 namespace DungeonCrawler
 {
     public class GameplayManager
@@ -87,7 +86,8 @@ namespace DungeonCrawler
                     {
                         CurrentLevel = NextLevel;
                         return GameplayState.InitializeLevel;
-                    } else if (SuccesfulExitLevel && NextLevel == Levels.Count + 1)
+                    }
+                    else if (SuccesfulExitLevel && NextLevel == Levels.Count + 1)
                     {
                         return GameplayState.ShowScore;
                     }

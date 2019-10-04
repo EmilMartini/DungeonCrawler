@@ -3,11 +3,9 @@ namespace DungeonCrawler
 {
     public abstract class Door : Tile, IInteractable
     {
-        private LockColor lockColor;
-        private bool isUnlocked;
         public virtual bool Interact(Player player)
         {
-            if (isUnlocked)
+            if (IsUnlocked)
             {
                 return true;
             }
@@ -15,27 +13,19 @@ namespace DungeonCrawler
             {
                 foreach (Key key in player.Inventory.KeyRing)
                 {
-                    if (key.LockColor == this.LockColor)
-                    {
-                        isUnlocked = true;
-                        this.Color = ConsoleColor.White;
-                        player.Inventory.KeyRing.Remove(key);
-                        GameplayManager.PlaySound("open-close-door");
-                        return true;
-                    }
+                    if (key.LockColor != this.LockColor)
+                        continue;
+                    
+                    IsUnlocked = true;
+                    this.Color = ConsoleColor.White;
+                    player.Inventory.KeyRing.Remove(key);
+                    GameplayManager.PlaySound("open-close-door");
+                    return true;                    
                 }
                 return false;
             }
         }
-        public LockColor LockColor
-        {
-            get { return lockColor; }
-            set { lockColor = value; }
-        }
-        public bool IsUnlocked
-        {
-            get { return isUnlocked; }
-            set { isUnlocked = value; }
-        }
+        public LockColor LockColor { get; set; }
+        public bool IsUnlocked { get; set; }
     }
 }

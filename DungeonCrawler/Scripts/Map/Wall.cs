@@ -5,9 +5,9 @@ namespace DungeonCrawler
     {
         public Wall(bool explored)
         {
-            this.Graphic = "#";
-            this.IsExplored = explored;
-            this.Color = ConsoleColor.DarkRed;
+            Graphic = "#";
+            IsExplored = explored;
+            Color = ConsoleColor.DarkRed;
         }
     }
 }

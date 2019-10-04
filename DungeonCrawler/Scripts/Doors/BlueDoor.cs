@@ -5,11 +5,11 @@ namespace DungeonCrawler
     {
         public BlueDoor()
         {
-            this.LockColor = LockColor.Blue;
-            this.IsExplored = false;
-            this.Color = ConsoleColor.DarkBlue;
-            this.Graphic = "D";
-            this.IsUnlocked = false;
+            LockColor = LockColor.Blue;
+            IsExplored = false;
+            Color = ConsoleColor.DarkBlue;
+            Graphic = "D";
+            IsUnlocked = false;
         }
     }
 }

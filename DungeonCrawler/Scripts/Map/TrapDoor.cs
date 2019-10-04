@@ -5,9 +5,9 @@ namespace DungeonCrawler
     {
         public TrapDoor( )
         {
-            this.IsExplored = false;
-            this.Color = ConsoleColor.DarkGray;
-            this.Graphic = ".";
+            IsExplored = false;
+            Color = ConsoleColor.DarkGray;
+            Graphic = ".";
         }
         public bool Interact()
         {

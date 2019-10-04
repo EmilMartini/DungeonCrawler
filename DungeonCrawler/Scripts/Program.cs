@@ -5,11 +5,10 @@ namespace DungeonCrawler
 {
     class Program
     {
-        private static Level[] gameLevels;
         private static Player player;
         private static GameplayManager gameplayManager;
 
-        static void Main(string[] args)
+        static void Main()
         {
             InitGame();
             SetConsoleProperties();

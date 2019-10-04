@@ -3,57 +3,24 @@ namespace DungeonCrawler
 {
     public class Level
     {
-        private Tile[,] layout;
-        private List<GameObject> activeGameObjects;
-        private Point[] previousEnemyPositions;
-        private Point playerStartingTile;
-        private int numberOfEnemies;
-        private Point playerPositionWhenExit;
-        private Point entryDoor;
-        private Point exitDoor;
-        public Level(Tile[,] layout,List<GameObject> gameObjects, Point playerStartingTile, int numberOfEnemies, Point EntryDoor, Point ExitDoor)
+        public Level(Tile[,] layout,List<GameObject> gameObjects, Point playerStartingTile, int numberOfEnemies, Point entryDoor, Point exitDoor)
         {
-            this.activeGameObjects = gameObjects;
-            this.layout = layout;
-            this.PlayerStartingTile = playerStartingTile;
-            this.NumberOfEnemies = numberOfEnemies;
-            this.PlayerExitPosition = PlayerStartingTile;
-            this.previousEnemyPositions = new Point[NumberOfEnemies];
-            this.entryDoor = EntryDoor;
-            this.exitDoor = ExitDoor;
+            ActiveGameObjects = gameObjects;
+            Layout = layout;
+            PlayerStartingTile = playerStartingTile;
+            NumberOfEnemies = numberOfEnemies;
+            PlayerExitPosition = PlayerStartingTile;
+            PreviousEnemyPositions = new Point[NumberOfEnemies];
+            EntryDoor = entryDoor;
+            ExitDoor = exitDoor;
         }
-        public Tile[,] Layout
-        {
-            get { return layout; }
-            set { layout = value; }
-        }
-        public Point[] PreviousEnemyPositions
-        {
-            get { return previousEnemyPositions; }
-            set { previousEnemyPositions = value; }
-        }
-        public Point PlayerStartingTile
-        {
-            get { return playerStartingTile; }
-            set { playerStartingTile = value; }
-        }
-        public int NumberOfEnemies
-        {
-            get { return numberOfEnemies; }
-            set { numberOfEnemies = value; }
-        }
-        public Point PlayerExitPosition
-        {
-            get { return playerPositionWhenExit; }
-            set { playerPositionWhenExit = value; }
-        }
-        public List<GameObject> ActiveGameObjects
-        {
-            get { return activeGameObjects; }
-            set { activeGameObjects = value; }
-        }
-
-        public Point EntryDoor { get => entryDoor; set => entryDoor = value; }
-        public Point ExitDoor { get => exitDoor; set => exitDoor = value; }
+        public Tile[,] Layout { get; set; }
+        public Point[] PreviousEnemyPositions { get; set; }
+        public Point PlayerStartingTile { get; set; }
+        public int NumberOfEnemies { get; set; }
+        public Point PlayerExitPosition { get; set; }
+        public List<GameObject> ActiveGameObjects { get; set; }
+        public Point EntryDoor { get; set; }
+        public Point ExitDoor { get; set; }
     }
 }
