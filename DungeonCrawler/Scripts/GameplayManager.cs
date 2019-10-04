@@ -41,21 +41,20 @@ namespace DungeonCrawler
             PlayerController = new PlayerController(Player);
             ConsoleOutputFilter = new ConsoleOutputFilter(); 
             currentLevel = default;
-            Instance = this;
         }
         public void RunState()
         {
             switch (CurrentState)
             {
                 case GameplayState.InitializeLevel:
-                    LevelRenderer.DisplayLevelInfo(Instance);
-                    LoadCurrentLevel(Instance);
+                    LevelRenderer.DisplayLevelInfo(this);
+                    LoadCurrentLevel();
                     break;
                 case GameplayState.RunLevel:
-                    RunGame(Console.Out, Instance);
+                    RunGame(Console.Out);
                     break;
                 case GameplayState.ExitLevel:
-                    ExitLevel(Instance);
+                    ExitLevel();
                     break;
                 case GameplayState.ShowScore:
                     DisplayScore();
@@ -75,15 +74,17 @@ namespace DungeonCrawler
                 case GameplayState.RunLevel:
                     if (player.Position.Equals(levels[currentLevel].EntryDoor))
                     {
-                        if (currentLevel - 1 > -1)
+                        if (currentLevel - 1 > -1)  
                         {
                             nextLevel = currentLevel - 1;
                             return GameplayState.ExitLevel;
-                        } else
+                        }
+                        else
                         {
                             return GameplayState.ShowScore;
                         }
-                    } else if(player.Position.Equals(levels[currentLevel].ExitDoor))
+                    }
+                    else if(player.Position.Equals(levels[currentLevel].ExitDoor))
                     {
                         nextLevel = currentLevel + 1;
                         return GameplayState.ExitLevel;
@@ -133,13 +134,13 @@ namespace DungeonCrawler
                 SuccesfulDisplayScore = false;
             }
         }
-        void LoadCurrentLevel(GameplayManager gameplayManager)
+        void LoadCurrentLevel()
         {
             try
             {
-                LevelRenderer.RenderOuterWalls(gameplayManager);
-                PlayerController.ExploreSurroundingTiles(gameplayManager);
-                LevelRenderer.RenderLevel(gameplayManager);
+                LevelRenderer.RenderOuterWalls(this);
+                PlayerController.ExploreSurroundingTiles(this);
+                LevelRenderer.RenderLevel(this);
                 SuccessfulLoadLevel = true;
             }
             catch (Exception)
@@ -147,20 +148,20 @@ namespace DungeonCrawler
                 SuccessfulLoadLevel = false;
             }
         }
-        void RunGame(System.IO.TextWriter standardOutputFilter, GameplayManager gameplayManager)
+        void RunGame(System.IO.TextWriter standardOutputFilter)
         {
             Console.SetOut(ConsoleOutputFilter);
-            EnemyController.MoveEnemies(gameplayManager);
-            PlayerController.MovePlayer(PlayerController.GetInput(), gameplayManager);
-            PlayerController.ExploreSurroundingTiles(gameplayManager);
+            EnemyController.MoveEnemies(this);
+            PlayerController.MovePlayer(PlayerController.GetInput(), this);
+            PlayerController.ExploreSurroundingTiles(this);
             Console.SetOut(standardOutputFilter);
-            LevelRenderer.RenderLevel(gameplayManager);
+            LevelRenderer.RenderLevel(this);
         }
-        void ExitLevel(GameplayManager gameplayManager)
+        void ExitLevel()
         {
             try
             {
-                PlayerController.ResetPositionData(gameplayManager);
+                PlayerController.ResetPositionData(this);
                 Console.Clear();
                 SuccesfulExitLevel = true;
             }
@@ -237,11 +238,6 @@ namespace DungeonCrawler
         {
             get { return soundPlayer; }
             set { soundPlayer = value; }
-        }
-        public static GameplayManager Instance
-        {
-            get { return instance; }
-            set { instance = value; }
         }
     }
 }

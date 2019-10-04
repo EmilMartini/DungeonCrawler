@@ -43,12 +43,13 @@ namespace DungeonCrawler
             {
                 foreach (Point previousEnemyPosition in gameplayManager.Levels[gameplayManager.CurrentLevel].PreviousEnemyPositions)
                 {
-                    if (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[previousEnemyPosition.row, previousEnemyPosition.column].IsExplored)
-                    {
-                        Console.SetCursorPosition(previousEnemyPosition.column + (previousEnemyPosition.column + 2), previousEnemyPosition.row);
-                        Console.ForegroundColor = gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[previousEnemyPosition.row, previousEnemyPosition.column].Color;
-                        Console.Write(gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[previousEnemyPosition.row, previousEnemyPosition.column].Graphic);
-                    }
+                    if (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[previousEnemyPosition.row, previousEnemyPosition.column].IsExplored == false)
+                        continue;
+                    
+                    Console.SetCursorPosition(previousEnemyPosition.column + (previousEnemyPosition.column + 2), previousEnemyPosition.row);
+                    Console.ForegroundColor = gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[previousEnemyPosition.row, previousEnemyPosition.column].Color;
+                    Console.Write(gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[previousEnemyPosition.row, previousEnemyPosition.column].Graphic);
+                    
                 }
             }
         }

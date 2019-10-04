@@ -121,7 +121,8 @@ namespace DungeonCrawler
             if (nextLevel.PlayerExitPosition.Equals(nextLevel.PlayerStartingTile))
             {
                 player.Position = nextLevel.PlayerStartingTile;
-            } else
+            }
+            else
             {
                 player.Position = nextLevel.PlayerExitPosition;
             }
