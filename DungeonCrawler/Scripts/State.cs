@@ -1,4 +1,4 @@
 ﻿namespace DungeonCrawler
 {
-    public enum State { InitializeGame, InitializeLevel, WelcomeScreen, RunLevel, ExitLevel, ExitGame }
+    public enum State { InitializeGame, InitializeLevel, WelcomeScreen, RunLevel, ExitLevel, ShowScore, ExitGame }
 }

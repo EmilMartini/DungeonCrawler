@@ -13,13 +13,14 @@ namespace DungeonCrawler
             }
             else
             {
-                foreach (Key key in player.KeysInInventory)
+                foreach (Key key in player.Inventory.KeyRing)
                 {
                     if (key.LockColor == this.LockColor)
                     {
                         isUnlocked = true;
                         this.Color = ConsoleColor.White;
-                        player.KeysInInventory.Remove(key);
+                        player.Inventory.KeyRing.Remove(key);
+                        GameplayManager.PlaySound("open-close-door");
                         return true;
                     }
                 }

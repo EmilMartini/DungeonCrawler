@@ -10,15 +10,17 @@ namespace DungeonCrawler
         private Point playerStartingTile;
         private int numberOfEnemies;
         private Point playerPositionWhenExit;
+
         public Level(Size size, Point playerStartingTile, int numberOfEnemies)
         {
             Size = size;
             PlayerStartingTile = playerStartingTile;
             NumberOfEnemies = numberOfEnemies;
-            PlayerExitPosition = PlayerStartingTile;
+            PlayerPositionWhenExit = PlayerStartingTile;
             activeGameObjects = new List<GameObject>();
             previousEnemyPositions = new Point[NumberOfEnemies];
         }
+
         public Tile[,] Layout
         {
             get { return layout; }
@@ -44,15 +46,7 @@ namespace DungeonCrawler
             get { return numberOfEnemies; }
             set { numberOfEnemies = value; }
         }
-        public Point PlayerExitPosition
-        {
-            get { return playerPositionWhenExit; }
-            set { playerPositionWhenExit = value; }
-        }
-        public List<GameObject> ActiveGameObjects
-        {
-            get { return activeGameObjects; }
-            set { activeGameObjects = value; }
-        }
+        public Point PlayerPositionWhenExit { get => playerPositionWhenExit; set => playerPositionWhenExit = value; }   //fixa enkapsulering
+        public List<GameObject> ActiveGameObjects { get => activeGameObjects; set => activeGameObjects = value; }       //fixa enkapsulering
     }
 }
