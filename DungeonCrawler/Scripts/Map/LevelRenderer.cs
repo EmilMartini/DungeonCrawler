@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+
 namespace DungeonCrawler
 {
     public class LevelRenderer
@@ -10,9 +12,9 @@ namespace DungeonCrawler
             this.levels = levels;
             this.player = player;
         }
-        public void RenderLevel(int CurrentLevel)
+        public void RenderLevel(GameplayManager gameplayManager)
         {
-            var currentLevel = levels[CurrentLevel];
+            var currentLevel = levels[gameplayManager.CurrentLevel];
             RenderTilesAroundPlayer(currentLevel);
             RenderGameObjects(currentLevel);
             RenderPlayer();
@@ -80,9 +82,9 @@ namespace DungeonCrawler
                 Console.Write($"{player.Inventory.KeyRing[i].Graphic}");
             }
         }
-        public void RenderOuterWalls(int CurrentLevel)
+        public void RenderOuterWalls(GameplayManager gameplayManager)
         {
-            var currentLevel = levels[CurrentLevel];
+            var currentLevel = levels[gameplayManager.CurrentLevel];
             Console.Write("\n \n");
             for (int row = 0; row < currentLevel.Layout.GetLength(0); row++)
             {
@@ -101,6 +103,16 @@ namespace DungeonCrawler
                 }
                 Console.Write("");
             }
+        }
+        public void DisplayLevelInfo(GameplayManager gameplayManager)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {gameplayManager.CurrentLevel + 1}");
+            Console.WriteLine($"\t\t\t          Good Luck");
+            Thread.Sleep(2500);
+            GameplayManager.PlaySound("open-close-door");
+            Console.Clear();
         }
     }
 }

@@ -3,15 +3,13 @@ namespace DungeonCrawler
 {
     public class PlayerController
     {
-        private GameplayManager gameplayManager;
         private readonly Player player;
         private readonly PlayerInventory playerInventory;
 
-        public PlayerController(Player player, GameplayManager gameplayManager)
+        public PlayerController(Player player)
         {
             this.player = player;
             this.playerInventory = player.Inventory;
-            this.gameplayManager = gameplayManager;
         }
         public Point GetInput()
         {
@@ -30,7 +28,7 @@ namespace DungeonCrawler
                     return new Point(0, 0);
             }
         }
-        public void MovePlayer(Point direction)
+        public void MovePlayer(Point direction, GameplayManager gameplayManager)
         {
             var currentLevel = gameplayManager.Levels[(int)gameplayManager.CurrentLevel];
             if(!direction.Equals(new Point(0,0)))
@@ -38,7 +36,7 @@ namespace DungeonCrawler
                 player.TargetPosition = new Point(player.Position.row + direction.row, player.Position.column + direction.column);
                 if (!(currentLevel.Layout[player.TargetPosition.row, player.TargetPosition.column] is Wall))
                 {
-                    if (CheckInteraction(player.TargetPosition, currentLevel))
+                    if (CheckInteraction(player.TargetPosition, gameplayManager))
                     {
                         UpdatePlayerPosition();
                         player.NumberOfMoves++;  
@@ -46,20 +44,15 @@ namespace DungeonCrawler
                 }          
             }
         }
-        private bool CheckInteraction(Point targetPosition, Level currentLevel)
+        private bool CheckInteraction(Point targetPosition, GameplayManager gameplayManager)
         {
-            if (currentLevel.Layout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)
+            if (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[targetPosition.row, targetPosition.column] is IInteractable interactableTile)
             {   
                 if(interactableTile.Interact(player))
                 {
                     if(interactableTile is ExitDoor)
                     {                       
                         gameplayManager.CurrentState = GameplayState.ShowScore;
-                        return true;
-                    }
-                    else if(interactableTile is PressurePlate)
-                    {
-                        //gameplayManager.UnlockHiddenDoor((Door)currentLevel.Layout[1, 1]);
                         return true;
                     }
                     else
@@ -72,7 +65,7 @@ namespace DungeonCrawler
                     return false;
                 }
             }
-            foreach (GameObject gameObject in currentLevel.ActiveGameObjects)
+            foreach (GameObject gameObject in gameplayManager.Levels[gameplayManager.CurrentLevel].ActiveGameObjects)
             {
                 if (gameObject is Player)
                 {
@@ -96,7 +89,7 @@ namespace DungeonCrawler
         {
             player.Position = player.TargetPosition;    //onödig?
         }
-        public void ExploreSurroundingTiles()
+        public void ExploreSurroundingTiles(GameplayManager gameplayManager)
         {
             int index = 0;
             Tile[,] currentLevelLayout = gameplayManager.Levels[(int)gameplayManager.CurrentLevel].Layout;
@@ -116,7 +109,7 @@ namespace DungeonCrawler
                 currentLevelLayout[player.SurroundingPoints[i].row, player.SurroundingPoints[i].column].IsExplored = true;
             }
         }
-        public void ResetPositionData()
+        public void ResetPositionData(GameplayManager gameplayManager)
         {
             var currentLevel = gameplayManager.Levels[(int)gameplayManager.CurrentLevel];
             var nextLevel = gameplayManager.Levels[(int)gameplayManager.NextLevel];

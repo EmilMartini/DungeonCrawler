@@ -6,15 +6,16 @@ namespace DungeonCrawler
     public class GameplayManager
     {
         private static SoundPlayer soundPlayer;
+        static GameplayManager instance;
         private Player player;      
         private LevelRenderer levelRenderer;
         private EnemyController enemyController;
         private PlayerController playerController;
         private ConsoleOutputFilter consoleOutputFilter;  
         private Level[] levels;
+        private GameplayState currentState;
         private int currentLevel;
         private int nextLevel;
-        private GameplayState currentState;
         private bool SuccessfulLoadLevel;
         private bool SuccesfulExitLevel;
         private bool SuccesfulDisplayScore;
@@ -28,119 +29,36 @@ namespace DungeonCrawler
         //en klass för levelcreation
         //en klass för rendering
         //en klass för gamestaten / level / activeLevel
-        public GameplayManager(Level[] levels)
+        public GameplayManager(Level[] levels, Player player, LevelRenderer levelRenderer)
         {
             this.Levels = levels;
-            Player = new Player();
-            LevelRenderer = new LevelRenderer(Levels, player);
-            EnemyController = new EnemyController(this);
-            PlayerController = new PlayerController(Player, this);
+            this.Player = player;
+            this.LevelRenderer = levelRenderer;
+            EnemyController = new EnemyController();
+            PlayerController = new PlayerController(Player);
             ConsoleOutputFilter = new ConsoleOutputFilter(); 
             SoundPlayer = new SoundPlayer();
             currentLevel = default;
+            Instance = this;
         }
         public void RunState()
         {
             switch (CurrentState)
             {
                 case GameplayState.InitializeLevel:
-                    DisplayLevelInfo();
-                    LoadCurrentLevel();
+                    LevelRenderer.DisplayLevelInfo(Instance);
+                    LoadCurrentLevel(Instance);
                     break;
                 case GameplayState.RunLevel:
-                    RunGame(Console.Out);
+                    RunGame(Console.Out, Instance);
                     break;
                 case GameplayState.ExitLevel:
-                    ExitLevel();
+                    ExitLevel(Instance);
                     break;
                 case GameplayState.ShowScore:
                     DisplayScore();
                     break;
             }
-        }
-        private void DisplayScore()
-        {
-            try
-            {
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($"\n\n\n\n\n\n\n\t\t\t\t   Moves: {player.NumberOfMoves}\n\n");
-                Console.Write($"\t\t\t     Enemies Hit: {player.EnemiesInteractedWith} * 20\n\n");
-                Console.Write($"\t\t\t       Final Score: {(player.EnemiesInteractedWith * 20) + player.NumberOfMoves}\n");
-
-                Console.WriteLine("\n\n\n\t\t\t  Press any key to exit game...");
-                Console.ReadKey();
-                SuccesfulDisplayScore = true;
-            }
-            catch (Exception)
-            {
-                SuccesfulDisplayScore = false;
-            }
-        }
-        void LoadCurrentLevel()
-        {
-            try
-            {
-                LevelRenderer.RenderOuterWalls(currentLevel);
-                PlayerController.ExploreSurroundingTiles();
-                LevelRenderer.RenderLevel(currentLevel);
-                SuccessfulLoadLevel = true;
-            }
-            catch (Exception)
-            {
-                SuccessfulLoadLevel = false;
-            }
-        }
-        void RunGame(System.IO.TextWriter standardOutputFilter)
-        {
-            Console.SetOut(ConsoleOutputFilter);
-            EnemyController.MoveEnemies();
-            PlayerController.MovePlayer(PlayerController.GetInput());
-            PlayerController.ExploreSurroundingTiles();
-            Console.SetOut(standardOutputFilter);
-            LevelRenderer.RenderLevel(currentLevel);
-        }
-        void DisplayLevelInfo()
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine();
-            Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {(int)CurrentLevel + 1}");
-            Console.WriteLine($"\t\t\t          Good Luck");
-            Thread.Sleep(2500);
-            PlaySound("open-close-door");
-            Console.Clear();
-        }
-        void ExitLevel()
-        {
-            try
-            {
-                PlayerController.ResetPositionData();
-                Console.Clear();
-                SuccesfulExitLevel = true;
-            }
-            catch (Exception)
-            {
-                SuccesfulExitLevel = false;
-            }
-        }
-        public void RemoveGameObject(GameObject objectToRemove)
-        {
-            if(Levels[(int)CurrentLevel].ActiveGameObjects.Contains(objectToRemove))
-            {
-                Levels[(int)CurrentLevel].ActiveGameObjects.Remove(objectToRemove);
-            } else
-            {
-                return;
-            }
-        }
-        public void UnlockHiddenDoor(Door doorToUnlock)
-        {
-            doorToUnlock.IsUnlocked = true;
-        }
-        public static void PlaySound(string fileName)
-        {
-            SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\" + fileName + ".wav";
-            SoundPlayer.Play();
         }
         public GameplayState CheckState(GameplayState currentState)
         {
@@ -193,6 +111,89 @@ namespace DungeonCrawler
                     return GameplayState.InitializeLevel;
             }
         }
+     private void DisplayScore()
+        {
+            try
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"\n\n\n\n\n\n\n\t\t\t\t   Moves: {player.NumberOfMoves}\n\n");
+                Console.Write($"\t\t\t     Enemies Hit: {player.EnemiesInteractedWith} * 20\n\n");
+                Console.Write($"\t\t\t       Final Score: {(player.EnemiesInteractedWith * 20) + player.NumberOfMoves}\n");
+
+                Console.WriteLine("\n\n\n\t\t\t  Press any key to exit game...");
+                Console.ReadKey();
+                SuccesfulDisplayScore = true;
+            }
+            catch (Exception)
+            {
+                SuccesfulDisplayScore = false;
+            }
+        }
+        void LoadCurrentLevel(GameplayManager gameplayManager)
+        {
+            try
+            {
+                LevelRenderer.RenderOuterWalls(gameplayManager);
+                PlayerController.ExploreSurroundingTiles(gameplayManager);
+                LevelRenderer.RenderLevel(gameplayManager);
+                SuccessfulLoadLevel = true;
+            }
+            catch (Exception)
+            {
+                SuccessfulLoadLevel = false;
+            }
+        }
+        void RunGame(System.IO.TextWriter standardOutputFilter, GameplayManager gameplayManager)
+        {
+            Console.SetOut(ConsoleOutputFilter);
+            EnemyController.MoveEnemies(gameplayManager);
+            PlayerController.MovePlayer(PlayerController.GetInput(), gameplayManager);
+            PlayerController.ExploreSurroundingTiles(gameplayManager);
+            Console.SetOut(standardOutputFilter);
+            LevelRenderer.RenderLevel(gameplayManager);
+        }
+        void ExitLevel(GameplayManager gameplayManager)
+        {
+            try
+            {
+                PlayerController.ResetPositionData(gameplayManager);
+                Console.Clear();
+                SuccesfulExitLevel = true;
+            }
+            catch (Exception)
+            {
+                SuccesfulExitLevel = false;
+            }
+        }
+        public void RemoveGameObject(GameObject objectToRemove)
+        {
+            if(Levels[(int)CurrentLevel].ActiveGameObjects.Contains(objectToRemove))
+            {
+                Levels[(int)CurrentLevel].ActiveGameObjects.Remove(objectToRemove);
+            } else
+            {
+                return;
+            }
+        }
+        public static void PlaySound(string fileName)
+        {
+            SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\" + fileName + ".wav";
+            SoundPlayer.Play();
+        }
+        public static GameplayManager GetManager()
+        {
+            return Instance;
+        }
+        public void Update()
+        {
+            while (CurrentState != GameplayState.ExitGame)
+            {
+                RunState();
+                CurrentState = CheckState(CurrentState);
+            }
+        }
+
         public GameplayState CurrentState
         {
             get { return currentState; }
@@ -242,6 +243,11 @@ namespace DungeonCrawler
         {
             get { return soundPlayer; }
             set { soundPlayer = value; }
+        }
+        public static GameplayManager Instance
+        {
+            get { return instance; }
+            set { instance = value; }
         }
     }
 }

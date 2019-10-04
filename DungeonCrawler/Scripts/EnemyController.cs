@@ -4,12 +4,11 @@ namespace DungeonCrawler
     public class EnemyController
     {
         private Random random = new Random();
-        private GameplayManager gameplayManager;
-        public EnemyController(GameplayManager gameplayManager)
+        public EnemyController()
         {
-            this.gameplayManager = gameplayManager;
         }
-        public void MoveEnemies()
+
+        public void MoveEnemies(GameplayManager gameplayManager)
         {
             int index = 0;
             Level currentLevel = gameplayManager.Levels[(int)gameplayManager.CurrentLevel];

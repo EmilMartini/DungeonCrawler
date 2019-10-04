@@ -3,23 +3,31 @@ namespace DungeonCrawler
 {
     class Program
     {
+        private static Level[] gameLevels;
+        private static Player player;
+        private static LevelRenderer levelRenderer;
+        private static GameplayManager gameplayManager;
+
         static void Main(string[] args)
         {
-            Level[] gameLevels = new Level[3];
-            gameLevels = LevelCreator.GetLevels();
-            GameplayManager gameplayManager = new GameplayManager(gameLevels);
-            gameplayManager.CurrentState = GameplayState.InitializeLevel;
 
+            InitGame();
             SetConsoleProperties();
             WelcomeScreen();
-            while (gameplayManager.CurrentState != GameplayState.ExitGame)
-            {              
-                gameplayManager.RunState();
-                gameplayManager.CurrentState = gameplayManager.CheckState(gameplayManager.CurrentState);
-            }
+            gameplayManager.Update();
             Console.Clear();
         }
-            public static void WelcomeScreen()
+
+        private static void InitGame()
+        {
+            gameLevels = new Level[3];
+            gameLevels = LevelCreator.GetLevels();
+            player = new Player();
+            levelRenderer = new LevelRenderer(gameLevels, player);
+            gameplayManager = new GameplayManager(gameLevels, player, levelRenderer);
+            gameplayManager.CurrentState = GameplayState.InitializeLevel;
+        }
+        public static void WelcomeScreen()
             {
                 Console.WriteLine();
                 Console.WriteLine($"\tWelcome to a dungeon crawler you'll never forget.");
@@ -39,7 +47,7 @@ namespace DungeonCrawler
                 Console.ReadKey(true);
                 Console.Clear();
             }
-            public static void SetConsoleProperties()
+        public static void SetConsoleProperties()
             {
                 Size consoleWindowSize = new Size(77, 36);
                 Console.CursorVisible = false;
