@@ -31,7 +31,7 @@ namespace DungeonCrawler
             LevelLayout = new LevelLayout(this);
             Player = new Player();
             LevelRenderer = new LevelRenderer(Levels, player, this);
-            LevelController = new LevelController(LevelLayout, this);
+            LevelController = new LevelController();
             EnemyController = new EnemyController(this);
             PlayerController = new PlayerController(Player, this);
             ConsoleOutputFilter = new ConsoleOutputFilter(); 
@@ -42,7 +42,6 @@ namespace DungeonCrawler
             switch (CurrentState)
             {
                 case State.InitializeGame:
-                    SetConsoleProperties();
                     LoadGameDependencies();
                     break;
                 case State.WelcomeScreen:
@@ -77,13 +76,7 @@ namespace DungeonCrawler
             Console.ReadKey();
             CurrentState = State.ExitGame;
         }
-        void SetConsoleProperties()
-        {
-            Size consoleWindowSize = new Size(77, 36);
-            Console.CursorVisible = false;
-            Console.SetWindowSize((int)consoleWindowSize.Width, (int)consoleWindowSize.Height);
-            Console.SetBufferSize((int)consoleWindowSize.Width + 1, (int)consoleWindowSize.Height + 1);
-        }
+
         void LoadGameDependencies()
         {
             LevelController.InitializeLevels();
