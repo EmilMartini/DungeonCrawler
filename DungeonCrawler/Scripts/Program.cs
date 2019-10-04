@@ -19,7 +19,7 @@ namespace DungeonCrawler
         private static void InitGame()
         {
             gameLevels = new Level[3];
-            gameLevels = LevelCreator.GetLevels();
+            gameLevels = LevelCreator.GetLevels(3);
             player = new Player();
             gameplayManager = new GameplayManager(gameLevels, player);
             gameplayManager.CurrentState = GameplayState.InitializeLevel;

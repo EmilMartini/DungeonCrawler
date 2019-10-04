@@ -120,7 +120,7 @@ namespace DungeonCrawler
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($"\n\n\n\n\n\n\n\t\t\t\t   Moves: {player.NumberOfMoves}\n\n");
+                Console.Write($"\n\n\n\n\n\n\n\t\t\t\t  Moves: {player.NumberOfMoves}\n\n");
                 Console.Write($"\t\t\t     Enemies Hit: {player.EnemiesInteractedWith} * 20\n\n");
                 Console.Write($"\t\t\t       Final Score: {(player.EnemiesInteractedWith * 20) + player.NumberOfMoves}\n");
 

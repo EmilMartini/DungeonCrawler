@@ -5,11 +5,6 @@ namespace DungeonCrawler
 {
     class LevelCreator
     {
-        private Level[] levels = new Level[3];
-        private Point[] spawnPoints = new Point[3];
-        private readonly static Point level1SpawnPoint = new Point(1, 1);
-        private readonly static Point level2SpawnPoint = new Point(14, 8);
-        private readonly static Point level3SpawnPoint = new Point(1, 1);
         private static Random rnd = new Random();
         static readonly char[,] LevelOne = new char[,] {{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
                                                         { '#', '1', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'b', '-', '#', 'p', '-', '-', '-', '-', '-', '-', '-', '#' },
@@ -34,7 +29,6 @@ namespace DungeonCrawler
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '#', 'y', '#' },
                                                         { '#', 'c', '-', '#', '2', '#', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' } };
-
         static readonly char[,] LevelTwo = new char[,] {{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', 'P', '-', '-', '-', '-', '-', '-', '-', '#', '2', '#' },
                                                         { '#', '#', '-', '#', '#', '#', '#', '#', '#', '#', '#', '#', '-', '#', '-', '#', '-', '#' },
@@ -53,7 +47,6 @@ namespace DungeonCrawler
                                                         { '#', '#', '#', '#', '#', '-', '#', '#', '-', '#', '#', '#', '#', '-', '#', '-', '#', '#' },
                                                         { '#', 'p', '-', 'B', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '#', '#' },
                                                         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' } };
-
         static readonly char[,] LevelThree = new char[,]{{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
                                                         { '#', '1', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'b', '-', '#', 'p', '-', '-', '-', '-', '-', '-', '-', '#' },
                                                         { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '#', '-', '-', '-', '-', '-', '-', '-', '-', '#' },
@@ -160,9 +153,9 @@ namespace DungeonCrawler
         {
             return new Point(rnd.Next(1, x), rnd.Next(1, y));
         }
-        public static Level[] GetLevels()
+        public static Level[] GetLevels(int amount)
         {
-            Level[] levelsToReturn = new Level[3];
+            Level[] levelsToReturn = new Level[amount];
             levelsToReturn[0] = CreateLevel(LevelOne, 5);
             levelsToReturn[1] = CreateLevel(LevelTwo, 0);
             levelsToReturn[2] = CreateLevel(LevelThree, 10);
