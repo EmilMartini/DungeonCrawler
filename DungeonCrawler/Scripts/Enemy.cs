@@ -8,11 +8,11 @@ namespace DungeonCrawler
 {
     public class Enemy : GameObject, IInteractable
     {
-        public Enemy(int startRow, int startColumn)
+        public Enemy(Point spawnPoint)
         {
             this.Graphic = "X";
             this.Color = ConsoleColor.Red;
-            Position = new Point(startRow, startColumn);
+            Position = spawnPoint;
         }
         public bool Interact(Player player)
         {

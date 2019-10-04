@@ -1,5 +1,5 @@
 ﻿using System;
-namespace DungeonCrawler.Doors
+namespace DungeonCrawler
 {
     public class PurpleDoor : Door
     {

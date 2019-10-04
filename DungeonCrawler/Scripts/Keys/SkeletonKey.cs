@@ -1,5 +1,5 @@
 ﻿using System;
-namespace DungeonCrawler.Keys
+namespace DungeonCrawler
 {
     public class SkeletonKey : Key
     {
