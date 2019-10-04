@@ -26,11 +26,7 @@ namespace DungeonCrawler
                 return false;
             }
         }
-        public Unlock Unlock
-        {
-            get { return lockColor; }
-            set { lockColor = value; }
-        }
         public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }    //Fixa enkapsulering
+        public LockColor LockColor { get => lockColor; set => lockColor = value; }
     }
 }
