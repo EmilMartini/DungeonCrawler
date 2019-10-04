@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+
 namespace DungeonCrawler
 {
     public abstract class Door : Tile, IInteractable
@@ -6,25 +8,20 @@ namespace DungeonCrawler
         public virtual bool Interact(Player player)
         {
             if (IsUnlocked)
+                return true;
+
+            foreach (var key in player.Inventory.KeyRing.Where(key => key.LockColor == LockColor))
             {
+                IsUnlocked = true;
+                Color = ConsoleColor.White;
+                player.Inventory.KeyRing.Remove(key);
+                GameplayManager.PlaySound("open-close-door");
                 return true;
             }
-            else
-            {
-                foreach (Key key in player.Inventory.KeyRing)
-                {
-                    if (key.LockColor != LockColor)
-                        continue;
-                    
-                    IsUnlocked = true;
-                    Color = ConsoleColor.White;
-                    player.Inventory.KeyRing.Remove(key);
-                    GameplayManager.PlaySound("open-close-door");
-                    return true;                    
-                }
-                return false;
-            }
+
+            return false;
         }
+
         public LockColor LockColor { get; set; }
         public bool IsUnlocked { get; set; }
     }

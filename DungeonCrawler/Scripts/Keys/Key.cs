@@ -2,22 +2,14 @@
 {
     public abstract class Key : GameObject, IInteractable
     {
-        private LockColor lockColor;
-        private byte numberOfUses;
-        public Key(int x, int y)
+        protected Key(int x, int y)
         {
             Position = new Point(x, y);
         }
-        public LockColor LockColor
-        {
-            get { return lockColor; }
-            set { lockColor = value; }
-        }
-        public byte NumberOfUses
-        {
-            get { return numberOfUses; }
-            set { numberOfUses = value; }
-        }
+        public LockColor LockColor { get; set; }
+
+        public byte NumberOfUses { get; set; }
+
         public bool Interact(Player player)
         {
             GameplayManager.PlaySound("pickup-key");

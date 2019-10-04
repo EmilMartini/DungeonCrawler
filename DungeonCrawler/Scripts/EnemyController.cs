@@ -1,62 +1,52 @@
 ﻿using System;
+using System.Linq;
+
 namespace DungeonCrawler
 {
     public class EnemyController
     {
-        private Random random = new Random();
-        public EnemyController()
-        {
-        }
+        private readonly Random random = new Random();
 
         public void MoveEnemies(GameplayManager gameplayManager)
         {
-            int index = 0;
-            Level currentLevel = gameplayManager.Levels[(int)gameplayManager.CurrentLevel];
-            foreach (GameObject gameObject in currentLevel.ActiveGameObjects)
+            var index = 0;
+            var currentLevel = gameplayManager.Levels[gameplayManager.CurrentLevel];
+            foreach (var gameObject in currentLevel.ActiveGameObjects.OfType<Enemy>())
             {
-                if(!(gameObject is Enemy))
+                int row = 0, column = 0;
+                while (row == 0 && column == 0)
                 {
-                    continue;
-                } else 
-                {
-                    int row = 0, column = 0;
-                    while (row == 0 && column == 0)
-                    {
-                        row = random.Next(-1, 2);
-                        column = random.Next(-1, 2);
-                    }
-                    Point targetEnemyPosition = new Point(gameObject.Position.row + row, gameObject.Position.column + column);
-                    if(PathAvailable(targetEnemyPosition, currentLevel))
-                    {
-                        currentLevel.PreviousEnemyPositions[index] = new Point(gameObject.Position.row, gameObject.Position.column);
-                        gameObject.Position = targetEnemyPosition;
-                        index++;
-                    }
+                    row = this.random.Next(-1, 2);
+                    column = this.random.Next(-1, 2);
                 }
+
+                var targetEnemyPosition = new Point(gameObject.Position.Row + row, gameObject.Position.Column + column);
+                
+                if (!PathAvailable(targetEnemyPosition, currentLevel))
+                    continue;
+                
+                currentLevel.PreviousEnemyPositions[index] =
+                    new Point(gameObject.Position.Row, gameObject.Position.Column);
+                
+                gameObject.Position = targetEnemyPosition;
+                index++;
             }
         }
+
         private bool PathAvailable(Point targetEnemyPosition, Level currentLevel)
         {
             var activeGameObjects = currentLevel.ActiveGameObjects;
-            var targetTile = currentLevel.Layout[targetEnemyPosition.row, targetEnemyPosition.column];
-            for (int i = 0; i < activeGameObjects.Count; i++)
+            var targetTile = currentLevel.Layout[targetEnemyPosition.Row, targetEnemyPosition.Column];
+            foreach (var gameObject in activeGameObjects)
             {
-                if(activeGameObjects[i] is Enemy)
-                {
+                if (gameObject is Enemy)
                     continue;
-                } else
-                {
-                    if (activeGameObjects[i].Position.Equals(targetEnemyPosition))
-                    {
-                        return false;
-                    }
-                }
+
+                if (gameObject.Position.Equals(targetEnemyPosition))
+                    return false;
             }
-            if (targetTile is Door || targetTile is Wall)
-            {
-                return false;
-            }
-            return true;
+
+            return !(targetTile is Door) && !(targetTile is Wall);
         }
     }
 }

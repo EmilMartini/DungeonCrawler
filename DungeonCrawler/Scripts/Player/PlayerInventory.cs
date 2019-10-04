@@ -1,32 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DungeonCrawler
 {
     class PlayerInventory
     {
-        private Player player;
-        private List<GameObject> inventory = new List<GameObject>();
-        private List<Key> keyRing = new List<Key>();
         public PlayerInventory(Player player)
         {
-            this.player = player;
+            this.Player = player;
         }
 
-        public Player Player
-        {
-            get { return player; }
-            set { player = value; }
-        }
-        public List<GameObject> Inventory
-        {
-            get { return inventory; }
-            set { inventory = value; }
-        }
-        public List<Key> KeyRing
-        {
-            get { return keyRing; }
-            set { keyRing = value; }
-        }
+        public Player Player { get; set; }
+
+        public List<GameObject> Inventory { get; set; } = new List<GameObject>();
+
+        public List<Key> KeyRing { get; set; } = new List<Key>();
     }
 }

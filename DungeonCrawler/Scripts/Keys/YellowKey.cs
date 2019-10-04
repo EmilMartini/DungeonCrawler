@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace DungeonCrawler
 {
     public class YellowKey : Key
