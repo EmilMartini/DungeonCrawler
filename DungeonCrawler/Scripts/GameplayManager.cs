@@ -19,9 +19,9 @@ namespace DungeonCrawler
         //DONE// dvs:
         //DONE// en klass för levelcreation
         //DONE// en klass för rendering
+        //DONE// exit early prylarna 
 
         // typ done// en klass för gamestaten / level / activeLevel
-        // exit early prylarna
         // fixa dependencies
 
         public GameplayManager(List<Level> levels, Player player)

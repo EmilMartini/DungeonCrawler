@@ -29,7 +29,7 @@ namespace DungeonCrawler
                     }
                     else
                     {
-                        Console.Write("");
+                        Console.Write(""); // Hur kan man göra denna early exit? går det?
                     }
                 }
 
