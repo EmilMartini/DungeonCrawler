@@ -81,7 +81,7 @@
     <Compile Include="Scripts\Map\Floor.cs" />
     <Compile Include="Scripts\Keys\Key.cs" />
     <Compile Include="Scripts\IInteractable.cs" />
-    <Compile Include="Scripts\Map\LevelRenderer.cs" />
+    <Compile Include="Scripts\Map\Renderer.cs" />
     <Compile Include="Scripts\Map\TrapDoor.cs" />
     <Compile Include="Scripts\Player\Player.cs" />
     <Compile Include="Scripts\Player\PlayerController.cs" />

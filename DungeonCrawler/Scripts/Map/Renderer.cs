@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace DungeonCrawler
 {
-    public class LevelRenderer
+    public class Renderer
     {
         public static void RenderLevel(GameplayManager gameplayManager)
         {
