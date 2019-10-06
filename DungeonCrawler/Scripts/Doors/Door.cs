@@ -18,10 +18,8 @@ namespace DungeonCrawler
                 GameplayManager.PlaySound("open-close-door");
                 return true;
             }
-
             return false;
         }
-
         public LockColor LockColor { get; set; }
         public bool IsUnlocked { get; set; }
     }

@@ -13,14 +13,14 @@ namespace DungeonCrawler
             var currentLevel = gameplayManager.Levels[gameplayManager.CurrentLevel];
             foreach (var gameObject in currentLevel.ActiveGameObjects.OfType<Enemy>())
             {
-                int row = 0, column = 0;
-                while (row == 0 && column == 0)
+                Point direction = new Point(0,0);
+                Point noDirection = new Point(0,0);
+                while (direction.Equals(noDirection))
                 {
-                    row = this.random.Next(-1, 2);
-                    column = this.random.Next(-1, 2);
+                    direction = new Point(random.Next(-1, 2), random.Next(-1, 2));
                 }
 
-                var targetEnemyPosition = new Point(gameObject.Position.Row + row, gameObject.Position.Column + column);
+                var targetEnemyPosition = new Point(gameObject.Position.Row + direction.Row, gameObject.Position.Column + direction.Column);
                 
                 if (!PathAvailable(targetEnemyPosition, currentLevel))
                     continue;

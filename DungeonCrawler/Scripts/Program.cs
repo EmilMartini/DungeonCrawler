@@ -4,8 +4,8 @@ namespace DungeonCrawler
 {
     class Program
     {
-        private static Player player;
-        private static GameplayManager gameplayManager;
+        static Player player;
+        static GameplayManager gameplayManager;
 
         static void Main()
         {
@@ -16,7 +16,7 @@ namespace DungeonCrawler
             Console.Clear();
         }
 
-        private static void InitGame()
+        static void InitGame()
         {
             var gameLevels = LevelCreator.GetLevels();
             player = new Player();
@@ -26,7 +26,7 @@ namespace DungeonCrawler
             };
         }
 
-        private static void WelcomeScreen()
+        static void WelcomeScreen()
         {
             Console.WriteLine();
             Console.WriteLine("\tWelcome to a dungeon crawler you'll never forget.");
@@ -47,7 +47,7 @@ namespace DungeonCrawler
             Console.Clear();
         }
 
-        private static void SetConsoleProperties()
+        static void SetConsoleProperties()
         {
             var consoleWindowSize = new Size(77, 36);
             Console.CursorVisible = false;

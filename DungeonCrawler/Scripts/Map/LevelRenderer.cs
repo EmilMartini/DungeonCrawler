@@ -40,7 +40,7 @@ namespace DungeonCrawler
             Console.Clear();
         }
 
-        private static void RenderTilesAroundPlayer(GameplayManager gameplayManager)
+        static void RenderTilesAroundPlayer(GameplayManager gameplayManager)
         {
             foreach (Point currentPoint in gameplayManager.Player.SurroundingPoints)
             {
@@ -49,15 +49,15 @@ namespace DungeonCrawler
             }
         }
 
-        private static void RenderGameObjects(GameplayManager gameplayManager)
+        static void RenderGameObjects(GameplayManager gameplayManager)
         {
             foreach (var gameObject in gameplayManager.Levels[gameplayManager.CurrentLevel].ActiveGameObjects)
             {
                 if (gameObject is Player)
                     continue;
 
-                if (gameplayManager.Levels[gameplayManager.CurrentLevel]
-                        .Layout[gameObject.Position.Row, gameObject.Position.Column].IsExplored == false)
+                if (!gameplayManager.Levels[gameplayManager.CurrentLevel]
+                    .Layout[gameObject.Position.Row, gameObject.Position.Column].IsExplored)
                     continue;
 
                 Print(gameObject.Position, gameObject);
@@ -65,7 +65,7 @@ namespace DungeonCrawler
             ClearOldEnemyPositions(gameplayManager);
         }
 
-        private static void ClearOldEnemyPositions(GameplayManager gameplayManager)
+        static void ClearOldEnemyPositions(GameplayManager gameplayManager)
         {
             var tileAtPosition = gameplayManager.Levels[gameplayManager.CurrentLevel].Layout;
             if (gameplayManager.Levels[gameplayManager.CurrentLevel].PreviousEnemyPositions == null)
@@ -81,12 +81,12 @@ namespace DungeonCrawler
             }
         }
 
-        private static void RenderPlayer(GameplayManager gameplayManager)
+        static void RenderPlayer(GameplayManager gameplayManager)
         {
             Print(gameplayManager.Player.Position, gameplayManager.Player);
         }
 
-        private static void RenderUserInterface(GameplayManager gameplayManager)
+        static void RenderUserInterface(GameplayManager gameplayManager)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(
@@ -110,7 +110,7 @@ namespace DungeonCrawler
             }
         }
 
-        private static void Print(Point objectPosition, Entity objectToPrint)
+        static void Print(Point objectPosition, Entity objectToPrint)
         {
             Console.SetCursorPosition(objectPosition.Column + (objectPosition.Column + 2), objectPosition.Row);
             Console.ForegroundColor = objectToPrint.Color;
