@@ -23,17 +23,12 @@ namespace DungeonCrawler
                 {
                     Console.SetCursorPosition(column + (column + 2), row);
                     Console.ForegroundColor = currentLevel.Layout[row, column].Color;
-                    if (currentLevel.Layout[row, column].IsExplored)
-                    {
-                        Console.Write($"{currentLevel.Layout[row, column].Graphic}");
-                    }
-                    else
-                    {
-                        Console.Write(""); // Hur kan man göra denna early exit? går det?
-                    }
-                }
+                    if (!currentLevel.Layout[row, column].IsExplored)
+                        continue;
 
-                Console.Write("");
+                    else
+                    Console.Write($"{currentLevel.Layout[row, column].Graphic}");
+                }
             }
         }
 

@@ -54,9 +54,6 @@ namespace DungeonCrawler
                 
                 if (!(interactableTile is ExitDoor)) 
                     return true;
-                
-                gameplayManager.CurrentState = GameplayState.ShowScore;
-                return true;
 
             }
             foreach (var gameObject in gameplayManager.Levels[gameplayManager.CurrentLevel].ActiveGameObjects)
