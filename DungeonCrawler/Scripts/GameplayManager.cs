@@ -31,6 +31,7 @@ namespace DungeonCrawler
             Player = player;
             EnemyController = new EnemyController();
             PlayerController = new PlayerController(Player);
+            ConsoleOutputFilter = new ConsoleOutputFilter();
         }
 
         public void RemoveGameObject(GameObject objectToRemove)
