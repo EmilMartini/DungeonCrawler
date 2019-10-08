@@ -5,17 +5,22 @@ namespace DungeonCrawler
 {
     public class Renderer
     {
-        public static void RenderLevel(GameplayManager gameplayManager)
+        public Renderer(GameplayManager gameplayManager)
         {
-            RenderTilesAroundPlayer(gameplayManager);
-            RenderGameObjects(gameplayManager);
-            RenderPlayer(gameplayManager);
-            RenderUserInterface(gameplayManager);
+            GameplayManager = gameplayManager;
         }
+        GameplayManager GameplayManager { get; set; }
 
-        public static void RenderOuterWalls(GameplayManager gameplayManager)
+        public void RenderLevel()
         {
-            var currentLevel = gameplayManager.Levels[gameplayManager.CurrentLevel];
+            RenderTilesAroundPlayer();
+            RenderGameObjects();
+            RenderPlayer();
+            RenderUserInterface();
+        }
+        public void RenderOuterWalls()
+        {
+            var currentLevel = GameplayManager.Levels[GameplayManager.CurrentLevel];
             Console.Write("\n \n");
             for (var row = 0; row < currentLevel.Layout.GetLength(0); row++)
             {
@@ -28,49 +33,45 @@ namespace DungeonCrawler
                 }
             }
         }
-
-        public static void DisplayLevelInfo(GameplayManager gameplayManager)
+        public void DisplayLevelInfo()
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
-            Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {gameplayManager.CurrentLevel + 1}");
+            Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {GameplayManager.CurrentLevel + 1}");
             Console.WriteLine("\t\t\t          Good Luck");
             Thread.Sleep(2500);
             Console.Clear();
         }
-
-        static void RenderTilesAroundPlayer(GameplayManager gameplayManager)
+        void RenderTilesAroundPlayer()
         {
-            foreach (Point currentPoint in gameplayManager.Player.SurroundingPoints)
+            foreach (Point currentPoint in GameplayManager.Player.SurroundingPoints)
             {
-                var objectToPrint = gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[currentPoint.Row, currentPoint.Column];
+                var objectToPrint = GameplayManager.Levels[GameplayManager.CurrentLevel].Layout[currentPoint.Row, currentPoint.Column];
                 Print(currentPoint, objectToPrint);
             }
         }
-
-        static void RenderGameObjects(GameplayManager gameplayManager)
+        void RenderGameObjects()
         {
-            foreach (var gameObject in gameplayManager.Levels[gameplayManager.CurrentLevel].ActiveGameObjects)
+            foreach (var gameObject in GameplayManager.Levels[GameplayManager.CurrentLevel].ActiveGameObjects)
             {
                 if (gameObject is Player)
                     continue;
 
-                if (!gameplayManager.Levels[gameplayManager.CurrentLevel]
+                if (!GameplayManager.Levels[GameplayManager.CurrentLevel]
                     .Layout[gameObject.Position.Row, gameObject.Position.Column].IsExplored)
                     continue;
 
                 Print(gameObject.Position, gameObject);
             }
-            ClearOldEnemyPositions(gameplayManager);
+            ClearOldEnemyPositions();
         }
-
-        static void ClearOldEnemyPositions(GameplayManager gameplayManager)
+        void ClearOldEnemyPositions()
         {
-            var tileAtPosition = gameplayManager.Levels[gameplayManager.CurrentLevel].Layout;
-            if (gameplayManager.Levels[gameplayManager.CurrentLevel].PreviousEnemyPositions == null)
+            var tileAtPosition = GameplayManager.Levels[GameplayManager.CurrentLevel].Layout;
+            if (GameplayManager.Levels[GameplayManager.CurrentLevel].PreviousEnemyPositions == null)
                 return;
 
-            foreach (var previousEnemyPosition in gameplayManager.Levels[gameplayManager.CurrentLevel]
+            foreach (var previousEnemyPosition in GameplayManager.Levels[GameplayManager.CurrentLevel]
                 .PreviousEnemyPositions)
             {
                 if (!tileAtPosition[previousEnemyPosition.Row, previousEnemyPosition.Column].IsExplored)
@@ -79,36 +80,33 @@ namespace DungeonCrawler
                 Print(previousEnemyPosition, tileAtPosition[previousEnemyPosition.Row, previousEnemyPosition.Column]);
             }
         }
-
-        static void RenderPlayer(GameplayManager gameplayManager)
+        void RenderPlayer()
         {
-            Print(gameplayManager.Player.Position, gameplayManager.Player);
+            Print(GameplayManager.Player.Position, GameplayManager.Player);
         }
-
-        static void RenderUserInterface(GameplayManager gameplayManager)
+        void RenderUserInterface()
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(
-                (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout.GetLength(1) + 1) * 2, 2);
-            Console.Write($"Number of moves:{gameplayManager.Player.NumberOfMoves}");
+                (GameplayManager.Levels[GameplayManager.CurrentLevel].Layout.GetLength(1) + 1) * 2, 2);
+            Console.Write($"Number of moves:{GameplayManager.Player.NumberOfMoves}");
 
             Console.SetCursorPosition(
-                (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout.GetLength(1) + 1) * 2, 3);
-            Console.Write($"Enemies hit: {gameplayManager.Player.EnemiesInteractedWith}");
+                (GameplayManager.Levels[GameplayManager.CurrentLevel].Layout.GetLength(1) + 1) * 2, 3);
+            Console.Write($"Enemies hit: {GameplayManager.Player.EnemiesInteractedWith}");
 
             Console.SetCursorPosition(
-                (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout.GetLength(1) + 1) * 2, 4);
+                (GameplayManager.Levels[GameplayManager.CurrentLevel].Layout.GetLength(1) + 1) * 2, 4);
             Console.Write("Keys: ");
             Console.Write("\t\t");
-            for (var i = 0; i < gameplayManager.Player.Inventory.KeyRing.Count; i++)
+            for (var i = 0; i < GameplayManager.Player.Inventory.KeyRing.Count; i++)
             {
                 Console.SetCursorPosition(
-                    (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout.GetLength(1) + 4) * 2 + i, 4);
-                Console.ForegroundColor = gameplayManager.Player.Inventory.KeyRing[i].Color;
-                Console.Write($"{gameplayManager.Player.Inventory.KeyRing[i].Graphic}");
+                    (GameplayManager.Levels[GameplayManager.CurrentLevel].Layout.GetLength(1) + 4) * 2 + i, 4);
+                Console.ForegroundColor = GameplayManager.Player.Inventory.KeyRing[i].Color;
+                Console.Write($"{GameplayManager.Player.Inventory.KeyRing[i].Graphic}");
             }
         }
-
         static void Print(Point objectPosition, Entity objectToPrint)
         {
             Console.SetCursorPosition(objectPosition.Column + (objectPosition.Column + 2), objectPosition.Row);
