@@ -11,19 +11,19 @@ namespace DungeonCrawler
         private bool succesfulExitLevel;
         private bool succesfulDisplayScore;
 
-        //DONE// brytit ut level skapandet till en klass. inte ha det i tre olika metoder
+        /*Kolla så att allt som kan vara privat är det.
+        För ni bjuder in alla som skall använda er kod att bryta encapsuleringen. Som man antar inte blir det i en klass.
+        Och om vi av någon anledning inte använder oss av encapsulering så vill vi göra det.
 
-        //DONE// och så hade jag se till att enemycontroller och player controller manipulerar gameplay datan
-        //DONE// och sedana så hade gameplaymanagern läst av hela staten och sedan bestämt om vi ska byta state(typ, win, dö, nextlevel, vad det nu är).
-        //DONE// och renderaren bör va separat ifrån level logiken. utan bör bara ta in all gameplaydata och rendera, då kan ni lägga in consoleoutput filter overriden där med
-        //DONE// dvs:
-        //DONE// en klass för levelcreation
-        //DONE// en klass för rendering
-        //DONE// exit early prylarna 
+        Det som kan vara helt privat bör vara det. t ex controllers i gameplaymanager
 
-        // typ done// en klass för gamestaten / level / activeLevel
-        // fixa dependencies
+        Kolla över alla access modifiers.
 
+        Man vill vara väldigt specifik med vad som skall kunna vara åtkomligt i en klass's instans. för att dependencies skall bli rätt. och inte (se nedan)
+
+        Det är en dålig vana att slentrian mässigt göra en klass helt statisk, då ni inte kan specificera dependencies (paramterar) i en instansiering.
+        Så, folk som använder eran kod. Kanske anroppar den statiska klassen, utan att den har blivit instansierad med sina dependencies. Vilket då blir
+        körfel och buggar.*/
         public GameplayManager(List<Level> levels, Player player)
         {
             SoundPlayer = new SoundPlayer();
@@ -61,8 +61,8 @@ namespace DungeonCrawler
         public int CurrentLevel { get; set; }
         public int NextLevel { get; set; }
         public List<Level> Levels { get; set; }
-        public Player Player { get; set; }
-        public EnemyController EnemyController { get; set; }
+        public Player Player { get; private set; }
+        public EnemyController EnemyController { get; set; } //kan vara helt privat t ex
         public PlayerController PlayerController { get; set; }
         public ConsoleOutputFilter ConsoleOutputFilter { get; set; }
         public static SoundPlayer SoundPlayer { get; set; }
@@ -193,3 +193,4 @@ namespace DungeonCrawler
         }
     }
 }
+ 
