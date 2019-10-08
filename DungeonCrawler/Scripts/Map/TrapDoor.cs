@@ -13,6 +13,7 @@ namespace DungeonCrawler
         public bool Interact(Player player)
         {
             player.NumberOfMoves += 50;
+            GameplayManager.PlaySound("trapdoor-interact");
             return true;
         }
     }
