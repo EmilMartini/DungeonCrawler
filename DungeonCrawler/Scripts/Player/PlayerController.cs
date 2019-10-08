@@ -52,8 +52,8 @@ namespace DungeonCrawler
                 if (!interactableTile.Interact(player))
                     return false;
                 
-                if (!(interactableTile is ExitDoor)) 
-                    return true;
+                if ((interactableTile is ExitDoor)) 
+                    return false;
 
             }
             foreach (var gameObject in gameplayManager.Levels[gameplayManager.CurrentLevel].ActiveGameObjects)

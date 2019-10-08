@@ -2,16 +2,17 @@
 
 namespace DungeonCrawler
 {
-    public class TrapDoor : Tile
+    public class TrapDoor : Tile, IInteractable
     {
-        public TrapDoor( )
+        public TrapDoor()
         {
             IsExplored = false;
             Color = ConsoleColor.DarkGray;
-            Graphic = ".";
+            Graphic = "_";
         }
-        public bool Interact()
+        public bool Interact(Player player)
         {
+            player.NumberOfMoves += 50;
             return true;
         }
     }
