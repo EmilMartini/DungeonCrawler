@@ -9,7 +9,6 @@ namespace DungeonCrawler
             this.Player = player;
         }
         public Player Player { get; set; }
-        public List<GameObject> Inventory { get; set; } = new List<GameObject>();
         public List<Key> KeyRing { get; set; } = new List<Key>();
     }
 }

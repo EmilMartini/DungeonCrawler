@@ -39,10 +39,11 @@ namespace DungeonCrawler
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("monsters ");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("lurking these halls....\n\n\n\t\t\t\tGood luck!\n");
+            Console.Write("lurking these halls....\n");
+            Console.Write("\n\n\n\n\n\t|Legend\n\t|\n\t|Keys: K\n\t|Door: D\n\t|Monsters: X\n\t|Potion: P\n\n\n\n");
+            Console.WriteLine("\t\t\t\tGood luck!\n");
             Console.WriteLine("\t\t\tPress any key to start...");
-            Console.Write("\n\n\n\n\n\t|Legend\n\t|\n\t|Keys: K\n\t|Door: D\n\t|Monsters: X\n\t|Potion: P");
-            Console.WriteLine("\n\n\n\n\n\n\n\n\tMade by:");
+            Console.WriteLine("\n\n\n\n\n\n\tMade by:");
             Console.WriteLine("\tJohn Andersson & Emil Martini");
             Console.ReadKey(true);
             Console.Clear();
@@ -52,6 +53,7 @@ namespace DungeonCrawler
         {
             var consoleWindowSize = new Size(77, 36);
             Console.CursorVisible = false;
+            Console.Title = "Dungeon Crawler 1 : The Beginning";
             Console.SetWindowSize((int) consoleWindowSize.Width, (int) consoleWindowSize.Height);
             Console.SetBufferSize((int) consoleWindowSize.Width + 1, (int) consoleWindowSize.Height + 1);
         }
