@@ -29,6 +29,7 @@ namespace DungeonCrawler
         public EnemyController EnemyController { get; set; } //kan vara helt privat t ex
         public PlayerController PlayerController { get; set; }
         public ConsoleOutputFilter ConsoleOutputFilter { get; set; }
+        public Renderer Renderer { get; }
         public static SoundPlayer SoundPlayer { get; set; }
         public void RemoveGameObject(GameObject objectToRemove)
         {
