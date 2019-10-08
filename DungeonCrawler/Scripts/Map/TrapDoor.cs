@@ -2,7 +2,7 @@
 
 namespace DungeonCrawler
 {
-    public class TrapDoor : Tile
+    public class TrapDoor : Tile, IInteractable
     {
         public TrapDoor()
         {

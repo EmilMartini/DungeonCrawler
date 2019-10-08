@@ -49,8 +49,8 @@ namespace DungeonCrawler
         {
             if (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[targetPosition.Row, targetPosition.Column] is IInteractable interactableTile)
             {
-                if (interactableTile.Interact(player))
-                    return true;
+                if (!interactableTile.Interact(player))
+                    return false;
                 
                 if ((interactableTile is ExitDoor)) 
                     return false;
