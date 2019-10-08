@@ -2,9 +2,9 @@
 
 namespace DungeonCrawler
 {
-    public class Potion : Consumable, IInteractable
+    public class BluePotion : Consumable, IInteractable
     {
-        public Potion(int x, int y)
+        public BluePotion(int x, int y)
         {
             NumberOfUses = 1;
             Color = ConsoleColor.Cyan;
@@ -13,10 +13,10 @@ namespace DungeonCrawler
         }
         public bool Interact(Player player)
         {
-            if(player.NumberOfMoves - 50 <= 0)
+            if(player.NumberOfMoves - 100 <= 0)
                 player.NumberOfMoves = 0;
             else
-                player.NumberOfMoves -= 50;
+                player.NumberOfMoves -= 100;
             return true;
         }
     }
