@@ -5,6 +5,8 @@ namespace DungeonCrawler
 {
     public abstract class Door : Tile, IInteractable
     {
+        public LockColor LockColor { get; set; }
+        public bool IsUnlocked { get; set; }
         public virtual bool Interact(Player player)
         {
             if (IsUnlocked)
