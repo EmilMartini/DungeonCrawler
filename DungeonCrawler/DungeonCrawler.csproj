@@ -111,6 +111,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="welcomescreen-sound.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="potion-interact.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
