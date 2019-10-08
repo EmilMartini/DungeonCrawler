@@ -15,7 +15,7 @@ namespace DungeonCrawler
                 IsUnlocked = true;
                 Color = ConsoleColor.White;
                 player.Inventory.KeyRing.Remove(key);
-                GameplayManager.PlaySound("open-close-door");
+                GameplayManager.PlaySound("unlock-door");
                 return true;
             }
             return false;

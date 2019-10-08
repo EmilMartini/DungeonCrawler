@@ -36,7 +36,6 @@ namespace DungeonCrawler
             Console.WriteLine($"\n\n\n\n\n\n\n\t\t\t       Entering level {gameplayManager.CurrentLevel + 1}");
             Console.WriteLine("\t\t\t          Good Luck");
             Thread.Sleep(2500);
-            GameplayManager.PlaySound("open-close-door");
             Console.Clear();
         }
 
