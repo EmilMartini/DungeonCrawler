@@ -19,6 +19,7 @@ namespace DungeonCrawler
             EnemyController = new EnemyController();
             PlayerController = new PlayerController(Player);
             ConsoleOutputFilter = new ConsoleOutputFilter();
+            Renderer = new Renderer(this);
         }
         public GameplayState CurrentState { get; set; }
         public int CurrentLevel { get; set; }
@@ -55,7 +56,7 @@ namespace DungeonCrawler
             switch (CurrentState)
             {
                 case GameplayState.InitializeLevel:
-                    Renderer.DisplayLevelInfo(this);
+                    Renderer.DisplayLevelInfo();
                     LoadCurrentLevel();
                     break;
                 case GameplayState.RunLevel:
@@ -140,9 +141,9 @@ namespace DungeonCrawler
         {
             try
             {
-                Renderer.RenderOuterWalls(this);
+                Renderer.RenderOuterWalls();
                 PlayerController.ExploreSurroundingTiles(this);
-                Renderer.RenderLevel(this);
+                Renderer.RenderLevel();
                 this.successfulLoadLevel = true;
             }
             catch (Exception)
@@ -158,7 +159,7 @@ namespace DungeonCrawler
             PlayerController.MovePlayer(PlayerController.GetInput(), this);
             PlayerController.ExploreSurroundingTiles(this);
             Console.SetOut(standardOutputFilter);
-            Renderer.RenderLevel(this);
+            Renderer.RenderLevel();
         }
 
         private void ExitLevel()
