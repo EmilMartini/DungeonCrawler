@@ -64,7 +64,7 @@ namespace DungeonCrawler
         Renderer Renderer { get; set; } 
         GameplayState CurrentState { get; set; }
         public int CurrentLevel { get; private set; }
-        public int NextLevel { get; set; }
+        public int NextLevel { get; private set; }
         public List<Level> Levels { get; private set; }
         public Player Player { get; private set; }
         EnemyController EnemyController { get; set; }
