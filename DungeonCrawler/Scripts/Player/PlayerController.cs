@@ -49,11 +49,11 @@ namespace DungeonCrawler
         {
             if (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[targetPosition.Row, targetPosition.Column] is IInteractable interactableTile)
             {
-                if (!interactableTile.Interact(player))
-                    return false;
-                
-                if (!(interactableTile is ExitDoor)) 
+                if (interactableTile.Interact(player))
                     return true;
+                
+                if ((interactableTile is ExitDoor)) 
+                    return false;
 
             }
             foreach (var gameObject in gameplayManager.Levels[gameplayManager.CurrentLevel].ActiveGameObjects)
@@ -65,8 +65,8 @@ namespace DungeonCrawler
                     !(gameObject is IInteractable interactableGameObject))
                     continue;
                 
-                if (!interactableGameObject.Interact(player)) 
-                    return false;
+                if (interactableGameObject.Interact(player)) 
+                    return true;
                 
                 gameplayManager.RemoveGameObject(gameObject);
                 return true;

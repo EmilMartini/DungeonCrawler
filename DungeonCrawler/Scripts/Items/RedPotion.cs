@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonCrawler
 {
-    class RedPotion : Consumable
+    public class RedPotion : Consumable, IInteractable
     {
         public RedPotion(int x, int y)
         {

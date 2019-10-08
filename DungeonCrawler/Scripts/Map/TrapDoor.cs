@@ -8,7 +8,7 @@ namespace DungeonCrawler
         {
             IsExplored = false;
             Color = ConsoleColor.DarkGray;
-            Graphic = ".";
+            Graphic = "_";
         }
         public bool Interact()
         {
