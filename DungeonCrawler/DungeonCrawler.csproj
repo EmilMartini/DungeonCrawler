@@ -112,6 +112,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="trapdoor-interact.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="open-close-door.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
