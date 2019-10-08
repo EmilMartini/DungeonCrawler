@@ -65,8 +65,8 @@ namespace DungeonCrawler
                     !(gameObject is IInteractable interactableGameObject))
                     continue;
                 
-                if (interactableGameObject.Interact(player)) 
-                    return true;
+                if (!interactableGameObject.Interact(player)) 
+                    return false;
                 
                 gameplayManager.RemoveGameObject(gameObject);
                 return true;
