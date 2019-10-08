@@ -11,19 +11,6 @@ namespace DungeonCrawler
         private bool succesfulExitLevel;
         private bool succesfulDisplayScore;
 
-        /*Kolla så att allt som kan vara privat är det.
-        För ni bjuder in alla som skall använda er kod att bryta encapsuleringen. Som man antar inte blir det i en klass.
-        Och om vi av någon anledning inte använder oss av encapsulering så vill vi göra det.
-
-        Det som kan vara helt privat bör vara det. t ex controllers i gameplaymanager
-
-        Kolla över alla access modifiers.
-
-        Man vill vara väldigt specifik med vad som skall kunna vara åtkomligt i en klass's instans. för att dependencies skall bli rätt. och inte (se nedan)
-
-        Det är en dålig vana att slentrian mässigt göra en klass helt statisk, då ni inte kan specificera dependencies (paramterar) i en instansiering.
-        Så, folk som använder eran kod. Kanske anroppar den statiska klassen, utan att den har blivit instansierad med sina dependencies. Vilket då blir
-        körfel och buggar.*/
         public GameplayManager(List<Level> levels, Player player)
         {
             SoundPlayer = new SoundPlayer();
@@ -33,7 +20,15 @@ namespace DungeonCrawler
             PlayerController = new PlayerController(Player);
             ConsoleOutputFilter = new ConsoleOutputFilter();
         }
-
+        public GameplayState CurrentState { get; set; }
+        public int CurrentLevel { get; set; }
+        public int NextLevel { get; set; }
+        public List<Level> Levels { get; set; }
+        public Player Player { get; private set; }
+        public EnemyController EnemyController { get; set; } //kan vara helt privat t ex
+        public PlayerController PlayerController { get; set; }
+        public ConsoleOutputFilter ConsoleOutputFilter { get; set; }
+        public static SoundPlayer SoundPlayer { get; set; }
         public void RemoveGameObject(GameObject objectToRemove)
         {
             if (Levels[CurrentLevel].ActiveGameObjects.Contains(objectToRemove))
@@ -54,16 +49,6 @@ namespace DungeonCrawler
                 CurrentState = CheckState(CurrentState);
             }
         }
-
-        public GameplayState CurrentState { get; set; }
-        public int CurrentLevel { get; set; }
-        public int NextLevel { get; set; }
-        public List<Level> Levels { get; set; }
-        public Player Player { get; private set; }
-        public EnemyController EnemyController { get; set; } //kan vara helt privat t ex
-        public PlayerController PlayerController { get; set; }
-        public ConsoleOutputFilter ConsoleOutputFilter { get; set; }
-        public static SoundPlayer SoundPlayer { get; set; }
 
         private void RunState()
         {
