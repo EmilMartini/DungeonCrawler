@@ -110,12 +110,12 @@ namespace DungeonCrawler
                         return GameplayState.RunLevel;
 
                 case GameplayState.ExitLevel:
-                    if (this.succesfulExitLevel && NextLevel != Levels.Count + 1)
+                    if (this.succesfulExitLevel && NextLevel != Levels.Count)
                     {
                         CurrentLevel = NextLevel;
                         return GameplayState.InitializeLevel;
                     }
-                    else if (this.succesfulExitLevel && NextLevel == Levels.Count + 1)
+                    else if (this.succesfulExitLevel && NextLevel >= Levels.Count)
                     {
                         return GameplayState.ShowScore;
                     }

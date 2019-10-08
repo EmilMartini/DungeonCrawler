@@ -115,6 +115,7 @@ namespace DungeonCrawler
                             levelLayout[row, column] = new BlueDoor();
                             break;
                         case 'G':
+                            exitDoor = new Point(row, column);
                             levelLayout[row, column] = new ExitDoor(false);
                             break;
                         case '.':

@@ -100,6 +100,9 @@ namespace DungeonCrawler
         }
         public void ResetPositionData(GameplayManager gameplayManager)
         {
+            if (gameplayManager.NextLevel >= gameplayManager.Levels.Count)
+                return;
+
             var currentLevel = gameplayManager.Levels[gameplayManager.CurrentLevel];
             var nextLevel = gameplayManager.Levels[gameplayManager.NextLevel];
             for (var i = 0; i < player.SurroundingPoints.Length; i++)
