@@ -138,7 +138,7 @@ namespace DungeonCrawler
                             levelLayout[row, column] = new Floor();
                             break;
                         case 'c':
-                            activeGameObjects.Add(new Potion(row, column));
+                            activeGameObjects.Add(new BluePotion(row, column));
                             levelLayout[row, column] = new Floor();
                             break;
                         case '1':
