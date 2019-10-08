@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DungeonCrawler
 {
@@ -6,7 +7,6 @@ namespace DungeonCrawler
     {
         public Player()
         {
-            Inventory = new PlayerInventory(this);
             Graphic = "@";
             Color = ConsoleColor.Green;
             Position = new Point(1,1);
@@ -16,6 +16,6 @@ namespace DungeonCrawler
         public Point TargetPosition { get; set; }
         public int NumberOfMoves { get; set; }
         public Point[] SurroundingPoints { get; set; }
-        internal PlayerInventory Inventory { get; set; }
+        public List<Key> KeyRing { get; set; } = new List<Key>();
     }
 }

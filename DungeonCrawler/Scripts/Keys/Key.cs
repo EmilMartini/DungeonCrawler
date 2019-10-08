@@ -7,11 +7,11 @@
             Position = new Point(x, y);
         }
         public LockColor LockColor { get; set; }
-        public byte NumberOfUses { get; set; }
+        protected byte NumberOfUses { get; set; }
         public bool Interact(Player player)
         {
             GameplayManager.PlaySound("pickup-key");
-            player.Inventory.KeyRing.Add(this);
+            player.KeyRing.Add(this);
             return true;            
         }
     }

@@ -5,7 +5,7 @@ namespace DungeonCrawler
 {
     class LevelCreator
     {
-        static Random random = new Random();
+        static readonly Random random = new Random();
 
         static readonly char[,] LevelOne = {{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
                                                     { '#', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'b', '-', '#', 'p', '-', '-', '-', '-', '-', '-', '-', '#' },

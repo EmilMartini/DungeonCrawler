@@ -4,13 +4,11 @@ namespace DungeonCrawler
 {
     public class PlayerController
     {
-        private readonly Player player;
-        private readonly PlayerInventory playerInventory;
+        readonly Player player;
 
         public PlayerController(Player player)
         {
             this.player = player;
-            playerInventory = player.Inventory;
         }
         public Point GetInput()
         {
@@ -45,7 +43,7 @@ namespace DungeonCrawler
             UpdatePlayerPosition();
             player.NumberOfMoves++;
         }
-        private bool CheckInteraction(Point targetPosition, GameplayManager gameplayManager)
+        bool CheckInteraction(Point targetPosition, GameplayManager gameplayManager)
         {
             if (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[targetPosition.Row, targetPosition.Column] is IInteractable interactableTile)
             {
@@ -73,8 +71,7 @@ namespace DungeonCrawler
             }
             return true;
         }
-
-        private void UpdatePlayerPosition()
+        void UpdatePlayerPosition()
         {
             player.Position = player.TargetPosition;
         }

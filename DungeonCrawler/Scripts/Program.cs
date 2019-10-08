@@ -20,12 +20,10 @@ namespace DungeonCrawler
         {
             var gameLevels = LevelCreator.GetLevels();
             player = new Player();
-            gameplayManager = new GameplayManager(gameLevels, player)
-            {
-                CurrentState = GameplayState.InitializeLevel
-            };
+            gameplayManager = new GameplayManager(gameLevels, player);
+            gameplayManager.Init();
         }
-
+        
         static void WelcomeScreen()
         {
             GameplayManager.PlaySound("welcomescreen-sound");

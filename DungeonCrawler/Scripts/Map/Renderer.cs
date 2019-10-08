@@ -99,15 +99,15 @@ namespace DungeonCrawler
                 (GameplayManager.Levels[GameplayManager.CurrentLevel].Layout.GetLength(1) + 1) * 2, 4);
             Console.Write("Keys: ");
             Console.Write("\t\t");
-            for (var i = 0; i < GameplayManager.Player.Inventory.KeyRing.Count; i++)
+            for (var i = 0; i < GameplayManager.Player.KeyRing.Count; i++)
             {
                 Console.SetCursorPosition(
                     (GameplayManager.Levels[GameplayManager.CurrentLevel].Layout.GetLength(1) + 4) * 2 + i, 4);
-                Console.ForegroundColor = GameplayManager.Player.Inventory.KeyRing[i].Color;
-                Console.Write($"{GameplayManager.Player.Inventory.KeyRing[i].Graphic}");
+                Console.ForegroundColor = GameplayManager.Player.KeyRing[i].Color;
+                Console.Write($"{GameplayManager.Player.KeyRing[i].Graphic}");
             }
         }
-        static void Print(Point objectPosition, Entity objectToPrint)
+        void Print(Point objectPosition, Entity objectToPrint)
         {
             Console.SetCursorPosition(objectPosition.Column + (objectPosition.Column + 2), objectPosition.Row);
             Console.ForegroundColor = objectToPrint.Color;

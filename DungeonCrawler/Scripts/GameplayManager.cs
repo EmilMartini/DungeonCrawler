@@ -7,9 +7,14 @@ namespace DungeonCrawler
 {
     public class GameplayManager
     {
-        private bool successfulLoadLevel;
-        private bool succesfulExitLevel;
-        private bool succesfulDisplayScore;
+        bool successfulLoadLevel;
+        bool succesfulExitLevel;
+        bool succesfulDisplayScore;
+
+        public void Init()
+        {
+            CurrentState = GameplayState.InitializeLevel;
+        }
 
         /*Kolla så att allt som kan vara privat är det.
         För ni bjuder in alla som skall använda er kod att bryta encapsuleringen. Som man antar inte blir det i en klass.
@@ -56,18 +61,18 @@ namespace DungeonCrawler
             }
         }
 
-        private Renderer Renderer { get; set; } 
-        public GameplayState CurrentState { get; set; }
-        public int CurrentLevel { get; set; }
+        Renderer Renderer { get; set; } 
+        GameplayState CurrentState { get; set; }
+        public int CurrentLevel { get; private set; }
         public int NextLevel { get; set; }
-        public List<Level> Levels { get; set; }
+        public List<Level> Levels { get; private set; }
         public Player Player { get; private set; }
-        public EnemyController EnemyController { get; set; } //kan vara helt privat t ex
-        public PlayerController PlayerController { get; set; }
-        public ConsoleOutputFilter ConsoleOutputFilter { get; set; }
-        public static SoundPlayer SoundPlayer { get; set; }
+        EnemyController EnemyController { get; set; }
+        PlayerController PlayerController { get; set; }
+        ConsoleOutputFilter ConsoleOutputFilter { get; set; }
+        static SoundPlayer SoundPlayer { get; set; }
 
-        private void RunState()
+        void RunState()
         {
             switch (CurrentState)
             {
@@ -87,7 +92,7 @@ namespace DungeonCrawler
             }
         }
 
-        private GameplayState CheckState(GameplayState currentState)
+        GameplayState CheckState(GameplayState currentState)
         {
             switch (currentState)
             {
@@ -132,7 +137,7 @@ namespace DungeonCrawler
             }
         }
         
-        private void DisplayScore()
+        void DisplayScore()
         {
             try
             {
@@ -153,7 +158,7 @@ namespace DungeonCrawler
             }
         }
 
-        private void LoadCurrentLevel()
+        void LoadCurrentLevel()
         {
             try
             {
@@ -168,7 +173,7 @@ namespace DungeonCrawler
             }
         }
 
-        private void RunGame(TextWriter standardOutputFilter)
+        void RunGame(TextWriter standardOutputFilter)
         {
             Console.SetOut(ConsoleOutputFilter);
             EnemyController.MoveEnemies(this);
@@ -178,7 +183,7 @@ namespace DungeonCrawler
             Renderer.RenderLevel();
         }
 
-        private void ExitLevel()
+        void ExitLevel()
         {
             try
             {

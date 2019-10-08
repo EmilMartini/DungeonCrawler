@@ -10,17 +10,17 @@ namespace DungeonCrawler
             if (IsUnlocked)
                 return true;
 
-            foreach (var key in player.Inventory.KeyRing.Where(key => key.LockColor == LockColor))
+            foreach (var key in player.KeyRing.Where(key => key.LockColor == LockColor))
             {
                 IsUnlocked = true;
                 Color = ConsoleColor.White;
-                player.Inventory.KeyRing.Remove(key);
+                player.KeyRing.Remove(key);
                 GameplayManager.PlaySound("unlock-door");
                 return true;
             }
             return false;
         }
-        public LockColor LockColor { get; set; }
-        public bool IsUnlocked { get; set; }
+        protected LockColor LockColor { get; set; }
+        protected bool IsUnlocked { get; set; }
     }
 }
