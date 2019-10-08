@@ -14,6 +14,7 @@ namespace DungeonCrawler
         public bool Interact(Player player)
         {
             player.NumberOfMoves += 100;
+            GameplayManager.PlaySound("potion-interact");
             return true;
         }
     }

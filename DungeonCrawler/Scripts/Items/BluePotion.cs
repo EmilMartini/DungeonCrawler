@@ -13,7 +13,8 @@ namespace DungeonCrawler
         }
         public bool Interact(Player player)
         {
-            if(player.NumberOfMoves - 100 <= 0)
+            GameplayManager.PlaySound("potion-interact");
+            if (player.NumberOfMoves - 100 <= 0)
                 player.NumberOfMoves = 0;
             else
                 player.NumberOfMoves -= 100;
