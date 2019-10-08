@@ -13,6 +13,7 @@ namespace DungeonCrawler
         public bool Interact(Player player)
         {
             player.EnemiesInteractedWith++;
+            GameplayManager.PlaySound("monster-moan");
             return true;
         }
     }
