@@ -6,7 +6,7 @@
         {
             Position = new Point(x, y);
         }
-        public LockColor LockColor { get; private set; }
+        public LockColor LockColor { get; protected set; }
         public bool Interact(Player player)
         {
             GameplayManager.PlaySound("pickup-key");
