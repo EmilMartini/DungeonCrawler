@@ -11,6 +11,7 @@ namespace DungeonCrawler
         }
         public override void Write(char value)
         {
+            //Disables the printing of chars to console when handling input
         }
     }
 }

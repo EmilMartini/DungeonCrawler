@@ -4,10 +4,10 @@ namespace DungeonCrawler
 {
     class Program
     {
-        static Player player;
-        static GameplayManager gameplayManager;
+        private static Player player;
+        private static GameplayManager gameplayManager;
 
-        static void Main()
+        private static void Main()
         {
             InitGame();
             SetConsoleProperties();
@@ -16,7 +16,7 @@ namespace DungeonCrawler
             Console.Clear();
         }
 
-        static void InitGame()
+        private static void InitGame()
         {
             var gameLevels = LevelCreator.GetLevels();
             player = new Player();
@@ -24,7 +24,7 @@ namespace DungeonCrawler
             gameplayManager.Init();
         }
         
-        static void WelcomeScreen()
+        private static void WelcomeScreen()
         {
             GameplayManager.PlaySound("welcomescreen-sound");
             Console.WriteLine();
@@ -47,7 +47,7 @@ namespace DungeonCrawler
             Console.Clear();
         }
 
-        static void SetConsoleProperties()
+        private static void SetConsoleProperties()
         {
             var consoleWindowSize = new Size(77, 36);
             Console.CursorVisible = false;

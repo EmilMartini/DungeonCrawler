@@ -2,11 +2,10 @@
 
 namespace DungeonCrawler
 {
-    public class BluePotion : Consumable, IInteractable
+    public class BluePotion : GameObject, IInteractable
     {
         public BluePotion(int x, int y)
         {
-            NumberOfUses = 1;
             Color = ConsoleColor.Cyan;
             Graphic = "P";
             Position = new Point(x, y);

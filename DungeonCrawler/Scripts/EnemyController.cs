@@ -5,7 +5,7 @@ namespace DungeonCrawler
 {
     public class EnemyController
     {
-        readonly Random random = new Random();
+        private readonly Random random = new Random();
         public void MoveEnemies(GameplayManager gameplayManager)
         {
             var index = 0;
@@ -32,7 +32,7 @@ namespace DungeonCrawler
             }
         }
 
-        bool PathAvailable(Point targetEnemyPosition, Level currentLevel)
+        private bool PathAvailable(Point targetEnemyPosition, Level currentLevel)
         {
             var activeGameObjects = currentLevel.ActiveGameObjects;
             var targetTile = currentLevel.Layout[targetEnemyPosition.Row, targetEnemyPosition.Column];

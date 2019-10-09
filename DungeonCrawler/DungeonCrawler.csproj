@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="Scripts\Items\RedPotion.cs" />
     <Compile Include="Scripts\Map\LevelCreator.cs" />
-    <Compile Include="Scripts\Items\Consumable.cs" />
     <Compile Include="Scripts\Items\BluePotion.cs" />
     <Compile Include="Scripts\ConsoleOutputFilter.cs" />
     <Compile Include="Scripts\Doors\BlueDoor.cs" />

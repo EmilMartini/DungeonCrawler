@@ -4,7 +4,7 @@ namespace DungeonCrawler
 {
     public class PlayerController
     {
-        readonly Player player;
+        private readonly Player player;
 
         public PlayerController(Player player)
         {
@@ -27,7 +27,7 @@ namespace DungeonCrawler
                     return new Point(0, 0);
             }
         }
-        public void MovePlayer(Point direction, GameplayManager gameplayManager)
+        public void UpdatePlayer(Point direction, GameplayManager gameplayManager)
         {
             var currentLevel = gameplayManager.Levels[gameplayManager.CurrentLevel];
             if (direction.Equals(new Point(0, 0)))
@@ -42,38 +42,6 @@ namespace DungeonCrawler
             
             UpdatePlayerPosition();
             player.NumberOfMoves++;
-        }
-        bool CheckInteraction(Point targetPosition, GameplayManager gameplayManager)
-        {
-            if (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[targetPosition.Row, targetPosition.Column] is IInteractable interactableTile)
-            {
-                if (!interactableTile.Interact(player))
-                    return false;
-                
-                if (!(interactableTile is ExitDoor)) 
-                    return true;
-
-            }
-            foreach (var gameObject in gameplayManager.Levels[gameplayManager.CurrentLevel].ActiveGameObjects)
-            {
-                if (gameObject is Player)
-                    continue;
-
-                if (!gameObject.Position.Equals(targetPosition) ||
-                    !(gameObject is IInteractable interactableGameObject))
-                    continue;
-                
-                if (!interactableGameObject.Interact(player)) 
-                    return false;
-                
-                gameplayManager.RemoveGameObject(gameObject);
-                return true;
-            }
-            return true;
-        }
-        void UpdatePlayerPosition()
-        {
-            player.Position = player.TargetPosition;
         }
         public void ExploreSurroundingTiles(GameplayManager gameplayManager)
         {
@@ -111,6 +79,38 @@ namespace DungeonCrawler
             player.Position = nextLevel.PlayerExitPosition.Equals(nextLevel.PlayerStartingTile) ?
                 nextLevel.PlayerStartingTile :
                 nextLevel.PlayerExitPosition;
+        }
+        private bool CheckInteraction(Point targetPosition, GameplayManager gameplayManager)
+        {
+            if (gameplayManager.Levels[gameplayManager.CurrentLevel].Layout[targetPosition.Row, targetPosition.Column] is IInteractable interactableTile)
+            {
+                if (!interactableTile.Interact(player))
+                    return false;
+                
+                if (!(interactableTile is ExitDoor)) 
+                    return true;
+
+            }
+            foreach (var gameObject in gameplayManager.Levels[gameplayManager.CurrentLevel].ActiveGameObjects)
+            {
+                if (gameObject is Player)
+                    continue;
+
+                if (!gameObject.Position.Equals(targetPosition) ||
+                    !(gameObject is IInteractable interactableGameObject))
+                    continue;
+                
+                if (!interactableGameObject.Interact(player)) 
+                    return false;
+                
+                gameplayManager.RemoveGameObject(gameObject);
+                return true;
+            }
+            return true;
+        }
+        private void UpdatePlayerPosition()
+        {
+            player.Position = player.TargetPosition;
         }
     }
 }

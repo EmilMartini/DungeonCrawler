@@ -8,7 +8,6 @@ namespace DungeonCrawler
         {
             Position = Position;
             LockColor = LockColor.Purple;
-            NumberOfUses = 1;
             Color = ConsoleColor.DarkMagenta;
             Graphic = "K";
         }

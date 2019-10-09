@@ -9,7 +9,7 @@ namespace DungeonCrawler
         {
             GameplayManager = gameplayManager;
         }
-        GameplayManager GameplayManager { get; set; }
+        private GameplayManager GameplayManager { get; set; }
 
         public void RenderLevel()
         {
@@ -42,7 +42,7 @@ namespace DungeonCrawler
             Thread.Sleep(2500);
             Console.Clear();
         }
-        void RenderTilesAroundPlayer()
+        private void RenderTilesAroundPlayer()
         {
             foreach (Point currentPoint in GameplayManager.Player.SurroundingPoints)
             {
@@ -50,7 +50,7 @@ namespace DungeonCrawler
                 Print(currentPoint, objectToPrint);
             }
         }
-        void RenderGameObjects()
+        private void RenderGameObjects()
         {
             foreach (var gameObject in GameplayManager.Levels[GameplayManager.CurrentLevel].ActiveGameObjects)
             {
@@ -65,7 +65,7 @@ namespace DungeonCrawler
             }
             ClearOldEnemyPositions();
         }
-        void ClearOldEnemyPositions()
+        private void ClearOldEnemyPositions()
         {
             var tileAtPosition = GameplayManager.Levels[GameplayManager.CurrentLevel].Layout;
             if (GameplayManager.Levels[GameplayManager.CurrentLevel].PreviousEnemyPositions == null)
@@ -80,11 +80,11 @@ namespace DungeonCrawler
                 Print(previousEnemyPosition, tileAtPosition[previousEnemyPosition.Row, previousEnemyPosition.Column]);
             }
         }
-        void RenderPlayer()
+        private void RenderPlayer()
         {
             Print(GameplayManager.Player.Position, GameplayManager.Player);
         }
-        void RenderUserInterface()
+        private void RenderUserInterface()
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(
@@ -107,7 +107,7 @@ namespace DungeonCrawler
                 Console.Write($"{GameplayManager.Player.KeyRing[i].Graphic}");
             }
         }
-        void Print(Point objectPosition, Entity objectToPrint)
+        private void Print(Point objectPosition, Entity objectToPrint)
         {
             Console.SetCursorPosition(objectPosition.Column + (objectPosition.Column + 2), objectPosition.Row);
             Console.ForegroundColor = objectToPrint.Color;

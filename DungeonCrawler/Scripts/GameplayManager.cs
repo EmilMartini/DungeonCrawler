@@ -7,28 +7,10 @@ namespace DungeonCrawler
 {
     public class GameplayManager
     {
-        bool successfulLoadLevel;
-        bool succesfulExitLevel;
-        bool succesfulDisplayScore;
+        private bool successfulDisplayScore;
+        private bool successfulLoadLevel;
+        private bool successfulExitLevel;
 
-        public void Init()
-        {
-            CurrentState = GameplayState.InitializeLevel;
-        }
-
-        /*Kolla så att allt som kan vara privat är det.
-        För ni bjuder in alla som skall använda er kod att bryta encapsuleringen. Som man antar inte blir det i en klass.
-        Och om vi av någon anledning inte använder oss av encapsulering så vill vi göra det.
-
-        Det som kan vara helt privat bör vara det. t ex controllers i gameplaymanager
-
-        Kolla över alla access modifiers.
-
-        Man vill vara väldigt specifik med vad som skall kunna vara åtkomligt i en klass's instans. för att dependencies skall bli rätt. och inte (se nedan)
-
-        Det är en dålig vana att slentrian mässigt göra en klass helt statisk, då ni inte kan specificera dependencies (paramterar) i en instansiering.
-        Så, folk som använder eran kod. Kanske anroppar den statiska klassen, utan att den har blivit instansierad med sina dependencies. Vilket då blir
-        körfel och buggar.*/
         public GameplayManager(List<Level> levels, Player player)
         {
             SoundPlayer = new SoundPlayer();
@@ -39,17 +21,30 @@ namespace DungeonCrawler
             ConsoleOutputFilter = new ConsoleOutputFilter();
             Renderer = new Renderer(this);
         }
-
-        public void RemoveGameObject(GameObject objectToRemove)
-        {
-            if (Levels[CurrentLevel].ActiveGameObjects.Contains(objectToRemove))
-                Levels[CurrentLevel].ActiveGameObjects.Remove(objectToRemove);
-        }
+        private Renderer Renderer { get; set; } 
+        private GameplayState CurrentState { get; set; }
+        private EnemyController EnemyController { get; set; }
+        private PlayerController PlayerController { get; set; }
+        private ConsoleOutputFilter ConsoleOutputFilter { get; set; }
+        private static SoundPlayer SoundPlayer { get; set; }
+        public List<Level> Levels { get; private set; }
+        public Player Player { get; private set; }
+        public int CurrentLevel { get; private set; }
+        public int NextLevel { get; private set; }
 
         public static void PlaySound(string fileName)
         {
             SoundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\" + fileName + ".wav";
             SoundPlayer.Play();
+        }
+        public void Init()
+        {
+            CurrentState = GameplayState.InitializeLevel;
+        }
+        public void RemoveGameObject(GameObject objectToRemove)
+        {
+            if (Levels[CurrentLevel].ActiveGameObjects.Contains(objectToRemove))
+                Levels[CurrentLevel].ActiveGameObjects.Remove(objectToRemove);
         }
 
         public void Update()
@@ -61,18 +56,7 @@ namespace DungeonCrawler
             }
         }
 
-        Renderer Renderer { get; set; } 
-        GameplayState CurrentState { get; set; }
-        public int CurrentLevel { get; private set; }
-        public int NextLevel { get; private set; }
-        public List<Level> Levels { get; private set; }
-        public Player Player { get; private set; }
-        EnemyController EnemyController { get; set; }
-        PlayerController PlayerController { get; set; }
-        ConsoleOutputFilter ConsoleOutputFilter { get; set; }
-        static SoundPlayer SoundPlayer { get; set; }
-
-        void RunState()
+        private void RunState()
         {
             switch (CurrentState)
             {
@@ -92,7 +76,7 @@ namespace DungeonCrawler
             }
         }
 
-        GameplayState CheckState(GameplayState currentState)
+        private GameplayState CheckState(GameplayState currentState)
         {
             switch (currentState)
             {
@@ -117,12 +101,12 @@ namespace DungeonCrawler
                         return GameplayState.RunLevel;
 
                 case GameplayState.ExitLevel:
-                    if (this.succesfulExitLevel && NextLevel != Levels.Count)
+                    if (this.successfulExitLevel && NextLevel != Levels.Count)
                     {
                         CurrentLevel = NextLevel;
                         return GameplayState.InitializeLevel;
                     }
-                    else if (this.succesfulExitLevel && NextLevel >= Levels.Count)
+                    else if (this.successfulExitLevel && NextLevel >= Levels.Count)
                     {
                         return GameplayState.ShowScore;
                     }
@@ -130,71 +114,54 @@ namespace DungeonCrawler
                         return GameplayState.ExitLevel;
 
                 case GameplayState.ShowScore:
-                    return this.succesfulDisplayScore ? GameplayState.ExitGame : GameplayState.ShowScore;
+                    return this.successfulDisplayScore ? GameplayState.ExitGame : GameplayState.ShowScore;
 
                 default:
                     return GameplayState.InitializeLevel;
             }
         }
         
-        void DisplayScore()
-        {
-            try
-            {
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($"\n\n\n\n\n\n\n\t\t\t\t  Moves: {Player.NumberOfMoves}\n\n");
-                Console.Write($"\t\t\t     Enemies Hit: {Player.EnemiesInteractedWith} * 20\n\n");
-                Console.Write(
-                    $"\t\t\t       Final Score: {(Player.EnemiesInteractedWith * 20) + Player.NumberOfMoves}\n");
+        private void DisplayScore()
+        {           
+            this.successfulDisplayScore = false;
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write($"\n\n\n\n\n\n\n\t\t\t\t  Moves: {Player.NumberOfMoves}\n\n");
+            Console.Write($"\t\t\t     Enemies Hit: {Player.EnemiesInteractedWith} * 20\n\n");
+            Console.Write(
+                $"\t\t\t       Final Score: {(Player.EnemiesInteractedWith * 20) + Player.NumberOfMoves}\n");
 
-                Console.WriteLine("\n\n\n\t\t\t  Press any key to exit game...");
-                Console.ReadKey();
-                this.succesfulDisplayScore = true;
-            }
-            catch (Exception)
-            {
-                this.succesfulDisplayScore = false;
-            }
+            Console.WriteLine("\n\n\n\t\t\t  Press any key to exit game...");
+            Console.ReadKey();
+            this.successfulDisplayScore = true;            
         }
 
-        void LoadCurrentLevel()
+        private void LoadCurrentLevel()
         {
-            try
-            {
-                Renderer.RenderOuterWalls();
-                PlayerController.ExploreSurroundingTiles(this);
-                Renderer.RenderLevel();
-                this.successfulLoadLevel = true;
-            }
-            catch (Exception)
-            {
-                this.successfulLoadLevel = false;
-            }
+            this.successfulLoadLevel = false;
+            Renderer.RenderOuterWalls();
+            PlayerController.ExploreSurroundingTiles(this);
+            Renderer.RenderLevel();
+            this.successfulLoadLevel = true;
+
         }
 
-        void RunGame(TextWriter standardOutputFilter)
+        private void RunGame(TextWriter standardOutputFilter)
         {
             Console.SetOut(ConsoleOutputFilter);
             EnemyController.MoveEnemies(this);
-            PlayerController.MovePlayer(PlayerController.GetInput(), this);
+            PlayerController.UpdatePlayer(PlayerController.GetInput(), this);
             PlayerController.ExploreSurroundingTiles(this);
             Console.SetOut(standardOutputFilter);
             Renderer.RenderLevel();
         }
 
-        void ExitLevel()
-        {
-            try
-            {
-                PlayerController.ResetPositionData(this);
-                Console.Clear();
-                this.succesfulExitLevel = true;
-            }
-            catch (Exception)
-            {
-                this.succesfulExitLevel = false;
-            }
+        private void ExitLevel()
+        {           
+            this.successfulExitLevel = false;
+            PlayerController.ResetPositionData(this);
+            Console.Clear();
+            this.successfulExitLevel = true;
         }
     }
 }
