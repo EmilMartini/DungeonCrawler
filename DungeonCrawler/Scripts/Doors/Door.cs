@@ -11,7 +11,7 @@ namespace DungeonCrawler
         {
             if (IsUnlocked)
                 return true;
-
+        
             foreach (var key in player.KeyRing.Where(key => key.LockColor == LockColor))
             {
                 IsUnlocked = true;
