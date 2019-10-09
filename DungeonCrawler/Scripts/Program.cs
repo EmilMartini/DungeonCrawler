@@ -2,6 +2,28 @@
 
 namespace DungeonCrawler
 {
+    /*
+    High Score Table
+    ----------------
+    Alexander
+
+    moves: 409
+    enemies hit: 5 * 20
+    final score: 509
+    ----------------
+    Daniel
+
+    moves: 493
+    enemies hit: 5 * 20
+    final score 593
+    ----------------
+    Anders
+
+    moves: 705
+    enemies hit: 2 * 20
+    final score: 745
+    ---------------
+    */
     class Program
     {
         private static Player player;
